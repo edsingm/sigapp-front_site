@@ -1,13 +1,51 @@
-const FOOTER_LINKS = {
-  Produto: ["Funcionalidades", "Planos", "API", "Changelog"],
-  Empresa: ["Sobre", "Blog", "Carreiras", "Imprensa"],
-  Suporte: ["Documentação", "Status", "Contato", "Ajuda"],
-  Legal: ["Termos de Uso", "Privacidade", "LGPD", "Cookies"],
-}
+import Link from "next/link"
+import { CookiePreferencesButton } from "@/components/landing/client/CookiePreferencesButton"
+
+type FooterLink = { label: string; href: string }
+type FooterGroup = { group: string; links: FooterLink[] }
+
+const FOOTER_GROUPS: FooterGroup[] = [
+  {
+    group: "Produto",
+    links: [
+      { label: "Funcionalidades", href: "/#funcionalidades" },
+      { label: "Planos", href: "/#precos" },
+      { label: "API", href: "#" },
+      { label: "Changelog", href: "#" },
+    ],
+  },
+  {
+    group: "Empresa",
+    links: [
+      { label: "Sobre", href: "/sobre" },
+      { label: "Blog", href: "/blog" },
+      { label: "Carreiras", href: "#" },
+      { label: "Imprensa", href: "#" },
+    ],
+  },
+  {
+    group: "Suporte",
+    links: [
+      { label: "Documentação", href: "#" },
+      { label: "Status", href: "#" },
+      { label: "Contato", href: "#" },
+      { label: "Ajuda", href: "#" },
+    ],
+  },
+  {
+    group: "Legal",
+    links: [
+      { label: "Termos de Uso", href: "/legal/termos-de-uso" },
+      { label: "Privacidade", href: "/legal/privacidade" },
+      { label: "LGPD", href: "/legal/lgpd" },
+      { label: "Cookies", href: "/legal/cookies" },
+    ],
+  },
+]
 
 function SigappLogo() {
   return (
-    <div className="flex items-center gap-2.5">
+    <Link href="/" className="flex items-center gap-2.5">
       <div className="flex size-8 items-center justify-center rounded-lg bg-primary shadow-sm">
         <svg viewBox="0 0 24 24" className="size-4 text-primary-foreground" fill="none">
           <polygon
@@ -29,7 +67,7 @@ function SigappLogo() {
       <span className="font-heading text-lg font-bold tracking-tight text-foreground">
         SIGAPP
       </span>
-    </div>
+    </Link>
   )
 }
 
@@ -58,20 +96,20 @@ export function LandingFooter() {
           </div>
 
           {/* Link groups */}
-          {Object.entries(FOOTER_LINKS).map(([group, links]) => (
+          {FOOTER_GROUPS.map(({ group, links }) => (
             <div key={group} className="flex flex-col gap-3">
               <p className="text-xs font-semibold uppercase tracking-widest text-foreground">
                 {group}
               </p>
               <ul className="flex flex-col gap-2">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
                       className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -80,13 +118,16 @@ export function LandingFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col gap-2 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-muted-foreground">
             © 2026 SIGAPP Tecnologia Ltda. CNPJ 00.000.000/0001-00
           </p>
-          <p className="text-xs text-muted-foreground">
-            Feito no Brasil para o mercado imobiliário brasileiro
-          </p>
+          <div className="flex flex-wrap items-center gap-4">
+            <p className="text-xs text-muted-foreground">
+              Feito no Brasil para o mercado imobiliário brasileiro
+            </p>
+            <CookiePreferencesButton />
+          </div>
         </div>
       </div>
     </footer>

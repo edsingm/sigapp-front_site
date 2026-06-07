@@ -5,9 +5,10 @@ import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton
 import { ArrowRight } from "lucide-react"
 
 const NAV_LINKS = [
-  { label: "Produto", href: "#funcionalidades" },
-  { label: "Planos", href: "#precos" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Produto", href: "/#funcionalidades" },
+  { label: "Planos", href: "/#precos" },
+  { label: "Blog", href: "/blog" },
+  { label: "Sobre", href: "/sobre" },
 ]
 
 function SigappLogo() {
@@ -47,13 +48,13 @@ export function LandingNav() {
         {/* Desktop nav links */}
         <nav className="hidden items-center gap-1 md:flex">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
               className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
