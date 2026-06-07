@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import {
   getConsent,
   saveConsent,
+  sendConsentToBackend,
   DEFAULT_CATEGORIES,
   type CookieCategories,
 } from "@/lib/cookie-consent"
@@ -108,20 +109,23 @@ export function CookieBanner() {
 
   const acceptAll = useCallback(() => {
     const all: CookieCategories = { functional: true, analytics: true, marketing: true }
-    saveConsent(all)
+    const consent = saveConsent(all)
+    void sendConsentToBackend(consent)
     setCategories(all)
     setView("hidden")
   }, [])
 
   const acceptNecessary = useCallback(() => {
     const minimal: CookieCategories = { functional: false, analytics: false, marketing: false }
-    saveConsent(minimal)
+    const consent = saveConsent(minimal)
+    void sendConsentToBackend(consent)
     setCategories(minimal)
     setView("hidden")
   }, [])
 
   const savePreferences = useCallback(() => {
-    saveConsent(categories)
+    const consent = saveConsent(categories)
+    void sendConsentToBackend(consent)
     setView("hidden")
   }, [categories])
 
