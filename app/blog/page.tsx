@@ -103,7 +103,7 @@ export default function BlogPage() {
           <div className="bg-dot-pattern absolute inset-0 opacity-40" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
           <div className="container-landing relative text-center">
-            <EyebrowBadge variant="amber" className="mb-4">
+            <EyebrowBadge variant="brand" className="mb-4">
               Blog do SIGAPP
             </EyebrowBadge>
             <h1 className="font-heading mt-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">

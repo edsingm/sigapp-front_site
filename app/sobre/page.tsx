@@ -120,7 +120,7 @@ export default function SobrePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
           <div className="container-landing relative">
             <div className="mx-auto max-w-3xl text-center">
-              <EyebrowBadge variant="amber" className="mb-4">
+              <EyebrowBadge variant="brand" className="mb-4">
                 Nossa história
               </EyebrowBadge>
               <h1 className="font-heading mt-4 text-4xl font-black tracking-tight text-foreground md:text-6xl">
@@ -297,7 +297,7 @@ export default function SobrePage() {
               Junte-se a 340+ incorporadoras que já transformaram sua análise de viabilidade.
             </p>
             <div className="mt-8 flex justify-center gap-3">
-              <Button variant="amber" size="lg" className="h-12 gap-2 px-6 text-base font-semibold">
+              <Button variant="brand" size="lg" className="h-12 gap-2 px-6 text-base font-semibold">
                 Começar trial grátis
                 <ArrowRight className="size-4" />
               </Button>

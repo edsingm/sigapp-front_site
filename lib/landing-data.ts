@@ -289,6 +289,87 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
 ]
 
+export type FeatureCard = {
+  icon: string
+  title: string
+  description: string
+}
+
+// "Setup em minutos" — grid de 6 cards (estilo Zumy "tudo que você precisa")
+export const FEATURE_CARDS: FeatureCard[] = [
+  {
+    icon: "MapPin",
+    title: "Prospecção territorial",
+    description:
+      "Centralize terrenos, contatos e visitas em uma base georreferenciada. Nada mais se perde entre WhatsApp e planilhas.",
+  },
+  {
+    icon: "Calculator",
+    title: "Motor de viabilidade",
+    description:
+      "50+ parâmetros geram DRE, fluxo de caixa, TIR, VPL e Payback em segundos. Precisão de engenharia, não de planilha.",
+  },
+  {
+    icon: "Sparkles",
+    title: "SIG_IA conversacional",
+    description:
+      "IA com 25+ ferramentas que entende permuta, INCC e CUB. Pergunte em linguagem natural e receba o número certo.",
+  },
+  {
+    icon: "Users",
+    title: "Comitê de aprovação",
+    description:
+      "Workflow de revisão com responsáveis, prazos e histórico. Aprove viabilidades em uma rodada, não quatro.",
+  },
+  {
+    icon: "Handshake",
+    title: "Gestão de negociação",
+    description:
+      "Acompanhe propostas, permutas e contrapropostas com status e audit log. Visibilidade total do funil imobiliário.",
+  },
+  {
+    icon: "Scale",
+    title: "Legalização end-to-end",
+    description:
+      "Da prospecção ao registro: documentos, pareceres e prazos jurídicos em um único pipeline rastreável.",
+  },
+]
+
+export type LiveActivity = {
+  action: string
+  location: string
+}
+
+// Feed de atividade ao vivo (estilo "stream de vendas" do Zumy)
+export const LIVE_ACTIVITY: LiveActivity[] = [
+  { action: "Viabilidade calculada", location: "São Paulo, SP" },
+  { action: "Terreno aprovado no comitê", location: "Campinas, SP" },
+  { action: "Negócio fechado", location: "Santos, SP" },
+  { action: "Nova prospecção cadastrada", location: "Curitiba, PR" },
+  { action: "DRE exportado", location: "Porto Alegre, RS" },
+  { action: "Parecer jurídico concluído", location: "Belo Horizonte, MG" },
+  { action: "Permuta simulada", location: "Goiânia, GO" },
+  { action: "Proposta enviada", location: "Florianópolis, SC" },
+]
+
+export type ComparisonRow = {
+  label: string
+  sigapp: boolean
+  planilha: boolean
+  erp: boolean
+}
+
+// Tabela comparativa (estilo "taxas vs concorrentes" do Zumy)
+export const COMPARISON_ROWS: ComparisonRow[] = [
+  { label: "Prospecção territorial centralizada", sigapp: true, planilha: false, erp: true },
+  { label: "Motor de viabilidade (TIR, VPL, Payback)", sigapp: true, planilha: true, erp: false },
+  { label: "IA especializada em incorporação", sigapp: true, planilha: false, erp: false },
+  { label: "Comitê de aprovação com workflow", sigapp: true, planilha: false, erp: false },
+  { label: "Legalização end-to-end", sigapp: true, planilha: false, erp: false },
+  { label: "Histórico e auditoria completos", sigapp: true, planilha: false, erp: true },
+  { label: "Parâmetros do mercado BR (INCC, CUB, permuta)", sigapp: true, planilha: false, erp: false },
+]
+
 export const PAIN_POINTS = [
   {
     icon: "FileSpreadsheet",

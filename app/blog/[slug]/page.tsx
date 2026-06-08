@@ -220,7 +220,7 @@ export default async function BlogPostPage({ params }: Props) {
                 7 dias de trial completo. Sem cartão de crédito.
               </p>
               <div className="mt-6 flex justify-center gap-3">
-                <Button variant="amber" size="lg" className="gap-2">
+                <Button variant="brand" size="lg" className="gap-2">
                   Começar trial grátis
                   <ArrowRight className="size-4" />
                 </Button>

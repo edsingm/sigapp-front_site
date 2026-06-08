@@ -7,7 +7,10 @@ import { Play, ArrowRight } from "lucide-react"
 export function HeroSection() {
   return (
     <section className="relative min-h-[100dvh] overflow-hidden">
-      {/* Mapa de São Paulo — fundo com tratamento de cor quente */}
+      {/* Glow azul radial no topo */}
+      <div className="pointer-events-none absolute inset-x-0 -top-40 h-[60vh] bg-[radial-gradient(60%_60%_at_50%_0%,var(--color-accent),transparent_70%)]" />
+
+      {/* Mapa de São Paulo — neutralizado e tingido de azul */}
       <div className="absolute inset-0">
         <Image
           src="/map-saopaulo.png"
@@ -16,21 +19,23 @@ export function HeroSection() {
           priority
           sizes="100vw"
           className="object-cover object-right"
-          style={{ filter: "sepia(80%) saturate(85%) brightness(1.2)", opacity: 0.32 }}
+          style={{ filter: "grayscale(100%) brightness(1.15) contrast(0.95)", opacity: 0.16 }}
         />
+        {/* Tinta azul sobre o mapa */}
+        <div className="absolute inset-0 bg-primary/10 mix-blend-multiply dark:mix-blend-screen" />
         {/* Fade lateral: esquerda sólida (legibilidade do texto) → direita transparente */}
         <div className="absolute inset-0 bg-gradient-to-r from-background from-[28%] via-background/75 to-background/15" />
         {/* Fade vertical: suaviza topo e rodapé */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/95" />
       </div>
 
       {/* Background dot pattern — sobreposto ao mapa com menos opacidade */}
-      <div className="bg-dot-pattern absolute inset-0 opacity-30" />
+      <div className="bg-dot-pattern absolute inset-0 opacity-40" />
 
       <div className="container-landing relative flex min-h-[100dvh] flex-col items-center justify-center py-24 lg:flex-row lg:items-center lg:gap-12 xl:gap-20">
         {/* Left column */}
         <div className="flex flex-col gap-6 lg:flex-1 lg:max-w-[52%]">
-          <EyebrowBadge variant="amber">
+          <EyebrowBadge variant="brand">
             Plataforma imobiliária B2B · Trial 7 dias grátis
           </EyebrowBadge>
 
@@ -48,7 +53,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col gap-3 sm:flex-row">
-            <Button variant="amber" size="lg" className="h-12 gap-2 px-6 text-base font-semibold">
+            <Button variant="brand" size="lg" className="h-12 gap-2 px-6 text-base font-semibold">
               Começar trial gratuito
               <ArrowRight className="size-4" />
             </Button>

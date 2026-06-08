@@ -98,7 +98,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       </ul>
 
       <Button
-        variant={plan.highlighted ? "amber" : "outline"}
+        variant={plan.highlighted ? "brand" : "outline"}
         size="lg"
         className="w-full"
       >

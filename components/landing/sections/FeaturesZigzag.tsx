@@ -16,7 +16,7 @@ const MOCK_COMPONENTS = {
 
 export function FeaturesZigzag() {
   return (
-    <section className="py-24">
+    <section id="como-funciona" className="py-24">
       <div className="container-landing">
         {/* Section header */}
         <div className="mb-16 flex flex-col gap-3 text-center">
@@ -44,7 +44,7 @@ export function FeaturesZigzag() {
               >
                 {/* Text */}
                 <div className={`flex flex-col gap-5 ${isRight ? "" : "lg:order-last"}`}>
-                  <EyebrowBadge variant="amber">{feature.eyebrow}</EyebrowBadge>
+                  <EyebrowBadge variant="brand">{feature.eyebrow}</EyebrowBadge>
                   <h3 className="font-heading text-2xl font-bold tracking-tight text-foreground md:text-3xl lg:text-4xl">
                     {feature.title}
                   </h3>

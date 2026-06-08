@@ -5,9 +5,10 @@ import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton
 import { ArrowRight } from "lucide-react"
 
 const NAV_LINKS = [
-  { label: "Início", href: "/#funcionalidades" },
+  { label: "Benefícios", href: "/#beneficios" },
+  { label: "Como funciona", href: "/#como-funciona" },
   { label: "Planos", href: "/#precos" },
-  { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Sobre", href: "/sobre" },
 ]
 
@@ -67,7 +68,7 @@ export function LandingNav() {
           >
             Entrar
           </a>
-          <Button variant="amber" size="sm" className="gap-1.5 font-semibold">
+          <Button variant="brand" size="sm" className="gap-1.5 font-semibold">
             Trial grátis
             <ArrowRight className="size-3.5" />
           </Button>
