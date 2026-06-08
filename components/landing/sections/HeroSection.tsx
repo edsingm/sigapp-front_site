@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
 import { DashboardPreviewMock } from "@/components/landing/mocks/DashboardPreviewMock"
@@ -6,9 +7,25 @@ import { Play, ArrowRight } from "lucide-react"
 export function HeroSection() {
   return (
     <section className="relative min-h-[100dvh] overflow-hidden">
-      {/* Background dot pattern */}
-      <div className="bg-dot-pattern absolute inset-0 opacity-60" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
+      {/* Mapa de São Paulo — fundo com tratamento de cor quente */}
+      <div className="absolute inset-0">
+        <Image
+          src="/map-saopaulo.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-right"
+          style={{ filter: "sepia(80%) saturate(85%) brightness(1.2)", opacity: 0.32 }}
+        />
+        {/* Fade lateral: esquerda sólida (legibilidade do texto) → direita transparente */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background from-[28%] via-background/75 to-background/15" />
+        {/* Fade vertical: suaviza topo e rodapé */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/90" />
+      </div>
+
+      {/* Background dot pattern — sobreposto ao mapa com menos opacidade */}
+      <div className="bg-dot-pattern absolute inset-0 opacity-30" />
 
       <div className="container-landing relative flex min-h-[100dvh] flex-col items-center justify-center py-24 lg:flex-row lg:items-center lg:gap-12 xl:gap-20">
         {/* Left column */}

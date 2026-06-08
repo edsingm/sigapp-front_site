@@ -5,7 +5,7 @@ import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton
 import { ArrowRight } from "lucide-react"
 
 const NAV_LINKS = [
-  { label: "Produto", href: "/#funcionalidades" },
+  { label: "Início", href: "/#funcionalidades" },
   { label: "Planos", href: "/#precos" },
   { label: "Blog", href: "/blog" },
   { label: "Sobre", href: "/sobre" },

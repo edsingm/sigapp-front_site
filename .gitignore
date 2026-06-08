@@ -34,3 +34,14 @@ pnpm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# docker
+.docker/
+docker-compose.yml
+docker-compose.prod.yml
+
+# others
+.agents/
+.claude/
+
+
