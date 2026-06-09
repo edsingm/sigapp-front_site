@@ -139,7 +139,7 @@ const BENTO_ITEMS = [
 
 export function BentoSection() {
   return (
-    <section className="bg-muted/20 py-24">
+    <section className="bg-muted/20 py-16 md:py-24">
       <div className="container-landing">
         <div className="mb-12 text-center">
           <SectionLabel className="text-center">Capacidades</SectionLabel>

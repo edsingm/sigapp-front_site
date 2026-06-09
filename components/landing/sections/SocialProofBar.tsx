@@ -1,6 +1,3 @@
-import { MetricDisplay } from "@/components/landing/ui/MetricDisplay"
-import { METRICS } from "@/lib/landing-data"
-
 const LOGOS = [
   "Terraplan",
   "Grupo Habitare",
@@ -15,21 +12,9 @@ const LOGOS = [
 export function SocialProofBar() {
   return (
     <section className="border-y border-border bg-muted/30">
-      <div className="container-landing py-12">
-        {/* Metrics */}
-        <div className="mb-10 grid grid-cols-2 gap-8 md:grid-cols-4">
-          {METRICS.map((metric, i) => (
-            <div
-              key={metric.label}
-              className={`flex flex-col gap-1 ${i < METRICS.length - 1 ? "md:border-r md:border-border md:pr-8" : ""}`}
-            >
-              <MetricDisplay value={metric.value} label={metric.label} />
-            </div>
-          ))}
-        </div>
-
-        {/* Divider */}
-        <div className="mb-6 flex items-center gap-4">
+      <div className="container-landing py-8">
+        {/* Label */}
+        <div className="mb-5 flex items-center gap-4">
           <div className="h-px flex-1 bg-border" />
           <span className="text-xs text-muted-foreground">Usado por incorporadoras em todo o Brasil</span>
           <div className="h-px flex-1 bg-border" />

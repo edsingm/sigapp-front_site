@@ -3,7 +3,7 @@ import { PricingToggle } from "@/components/landing/client/PricingToggle"
 
 export function PricingSection() {
   return (
-    <section id="precos" className="py-24">
+    <section id="precos" className="py-16 md:py-24">
       <div className="container-landing">
         <div className="mb-12 flex flex-col gap-3 text-center">
           <SectionLabel className="text-center">Planos e preços</SectionLabel>

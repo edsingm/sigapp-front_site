@@ -70,7 +70,7 @@ export function StatsSection() {
   const { ref, inView } = useInView<HTMLDivElement>()
 
   return (
-    <section className="py-24">
+    <section className="py-16 md:py-24">
       <div className="container-landing">
         <div
           ref={ref}
@@ -88,7 +88,7 @@ export function StatsSection() {
           <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
             {METRICS.map((metric) => (
               <div key={metric.label} className="flex flex-col gap-1">
-                <span className="font-mono text-4xl font-bold tracking-tight text-white md:text-5xl">
+                <span className="font-mono text-3xl font-bold tracking-tight text-white md:text-5xl">
                   <CountUp value={metric.value} active={inView} />
                 </span>
                 <span className="text-sm text-primary-foreground/75">

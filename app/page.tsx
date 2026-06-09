@@ -21,15 +21,15 @@ export default function Page() {
       <main id="funcionalidades">
         <HeroSection />
         <SocialProofBar />
-        <FeatureGridSection />
         <ProblemSection />
+        <FeatureGridSection />
         <StatsSection />
         <FeaturesZigzag />
         <BentoSection />
         <LiveActivitySection />
         <ComparisonSection />
-        <PricingSection />
         <TestimonialsSection />
+        <PricingSection />
         <FAQSection />
         <CTAFinalSection />
       </main>

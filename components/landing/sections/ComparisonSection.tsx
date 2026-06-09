@@ -31,7 +31,7 @@ function Cell({ value, highlight }: { value: boolean; highlight: boolean }) {
 
 export function ComparisonSection() {
   return (
-    <section className="py-24">
+    <section className="py-16 md:py-24">
       <div className="container-landing">
         <div className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center">
           <EyebrowBadge variant="brand">Por que SIGAPP</EyebrowBadge>
@@ -47,13 +47,13 @@ export function ComparisonSection() {
         <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
           {/* Cabeçalho */}
           <div className="grid grid-cols-[1.6fr_repeat(3,1fr)] border-b border-border bg-muted/40">
-            <div className="px-5 py-5 text-sm font-medium text-muted-foreground">
+            <div className="px-3 py-4 text-xs font-medium text-muted-foreground sm:px-5 sm:py-5 sm:text-sm">
               Recurso
             </div>
             {COLUMNS.map((col) => (
               <div
                 key={col.key}
-                className={`px-2 py-5 text-center text-sm font-bold ${
+                className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
                   col.highlight
                     ? "bg-primary/5 text-primary"
                     : "text-foreground"
@@ -72,13 +72,13 @@ export function ComparisonSection() {
                 i < COMPARISON_ROWS.length - 1 ? "border-b border-border" : ""
               }`}
             >
-              <div className="px-5 py-4 text-sm font-medium text-foreground">
+              <div className="px-3 py-3 text-xs font-medium text-foreground sm:px-5 sm:py-4 sm:text-sm">
                 {row.label}
               </div>
               {COLUMNS.map((col) => (
                 <div
                   key={col.key}
-                  className={`px-2 py-4 ${col.highlight ? "bg-primary/5" : ""}`}
+                  className={`px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/5" : ""}`}
                 >
                   <Cell value={row[col.key]} highlight={col.highlight} />
                 </div>

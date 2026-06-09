@@ -3,9 +3,9 @@ import { ArrowRight, CalendarDays } from "lucide-react"
 
 export function CTAFinalSection() {
   return (
-    <section className="py-24">
+    <section className="py-16 md:py-24">
       <div className="container-landing">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-700 px-6 py-20 shadow-2xl shadow-primary/25 sm:px-12">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-700 px-6 py-14 shadow-2xl shadow-primary/25 sm:px-12 sm:py-20">
           {/* Background decoration */}
           <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-[0.12]" />
           <div className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-white/10 blur-3xl" />
@@ -17,7 +17,7 @@ export function CTAFinalSection() {
               7 dias de trial · Sem compromisso
             </span>
 
-            <h2 className="font-heading max-w-[16ch] text-4xl font-black tracking-tight text-white md:text-5xl lg:text-6xl">
+            <h2 className="font-heading max-w-[16ch] text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl">
               Comece a calcular viabilidade hoje.
             </h2>
 

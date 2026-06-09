@@ -6,7 +6,7 @@ import { MessageCircle } from "lucide-react"
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-24">
+    <section id="faq" className="py-16 md:py-24">
       <div className="container-landing">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left */}

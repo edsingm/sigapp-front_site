@@ -16,13 +16,13 @@ const MOCK_COMPONENTS = {
 
 export function FeaturesZigzag() {
   return (
-    <section id="como-funciona" className="py-24">
+    <section id="como-funciona" className="py-16 md:py-24">
       <div className="container-landing">
         {/* Section header */}
-        <div className="mb-16 flex flex-col gap-3 text-center">
+        <div className="mb-10 flex flex-col gap-3 text-center md:mb-16">
           <SectionLabel className="text-center">Funcionalidades</SectionLabel>
           <h2 className="font-heading mx-auto text-3xl font-bold tracking-tight text-foreground md:text-5xl">
-            Tudo que você precisa para incorporar com confiança
+            Do primeiro contato ao contrato assinado
           </h2>
           <p className="mx-auto max-w-[55ch] text-muted-foreground md:text-lg">
             Quatro módulos integrados que cobrem desde a prospecção inicial até a assinatura do contrato.
@@ -30,7 +30,7 @@ export function FeaturesZigzag() {
         </div>
 
         {/* Features */}
-        <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-14 md:gap-24">
           {FEATURES.map((feature) => {
             const MockComponent = MOCK_COMPONENTS[feature.mock]
             const isRight = feature.side === "right"

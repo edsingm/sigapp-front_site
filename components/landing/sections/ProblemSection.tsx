@@ -10,7 +10,7 @@ const ICON_MAP = {
 
 export function ProblemSection() {
   return (
-    <section className="py-24">
+    <section className="py-16 md:py-24">
       <div className="container-landing">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Left — headline */}

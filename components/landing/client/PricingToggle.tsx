@@ -1,12 +1,27 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 import { PLANS } from "@/lib/landing-data"
 import { PlanCard } from "@/components/landing/ui/PlanCard"
 
 export function PricingToggle() {
   const [cycle, setCycle] = useState<"monthly" | "annual">("monthly")
+  const [active, setActive] = useState(0)
+  const carouselRef = useRef<HTMLDivElement>(null)
+
+  function goTo(i: number) {
+    setActive(i)
+    if (carouselRef.current) {
+      carouselRef.current.scrollTo({ left: i * carouselRef.current.clientWidth, behavior: "smooth" })
+    }
+  }
+
+  function onCarouselScroll() {
+    if (!carouselRef.current) return
+    const idx = Math.round(carouselRef.current.scrollLeft / carouselRef.current.clientWidth)
+    setActive(idx)
+  }
 
   return (
     <div>
@@ -40,7 +55,35 @@ export function PricingToggle() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {/* Mobile: carousel */}
+      <div className="sm:hidden">
+        <div
+          ref={carouselRef}
+          onScroll={onCarouselScroll}
+          className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {PLANS.map((plan) => (
+            <div key={plan.id} className="w-full shrink-0 snap-start pt-4">
+              <PlanCard plan={plan} billingCycle={cycle} />
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 flex justify-center gap-2">
+          {PLANS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Ir para plano ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-200 ${
+                i === active ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* sm+: grid */}
+      <div className="hidden sm:grid sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
         {PLANS.map((plan) => (
           <PlanCard key={plan.id} plan={plan} billingCycle={cycle} />
         ))}

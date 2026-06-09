@@ -22,8 +22,8 @@ function ActivityPill({ action, location }: { action: string; location: string }
 
 export function LiveActivitySection() {
   return (
-    <section className="py-20">
-      <div className="container-landing mb-10 flex flex-col items-center gap-4 text-center">
+    <section className="py-14 md:py-20">
+      <div className="container-landing mb-8 flex flex-col items-center gap-4 text-center md:mb-10">
         <EyebrowBadge variant="brand">Ao vivo na plataforma</EyebrowBadge>
         <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl">
           Enquanto você decide, o mercado se move

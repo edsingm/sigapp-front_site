@@ -49,10 +49,10 @@ export function PermissionsMock() {
       {/* Permission matrix */}
       <div className="p-4">
         {/* Module headers */}
-        <div className="mb-2 grid grid-cols-[120px_repeat(6,1fr)] gap-1 text-center">
+        <div className="mb-2 grid grid-cols-[72px_repeat(4,1fr)] gap-1 text-center md:grid-cols-[120px_repeat(6,1fr)]">
           <div />
-          {ALL_MODULES.map((m) => (
-            <div key={m} className="text-[7px] font-semibold uppercase tracking-wide text-muted-foreground">
+          {ALL_MODULES.map((m, i) => (
+            <div key={m} className={`text-[7px] font-semibold uppercase tracking-wide text-muted-foreground ${i >= 4 ? 'hidden md:block' : ''}`}>
               {MODULE_LABELS[m]}
             </div>
           ))}
@@ -61,17 +61,17 @@ export function PermissionsMock() {
         {/* Rows */}
         <div className="space-y-1.5">
           {ROLES.map((r) => (
-            <div key={r.role} className="grid grid-cols-[120px_repeat(6,1fr)] items-center gap-1">
+            <div key={r.role} className="grid grid-cols-[72px_repeat(4,1fr)] items-center gap-1 md:grid-cols-[120px_repeat(6,1fr)]">
               <div className="flex flex-col gap-0.5">
                 <span className={`w-fit rounded px-1.5 py-0.5 text-[8px] font-semibold ${r.color}`}>
                   {r.role}
                 </span>
                 <span className="text-[8px] text-muted-foreground">{r.user}</span>
               </div>
-              {ALL_MODULES.map((m) => {
+              {ALL_MODULES.map((m, i) => {
                 const has = r.modules.includes(m)
                 return (
-                  <div key={m} className="flex justify-center">
+                  <div key={m} className={`flex justify-center ${i >= 4 ? 'hidden md:flex' : ''}`}>
                     {has ? (
                       <svg className="size-3 text-primary" viewBox="0 0 12 12" fill="none">
                         <circle cx="6" cy="6" r="5.5" className="stroke-primary/30" strokeWidth="1" />

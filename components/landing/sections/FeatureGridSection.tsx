@@ -21,7 +21,7 @@ const ICON_MAP = {
 
 export function FeatureGridSection() {
   return (
-    <section id="beneficios" className="py-24">
+    <section id="beneficios" className="py-16 md:py-24">
       <div className="container-landing">
         <div className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center">
           <EyebrowBadge variant="brand">Tudo em um só lugar</EyebrowBadge>
