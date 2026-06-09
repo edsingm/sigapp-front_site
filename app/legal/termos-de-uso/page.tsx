@@ -78,8 +78,9 @@ export default function TermosDeUsoPage() {
         </LP>
         <LP>
           O acesso é fornecido por meio de assinatura mensal ou anual, com período de avaliação
-          gratuita (&ldquo;trial&rdquo;) de 7 (sete) dias corridos a partir do cadastro, sem
-          necessidade de cartão de crédito durante esse período.
+          gratuita (&ldquo;trial&rdquo;) de 7 (sete) dias corridos a partir do cadastro. O
+          cadastramento em um plano requer a informação de dados de pagamento, que serão cobrados
+          apenas após o encerramento do período de trial, salvo cancelamento antes do prazo.
         </LP>
         <LP>
           O SIGAPP é fornecido &ldquo;no estado em que se encontra&rdquo; (as-is), sujeito a

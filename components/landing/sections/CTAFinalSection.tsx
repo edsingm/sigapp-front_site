@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CalendarDays } from "lucide-react"
+import { ArrowRight, CalendarDays, ShieldCheck } from "lucide-react"
 import { LINKS } from "@/lib/landing-data"
 
 export function CTAFinalSection() {
@@ -23,7 +23,7 @@ export function CTAFinalSection() {
             </h2>
 
             <p className="max-w-[45ch] text-lg text-white/75">
-              Trial completo de 7 dias. Sem cartão de crédito. Dados exportáveis se mudar de ideia.
+              Trial completo de 7 dias. Cancele antes do fim e não será cobrado. Dados exportáveis se mudar de ideia.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -49,8 +49,13 @@ export function CTAFinalSection() {
             </div>
 
             <p className="text-sm text-white/55">
-              Sem cartão de crédito · Cancele quando quiser · Suporte em português
+              Cancele antes do 7º dia e não paga nada · Suporte em português
             </p>
+
+            <div className="flex items-center gap-1.5 text-xs text-white/40">
+              <ShieldCheck className="size-3.5 shrink-0" />
+              <span>Pagamento seguro processado via <span className="font-semibold text-white/60">Stripe</span></span>
+            </div>
           </div>
         </div>
       </div>

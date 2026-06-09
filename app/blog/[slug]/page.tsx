@@ -217,7 +217,7 @@ export default async function BlogPostPage({ params }: Props) {
                 Veja o SIGAPP em ação
               </h2>
               <p className="mt-2 text-muted-foreground">
-                7 dias de trial completo. Sem cartão de crédito.
+                7 dias de trial completo. Cancele antes do fim e não paga nada.
               </p>
               <div className="mt-6 flex justify-center gap-3">
                 <Button variant="brand" size="lg" className="gap-2">

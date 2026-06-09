@@ -71,8 +71,7 @@ export function HeroSection() {
           </div>
 
           <p className="text-sm text-white/80">
-            <span className="font-medium text-white">340+ incorporadoras</span> usam o SIGAPP hoje ·
-            Sem cartão de crédito
+            <span className="font-medium text-white">340+ incorporadoras</span> usam o SIGAPP hoje
           </p>
         </div>
       </div>

@@ -101,7 +101,7 @@ export function ComparisonSection() {
             <ArrowRight className="size-4" />
           </Button>
           <p className="text-sm text-muted-foreground">
-            7 dias grátis · Sem cartão de crédito · Importe seus dados via Excel
+            7 dias grátis · Cancele antes do fim e não paga nada · Importe via Excel
           </p>
         </div>
       </div>

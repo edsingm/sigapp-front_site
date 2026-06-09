@@ -11,14 +11,14 @@ export function PricingSection() {
             Do corretor autônomo à grande incorporadora
           </h2>
           <p className="mx-auto max-w-[50ch] text-muted-foreground md:text-lg">
-            4 planos escaláveis. Trial de 7 dias em todos. Sem cartão de crédito.
+            4 planos escaláveis. Trial completo de 7 dias em todos os planos.
           </p>
         </div>
 
         <PricingToggle />
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
-          Sem cartão de crédito · Cancele quando quiser · Dados exportáveis a qualquer momento
+          Cancele quando quiser · Dados exportáveis a qualquer momento
         </p>
       </div>
     </section>

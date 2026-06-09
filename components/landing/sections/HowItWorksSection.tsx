@@ -64,7 +64,7 @@ export function HowItWorksSection() {
             <ArrowRight className="size-4" />
           </Button>
           <p className="text-sm text-muted-foreground">
-            7 dias grátis · Sem cartão de crédito
+            7 dias grátis · Cancele quando quiser
           </p>
         </div>
       </div>

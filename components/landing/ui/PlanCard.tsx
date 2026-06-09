@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { Check, X } from "lucide-react"
+import { Check, X, ShieldCheck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { PlanConfig } from "@/lib/landing-data"
 
@@ -113,6 +113,14 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       >
         {plan.cta}
       </Button>
+
+      <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+        <ShieldCheck className="size-3.5 shrink-0 text-[oklch(0.55_0.22_272)]" />
+        <span>
+          Pagamento seguro via{" "}
+          <span className="font-semibold text-[oklch(0.55_0.22_272)]">Stripe</span>
+        </span>
+      </div>
     </div>
   )
 }

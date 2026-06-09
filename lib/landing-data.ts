@@ -265,7 +265,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     question: "O trial de 7 dias tem todas as funcionalidades do plano?",
     answer:
-      "Sim. O trial ativa o plano completo escolhido por 7 dias, incluindo SIG_IA (nos planos que oferecem), legalização, comitê e todas as funcionalidades. Sem restrições artificiais.",
+      "Sim. O trial ativa o plano completo escolhido por 7 dias, incluindo SIG_IA (nos planos que oferecem), legalização, comitê e todas as funcionalidades. Sem restrições artificiais. Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
   },
   {
     question: "Posso migrar meus dados de planilhas Excel existentes?",
@@ -301,6 +301,11 @@ export const FAQ_ITEMS: FAQItem[] = [
     question: "Posso exportar os dados se cancelar o plano?",
     answer:
       "Sim. Oferecemos exportação completa em Excel e PDF: terrenos, viabilidades, histórico de negociações e documentos. Após o cancelamento, seus dados ficam disponíveis por 30 dias para exportação.",
+  },
+  {
+    question: "O pagamento é seguro? Quais formas de pagamento são aceitas?",
+    answer:
+      "Sim. Todos os pagamentos são processados pelo Stripe, líder mundial em infraestrutura de pagamentos. Seus dados de cartão nunca passam pelos nossos servidores — tudo é criptografado e tokenizado diretamente pelo Stripe. Aceitamos cartões de crédito das bandeiras Visa, Mastercard e American Express, além de boleto bancário.",
   },
 ]
 
