@@ -143,7 +143,7 @@ export function BentoSection() {
       <div className="container-landing">
         <div className="mb-12 text-center">
           <SectionLabel className="text-center">Capacidades</SectionLabel>
-          <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="font-heading mt-3 text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
             Mais do que uma planilha. Muito mais.
           </h2>
         </div>
@@ -164,7 +164,7 @@ export function BentoSection() {
                     <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">
                       {item.eyebrow}
                     </p>
-                    <h3 className="font-heading mt-0.5 text-base font-semibold text-foreground">
+                    <h3 className="font-heading mt-0.5 text-base font-bold text-foreground">
                       {item.title}
                     </h3>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">

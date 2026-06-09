@@ -16,10 +16,10 @@ export function ProblemSection() {
           {/* Left — headline */}
           <div className="flex flex-col justify-center gap-4 lg:col-span-5">
             <SectionLabel>O problema</SectionLabel>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Incorporar terreno ainda parece uma sequência de planilhas perdidas?
             </h2>
-            <p className="text-muted-foreground md:text-lg">
+            <p className="text-pretty text-muted-foreground md:text-lg">
               O mercado imobiliário brasileiro evoluiu. As ferramentas que a maioria usa, não.
             </p>
           </div>
@@ -37,7 +37,7 @@ export function ProblemSection() {
                     {Icon && <Icon className="size-5" strokeWidth={1.75} />}
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <h3 className="font-heading text-base font-semibold text-foreground">
+                    <h3 className="font-heading text-base font-bold text-foreground">
                       {point.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">

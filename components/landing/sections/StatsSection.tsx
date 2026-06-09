@@ -71,14 +71,14 @@ export function StatsSection() {
 
   return (
     <section className="py-16 md:py-24">
-      <div className="container-landing">
+      <div className="w-full">
         <div
           ref={ref}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-700 px-6 py-16 text-center shadow-xl shadow-primary/20 sm:px-12"
+          className="relative overflow-hidden bg-gradient-to-br from-primary to-blue-700 px-6 py-16 text-center shadow-xl shadow-primary/20 sm:px-12"
         >
           <div className="bg-dot-pattern absolute inset-0 opacity-[0.15]" />
           <div className="relative mx-auto mb-12 max-w-2xl">
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-white md:text-4xl">
+            <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-white text-balance md:text-4xl">
               Juntos, impulsionamos o mercado imobiliário
             </h2>
             <p className="mt-3 text-primary-foreground/80 md:text-lg">
@@ -88,10 +88,10 @@ export function StatsSection() {
           <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
             {METRICS.map((metric) => (
               <div key={metric.label} className="flex flex-col gap-1">
-                <span className="font-mono text-3xl font-bold tracking-tight text-white md:text-5xl">
+                <span className="font-mono text-3xl font-bold tabular-nums tracking-tight text-white md:text-5xl">
                   <CountUp value={metric.value} active={inView} />
                 </span>
-                <span className="text-sm text-primary-foreground/75">
+                <span className="text-sm font-medium text-primary-foreground/70">
                   {metric.label}
                 </span>
               </div>

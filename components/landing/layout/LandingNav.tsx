@@ -94,7 +94,7 @@ export function LandingNav() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="border-t border-white/15 bg-primary/95 backdrop-blur-md md:hidden">
+          <div className="border-t border-white/15 bg-nav-bg/95 backdrop-blur-md md:hidden">
             <nav className="container-landing flex flex-col gap-1 py-4">
               {NAV_LINKS.map((link) => (
                 <Link

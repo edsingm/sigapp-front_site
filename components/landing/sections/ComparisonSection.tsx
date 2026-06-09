@@ -35,10 +35,10 @@ export function ComparisonSection() {
       <div className="container-landing">
         <div className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center">
           <EyebrowBadge variant="brand">Por que SIGAPP</EyebrowBadge>
-          <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+          <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Tudo que a planilha e o ERP não fazem
           </h2>
-          <p className="text-muted-foreground md:text-lg">
+          <p className="text-pretty text-muted-foreground md:text-lg">
             Uma plataforma desenhada do zero para incorporação — não um genérico
             adaptado às pressas.
           </p>

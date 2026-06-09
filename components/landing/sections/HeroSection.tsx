@@ -18,10 +18,11 @@ export function HeroSection() {
         />
       </div>
 
-      {/* Escurecimento geral — garante contraste do texto em qualquer tela */}
+      {/* Escurecimento global — reduz brilho geral da imagem */}
+      <div className="absolute inset-0 bg-[oklch(0.08_0.03_262.9)]/35" />
 
-      {/* Reforço à esquerda — legibilidade da coluna de texto */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.11_0.035_262.9)]/60 via-[oklch(0.11_0.035_262.9)]/15" />
+      {/* Reforço à esquerda — cobertura total da coluna de texto */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.03_262.9)]/90 via-[oklch(0.08_0.03_262.9)]/50 via-[45%] to-transparent" />
 
       {/* Conteúdo */}
       <div className="container-landing relative flex min-h-[100dvh] flex-col justify-center py-32">
@@ -39,7 +40,7 @@ export function HeroSection() {
             <HeroRotatingText />
           </h1>
 
-          <p className="max-w-[52ch] text-lg leading-relaxed text-white/75">
+          <p className="max-w-[52ch] text-lg leading-relaxed text-white/90">
             Motor financeiro com 50+ parâmetros, IA conversacional especializada e
             workflow end-to-end para incorporadoras e imobiliárias.
           </p>
@@ -60,7 +61,7 @@ export function HeroSection() {
             </Button>
           </div>
 
-          <p className="text-sm text-white/65">
+          <p className="text-sm text-white/80">
             <span className="font-medium text-white">340+ incorporadoras</span> usam o SIGAPP hoje ·
             Sem cartão de crédito
           </p>

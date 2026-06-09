@@ -33,13 +33,13 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {plan.tagline}
         </p>
-        <h3 className="mt-1 font-heading text-xl font-bold text-foreground">
+        <h3 className="mt-1 font-heading text-xl font-black text-foreground">
           {plan.name}
         </h3>
       </div>
 
       <div className="mb-5 flex items-end gap-1">
-        <span className="font-mono text-4xl font-bold tracking-tight text-foreground">
+        <span className="font-mono text-4xl font-bold tabular-nums tracking-tight text-foreground">
           R${" "}
           {price.toLocaleString("pt-BR")}
         </span>

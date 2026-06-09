@@ -12,7 +12,7 @@ export function FAQSection() {
           {/* Left */}
           <div className="flex flex-col gap-5 lg:col-span-4">
             <SectionLabel>Perguntas frequentes</SectionLabel>
-            <h2 className="font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
               Tire suas dúvidas antes de começar
             </h2>
             <p className="text-muted-foreground">

@@ -14,7 +14,7 @@ export function EyebrowBadge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium tracking-wide",
+        "inline-flex self-start items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium tracking-wide",
         variant === "brand" &&
           "border border-primary/30 bg-accent text-primary",
         variant === "default" &&

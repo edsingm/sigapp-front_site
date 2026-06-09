@@ -12,7 +12,7 @@ export function TestimonialsSection() {
       <div className="container-landing">
         <div className="mb-12 text-center">
           <SectionLabel className="text-center">Depoimentos</SectionLabel>
-          <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+          <h2 className="font-heading mt-3 text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
             Incorporadoras que deixaram as planilhas para trás
           </h2>
         </div>
