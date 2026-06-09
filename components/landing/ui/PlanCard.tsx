@@ -101,6 +101,15 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         variant={plan.highlighted ? "brand" : "outline"}
         size="lg"
         className="w-full"
+        nativeButton={false}
+        render={
+          <a
+            href={plan.ctaHref}
+            data-analytics-event={plan.id === "pro" ? "sales_contact_click" : "trial_signup_click"}
+            data-analytics-location="pricing"
+            data-analytics-plan={plan.id}
+          />
+        }
       >
         {plan.cta}
       </Button>

@@ -82,18 +82,15 @@ function Toggle({
 
 export function CookieBanner() {
   const [view, setView] = useState<View>("hidden")
-  const [categories, setCategories] = useState<CookieCategories>(DEFAULT_CATEGORIES)
-  const [mounted, setMounted] = useState(false)
+  const [categories, setCategories] = useState<CookieCategories>(
+    () => getConsent()?.categories ?? DEFAULT_CATEGORIES
+  )
 
   useEffect(() => {
-    setMounted(true)
-    const consent = getConsent()
-    if (!consent) {
+    if (!getConsent()) {
       // pequeno delay para não piscar na hidratação
       const t = setTimeout(() => setView("banner"), 600)
       return () => clearTimeout(t)
-    } else {
-      setCategories(consent.categories)
     }
   }, [])
 
@@ -133,7 +130,7 @@ export function CookieBanner() {
     setCategories((prev) => ({ ...prev, [key]: value }))
   }
 
-  if (!mounted || view === "hidden") return null
+  if (view === "hidden") return null
 
   return (
     <>

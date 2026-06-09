@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CalendarDays } from "lucide-react"
+import { LINKS } from "@/lib/landing-data"
 
 export function CTAFinalSection() {
   return (
@@ -29,6 +30,8 @@ export function CTAFinalSection() {
               <Button
                 size="lg"
                 className="h-12 gap-2 bg-white px-6 text-base font-semibold text-primary shadow-sm hover:bg-white/90 active:scale-[0.98]"
+                nativeButton={false}
+                render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="cta-final" />}
               >
                 Criar conta gratuita
                 <ArrowRight className="size-4" />
@@ -37,6 +40,8 @@ export function CTAFinalSection() {
                 variant="ghost-white"
                 size="lg"
                 className="h-12 gap-2 px-6 text-base"
+                nativeButton={false}
+                render={<a href={LINKS.demo} data-analytics-event="demo_request" data-analytics-location="cta-final" />}
               >
                 <CalendarDays className="size-4" />
                 Agendar demonstração

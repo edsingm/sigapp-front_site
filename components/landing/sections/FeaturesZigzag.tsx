@@ -16,7 +16,7 @@ const MOCK_COMPONENTS = {
 
 export function FeaturesZigzag() {
   return (
-    <section id="como-funciona" className="py-16 md:py-24">
+    <section id="funcionalidades" className="py-16 md:py-24">
       <div className="container-landing">
         {/* Section header */}
         <div className="mb-10 flex flex-col gap-3 text-center md:mb-16">

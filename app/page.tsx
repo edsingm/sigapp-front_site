@@ -1,13 +1,19 @@
+import type { Metadata } from "next"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
+
+export const metadata: Metadata = {
+  title: "SIGAPP — Prospecte terrenos. Calcule viabilidade. Feche negócios.",
+  description:
+    "Da prospecção à legalização em uma única plataforma. DRE, TIR e fluxo de caixa em segundos — aprovação no comitê em uma rodada, não quatro. Trial de 7 dias grátis.",
+}
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { HeroSection } from "@/components/landing/sections/HeroSection"
 import { SocialProofBar } from "@/components/landing/sections/SocialProofBar"
-import { FeatureGridSection } from "@/components/landing/sections/FeatureGridSection"
 import { ProblemSection } from "@/components/landing/sections/ProblemSection"
+import { HowItWorksSection } from "@/components/landing/sections/HowItWorksSection"
 import { StatsSection } from "@/components/landing/sections/StatsSection"
 import { FeaturesZigzag } from "@/components/landing/sections/FeaturesZigzag"
 import { BentoSection } from "@/components/landing/sections/BentoSection"
-import { LiveActivitySection } from "@/components/landing/sections/LiveActivitySection"
 import { ComparisonSection } from "@/components/landing/sections/ComparisonSection"
 import { PricingSection } from "@/components/landing/sections/PricingSection"
 import { TestimonialsSection } from "@/components/landing/sections/TestimonialsSection"
@@ -18,15 +24,14 @@ export default function Page() {
   return (
     <>
       <LandingNav />
-      <main id="funcionalidades">
+      <main>
         <HeroSection />
         <SocialProofBar />
         <ProblemSection />
-        <FeatureGridSection />
-        <StatsSection />
+        <HowItWorksSection />
         <FeaturesZigzag />
+        <StatsSection />
         <BentoSection />
-        <LiveActivitySection />
         <ComparisonSection />
         <TestimonialsSection />
         <PricingSection />

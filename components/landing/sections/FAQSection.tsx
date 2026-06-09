@@ -1,4 +1,4 @@
-import { FAQ_ITEMS } from "@/lib/landing-data"
+import { FAQ_ITEMS, LINKS } from "@/lib/landing-data"
 import { FAQAccordion } from "@/components/landing/client/FAQAccordion"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { Button } from "@/components/ui/button"
@@ -18,7 +18,13 @@ export function FAQSection() {
             <p className="text-muted-foreground">
               Não encontrou o que procura? Fale diretamente com nossa equipe.
             </p>
-            <Button variant="outline" size="lg" className="mt-2 gap-2 self-start">
+            <Button
+              variant="outline"
+              size="lg"
+              className="mt-2 gap-2 self-start"
+              nativeButton={false}
+              render={<a href={LINKS.sales} data-analytics-event="sales_contact_click" data-analytics-location="faq" />}
+            >
               <MessageCircle className="size-4" />
               Falar com vendas
             </Button>

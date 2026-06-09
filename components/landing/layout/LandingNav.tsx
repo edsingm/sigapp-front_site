@@ -6,10 +6,11 @@ import { Button } from "@/components/ui/button"
 import { NavScrollClient } from "@/components/landing/client/NavScrollClient"
 import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { ArrowRight, Menu, X } from "lucide-react"
+import { LINKS } from "@/lib/landing-data"
 
 const NAV_LINKS = [
-  { label: "Benefícios", href: "/#beneficios" },
   { label: "Como funciona", href: "/#como-funciona" },
+  { label: "Funcionalidades", href: "/#funcionalidades" },
   { label: "Planos", href: "/#precos" },
   { label: "FAQ", href: "/#faq" },
   { label: "Sobre", href: "/sobre" },
@@ -69,14 +70,18 @@ export function LandingNav() {
           <div className="flex items-center gap-2">
             <ThemeToggleButton className="text-white  hover:bg-white/10 hover:text-white"></ThemeToggleButton>
             <a
-              href="#"
+              href={LINKS.login}
+              data-analytics-event="login_click"
+              data-analytics-location="nav"
               className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-white transition-colors hover:text-white md:block"
             >
               Entrar
             </a>
             <Button
               size="sm"
-              className="hidden gap-1.5 bg-white font-semibold text-primary shadow-sm hover:bg-white/90 active:scale-[0.98] sm:flex"
+              className="gap-1.5 bg-white font-semibold text-primary shadow-sm hover:bg-white/90 active:scale-[0.98]"
+              nativeButton={false}
+              render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav" />}
             >
               Trial grátis
               <ArrowRight className="size-3.5" />
@@ -108,7 +113,9 @@ export function LandingNav() {
               ))}
               <div className="mt-4 flex flex-col gap-2 border-t border-white/15 pt-4">
                 <a
-                  href="#"
+                  href={LINKS.login}
+                  data-analytics-event="login_click"
+                  data-analytics-location="nav-mobile"
                   onClick={() => setMobileOpen(false)}
                   className="rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white"
                 >
@@ -117,6 +124,8 @@ export function LandingNav() {
                 <Button
                   className="w-full gap-2 bg-white font-semibold text-primary hover:bg-white/90"
                   onClick={() => setMobileOpen(false)}
+                  nativeButton={false}
+                  render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav-mobile" />}
                 >
                   Começar trial grátis
                   <ArrowRight className="size-4" />

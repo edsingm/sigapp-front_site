@@ -1,6 +1,7 @@
-import { COMPARISON_ROWS } from "@/lib/landing-data"
+import { COMPARISON_ROWS, LINKS } from "@/lib/landing-data"
 import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
-import { Check, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Check, X, ArrowRight } from "lucide-react"
 
 const COLUMNS = [
   { key: "sigapp" as const, label: "SIGAPP", highlight: true },
@@ -14,7 +15,7 @@ function Cell({ value, highlight }: { value: boolean; highlight: boolean }) {
       <span
         className={`mx-auto flex size-7 items-center justify-center rounded-full ${
           highlight
-            ? "bg-primary text-primary-foreground"
+            ? "bg-primary/[0.12] text-primary"
             : "bg-[var(--color-data-green)]/12 text-[var(--color-data-green)]"
         }`}
       >
@@ -68,7 +69,7 @@ export function ComparisonSection() {
           {COMPARISON_ROWS.map((row, i) => (
             <div
               key={row.label}
-              className={`grid grid-cols-[1.6fr_repeat(3,1fr)] items-center ${
+              className={`grid grid-cols-[1.6fr_repeat(3,1fr)] ${
                 i < COMPARISON_ROWS.length - 1 ? "border-b border-border" : ""
               }`}
             >
@@ -78,13 +79,30 @@ export function ComparisonSection() {
               {COLUMNS.map((col) => (
                 <div
                   key={col.key}
-                  className={`px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/5" : ""}`}
+                  className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/5" : ""}`}
                 >
                   <Cell value={row[col.key]} highlight={col.highlight} />
                 </div>
               ))}
             </div>
           ))}
+        </div>
+
+        {/* CTA intermediário — ponto de maior persuasão antes do pricing */}
+        <div className="mt-12 flex flex-col items-center gap-3">
+          <Button
+            variant="brand"
+            size="lg"
+            className="h-12 gap-2 px-6 text-base font-semibold"
+            nativeButton={false}
+            render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="comparison" />}
+          >
+            Trocar a planilha pelo SIGAPP
+            <ArrowRight className="size-4" />
+          </Button>
+          <p className="text-sm text-muted-foreground">
+            7 dias grátis · Sem cartão de crédito · Importe seus dados via Excel
+          </p>
         </div>
       </div>
     </section>

@@ -1,3 +1,13 @@
+const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.sigapp.com.br"
+
+// Destinos centralizados de CTA — troque NEXT_PUBLIC_APP_URL para apontar a outro ambiente
+export const LINKS = {
+  signup: `${APP_URL}/register`,
+  login: `${APP_URL}/login`,
+  sales: "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
+  demo: "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
+}
+
 export type PlanConfig = {
   id: string
   name: string
@@ -15,6 +25,7 @@ export type PlanConfig = {
   features: string[]
   highlighted?: boolean
   cta: string
+  ctaHref: string
 }
 
 export type FeatureItem = {
@@ -51,7 +62,7 @@ export const METRICS: MetricItem[] = [
   { value: "340+", label: "Incorporadoras ativas" },
   { value: "R$ 2,4B", label: "Em terrenos analisados" },
   { value: "12.800+", label: "Viabilidades calculadas" },
-  { value: "98,3%", label: "Precisão do motor financeiro" },
+  { value: "50+", label: "Parâmetros por viabilidade" },
 ]
 
 export const PLANS: PlanConfig[] = [
@@ -77,6 +88,7 @@ export const PLANS: PlanConfig[] = [
       "Regionais e base territorial",
     ],
     cta: "Começar trial grátis",
+    ctaHref: `${LINKS.signup}?plan=broker`,
   },
   {
     id: "basico",
@@ -100,6 +112,7 @@ export const PLANS: PlanConfig[] = [
       "Gestão de equipe",
     ],
     cta: "Começar trial grátis",
+    ctaHref: `${LINKS.signup}?plan=basico`,
   },
   {
     id: "master",
@@ -124,6 +137,7 @@ export const PLANS: PlanConfig[] = [
     ],
     highlighted: true,
     cta: "Começar trial grátis",
+    ctaHref: `${LINKS.signup}?plan=master`,
   },
   {
     id: "pro",
@@ -147,6 +161,7 @@ export const PLANS: PlanConfig[] = [
       "API de integração",
     ],
     cta: "Falar com vendas",
+    ctaHref: LINKS.sales,
   },
 ]
 
@@ -289,67 +304,32 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
 ]
 
-export type FeatureCard = {
+export type HowItWorksStep = {
   icon: string
   title: string
   description: string
 }
 
-// "Setup em minutos" — grid de 6 cards (estilo Zumy "tudo que você precisa")
-export const FEATURE_CARDS: FeatureCard[] = [
+// "Como funciona" — 3 passos do cadastro ao fechamento
+export const HOW_IT_WORKS: HowItWorksStep[] = [
   {
     icon: "MapPin",
-    title: "Prospecção territorial",
+    title: "Cadastre o terreno",
     description:
-      "Centralize terrenos, contatos e visitas em uma base georreferenciada. Nada mais se perde entre WhatsApp e planilhas.",
+      "Endereço, proprietário, documentos e fotos em uma base georreferenciada única. Importe sua carteira atual via Excel/CSV.",
   },
   {
     icon: "Calculator",
-    title: "Motor de viabilidade",
+    title: "Calcule a viabilidade",
     description:
-      "50+ parâmetros geram DRE, fluxo de caixa, TIR, VPL e Payback em segundos. Precisão de engenharia, não de planilha.",
-  },
-  {
-    icon: "Sparkles",
-    title: "SIG_IA conversacional",
-    description:
-      "IA com 25+ ferramentas que entende permuta, INCC e CUB. Pergunte em linguagem natural e receba o número certo.",
-  },
-  {
-    icon: "Users",
-    title: "Comitê de aprovação",
-    description:
-      "Workflow de revisão com responsáveis, prazos e histórico. Aprove viabilidades em uma rodada, não quatro.",
+      "Informe os parâmetros do produto e o motor gera DRE, fluxo de caixa, TIR, VPL e Payback em segundos.",
   },
   {
     icon: "Handshake",
-    title: "Gestão de negociação",
+    title: "Aprove e feche",
     description:
-      "Acompanhe propostas, permutas e contrapropostas com status e audit log. Visibilidade total do funil imobiliário.",
+      "Envie ao comitê, negocie com histórico completo e conduza a legalização no mesmo pipeline — sem trocar de ferramenta.",
   },
-  {
-    icon: "Scale",
-    title: "Legalização end-to-end",
-    description:
-      "Da prospecção ao registro: documentos, pareceres e prazos jurídicos em um único pipeline rastreável.",
-  },
-]
-
-export type LiveActivity = {
-  action: string
-  location: string
-}
-
-// Feed de atividade ao vivo (estilo "stream de vendas" do Zumy)
-export const LIVE_ACTIVITY: LiveActivity[] = [
-  { action: "Viabilidade calculada", location: "São Paulo, SP" },
-  { action: "Terreno aprovado no comitê", location: "Campinas, SP" },
-  { action: "Negócio fechado", location: "Santos, SP" },
-  { action: "Nova prospecção cadastrada", location: "Curitiba, PR" },
-  { action: "DRE exportado", location: "Porto Alegre, RS" },
-  { action: "Parecer jurídico concluído", location: "Belo Horizonte, MG" },
-  { action: "Permuta simulada", location: "Goiânia, GO" },
-  { action: "Proposta enviada", location: "Florianópolis, SC" },
 ]
 
 export type ComparisonRow = {
@@ -359,7 +339,7 @@ export type ComparisonRow = {
   erp: boolean
 }
 
-// Tabela comparativa (estilo "taxas vs concorrentes" do Zumy)
+// Tabela comparativa (estilo "taxas vs concorrentes")
 export const COMPARISON_ROWS: ComparisonRow[] = [
   { label: "Prospecção territorial centralizada", sigapp: true, planilha: false, erp: true },
   { label: "Motor de viabilidade (TIR, VPL, Payback)", sigapp: true, planilha: true, erp: false },

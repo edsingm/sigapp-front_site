@@ -1,9 +1,10 @@
 import { Geist_Mono, Inter, Roboto } from "next/font/google"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CookieBanner } from "@/components/landing/client/CookieBanner"
+import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
 import { cn } from "@/lib/utils"
 
 const robotoHeading = Roboto({
@@ -25,6 +26,11 @@ const fontMono = Geist_Mono({
   variable: "--font-mono",
   display: "swap",
 })
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+}
 
 export const metadata: Metadata = {
   title: "SIGAPP — Plataforma de Viabilidade e Gestão Imobiliária",
@@ -48,10 +54,11 @@ export default function RootLayout({
         robotoHeading.variable
       )}
     >
-      <body>
+      <body suppressHydrationWarning>
         <ThemeProvider>
           {children}
           <CookieBanner />
+          <AnalyticsScripts />
         </ThemeProvider>
       </body>
     </html>

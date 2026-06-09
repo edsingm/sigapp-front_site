@@ -79,7 +79,7 @@ export function StatsSection() {
           <div className="bg-dot-pattern absolute inset-0 opacity-[0.15]" />
           <div className="relative mx-auto mb-12 max-w-2xl">
             <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-white text-balance md:text-4xl">
-              Juntos, impulsionamos o mercado imobiliário
+              O que o mercado já construiu com o SIGAPP
             </h2>
             <p className="mt-3 text-primary-foreground/80 md:text-lg">
               Números reais de quem trocou planilhas por decisões com confiança.

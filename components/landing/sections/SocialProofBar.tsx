@@ -26,9 +26,9 @@ export function SocialProofBar() {
             {[...LOGOS, ...LOGOS].map((logo, i) => (
               <div
                 key={`${logo}-${i}`}
-                className="mx-6 flex shrink-0 items-center justify-center"
+                className="mx-8 flex shrink-0 items-center justify-center"
               >
-                <span className="whitespace-nowrap rounded-lg border border-border/60 bg-background px-4 py-2 text-xs font-semibold text-muted-foreground">
+                <span className="font-heading whitespace-nowrap text-base font-extrabold tracking-tight text-muted-foreground/60">
                   {logo}
                 </span>
               </div>

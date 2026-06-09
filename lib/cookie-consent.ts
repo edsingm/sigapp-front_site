@@ -48,6 +48,7 @@ export function saveConsent(categories: CookieCategories): CookieConsent {
   }
 
   localStorage.setItem(CONSENT_KEY, JSON.stringify(consent))
+  window.dispatchEvent(new CustomEvent("sigapp:consent-changed", { detail: consent }))
 
   // cookie HTTP para possível leitura server-side futura
   const maxAge = 365 * 24 * 60 * 60
