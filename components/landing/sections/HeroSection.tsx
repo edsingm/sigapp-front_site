@@ -9,7 +9,7 @@ export function HeroSection() {
       {/* Imagem de fundo — cidade noturna com dados georreferenciados */}
       <div className="absolute inset-0">
         <Image
-          src="/image2.jpg"
+          src="/image6.jpg"
           alt=""
           fill
           priority
@@ -18,16 +18,15 @@ export function HeroSection() {
         />
       </div>
 
-      {/* Escurecimento global — reduz brilho geral da imagem */}
-      <div className="absolute inset-0 bg-[oklch(0.08_0.03_262.9)]/35" />
+
 
       {/* Reforço à esquerda — cobertura total da coluna de texto */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.03_262.9)]/90 via-[oklch(0.08_0.03_262.9)]/50 via-[45%] to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.03_262.9)]/50 via-[oklch(0.08_0.03_262.9)]/40 via-[15%] to-transparent" />
 
       {/* Conteúdo */}
       <div className="container-landing relative flex min-h-[100dvh] flex-col justify-center py-32">
-        <div className="flex max-w-2xl flex-col gap-6">
-          <span className="inline-flex w-fit items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+        <div className="flex max-w-2xl flex-col gap-10">
+          <span className="inline-flex w-fit items-center gap-3 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
             <span className="size-1.5 rounded-full bg-[var(--color-data-green)]" />
             Plataforma imobiliária B2B · Trial 7 dias grátis
           </span>
@@ -40,7 +39,7 @@ export function HeroSection() {
             <HeroRotatingText />
           </h1>
 
-          <p className="max-w-[52ch] text-lg leading-relaxed text-white/90">
+          <p className="max-w-[52ch] text-lg leading-relaxed text-white">
             Motor financeiro com 50+ parâmetros, IA conversacional especializada e
             workflow end-to-end para incorporadoras e imobiliárias.
           </p>

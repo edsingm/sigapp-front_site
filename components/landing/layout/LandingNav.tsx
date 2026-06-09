@@ -36,7 +36,7 @@ function SigappLogo() {
           />
         </svg>
       </div>
-      <span className="font-heading text-lg font-bold tracking-tight text-white">
+      <span className="font-heading text-lg font-extrabold tracking-tight text-white">
         SIGAPP
       </span>
     </Link>
@@ -58,7 +58,7 @@ export function LandingNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                className="rounded-lg px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-white"
               >
                 {link.label}
               </Link>
@@ -67,10 +67,10 @@ export function LandingNav() {
 
           {/* Right actions */}
           <div className="flex items-center gap-2">
-            <ThemeToggleButton className="text-white/80 hover:bg-white/10 hover:text-white" />
+            <ThemeToggleButton className="text-white  hover:bg-white/10 hover:text-white"></ThemeToggleButton>
             <a
               href="#"
-              className="hidden rounded-lg px-3 py-2 text-sm font-medium text-white/80 transition-colors hover:text-white md:block"
+              className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-white transition-colors hover:text-white md:block"
             >
               Entrar
             </a>

@@ -34,7 +34,7 @@ export function ComparisonSection() {
     <section className="py-16 md:py-24">
       <div className="container-landing">
         <div className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center">
-          <EyebrowBadge variant="brand">Por que SIGAPP</EyebrowBadge>
+          <EyebrowBadge variant="brand" className="self-center">Por que SIGAPP</EyebrowBadge>
           <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Tudo que a planilha e o ERP não fazem
           </h2>
