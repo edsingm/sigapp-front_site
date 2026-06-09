@@ -2,7 +2,7 @@ const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.sigapp.com.br"
 
 // Destinos centralizados de CTA — troque NEXT_PUBLIC_APP_URL para apontar a outro ambiente
 export const LINKS = {
-  signup: `${APP_URL}/register`,
+  signup: "/cadastro",
   login: `${APP_URL}/login`,
   sales: "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
   demo: "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
