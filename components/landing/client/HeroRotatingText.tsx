@@ -27,7 +27,7 @@ export function HeroRotatingText() {
 
   return (
     <span
-      className={`inline-block text-[oklch(0.72_0.17_262.9)] transition-all duration-300 ${
+      className={`inline-block text-yellow-400 transition-all duration-300 ${
         visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
       }`}
     >

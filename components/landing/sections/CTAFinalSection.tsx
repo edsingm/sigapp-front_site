@@ -18,7 +18,7 @@ export function CTAFinalSection() {
               7 dias de trial · Sem compromisso
             </span>
 
-            <h2 className="font-heading text-3xl font-black leading-[1.05] tracking-tighter text-white text-balance sm:text-4xl md:text-5xl lg:text-6xl">
+            <h2 className="font-heading text-3xl font-black leading-[1.05] tracking-tighter text-secondary text-balance sm:text-4xl md:text-5xl lg:text-6xl">
               Comece a calcular viabilidade hoje.
             </h2>
 

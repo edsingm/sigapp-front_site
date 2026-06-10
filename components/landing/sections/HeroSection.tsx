@@ -11,7 +11,7 @@ export function HeroSection() {
       {/* Imagem de fundo — cidade noturna com dados georreferenciados */}
       <div className="absolute inset-0">
         <Image
-          src="/hero-bg.jpg"
+          src="/image8.png"
           alt=""
           fill
           priority
@@ -20,11 +20,11 @@ export function HeroSection() {
         />
       </div>
 
-
-
-      {/* Reforço à esquerda — cobertura total da coluna de texto */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[oklch(0.08_0.03_262.9)]/50 via-[oklch(0.08_0.03_262.9)]/90 via-[0%] to-transparent" />
-
+      {/* Blur suave e amplo para aumentar contraste sem criar efeito de card */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 w-full bg-black/20 backdrop-blur-[3px] backdrop-brightness-70 md:inset-y-0 md:left-0 md:right-auto md:w-[72%] md:bg-linear-to-r md:from-black/40 md:via-black/30 md:to-transparent md:mask-[linear-gradient(to_right,black_0%,black_58%,transparent_100%)]"
+      />
       {/* Conteúdo */}
       <div className="container-landing relative flex min-h-[100dvh] flex-col justify-center py-32">
         <div className="flex max-w-2xl flex-col gap-10">
