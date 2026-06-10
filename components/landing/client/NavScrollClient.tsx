@@ -13,8 +13,10 @@ export function NavScrollClient({ children }: NavScrollClientProps) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 w-full bg-nav-bg/85 backdrop-blur-md transition-all duration-200",
-        scrolled && "bg-nav-bg/95 shadow-lg shadow-nav-bg/20"
+        "sticky top-0 z-40 w-full transition-all duration-300",
+        scrolled
+          ? "border-b border-white/10 bg-nav-bg/82 backdrop-blur-xl shadow-lg shadow-black/10"
+          : "bg-transparent"
       )}
     >
       {children}

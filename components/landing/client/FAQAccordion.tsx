@@ -17,19 +17,24 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
       {items.map((item, i) => {
         const isOpen = openIndex === i
         return (
-          <div key={i}>
+          <div key={i} className={cn("px-1 transition-colors sm:px-0", isOpen && "bg-accent/30")}>
             <button
               onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 py-5 text-left"
+              className="flex w-full items-center justify-between gap-4 py-5 text-left sm:py-5"
               aria-expanded={isOpen}
             >
-              <span className="text-sm font-medium text-foreground sm:text-base">
+              <span
+                className={cn(
+                  "pr-2 text-sm leading-relaxed font-medium text-foreground transition-colors sm:text-base",
+                  isOpen && "text-primary"
+                )}
+              >
                 {item.question}
               </span>
               <ChevronDown
                 className={cn(
                   "size-5 shrink-0 text-muted-foreground transition-transform duration-200",
-                  isOpen && "rotate-180"
+                  isOpen && "rotate-180 text-primary"
                 )}
               />
             </button>

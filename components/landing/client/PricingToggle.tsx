@@ -25,12 +25,12 @@ export function PricingToggle() {
 
   return (
     <div>
-      <div className="mb-10 flex justify-center">
-        <div className="inline-flex items-center gap-0 rounded-full border border-border bg-muted p-1">
+      <div className="mb-8 flex justify-center sm:mb-10">
+        <div className="inline-flex w-full max-w-sm items-center gap-0 rounded-full border border-border bg-muted p-1 sm:w-auto sm:max-w-none">
           <button
             onClick={() => setCycle("monthly")}
             className={cn(
-              "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+              "flex-1 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 sm:flex-none sm:px-5 sm:py-2",
               cycle === "monthly"
                 ? "bg-background text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
@@ -41,14 +41,14 @@ export function PricingToggle() {
           <button
             onClick={() => setCycle("annual")}
             className={cn(
-              "flex items-center gap-2 rounded-full px-5 py-2 text-sm font-medium transition-all duration-200",
+              "flex flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 sm:flex-none sm:px-5 sm:py-2",
               cycle === "annual"
                 ? "bg-background text-foreground shadow-sm"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
             Anual
-            <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+            <span className="rounded-full bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-secondary-foreground">
               −20%
             </span>
           </button>
@@ -60,10 +60,10 @@ export function PricingToggle() {
         <div
           ref={carouselRef}
           onScroll={onCarouselScroll}
-          className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          className="scrollbar-none -mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
         >
           {PLANS.map((plan) => (
-            <div key={plan.id} className="w-full shrink-0 snap-start pt-4">
+            <div key={plan.id} className="w-full shrink-0 snap-start px-1 pt-4">
               <PlanCard plan={plan} billingCycle={cycle} />
             </div>
           ))}

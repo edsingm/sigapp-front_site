@@ -8,9 +8,9 @@ export function TestimonialsSection() {
   const smalls = TESTIMONIALS.filter((t) => t.size === "sm")
 
   return (
-    <section className="bg-muted/20 py-16 md:py-24">
+    <section className="bg-muted/20 py-20 md:py-28">
       <div className="container-landing">
-        <div className="mb-12 text-center">
+        <div className="mb-16 text-center md:mb-20">
           <SectionLabel className="text-center">Depoimentos</SectionLabel>
           <h2 className="font-heading mt-3 text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
             Incorporadoras que deixaram as planilhas para trás

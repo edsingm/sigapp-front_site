@@ -70,28 +70,29 @@ export function StatsSection() {
   const { ref, inView } = useInView<HTMLDivElement>()
 
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-20 md:py-28">
       <div className="w-full">
         <div
           ref={ref}
-          className="relative overflow-hidden bg-gradient-to-br from-primary to-blue-700 px-6 py-16 text-center shadow-xl shadow-primary/20 sm:px-12"
+          className="relative overflow-hidden bg-primary px-6 py-18 text-center shadow-xl shadow-primary/20 sm:px-12 md:py-20"
         >
-          <div className="bg-dot-pattern absolute inset-0 opacity-[0.15]" />
-          <div className="relative mx-auto mb-12 max-w-2xl">
+          <div className="bg-dot-pattern absolute inset-0 opacity-[0.12]" />
+          <div className="pointer-events-none absolute left-1/2 top-0 size-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-secondary/20 blur-3xl" />
+          <div className="relative mx-auto mb-14 max-w-2xl md:mb-16">
             <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-white text-balance md:text-4xl">
               O que o mercado já construiu com o SIGAPP
             </h2>
-            <p className="mt-3 text-primary-foreground/80 md:text-lg">
+            <p className="mt-3 text-white/78 md:text-lg">
               Números reais de quem trocou planilhas por decisões com confiança.
             </p>
           </div>
-          <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="relative grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-10">
             {METRICS.map((metric) => (
               <div key={metric.label} className="flex flex-col gap-1">
                 <span className="font-mono text-3xl font-bold tabular-nums tracking-tight text-white md:text-5xl">
                   <CountUp value={metric.value} active={inView} />
                 </span>
-                <span className="text-sm font-medium text-primary-foreground/70">
+                <span className="text-sm font-medium text-secondary/90">
                   {metric.label}
                 </span>
               </div>

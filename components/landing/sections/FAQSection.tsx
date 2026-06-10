@@ -6,11 +6,11 @@ import { MessageCircle } from "lucide-react"
 
 export function FAQSection() {
   return (
-    <section id="faq" className="py-16 md:py-24">
+    <section id="faq" className="py-20 md:py-28">
       <div className="container-landing">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Left */}
-          <div className="flex flex-col gap-5 lg:col-span-4">
+          <div className="flex flex-col gap-5 lg:col-span-4 lg:pr-4">
             <SectionLabel>Perguntas frequentes</SectionLabel>
             <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
               Tire suas dúvidas antes de começar

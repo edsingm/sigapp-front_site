@@ -19,7 +19,7 @@ const NAV_LINKS = [
 function SigappLogo() {
   return (
     <Link href="/" className="flex items-center gap-2.5 focus:outline-none">
-      <div className="flex size-8 items-center justify-center rounded-lg border border-white/20 bg-white/15 shadow-sm">
+      <div className="flex size-8 items-center justify-center rounded-lg border border-white/18 bg-white/12 shadow-sm shadow-black/10 backdrop-blur-sm">
         <svg viewBox="0 0 24 24" className="size-4 text-white" fill="none">
           <polygon
             points="12,2 22,7 22,17 12,22 2,17 2,7"
@@ -50,7 +50,7 @@ export function LandingNav() {
   return (
     <NavScrollClient>
       <>
-        <div className="container-landing flex h-16 items-center justify-between gap-6">
+        <div className="container-landing flex h-16 items-center justify-between gap-3 sm:gap-6">
           <SigappLogo />
 
           {/* Desktop nav links */}
@@ -59,7 +59,7 @@ export function LandingNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-white"
+                className="rounded-full px-3.5 py-2 text-sm font-semibold text-white/86 transition-colors hover:bg-white/8 hover:text-secondary"
               >
                 {link.label}
               </Link>
@@ -67,19 +67,19 @@ export function LandingNav() {
           </nav>
 
           {/* Right actions */}
-          <div className="flex items-center gap-2">
-            <ThemeToggleButton className="text-white  hover:bg-white/10 hover:text-white"></ThemeToggleButton>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <ThemeToggleButton className="border border-white/10 bg-white/6 text-white shadow-sm shadow-black/5 hover:bg-white/10 hover:text-white" />
             <a
               href={LINKS.login}
               data-analytics-event="login_click"
               data-analytics-location="nav"
-              className="hidden rounded-lg px-3 py-2 text-sm font-semibold text-white transition-colors hover:text-white md:block"
+              className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-white/88 transition-colors hover:text-secondary md:block"
             >
               Entrar
             </a>
             <Button
               size="sm"
-              className="gap-1.5 bg-white font-semibold text-primary shadow-sm hover:bg-white/90 active:scale-[0.98]"
+              className="hidden gap-1.5 rounded-full bg-white font-semibold text-primary shadow-sm shadow-black/10 hover:bg-white/90 active:scale-[0.98] sm:inline-flex"
               nativeButton={false}
               render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav" />}
             >
@@ -89,7 +89,7 @@ export function LandingNav() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex size-9 items-center justify-center rounded-lg text-white/90 transition-colors hover:bg-white/10 hover:text-white md:hidden"
+              className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/6 text-white/90 transition-colors hover:bg-white/10 hover:text-white md:hidden"
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             >
               {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -99,30 +99,30 @@ export function LandingNav() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="border-t border-white/15 bg-nav-bg/95 backdrop-blur-md md:hidden">
-            <nav className="container-landing flex flex-col gap-1 py-4">
+          <div className="border-t border-white/10 bg-nav-bg/92 backdrop-blur-xl md:hidden">
+            <nav className="container-landing flex flex-col gap-1 py-3">
               {NAV_LINKS.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                  className="rounded-xl px-3 py-3.5 text-base font-medium text-white/85 transition-colors hover:bg-white/8 hover:text-secondary"
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="mt-4 flex flex-col gap-2 border-t border-white/15 pt-4">
+              <div className="mt-3 flex flex-col gap-2 border-t border-white/15 pt-3">
                 <a
                   href={LINKS.login}
                   data-analytics-event="login_click"
                   data-analytics-location="nav-mobile"
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-lg px-3 py-3 text-base font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white"
+                  className="rounded-xl px-3 py-3.5 text-base font-medium text-white/85 transition-colors hover:bg-white/8 hover:text-secondary"
                 >
                   Entrar
                 </a>
                 <Button
-                  className="w-full gap-2 bg-white font-semibold text-primary hover:bg-white/90"
+                  className="h-12 w-full rounded-xl gap-2 bg-white font-semibold text-primary hover:bg-white/90"
                   onClick={() => setMobileOpen(false)}
                   nativeButton={false}
                   render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav-mobile" />}

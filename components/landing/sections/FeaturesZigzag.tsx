@@ -16,10 +16,10 @@ const MOCK_COMPONENTS = {
 
 export function FeaturesZigzag() {
   return (
-    <section id="funcionalidades" className="py-16 md:py-24">
+    <section id="funcionalidades" className="py-20 md:py-28">
       <div className="container-landing">
         {/* Section header */}
-        <div className="mb-10 flex flex-col gap-3 text-center md:mb-16">
+        <div className="mb-14 flex flex-col gap-4 text-center md:mb-20">
           <SectionLabel className="text-center">Funcionalidades</SectionLabel>
           <h2 className="font-heading mx-auto text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-5xl">
             Do primeiro contato ao contrato assinado
@@ -30,7 +30,7 @@ export function FeaturesZigzag() {
         </div>
 
         {/* Features */}
-        <div className="flex flex-col gap-14 md:gap-24">
+        <div className="flex flex-col gap-16 md:gap-28">
           {FEATURES.map((feature) => {
             const MockComponent = MOCK_COMPONENTS[feature.mock]
             const isRight = feature.side === "right"
@@ -54,7 +54,7 @@ export function FeaturesZigzag() {
                   <ul className="flex flex-col gap-2.5">
                     {feature.bullets.map((bullet) => (
                       <li key={bullet} className="flex items-start gap-2.5">
-                        <Check className="mt-1 size-4 shrink-0 text-primary" />
+                        <Check className="mt-1 size-4 shrink-0 text-secondary" />
                         <span className="text-sm text-foreground/80">{bullet}</span>
                       </li>
                     ))}
@@ -63,7 +63,7 @@ export function FeaturesZigzag() {
 
                 {/* Mock */}
                 <div className={`relative ${isRight ? "lg:order-last" : ""}`}>
-                  <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/5 via-transparent to-transparent" />
+                  <div className="absolute -inset-4 rounded-3xl bg-linear-to-br from-secondary/12 via-primary/5 to-transparent" />
                   <MockComponent />
                 </div>
               </div>

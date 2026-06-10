@@ -46,7 +46,7 @@ const FOOTER_GROUPS: FooterGroup[] = [
 function SigappLogo() {
   return (
     <Link href="/" className="flex items-center gap-2.5">
-      <div className="flex size-8 items-center justify-center rounded-lg bg-primary shadow-sm">
+      <div className="flex size-8 items-center justify-center rounded-xl bg-primary shadow-sm shadow-black/10">
         <svg viewBox="0 0 24 24" className="size-4 text-primary-foreground" fill="none">
           <polygon
             points="12,2 22,7 22,17 12,22 2,17 2,7"
@@ -74,8 +74,8 @@ function SigappLogo() {
 export function LandingFooter() {
   return (
     <footer className="border-t border-border bg-muted/20">
-      <div className="container-landing py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+      <div className="container-landing py-16 md:py-18">
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
           {/* Brand */}
           <div className="flex flex-col gap-4 lg:col-span-1">
             <SigappLogo />
@@ -87,7 +87,7 @@ export function LandingFooter() {
                 <a
                   key={social}
                   href="#"
-                  className="flex size-8 items-center justify-center rounded-lg border border-border bg-background text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+                  className="flex size-8 items-center justify-center rounded-xl border border-border bg-background text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
                 >
                   {social}
                 </a>
@@ -98,7 +98,7 @@ export function LandingFooter() {
           {/* Link groups */}
           {FOOTER_GROUPS.map(({ group, links }) => (
             <div key={group} className="flex flex-col gap-3">
-              <p className="text-xs font-semibold uppercase tracking-widest text-foreground">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary/78">
                 {group}
               </p>
               <ul className="flex flex-col gap-2">
@@ -106,7 +106,7 @@ export function LandingFooter() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
                     >
                       {link.label}
                     </Link>

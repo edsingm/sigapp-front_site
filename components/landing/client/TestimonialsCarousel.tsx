@@ -26,10 +26,10 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
       <div
         ref={ref}
         onScroll={onScroll}
-        className="flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="scrollbar-none -mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
       >
         {testimonials.map((t) => (
-          <div key={t.id} className="w-full shrink-0 snap-start">
+          <div key={t.id} className="w-full shrink-0 snap-start px-1">
             <TestimonialCard testimonial={t} />
           </div>
         ))}
@@ -42,7 +42,7 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
             onClick={() => goTo(i)}
             aria-label={`Ir para depoimento ${i + 1}`}
             className={`h-1.5 rounded-full transition-all duration-200 ${
-              i === active ? "w-6 bg-primary" : "w-1.5 bg-muted-foreground/30"
+              i === active ? "w-6 bg-secondary" : "w-1.5 bg-muted-foreground/30"
             }`}
           />
         ))}

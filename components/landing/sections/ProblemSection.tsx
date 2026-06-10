@@ -10,11 +10,11 @@ const ICON_MAP = {
 
 export function ProblemSection() {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-20 md:py-28">
       <div className="container-landing">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Left — headline */}
-          <div className="flex flex-col justify-center gap-4 lg:col-span-5">
+          <div className="flex flex-col justify-center gap-5 lg:col-span-5">
             <SectionLabel>O problema</SectionLabel>
             <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Incorporar terreno ainda parece uma sequência de planilhas perdidas?

@@ -15,8 +15,8 @@ function Cell({ value, highlight }: { value: boolean; highlight: boolean }) {
       <span
         className={`mx-auto flex size-7 items-center justify-center rounded-full ${
           highlight
-            ? "bg-primary/[0.12] text-primary"
-            : "bg-[var(--color-data-green)]/12 text-[var(--color-data-green)]"
+            ? "bg-primary/12 text-primary"
+            : "bg-(--color-data-green)/12 text-(--color-data-green)"
         }`}
       >
         <Check className="size-4" strokeWidth={2.5} />
@@ -32,9 +32,9 @@ function Cell({ value, highlight }: { value: boolean; highlight: boolean }) {
 
 export function ComparisonSection() {
   return (
-    <section className="py-16 md:py-24">
+    <section className="py-20 md:py-28">
       <div className="container-landing">
-        <div className="mx-auto mb-14 flex max-w-2xl flex-col items-center gap-4 text-center">
+        <div className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
           <EyebrowBadge variant="brand" className="self-center">Por que SIGAPP</EyebrowBadge>
           <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Tudo que a planilha e o ERP não fazem
@@ -56,7 +56,7 @@ export function ComparisonSection() {
                 key={col.key}
                 className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
                   col.highlight
-                    ? "bg-primary/5 text-primary"
+                    ? "bg-primary/6 text-primary"
                     : "text-foreground"
                 }`}
               >
@@ -79,7 +79,7 @@ export function ComparisonSection() {
               {COLUMNS.map((col) => (
                 <div
                   key={col.key}
-                  className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/5" : ""}`}
+                  className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/6" : ""}`}
                 >
                   <Cell value={row[col.key]} highlight={col.highlight} />
                 </div>
@@ -89,7 +89,7 @@ export function ComparisonSection() {
         </div>
 
         {/* CTA intermediário — ponto de maior persuasão antes do pricing */}
-        <div className="mt-12 flex flex-col items-center gap-3">
+        <div className="mt-14 flex flex-col items-center gap-3 md:mt-16">
           <Button
             variant="brand"
             size="lg"

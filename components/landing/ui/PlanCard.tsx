@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { Check, X, ShieldCheck } from "lucide-react"
+import { Check, X, ShieldCheck, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import type { PlanConfig } from "@/lib/landing-data"
 
@@ -15,7 +15,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
   return (
     <div
       className={cn(
-        "relative flex flex-col rounded-2xl border bg-card p-6 transition-shadow duration-200 hover:shadow-lg",
+        "relative flex flex-col rounded-2xl border bg-card p-5 transition-[border-color,box-shadow] duration-200 hover:border-primary/25 hover:shadow-lg sm:p-6",
         plan.highlighted
           ? "border-primary/50 shadow-md ring-1 ring-primary/20"
           : "border-border"
@@ -23,13 +23,14 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
     >
       {plan.highlighted && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="inline-flex items-center gap-1 rounded-full bg-primary px-3 py-0.5 text-xs font-semibold text-primary-foreground">
-            ⭐ Mais popular
+          <span className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-0.5 text-xs font-semibold text-secondary-foreground">
+            <Sparkles className="size-3" />
+            Mais popular
           </span>
         </div>
       )}
 
-      <div className="mb-5">
+      <div className="mb-4 sm:mb-5">
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {plan.tagline}
         </p>
@@ -38,15 +39,15 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         </h3>
       </div>
 
-      <div className="mb-5 flex items-end gap-1">
-        <span className="font-mono text-4xl font-bold tabular-nums tracking-tight text-foreground">
+      <div className="mb-4 flex items-end gap-1 sm:mb-5">
+        <span className="font-mono text-[2rem] font-bold tabular-nums tracking-tight text-foreground sm:text-4xl">
           R${" "}
           {price.toLocaleString("pt-BR")}
         </span>
         <span className="mb-1 text-sm text-muted-foreground">/mês</span>
       </div>
       {billingCycle === "annual" && (
-        <p className="-mt-4 mb-5 text-xs text-primary">
+        <p className="-mt-4 mb-5 text-xs font-medium text-secondary">
           Economize 20% no plano anual
         </p>
       )}
@@ -62,7 +63,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         <p>Suporte: {plan.support}</p>
       </div>
 
-      <ul className="mb-6 flex-1 space-y-2.5 text-sm">
+      <ul className="mb-5 flex-1 space-y-2.5 text-sm sm:mb-6">
         {plan.features.map((f) => (
           <li key={f} className="flex items-start gap-2">
             <Check className="mt-0.5 size-4 shrink-0 text-primary" />
@@ -100,7 +101,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       <Button
         variant={plan.highlighted ? "brand" : "outline"}
         size="lg"
-        className="w-full"
+        className="h-12 w-full"
         nativeButton={false}
         render={
           <a
@@ -115,10 +116,10 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       </Button>
 
       <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-        <ShieldCheck className="size-3.5 shrink-0 text-[oklch(0.55_0.22_272)]" />
+        <ShieldCheck className="size-3.5 shrink-0 text-secondary" />
         <span>
           Pagamento seguro via{" "}
-          <span className="font-semibold text-[oklch(0.55_0.22_272)]">Stripe</span>
+          <span className="font-semibold text-secondary">Stripe</span>
         </span>
       </div>
     </div>

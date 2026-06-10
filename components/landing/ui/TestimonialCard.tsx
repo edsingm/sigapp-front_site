@@ -13,7 +13,7 @@ export function TestimonialCard({
   return (
     <figure
       className={cn(
-        "flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6",
+        "flex h-full flex-col gap-4 rounded-2xl border border-border bg-card p-6 transition-colors duration-200 hover:border-primary/20",
         className
       )}
     >
@@ -21,7 +21,7 @@ export function TestimonialCard({
         {Array.from({ length: 5 }).map((_, i) => (
           <svg
             key={i}
-            className="size-4 fill-primary text-primary"
+            className="size-4 fill-secondary text-secondary"
             viewBox="0 0 20 20"
             aria-hidden="true"
           >
@@ -33,7 +33,7 @@ export function TestimonialCard({
         &ldquo;{testimonial.quote}&rdquo;
       </blockquote>
       <figcaption className="flex items-center gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-accent text-sm font-semibold text-primary">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-secondary/15 text-sm font-semibold text-secondary">
           {testimonial.author[0]}
         </div>
         <div>

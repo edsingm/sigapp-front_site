@@ -18,8 +18,10 @@ function MiniDRE() {
           <span className="text-muted-foreground">{row.label}</span>
           <span
             className={`font-mono font-medium ${
-              row.type === "profit" || row.type === "kpi"
+              row.type === "profit"
                 ? "text-primary"
+                : row.type === "kpi"
+                ? "text-secondary"
                 : row.type === "cost"
                 ? "text-destructive/70"
                 : "text-foreground"
@@ -93,7 +95,7 @@ const BENTO_ITEMS = [
       <div className="mt-3 flex flex-col gap-2">
         {["Viabilidade_Paulista_v3.pdf", "Terrenos_Q2_2026.xlsx", "Parecer_Comite_Jun.pdf"].map((f) => (
           <div key={f} className="flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2">
-            <FileDown className="size-3.5 text-primary" />
+            <FileDown className="size-3.5 text-secondary" />
             <span className="truncate text-xs text-muted-foreground">{f}</span>
           </div>
         ))}
@@ -139,16 +141,16 @@ const BENTO_ITEMS = [
 
 export function BentoSection() {
   return (
-    <section className="bg-muted/20 py-16 md:py-24">
+    <section className="bg-muted/20 py-20 md:py-28">
       <div className="container-landing">
-        <div className="mb-12 text-center">
+        <div className="mb-16 text-center md:mb-20">
           <SectionLabel className="text-center">Capacidades</SectionLabel>
           <h2 className="font-heading mt-3 text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
             Mais do que uma planilha. Muito mais.
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
           {BENTO_ITEMS.map((item) => {
             const Icon = item.icon
             return (
@@ -157,11 +159,11 @@ export function BentoSection() {
                 className={`group rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md ${item.col} ${item.row}`}
               >
                 <div className="flex items-start gap-3">
-                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <Icon className="size-4" strokeWidth={1.75} />
                   </div>
                   <div>
-                    <p className="text-[10px] font-semibold uppercase tracking-widest text-primary">
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-secondary">
                       {item.eyebrow}
                     </p>
                     <h3 className="font-heading mt-0.5 text-base font-bold text-foreground">
