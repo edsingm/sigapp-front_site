@@ -39,7 +39,7 @@ export function ChatMock() {
         {MESSAGES.map((msg, i) => (
           <div
             key={i}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+            className={`chat-msg flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.role === "ai" && (
               <div className="mr-2 flex size-5 shrink-0 items-center justify-center rounded bg-primary">
@@ -59,7 +59,7 @@ export function ChatMock() {
         ))}
 
         {/* Typing indicator */}
-        <div className="flex items-center gap-2">
+        <div className="chat-msg flex items-center gap-2">
           <div className="flex size-5 shrink-0 items-center justify-center rounded bg-primary">
             <span className="text-[7px] font-black text-primary-foreground">IA</span>
           </div>

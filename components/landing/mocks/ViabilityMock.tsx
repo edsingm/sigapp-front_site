@@ -31,7 +31,7 @@ export function ViabilityMock() {
             Terreno Av. Paulista, 1840
           </p>
         </div>
-        <span className="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
+        <span className="badge-pop rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
           Aprovada
         </span>
       </div>
@@ -65,7 +65,7 @@ export function ViabilityMock() {
           {DRE_ROWS.map((row, i) => (
             <div
               key={i}
-              className={`flex items-center justify-between py-1 text-[10px] ${
+              className={`dre-row flex items-center justify-between py-1 text-[10px] ${
                 row.type === "subtotal" || row.type === "profit"
                   ? "border-t border-border font-semibold text-foreground"
                   : row.type === "revenue"

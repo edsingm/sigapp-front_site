@@ -6,7 +6,7 @@ const PHRASES = [
   "Feche negócios.",
   "Decida com dados.",
   "Aprove em comitê.",
-  "Gerencie terrenos.",
+  ".",
   "Vença a concorrência.",
 ]
 
@@ -27,7 +27,7 @@ export function HeroRotatingText() {
 
   return (
     <span
-      className={`inline-block text-secondary transition-all duration-300 ${
+      className={`inline-block text-primary transition-all duration-300 ${
         visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
       }`}
     >

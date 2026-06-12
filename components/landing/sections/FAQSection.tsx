@@ -5,8 +5,25 @@ import { Button } from "@/components/ui/button"
 import { MessageCircle } from "lucide-react"
 
 export function FAQSection() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  }
+
   return (
     <section id="faq" className="py-20 md:py-28">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="container-landing">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Left */}
@@ -16,7 +33,8 @@ export function FAQSection() {
               Tire suas dúvidas antes de começar
             </h2>
             <p className="text-muted-foreground">
-              Não encontrou o que procura? Fale diretamente com nossa equipe.
+              Segurança, LGPD, migração de planilhas, multiusuário e onboarding explicados de
+              forma objetiva antes do trial.
             </p>
             <Button
               variant="outline"

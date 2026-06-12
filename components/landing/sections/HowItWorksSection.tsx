@@ -1,5 +1,6 @@
 import { HOW_IT_WORKS, LINKS } from "@/lib/landing-data"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Button } from "@/components/ui/button"
 import { MapPin, Calculator, Handshake, ArrowRight } from "lucide-react"
 
@@ -13,7 +14,7 @@ export function HowItWorksSection() {
   return (
     <section id="como-funciona" className="bg-muted/20 py-18 md:py-28">
       <div className="container-landing">
-        <div className="mx-auto mb-14 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
+        <ScrollReveal stagger className="mx-auto mb-14 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
           <SectionLabel className="text-center">Como funciona</SectionLabel>
           <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Do cadastro à viabilidade aprovada em 3 passos
@@ -22,9 +23,9 @@ export function HowItWorksSection() {
             Sem implantação demorada, sem consultoria obrigatória. Configure e
             comece a analisar no mesmo dia.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid gap-7 md:grid-cols-3 lg:gap-12">
+        <ScrollReveal stagger className="grid gap-7 md:grid-cols-3 lg:gap-12">
           {HOW_IT_WORKS.map((step, i) => {
             const Icon = ICON_MAP[step.icon as keyof typeof ICON_MAP]
             return (
@@ -50,7 +51,7 @@ export function HowItWorksSection() {
               </div>
             )
           })}
-        </div>
+        </ScrollReveal>
 
         <div className="mt-16 flex flex-col items-center gap-3 md:mt-20">
           <Button

@@ -209,3 +209,302 @@
 .dark .bg-dot-pattern {
   background-image: radial-gradient(circle, oklch(0.62 0.21 262.9 / 0.14) 1px, transparent 1px);
 }
+
+/* Cadastral brand backdrop */
+.brand-map__glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(64px);
+  opacity: 0.3;
+}
+.brand-map__glow--top {
+  top: -5rem;
+  left: 8%;
+  height: 15rem;
+  width: 15rem;
+  background: oklch(0.84 0.17 88.295 / 0.22);
+}
+.brand-map__glow--bottom {
+  right: 10%;
+  bottom: -6rem;
+  height: 18rem;
+  width: 18rem;
+  background: oklch(0.72 0.18 262.9 / 0.28);
+}
+.brand-map__grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 30px 30px;
+  opacity: 0.16;
+}
+.brand-map__svg {
+  opacity: 0.62;
+}
+.brand-map__contour {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1;
+  stroke-dasharray: 3 8;
+}
+.brand-map__contour--delay {
+  animation-delay: 1.2s;
+}
+.brand-map__route {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.32);
+  stroke-width: 1.25;
+  stroke-dasharray: 4 10;
+}
+.brand-map__parcel {
+  fill: rgba(255, 255, 255, 0.02);
+  stroke: rgba(255, 255, 255, 0.18);
+  stroke-width: 1.15;
+}
+.brand-map__parcel--active {
+  fill: oklch(0.82 0.1 264 / 0.16);
+  stroke: rgba(255, 255, 255, 0.34);
+}
+.brand-map__parcel--focus {
+  fill: oklch(0.84 0.17 88.295 / 0.18);
+  stroke: rgba(255, 255, 255, 0.62);
+}
+.brand-map__pin-halo {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.16);
+  stroke-width: 1;
+}
+.brand-map__pin-dot {
+  fill: rgba(255, 255, 255, 0.9);
+}
+.brand-map__pin-core {
+  fill: oklch(0.546 0.245 262.9);
+}
+.brand-map__pin--focus .brand-map__pin-dot {
+  fill: oklch(0.84 0.17 88.295);
+}
+.brand-map__scan {
+  position: absolute;
+  top: -12%;
+  bottom: -12%;
+  left: -18%;
+  width: 8rem;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  opacity: 0;
+}
+
+/* ─── Hero — vitrine flutuante do produto (lg+) ─────────────────────────────
+   --px / --py são definidos via JS (HeroShowcase) no range [-0.5, 0.5]. */
+.hero-mock-pos {
+  position: absolute;
+  top: 50%;
+  right: -4rem;
+  width: 31rem;
+  transform: translate3d(
+    calc(var(--px, 0) * 24px),
+    calc(-50% + var(--py, 0) * 24px),
+    0
+  );
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (min-width: 1280px) {
+  .hero-mock-pos {
+    right: 1rem;
+    width: 36rem;
+  }
+}
+.hero-mock-glow {
+  position: absolute;
+  inset: -14% -10%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(6, 10, 28, 0.55) 0%,
+    transparent 68%
+  );
+  filter: blur(44px);
+}
+.hero-mock-float {
+  position: relative;
+  perspective: 1600px;
+  animation: heroFloat 8s ease-in-out infinite;
+}
+.hero-mock-tilt {
+  transform: rotateY(-14deg) rotateX(5deg);
+  transform-style: preserve-3d;
+}
+@keyframes heroFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-mock-pos {
+    transition: none;
+  }
+  .hero-mock-float {
+    animation: none;
+  }
+}
+
+/* ─── Motion tokens ───────────────────────────────────────────────────────── */
+:root {
+  --motion-micro: 150ms;
+  --motion-fast: 250ms;
+  --motion-reveal: 480ms;
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Scroll reveal ───────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-item {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--motion-reveal) var(--motion-ease-out),
+      transform var(--motion-reveal) var(--motion-ease-out);
+  }
+  .reveal-item.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Marquee fade mask ───────────────────────────────────────────────────── */
+.marquee-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 9%,
+    black 91%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 9%,
+    black 91%,
+    transparent 100%
+  );
+}
+
+/* ─── Mock reveal animations ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* Shared: badge pop */
+  @keyframes badge-pop {
+    0%   { transform: scale(0.65); opacity: 0; }
+    65%  { transform: scale(1.1); }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+  .badge-pop { opacity: 0; }
+  .mock-viability.in-view .badge-pop {
+    animation: badge-pop 380ms var(--motion-ease-out) 620ms both;
+  }
+
+  /* ViabilityMock — DRE rows stagger left */
+  .mock-viability .dre-row {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity 280ms var(--motion-ease-out),
+      transform 280ms var(--motion-ease-out);
+  }
+  .mock-viability.in-view .dre-row            { opacity: 1; transform: none; }
+  .mock-viability.in-view .dre-row:nth-child(1)  { transition-delay: 180ms; }
+  .mock-viability.in-view .dre-row:nth-child(2)  { transition-delay: 240ms; }
+  .mock-viability.in-view .dre-row:nth-child(3)  { transition-delay: 300ms; }
+  .mock-viability.in-view .dre-row:nth-child(4)  { transition-delay: 360ms; }
+  .mock-viability.in-view .dre-row:nth-child(5)  { transition-delay: 420ms; }
+  .mock-viability.in-view .dre-row:nth-child(6)  { transition-delay: 480ms; }
+  .mock-viability.in-view .dre-row:nth-child(7)  { transition-delay: 540ms; }
+  .mock-viability.in-view .dre-row:nth-child(8)  { transition-delay: 600ms; }
+  .mock-viability.in-view .dre-row:nth-child(9)  { transition-delay: 660ms; }
+  .mock-viability.in-view .dre-row:nth-child(10) { transition-delay: 720ms; }
+
+  /* WorkflowMock — kanban columns slide up */
+  .mock-workflow .workflow-col {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 300ms var(--motion-ease-out),
+      transform 300ms var(--motion-ease-out);
+  }
+  .mock-workflow.in-view .workflow-col              { opacity: 1; transform: none; }
+  .mock-workflow.in-view .workflow-col:nth-child(1) { transition-delay: 80ms;  }
+  .mock-workflow.in-view .workflow-col:nth-child(2) { transition-delay: 160ms; }
+  .mock-workflow.in-view .workflow-col:nth-child(3) { transition-delay: 240ms; }
+  .mock-workflow.in-view .workflow-col:nth-child(4) { transition-delay: 320ms; }
+  .mock-workflow.in-view .workflow-col:nth-child(5) { transition-delay: 400ms; }
+
+  /* ChatMock — messages bubble up */
+  .mock-chat .chat-msg {
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 260ms var(--motion-ease-out),
+      transform 260ms var(--motion-ease-out);
+  }
+  .mock-chat.in-view .chat-msg              { opacity: 1; transform: none; }
+  .mock-chat.in-view .chat-msg:nth-child(1) { transition-delay: 120ms; }
+  .mock-chat.in-view .chat-msg:nth-child(2) { transition-delay: 380ms; }
+  .mock-chat.in-view .chat-msg:nth-child(3) { transition-delay: 640ms; }
+  .mock-chat.in-view .chat-msg:nth-child(4) { transition-delay: 800ms; }
+
+  /* PermissionsMock — rows slide in from left */
+  .mock-permissions .perm-row {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition:
+      opacity 260ms var(--motion-ease-out),
+      transform 260ms var(--motion-ease-out);
+  }
+  .mock-permissions.in-view .perm-row              { opacity: 1; transform: none; }
+  .mock-permissions.in-view .perm-row:nth-child(1) { transition-delay: 150ms; }
+  .mock-permissions.in-view .perm-row:nth-child(2) { transition-delay: 240ms; }
+  .mock-permissions.in-view .perm-row:nth-child(3) { transition-delay: 330ms; }
+  .mock-permissions.in-view .perm-row:nth-child(4) { transition-delay: 420ms; }
+
+  @keyframes brand-map-route {
+    to { stroke-dashoffset: -56; }
+  }
+  @keyframes brand-map-fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes brand-map-scan {
+    0%   { transform: translateX(0); opacity: 0; }
+    10%  { opacity: 0.35; }
+    55%  { opacity: 0.22; }
+    100% { transform: translateX(780px); opacity: 0; }
+  }
+  @keyframes brand-map-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.18; }
+    50%      { transform: scale(1.18); opacity: 0.04; }
+  }
+
+  .brand-map__route {
+    animation: brand-map-route 7.5s linear infinite;
+  }
+  .brand-map__scan {
+    animation: brand-map-scan 8.2s ease-in-out infinite;
+  }
+  .brand-map__pin-halo {
+    transform-origin: center;
+    animation: brand-map-pulse 2.8s ease-in-out infinite;
+  }
+  .brand-map__contour {
+    animation: brand-map-fade-in 900ms var(--motion-ease-out) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-map__scan,
+  .brand-map__route,
+  .brand-map__pin-halo,
+  .brand-map__contour {
+    animation: none;
+  }
+}

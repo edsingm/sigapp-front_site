@@ -41,10 +41,14 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
             key={i}
             onClick={() => goTo(i)}
             aria-label={`Ir para depoimento ${i + 1}`}
-            className={`h-1.5 rounded-full transition-all duration-200 ${
-              i === active ? "w-6 bg-secondary" : "w-1.5 bg-muted-foreground/30"
-            }`}
-          />
+            className="flex size-11 items-center justify-center rounded-full"
+          >
+            <span
+              className={`block rounded-full transition-all duration-200 ${
+                i === active ? "h-2 w-6 bg-secondary" : "size-2 bg-muted-foreground/45"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

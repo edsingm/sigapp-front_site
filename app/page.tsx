@@ -7,11 +7,11 @@ export const metadata: Metadata = {
     "Da prospecção à legalização em uma única plataforma. DRE, TIR e fluxo de caixa em segundos — aprovação no comitê em uma rodada, não quatro. Trial de 7 dias grátis.",
 }
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
+import { StickyMobileCTA } from "@/components/landing/client/StickyMobileCTA"
 import { HeroSection } from "@/components/landing/sections/HeroSection"
 import { SocialProofBar } from "@/components/landing/sections/SocialProofBar"
 import { ProblemSection } from "@/components/landing/sections/ProblemSection"
 import { HowItWorksSection } from "@/components/landing/sections/HowItWorksSection"
-import { StatsSection } from "@/components/landing/sections/StatsSection"
 import { FeaturesZigzag } from "@/components/landing/sections/FeaturesZigzag"
 import { BentoSection } from "@/components/landing/sections/BentoSection"
 import { ComparisonSection } from "@/components/landing/sections/ComparisonSection"
@@ -24,13 +24,13 @@ export default function Page() {
   return (
     <>
       <LandingNav />
+      <StickyMobileCTA />
       <main>
         <HeroSection />
         <SocialProofBar />
         <ProblemSection />
         <HowItWorksSection />
         <FeaturesZigzag />
-        <StatsSection />
         <BentoSection />
         <ComparisonSection />
         <TestimonialsSection />

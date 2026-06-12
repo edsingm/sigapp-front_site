@@ -1,18 +1,19 @@
 import { Button } from "@/components/ui/button"
 import { ArrowRight, CalendarDays, ShieldCheck } from "lucide-react"
 import { LINKS } from "@/lib/landing-data"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
+import { CadastralMapBackdrop } from "@/components/landing/ui/CadastralMapBackdrop"
 
 export function CTAFinalSection() {
   return (
-    <section className="py-20 md:py-28">
+    <section id="cta-final" className="py-20 md:py-28">
       <div className="w-full">
         <div className="relative overflow-hidden bg-primary px-6 py-16 shadow-2xl shadow-primary/25 sm:px-12 sm:py-20 md:py-24">
-          {/* Background decoration */}
-          <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-[0.12]" />
+          <CadastralMapBackdrop className="opacity-90" />
           <div className="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-secondary/18 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-20 size-48 rounded-full bg-white/10 blur-3xl" />
 
-          <div className="relative flex flex-col items-center gap-7 text-center">
+          <ScrollReveal stagger className="relative flex flex-col items-center gap-7 text-center">
             <span className="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium text-white">
               <span className="size-1.5 rounded-full bg-secondary" />
               7 dias de trial · Sem compromisso
@@ -22,7 +23,7 @@ export function CTAFinalSection() {
               Comece a calcular viabilidade hoje.
             </h2>
 
-            <p className="max-w-[45ch] text-lg leading-relaxed text-white/75">
+            <p className="max-w-[45ch] text-lg leading-relaxed text-white/88">
               Trial completo de 7 dias. Cancele antes do fim e não será cobrado. Dados exportáveis se mudar de ideia.
             </p>
 
@@ -48,15 +49,15 @@ export function CTAFinalSection() {
               </Button>
             </div>
 
-            <p className="text-sm text-white/55">
+            <p className="text-sm text-white/72">
               Cancele antes do 7º dia e não paga nada · Suporte em português
             </p>
 
-            <div className="flex items-center gap-1.5 text-xs text-white/45">
+            <div className="flex items-center gap-1.5 text-xs text-white/68">
               <ShieldCheck className="size-3.5 shrink-0 text-secondary" />
               <span>Pagamento seguro processado via <span className="font-semibold text-secondary">Stripe</span></span>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

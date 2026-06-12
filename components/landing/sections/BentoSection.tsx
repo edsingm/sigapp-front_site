@@ -1,4 +1,5 @@
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Zap, FileDown, Bell, Map } from "lucide-react"
 
 function MiniDRE() {
@@ -143,14 +144,14 @@ export function BentoSection() {
   return (
     <section className="bg-muted/20 py-20 md:py-28">
       <div className="container-landing">
-        <div className="mb-16 text-center md:mb-20">
+        <ScrollReveal stagger className="mb-16 flex flex-col items-center gap-2 text-center md:mb-20">
           <SectionLabel className="text-center">Capacidades</SectionLabel>
-          <h2 className="font-heading mt-3 text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
+          <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
             Mais do que uma planilha. Muito mais.
           </h2>
-        </div>
+        </ScrollReveal>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
+        <ScrollReveal stagger className="grid grid-cols-1 gap-5 lg:grid-cols-12">
           {BENTO_ITEMS.map((item) => {
             const Icon = item.icon
             return (
@@ -178,7 +179,7 @@ export function BentoSection() {
               </div>
             )
           })}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   )

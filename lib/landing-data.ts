@@ -1,8 +1,24 @@
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.sigapp.com.br"
 
+// URL canônica do site de marketing (troque via NEXT_PUBLIC_SITE_URL por ambiente)
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sigapp.com.br"
+
+// Metadados de marca usados em SEO, OpenGraph e dados estruturados
+export const SITE = {
+  name: "SIGAPP",
+  legalName: "SIGAPP Tecnologia Ltda.",
+  url: SITE_URL,
+  email: "contato@sigapp.com.br",
+  title: "SIGAPP — Plataforma de Viabilidade e Gestão Imobiliária",
+  description:
+    "Motor financeiro com 50+ parâmetros, IA conversacional especializada e workflow end-to-end para incorporadoras e imobiliárias. Trial de 7 dias grátis.",
+  locale: "pt_BR",
+}
+
 // Destinos centralizados de CTA — troque NEXT_PUBLIC_APP_URL para apontar a outro ambiente
 export const LINKS = {
-  signup: "/cadastro",
+  signup: "#precos",
   login: `${APP_URL}/login`,
   sales: "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
   demo: "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
@@ -28,6 +44,24 @@ export type PlanConfig = {
   ctaHref: string
 }
 
+export type PlanMatrixField =
+  | "users"
+  | "terrenos"
+  | "storage"
+  | "support"
+  | "hasAI"
+  | "hasCommittee"
+  | "hasNegotiation"
+  | "hasLegal"
+
+export type PlanMatrixRow = {
+  id: string
+  label: string
+  helper?: string
+  kind: "text" | "boolean"
+  field: PlanMatrixField
+}
+
 export type FeatureItem = {
   id: string
   eyebrow: string
@@ -41,6 +75,7 @@ export type FeatureItem = {
 export type Testimonial = {
   id: string
   quote: string
+  highlight: string
   author: string
   role: string
   company: string
@@ -64,6 +99,13 @@ export const METRICS: MetricItem[] = [
   { value: "12.800+", label: "Viabilidades calculadas" },
   { value: "50+", label: "Parâmetros por viabilidade" },
 ]
+
+export const STICKY_MOBILE_CTA = {
+  badge: "7 dias grátis",
+  title: "Comece seu trial hoje",
+  description: "Crie sua conta e calcule a primeira viabilidade em minutos.",
+  cta: "Começar trial gratuito",
+}
 
 export const PLANS: PlanConfig[] = [
   {
@@ -165,6 +207,73 @@ export const PLANS: PlanConfig[] = [
   },
 ]
 
+export const PRICING_MATRIX_COPY = {
+  eyebrow: "Comparativo completo",
+  title: "Veja exatamente o que muda em cada plano",
+  description:
+    "Limites, automações e recursos avançados lado a lado para sua equipe escolher sem adivinhar.",
+  mobileSummary: "Comparar recursos dos planos",
+}
+
+export const PLAN_MATRIX_ROWS: PlanMatrixRow[] = [
+  {
+    id: "users",
+    label: "Usuários incluídos",
+    helper: "Quantidade de acessos simultâneos no plano",
+    kind: "text",
+    field: "users",
+  },
+  {
+    id: "terrenos",
+    label: "Capacidade de terrenos",
+    helper: "Carteira ativa suportada em cada plano",
+    kind: "text",
+    field: "terrenos",
+  },
+  {
+    id: "storage",
+    label: "Armazenamento",
+    helper: "Espaço para documentos, anexos e históricos",
+    kind: "text",
+    field: "storage",
+  },
+  {
+    id: "support",
+    label: "Suporte",
+    helper: "Canal e prioridade de atendimento",
+    kind: "text",
+    field: "support",
+  },
+  {
+    id: "ai",
+    label: "SIG_IA conversacional",
+    helper: "Assistente especializada em incorporação",
+    kind: "boolean",
+    field: "hasAI",
+  },
+  {
+    id: "committee",
+    label: "Comitê de revisão",
+    helper: "Aprovação estruturada da viabilidade",
+    kind: "boolean",
+    field: "hasCommittee",
+  },
+  {
+    id: "negotiation",
+    label: "Gestão de negociações",
+    helper: "Pipeline comercial e histórico de propostas",
+    kind: "boolean",
+    field: "hasNegotiation",
+  },
+  {
+    id: "legal",
+    label: "Legalização end-to-end",
+    helper: "Fluxo completo até documentação e registro",
+    kind: "boolean",
+    field: "hasLegal",
+  },
+]
+
 export const FEATURES: FeatureItem[] = [
   {
     id: "viability",
@@ -233,6 +342,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "1",
     quote:
       "O motor de viabilidade do SIGAPP substituiu três planilhas diferentes que mantínhamos em paralelo. A precisão do cálculo de TIR reduziu nossas revisões de comitê de 4 para 1 rodada.",
+    highlight: "4 para 1 rodada no comitê",
     author: "Rodrigo Menezes",
     role: "Diretor de Incorporação",
     company: "Construtora Terraplan",
@@ -243,6 +353,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "2",
     quote:
       "A SIG_IA entende termos técnicos que outros modelos nunca acertam. Pergunto sobre permuta com pessoa física e ela já calcula o imposto correto.",
+    highlight: "Consultas técnicas em segundos",
     author: "Fernanda Carvalho",
     role: "Analista de Viabilidade",
     company: "Grupo Habitare",
@@ -253,6 +364,7 @@ export const TESTIMONIALS: Testimonial[] = [
     id: "3",
     quote:
       "Em 3 meses migramos 180 terrenos prospectados de planilhas para o SIGAPP. O histórico centralizado mudou completamente nossa dinâmica de negociação.",
+    highlight: "180 terrenos migrados em 3 meses",
     author: "Caio Drummond",
     role: "Sócio-fundador",
     company: "Incorporadora Leste Sul",
@@ -271,6 +383,11 @@ export const FAQ_ITEMS: FAQItem[] = [
     question: "Posso migrar meus dados de planilhas Excel existentes?",
     answer:
       "Oferecemos importação de terrenos e parâmetros básicos via Excel/CSV. Nosso time de onboarding auxilia na migração de dados históricos durante os primeiros 30 dias para planos Master e Pro.",
+  },
+  {
+    question: "Como funciona a segurança e a adequação à LGPD?",
+    answer:
+      "Cada empresa opera em ambiente isolado, com banco de dados dedicado, logs de auditoria e controle granular de permissões por módulo. Os dados permanecem sob sua titularidade e seguimos práticas compatíveis com a LGPD para armazenamento, acesso e exportação das informações.",
   },
   {
     question: "Como funciona o isolamento de dados multi-tenant?",
@@ -293,9 +410,19 @@ export const FAQ_ITEMS: FAQItem[] = [
       "Durante o trial você tem acesso ao limite do plano escolhido: Broker (1 usuário), Básico (3), Master (10) e Pro (ilimitado).",
   },
   {
+    question: "Posso convidar outras áreas da empresa, como comitê, jurídico e diretoria?",
+    answer:
+      "Sim. Você pode adicionar usuários por perfil e distribuir permissões conforme a função de cada área. Isso permite envolver viabilidade, comercial, jurídico e diretoria sem expor tudo para toda a empresa.",
+  },
+  {
     question: "Como é feito o suporte ao cliente?",
     answer:
       "Planos Broker e Básico têm suporte por e-mail (SLA 48h). O Master tem suporte prioritário (24h). O Pro tem gerente de conta dedicado e suporte via WhatsApp em horário comercial.",
+  },
+  {
+    question: "Quanto tempo leva para sair da planilha e começar a operar no SIGAPP?",
+    answer:
+      "Na maioria dos casos, a equipe começa com o trial no mesmo dia. O cadastro leva poucos minutos e a importação inicial pode ser feita por planilha. Para operações maiores, nosso onboarding ajuda a estruturar a carteira e os parâmetros financeiros nas primeiras semanas.",
   },
   {
     question: "Posso exportar os dados se cancelar o plano?",

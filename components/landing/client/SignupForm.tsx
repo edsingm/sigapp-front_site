@@ -1,12 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Check, Eye, EyeOff, Loader2, ShieldCheck, X, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
 import { PLANS, LINKS, METRICS } from "@/lib/landing-data"
 import { checkSubdomain, submitSignup, type ApiPlan } from "@/lib/api"
 
@@ -54,6 +55,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   const [adminPassword, setAdminPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [acceptContract, setAcceptContract] = useState(false)
+  const [step, setStep] = useState<1 | 2>(1)
 
   // Resultado de disponibilidade atrelado ao slug consultado (evita estado obsoleto)
   const [availability, setAvailability] = useState<{ slug: string; available: boolean } | null>(null)
@@ -92,13 +94,8 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
     return () => clearTimeout(handle)
   }, [subdomain, slugValid])
 
-  function validate(): Record<string, string[]> {
+  function validateStepOne(): Record<string, string[]> {
     const errs: Record<string, string[]> = {}
-    if (organizationName.trim().length < 3)
-      errs.organization_name = ["O nome da organização deve ter ao menos 3 caracteres"]
-    if (!SLUG_REGEX.test(subdomain) || subdomain.length < 3)
-      errs.slug = ["O endereço deve ter ao menos 3 caracteres (letras minúsculas, números e hífens)"]
-    else if (slugStatus === "taken") errs.slug = ["Este endereço já está em uso"]
     if (adminName.trim().length < 3) errs.admin_name = ["Seu nome deve ter ao menos 3 caracteres"]
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(adminEmail)) errs.admin_email = ["E-mail inválido"]
     if (adminPassword.length < 8 || !PASSWORD_REGEX.test(adminPassword))
@@ -108,10 +105,34 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
     return errs
   }
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
+  function validateStepTwo(): Record<string, string[]> {
+    const errs: Record<string, string[]> = {}
+    if (organizationName.trim().length < 3)
+      errs.organization_name = ["O nome da organização deve ter ao menos 3 caracteres"]
+    if (!SLUG_REGEX.test(subdomain) || subdomain.length < 3)
+      errs.slug = ["O endereço deve ter ao menos 3 caracteres (letras minúsculas, números e hífens)"]
+    else if (slugStatus === "taken") errs.slug = ["Este endereço já está em uso"]
+    return errs
+  }
+
+  function goToStepTwo() {
+    const errs = validateStepOne()
+    if (Object.keys(errs).length > 0) {
+      setFieldErrors(errs)
+      return
+    }
+    setFieldErrors({})
+    setStep(2)
+  }
+
+  async function handleSubmit() {
     setFormError(null)
-    const errs = validate()
+    if (step === 1) {
+      goToStepTwo()
+      return
+    }
+
+    const errs = { ...validateStepOne(), ...validateStepTwo() }
     if (Object.keys(errs).length > 0) {
       setFieldErrors(errs)
       return
@@ -141,17 +162,17 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   }
 
   return (
-    <div className="grid min-h-[100dvh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
+    <div className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
       {/* ───────── Painel de marca (desktop) ───────── */}
       <aside className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-14">
         <Image
-          src="/hero-bg.jpg"
+          src="/hero-bg.webp"
           alt=""
           fill
           sizes="50vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.08_0.03_262.9)]/96 via-[oklch(0.11_0.04_262.9)]/92 to-[oklch(0.30_0.12_262.9)]/85" />
+        <div className="absolute inset-0 bg-linear-to-br from-[oklch(0.08_0.03_262.9)]/96 via-[oklch(0.11_0.04_262.9)]/92 to-[oklch(0.30_0.12_262.9)]/85" />
         <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-[0.18]" />
 
         {/* Topo — logo */}
@@ -163,7 +184,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
         <div className="relative flex flex-col gap-7">
           <div className="flex flex-col gap-3">
             <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-              <span className="size-1.5 rounded-full bg-[var(--color-data-green)]" />
+              <span className="size-1.5 rounded-full bg-(--color-data-green)" />
               {selectedPlan ? `Trial de ${selectedPlan.trial_days} dias` : "Trial de 7 dias"}
             </span>
             <h1 className="font-heading text-3xl font-black leading-tight tracking-tight text-white xl:text-4xl">
@@ -219,21 +240,26 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                   <span className="text-xs font-normal text-muted-foreground">/mês</span>
                 </p>
               </div>
-              <span className="inline-flex items-center rounded-full bg-[var(--color-data-green)]/12 px-2.5 py-1 text-xs font-medium text-[var(--color-data-green)]">
+              <span className="inline-flex items-center rounded-full bg-(--color-data-green)/12 px-2.5 py-1 text-xs font-medium text-(--color-data-green)">
                 {selectedPlan.trial_days} dias grátis
               </span>
             </div>
           )}
 
           <div className="mb-7">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+              Passo {step} de 2
+            </p>
             <h2 className="font-heading text-2xl font-black tracking-tight text-foreground md:text-3xl">
-              Crie sua conta
+              {step === 1 ? "Crie seu acesso" : "Agora configure sua conta"}
             </h2>
             <p className="mt-1.5 text-sm text-muted-foreground">
-              {selectedPlan ? (
+              {step === 1 ? (
+                "Comece com nome, e-mail e senha. Os dados da conta ficam para o próximo passo."
+              ) : selectedPlan ? (
                 <>
-                  {selectedPlan.trial_days} dias de trial. Você só é cobrado depois — cancele antes e
-                  não paga nada.
+                  Defina o nome da organização, o endereço da conta e revise o plano antes de seguir
+                  para o checkout. O trial continua sendo de {selectedPlan.trial_days} dias.
                 </>
               ) : (
                 "Comece seu trial e calcule viabilidade hoje mesmo."
@@ -256,161 +282,185 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
             </div>
           )}
 
-          {/* Seletor de plano */}
-          <fieldset className="mb-6">
-            <legend className="mb-2 text-sm font-medium text-foreground">Plano escolhido</legend>
-            <div className="flex flex-wrap gap-2">
-              {plans.map((plan) => {
-                const active = plan.slug === selectedSlug
-                return (
-                  <button
-                    key={plan.slug}
-                    type="button"
-                    onClick={() => setSelectedSlug(plan.slug)}
-                    aria-pressed={active}
-                    className={`flex flex-col items-start rounded-lg border px-3 py-2 text-left transition-colors ${
-                      active
-                        ? "border-primary bg-primary/5 ring-1 ring-primary/30"
-                        : "border-border hover:border-primary/40 hover:bg-muted/50"
-                    }`}
-                  >
-                    <span className="text-sm font-semibold text-foreground">{plan.name}</span>
-                    <span className="text-xs text-muted-foreground">{plan.formatted_price}/mês</span>
-                  </button>
-                )
-              })}
-            </div>
-          </fieldset>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              void handleSubmit()
+            }}
+            noValidate
+            className="flex flex-col gap-5"
+          >
+            {step === 1 ? (
+              <>
+                <Field id="admin_name" label="Seu nome" error={fieldErrors.admin_name?.[0]}>
+                  <Input
+                    id="admin_name"
+                    value={adminName}
+                    onChange={(e) => setAdminName(e.target.value)}
+                    placeholder="Maria Silva"
+                    autoComplete="name"
+                    aria-invalid={!!fieldErrors.admin_name}
+                  />
+                </Field>
 
-          <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
-            <Field
-              id="organization_name"
-              label="Nome da organização"
-              error={fieldErrors.organization_name?.[0]}
-            >
-              <Input
-                id="organization_name"
-                value={organizationName}
-                onChange={(e) => handleOrganizationName(e.target.value)}
-                placeholder="Construtora Terraplan"
-                autoComplete="organization"
-                aria-invalid={!!fieldErrors.organization_name}
-              />
-            </Field>
+                <Field id="admin_email" label="E-mail" error={fieldErrors.admin_email?.[0]}>
+                  <Input
+                    id="admin_email"
+                    type="email"
+                    value={adminEmail}
+                    onChange={(e) => setAdminEmail(e.target.value)}
+                    placeholder="voce@empresa.com.br"
+                    autoComplete="email"
+                    aria-invalid={!!fieldErrors.admin_email}
+                  />
+                </Field>
 
-            <Field
-              id="slug"
-              label="Endereço da sua conta"
-              error={fieldErrors.slug?.[0]}
-              hint={<SlugHint status={slugStatus} />}
-            >
-              <div className="flex items-stretch">
-                <Input
-                  id="slug"
-                  value={subdomain}
-                  onChange={(e) => {
-                    setSubdomainTouched(true)
-                    setSubdomain(slugify(e.target.value))
-                  }}
-                  placeholder="sua-empresa"
-                  autoComplete="off"
-                  spellCheck={false}
-                  aria-invalid={!!fieldErrors.slug}
-                  className="rounded-r-none"
-                />
-                <span className="inline-flex items-center rounded-r-lg border border-l-0 border-input bg-muted px-3 text-sm text-muted-foreground">
-                  {TENANT_SUFFIX}
-                </span>
-              </div>
-            </Field>
-
-            <div className="h-px bg-border" />
-
-            <Field id="admin_name" label="Seu nome" error={fieldErrors.admin_name?.[0]}>
-              <Input
-                id="admin_name"
-                value={adminName}
-                onChange={(e) => setAdminName(e.target.value)}
-                placeholder="Maria Silva"
-                autoComplete="name"
-                aria-invalid={!!fieldErrors.admin_name}
-              />
-            </Field>
-
-            <Field id="admin_email" label="E-mail" error={fieldErrors.admin_email?.[0]}>
-              <Input
-                id="admin_email"
-                type="email"
-                value={adminEmail}
-                onChange={(e) => setAdminEmail(e.target.value)}
-                placeholder="voce@empresa.com.br"
-                autoComplete="email"
-                aria-invalid={!!fieldErrors.admin_email}
-              />
-            </Field>
-
-            <Field
-              id="admin_password"
-              label="Senha"
-              error={fieldErrors.admin_password?.[0]}
-              hint={
-                <span className="text-xs text-muted-foreground">
-                  Mínimo 8 caracteres, com maiúscula, minúscula e número.
-                </span>
-              }
-            >
-              <div className="relative">
-                <Input
+                <Field
                   id="admin_password"
-                  type={showPassword ? "text" : "password"}
-                  value={adminPassword}
-                  onChange={(e) => setAdminPassword(e.target.value)}
-                  placeholder="••••••••"
-                  autoComplete="new-password"
-                  aria-invalid={!!fieldErrors.admin_password}
-                  className="pr-10"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((v) => !v)}
-                  className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground hover:text-foreground"
-                  aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                  label="Senha"
+                  error={fieldErrors.admin_password?.[0]}
+                  hint={
+                    <span className="text-xs text-muted-foreground">
+                      Mínimo 8 caracteres, com maiúscula, minúscula e número.
+                    </span>
+                  }
                 >
-                  {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
-                </button>
-              </div>
-            </Field>
+                  <div className="relative">
+                    <Input
+                      id="admin_password"
+                      type={showPassword ? "text" : "password"}
+                      value={adminPassword}
+                      onChange={(e) => setAdminPassword(e.target.value)}
+                      placeholder="••••••••"
+                      autoComplete="new-password"
+                      aria-invalid={!!fieldErrors.admin_password}
+                      className="pr-10"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((v) => !v)}
+                      className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground hover:text-foreground"
+                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                    >
+                      {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                    </button>
+                  </div>
+                </Field>
 
-            <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
-              <input
-                type="checkbox"
-                checked={acceptContract}
-                onChange={(e) => setAcceptContract(e.target.checked)}
-                className="mt-0.5 size-4 shrink-0 rounded border-input accent-primary"
-                aria-invalid={!!fieldErrors.accept_usage_contract}
-              />
-              <span>
-                Li e aceito o{" "}
-                <a
-                  href="/legal/termos-de-uso"
-                  target="_blank"
-                  className="font-medium text-primary underline-offset-2 hover:underline"
+                <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                  <input
+                    type="checkbox"
+                    checked={acceptContract}
+                    onChange={(e) => setAcceptContract(e.target.checked)}
+                    className="mt-0.5 size-4 shrink-0 rounded border-input accent-primary"
+                    aria-invalid={!!fieldErrors.accept_usage_contract}
+                  />
+                  <span>
+                    Li e aceito o{" "}
+                    <a
+                      href="/legal/termos-de-uso"
+                      target="_blank"
+                      className="font-medium text-primary underline-offset-2 hover:underline"
+                    >
+                      Contrato de Utilização
+                    </a>{" "}
+                    e a{" "}
+                    <a
+                      href="/legal/privacidade"
+                      target="_blank"
+                      className="font-medium text-primary underline-offset-2 hover:underline"
+                    >
+                      Política de Privacidade
+                    </a>
+                    .
+                  </span>
+                </label>
+                {fieldErrors.accept_usage_contract && (
+                  <p className="-mt-3 text-xs text-destructive">
+                    {fieldErrors.accept_usage_contract[0]}
+                  </p>
+                )}
+              </>
+            ) : (
+              <>
+                <fieldset className="rounded-2xl border border-border bg-card/60 p-4">
+                  <legend className="px-1 text-sm font-medium text-foreground">
+                    Plano escolhido
+                  </legend>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {plans.map((plan) => {
+                      const active = plan.slug === selectedSlug
+                      return (
+                        <button
+                          key={plan.slug}
+                          type="button"
+                          onClick={() => setSelectedSlug(plan.slug)}
+                          aria-pressed={active}
+                          className={`flex flex-col items-start rounded-lg border px-3 py-2 text-left transition-colors ${
+                            active
+                              ? "border-primary bg-primary/5 ring-1 ring-primary/30"
+                              : "border-border hover:border-primary/40 hover:bg-muted/50"
+                          }`}
+                        >
+                          <span className="text-sm font-semibold text-foreground">{plan.name}</span>
+                          <span className="text-xs text-muted-foreground">
+                            {plan.formatted_price}/mês
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                </fieldset>
+
+                <Field
+                  id="organization_name"
+                  label="Nome da organização"
+                  error={fieldErrors.organization_name?.[0]}
                 >
-                  Contrato de Utilização
-                </a>{" "}
-                e a{" "}
-                <a
-                  href="/legal/privacidade"
-                  target="_blank"
-                  className="font-medium text-primary underline-offset-2 hover:underline"
+                  <Input
+                    id="organization_name"
+                    value={organizationName}
+                    onChange={(e) => handleOrganizationName(e.target.value)}
+                    placeholder="Construtora Terraplan"
+                    autoComplete="organization"
+                    aria-invalid={!!fieldErrors.organization_name}
+                  />
+                </Field>
+
+                <Field
+                  id="slug"
+                  label="Endereço da sua conta"
+                  error={fieldErrors.slug?.[0]}
+                  hint={<SlugHint status={slugStatus} />}
                 >
-                  Política de Privacidade
-                </a>
-                .
-              </span>
-            </label>
-            {fieldErrors.accept_usage_contract && (
-              <p className="-mt-3 text-xs text-destructive">{fieldErrors.accept_usage_contract[0]}</p>
+                  <div className="flex items-stretch">
+                    <Input
+                      id="slug"
+                      value={subdomain}
+                      onChange={(e) => {
+                        setSubdomainTouched(true)
+                        setSubdomain(slugify(e.target.value))
+                      }}
+                      placeholder="sua-empresa"
+                      autoComplete="off"
+                      spellCheck={false}
+                      aria-invalid={!!fieldErrors.slug}
+                      className="rounded-r-none"
+                    />
+                    <span className="inline-flex items-center rounded-r-lg border border-l-0 border-input bg-muted px-3 text-sm text-muted-foreground">
+                      {TENANT_SUFFIX}
+                    </span>
+                  </div>
+                </Field>
+
+                <div className="rounded-2xl border border-border bg-muted/35 p-4 text-sm text-muted-foreground">
+                  <p className="font-medium text-foreground">Quase pronto.</p>
+                  <p className="mt-1 leading-relaxed">
+                    Depois do checkout, você continua a configuração dentro do produto com mais
+                    contexto sobre equipe, carteira e operação.
+                  </p>
+                </div>
+              </>
             )}
 
             <Button
@@ -419,9 +469,9 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
               size="lg"
               disabled={submitting}
               className="mt-1 h-12 w-full gap-2 text-base font-semibold"
-              data-analytics-event="trial_signup_click"
-              data-analytics-location="signup-form"
-              data-analytics-plan={selectedSlug}
+              data-analytics-event={step === 2 ? "trial_signup_click" : undefined}
+              data-analytics-location={step === 2 ? "signup-form" : undefined}
+              data-analytics-plan={step === 2 ? selectedSlug : undefined}
             >
               {submitting ? (
                 <>
@@ -430,11 +480,23 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                 </>
               ) : (
                 <>
-                  Continuar para o pagamento
+                  {step === 1 ? "Continuar" : "Continuar para o pagamento"}
                   <ArrowRight className="size-4" />
                 </>
               )}
             </Button>
+
+            {step === 2 ? (
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={() => setStep(1)}
+                className="h-11 w-full"
+              >
+                Voltar e revisar acesso
+              </Button>
+            ) : null}
 
             <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground lg:hidden">
               <ShieldCheck className="size-3.5 shrink-0 text-[oklch(0.55_0.22_272)]" />
@@ -460,7 +522,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
 /** Card de resumo do plano em vidro (sobre o painel de marca escuro). */
 function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
   return (
-    <div className="rounded-2xl border border-white/15 bg-white/[0.08] p-6 backdrop-blur-md">
+    <div className="rounded-2xl border border-white/15 bg-white/8 p-6 backdrop-blur-md">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50">Resumo</p>
@@ -481,7 +543,7 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
       <ul className="space-y-2.5 text-sm">
         {featureBullets(plan.slug).map((f) => (
           <li key={f} className="flex items-start gap-2">
-            <Check className="mt-0.5 size-4 shrink-0 text-[var(--color-data-green)]" />
+            <Check className="mt-0.5 size-4 shrink-0 text-(--color-data-green)" />
             <span className="text-white/85">{f}</span>
           </li>
         ))}
@@ -504,22 +566,7 @@ function BrandLogo({ variant }: { variant: "light" | "dark" }) {
   return (
     <Link href="/" className="flex items-center gap-2.5 focus:outline-none">
       <div className={`flex size-8 items-center justify-center rounded-lg ${box}`}>
-        <svg viewBox="0 0 24 24" className={`size-4 ${mark}`} fill="none">
-          <polygon
-            points="12,2 22,7 22,17 12,22 2,17 2,7"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinejoin="round"
-            className={variant === "light" ? "fill-white/20" : "fill-primary/15"}
-          />
-          <polygon
-            points="12,6 18,9.5 18,14.5 12,18 6,14.5 6,9.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-            className={variant === "light" ? "fill-white/40" : "fill-primary/30"}
-          />
-        </svg>
+        <SigappLogoMark className={`size-4 ${mark}`} />
       </div>
       <span className={`font-heading text-lg font-extrabold tracking-tight ${wordmark}`}>
         SIGAPP
@@ -538,8 +585,8 @@ function Field({
   id: string
   label: string
   error?: string
-  hint?: React.ReactNode
-  children: React.ReactNode
+  hint?: ReactNode
+  children: ReactNode
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -563,7 +610,7 @@ function SlugHint({ status }: { status: SlugStatus }) {
     )
   if (status === "available")
     return (
-      <span className="flex items-center gap-1 text-xs text-[var(--color-data-green)]">
+      <span className="flex items-center gap-1 text-xs text-(--color-data-green)">
         <Check className="size-3" /> Endereço disponível
       </span>
     )

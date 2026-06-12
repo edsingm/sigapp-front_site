@@ -61,7 +61,7 @@ export function PermissionsMock() {
         {/* Rows */}
         <div className="space-y-1.5">
           {ROLES.map((r) => (
-            <div key={r.role} className="grid grid-cols-[72px_repeat(4,1fr)] items-center gap-1 md:grid-cols-[120px_repeat(6,1fr)]">
+            <div key={r.role} className="perm-row grid grid-cols-[72px_repeat(4,1fr)] items-center gap-1 md:grid-cols-[120px_repeat(6,1fr)]">
               <div className="flex flex-col gap-0.5">
                 <span className={`w-fit rounded px-1.5 py-0.5 text-[8px] font-semibold ${r.color}`}>
                   {r.role}

@@ -6,7 +6,7 @@ export function CookiePreferencesButton() {
   return (
     <button
       onClick={openCookiePrefs}
-      className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+      className="inline-flex min-h-11 items-center rounded-lg px-2 text-xs font-medium text-foreground/72 transition-colors hover:text-foreground"
     >
       Gerenciar cookies
     </button>

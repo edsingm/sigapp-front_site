@@ -137,7 +137,7 @@ export function CookieBanner() {
       {/* ── OVERLAY (modal only) ──────────────────────────────── */}
       {view === "modal" && (
         <div
-          className="fixed inset-0 z-[60] bg-foreground/40 backdrop-blur-sm"
+          className="fixed inset-0 z-60 bg-foreground/40 backdrop-blur-sm"
           onClick={() => {
             // fechar só se já havia consentimento
             if (getConsent()) setView("hidden")
@@ -171,20 +171,20 @@ export function CookieBanner() {
               <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <button
                   onClick={() => setView("modal")}
-                  className="flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
+                  className="flex min-h-11 items-center gap-1 rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground/76 transition-colors hover:border-foreground/20 hover:text-foreground"
                 >
                   Personalizar
                   <ChevronRight className="size-3" />
                 </button>
                 <button
                   onClick={acceptNecessary}
-                  className="rounded-lg border border-border px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
+                  className="min-h-11 rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground/76 transition-colors hover:border-foreground/20 hover:text-foreground"
                 >
                   Apenas necessários
                 </button>
                 <button
                   onClick={acceptAll}
-                  className="flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+                  className="flex min-h-11 items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
                 >
                   <Check className="size-3" />
                   Aceitar todos
@@ -197,7 +197,7 @@ export function CookieBanner() {
 
       {/* ── MODAL DE PREFERÊNCIAS ────────────────────────────── */}
       {view === "modal" && (
-        <div className="fixed inset-x-4 bottom-4 z-[70] mx-auto max-w-lg rounded-2xl border border-border bg-background shadow-2xl sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full">
+        <div className="fixed inset-x-4 bottom-4 z-70 mx-auto max-w-lg rounded-2xl border border-border bg-background shadow-2xl sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
             <div className="flex items-center gap-2.5">
@@ -283,19 +283,19 @@ export function CookieBanner() {
           <div className="flex flex-col gap-2 border-t border-border px-5 py-4 sm:flex-row">
             <button
               onClick={acceptNecessary}
-              className="flex-1 rounded-lg border border-border px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
+              className="flex-1 min-h-11 rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground/76 transition-colors hover:border-foreground/20 hover:text-foreground"
             >
               Apenas necessários
             </button>
             <button
               onClick={savePreferences}
-              className="flex-1 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/10"
+              className="flex-1 min-h-11 rounded-lg border border-primary/30 bg-primary/5 px-3 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
             >
               Salvar preferências
             </button>
             <button
               onClick={acceptAll}
-              className="flex-1 rounded-lg bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              className="flex-1 min-h-11 rounded-lg bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
               Aceitar todos
             </button>

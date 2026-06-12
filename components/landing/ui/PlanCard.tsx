@@ -47,7 +47,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         <span className="mb-1 text-sm text-muted-foreground">/mês</span>
       </div>
       {billingCycle === "annual" && (
-        <p className="-mt-4 mb-5 text-xs font-medium text-secondary">
+        <p className="-mt-4 mb-5 text-xs font-medium text-foreground/78">
           Economize 20% no plano anual
         </p>
       )}
@@ -78,8 +78,8 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
             </>
           ) : (
             <>
-              <X className="size-4 shrink-0 text-muted-foreground/50" />
-              <span className="text-muted-foreground/60">SIG_IA</span>
+              <X className="size-4 shrink-0 text-muted-foreground/70" />
+              <span className="text-muted-foreground">SIG_IA</span>
             </>
           )}
         </li>
@@ -91,8 +91,8 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
             </>
           ) : (
             <>
-              <X className="size-4 shrink-0 text-muted-foreground/50" />
-              <span className="text-muted-foreground/60">Comitê de revisão</span>
+              <X className="size-4 shrink-0 text-muted-foreground/70" />
+              <span className="text-muted-foreground">Comitê de revisão</span>
             </>
           )}
         </li>
@@ -116,10 +116,10 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       </Button>
 
       <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-        <ShieldCheck className="size-3.5 shrink-0 text-secondary" />
+        <ShieldCheck className="size-3.5 shrink-0 text-primary" />
         <span>
           Pagamento seguro via{" "}
-          <span className="font-semibold text-secondary">Stripe</span>
+          <span className="font-semibold text-primary">Stripe</span>
         </span>
       </div>
     </div>

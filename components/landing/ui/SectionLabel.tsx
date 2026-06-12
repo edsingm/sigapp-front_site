@@ -9,7 +9,7 @@ export function SectionLabel({ children, className }: SectionLabelProps) {
   return (
     <p
       className={cn(
-        "text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/78",
+        "text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/88",
         className
       )}
     >

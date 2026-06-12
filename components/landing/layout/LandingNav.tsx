@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { NavScrollClient } from "@/components/landing/client/NavScrollClient"
 import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
+import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
 import { ArrowRight, Menu, X } from "lucide-react"
 import { LINKS } from "@/lib/landing-data"
 
@@ -18,24 +19,9 @@ const NAV_LINKS = [
 
 function SigappLogo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5 focus:outline-none">
+    <Link href="/" className="inline-flex min-h-11 items-center gap-2.5 focus:outline-none">
       <div className="flex size-8 items-center justify-center rounded-lg border border-white/18 bg-white/12 shadow-sm shadow-black/10 backdrop-blur-sm">
-        <svg viewBox="0 0 24 24" className="size-4 text-white" fill="none">
-          <polygon
-            points="12,2 22,7 22,17 12,22 2,17 2,7"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinejoin="round"
-            className="fill-white/20"
-          />
-          <polygon
-            points="12,6 18,9.5 18,14.5 12,18 6,14.5 6,9.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-            className="fill-white/40"
-          />
-        </svg>
+        <SigappLogoMark className="size-4 text-white" />
       </div>
       <span className="font-heading text-lg font-extrabold tracking-tight text-white">
         SIGAPP
@@ -59,7 +45,7 @@ export function LandingNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="rounded-full px-3.5 py-2 text-sm font-semibold text-white/86 transition-colors hover:bg-white/8 hover:text-secondary"
+                className="inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-secondary"
               >
                 {link.label}
               </Link>
@@ -68,18 +54,18 @@ export function LandingNav() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <ThemeToggleButton className="border border-white/10 bg-white/6 text-white shadow-sm shadow-black/5 hover:bg-white/10 hover:text-white" />
+            <ThemeToggleButton className="border border-white/14 bg-white/8 text-white shadow-sm shadow-black/5 hover:bg-white/12 hover:text-white" />
             <a
               href={LINKS.login}
               data-analytics-event="login_click"
               data-analytics-location="nav"
-              className="hidden rounded-full px-3.5 py-2 text-sm font-semibold text-white/88 transition-colors hover:text-secondary md:block"
+              className="hidden min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:text-secondary md:inline-flex"
             >
               Entrar
             </a>
             <Button
               size="sm"
-              className="hidden gap-1.5 rounded-full bg-white font-semibold text-primary shadow-sm shadow-black/10 hover:bg-white/90 active:scale-[0.98] sm:inline-flex"
+              className="hidden min-h-11 gap-1.5 rounded-full bg-white px-4 font-semibold text-primary shadow-sm shadow-black/10 hover:bg-white/90 active:scale-[0.98] sm:inline-flex"
               nativeButton={false}
               render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav" />}
             >
@@ -89,7 +75,7 @@ export function LandingNav() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/6 text-white/90 transition-colors hover:bg-white/10 hover:text-white md:hidden"
+              className="flex size-11 items-center justify-center rounded-full border border-white/14 bg-white/8 text-white transition-colors hover:bg-white/12 hover:text-white md:hidden"
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             >
               {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}

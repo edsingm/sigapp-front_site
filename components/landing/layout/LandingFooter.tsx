@@ -1,8 +1,14 @@
 import Link from "next/link"
 import { CookiePreferencesButton } from "@/components/landing/client/CookiePreferencesButton"
+import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
+import { LINKS } from "@/lib/landing-data"
 
 type FooterLink = { label: string; href: string }
 type FooterGroup = { group: string; links: FooterLink[] }
+
+function isExternal(href: string) {
+  return href.startsWith("http") || href.startsWith("mailto:")
+}
 
 const FOOTER_GROUPS: FooterGroup[] = [
   {
@@ -10,8 +16,8 @@ const FOOTER_GROUPS: FooterGroup[] = [
     links: [
       { label: "Funcionalidades", href: "/#funcionalidades" },
       { label: "Planos", href: "/#precos" },
-      { label: "API", href: "#" },
-      { label: "Changelog", href: "#" },
+      { label: "Perguntas frequentes", href: "/#faq" },
+      { label: "Entrar", href: LINKS.login },
     ],
   },
   {
@@ -19,17 +25,13 @@ const FOOTER_GROUPS: FooterGroup[] = [
     links: [
       { label: "Sobre", href: "/sobre" },
       { label: "Blog", href: "/blog" },
-      { label: "Carreiras", href: "#" },
-      { label: "Imprensa", href: "#" },
     ],
   },
   {
-    group: "Suporte",
+    group: "Contato",
     links: [
-      { label: "Documentação", href: "#" },
-      { label: "Status", href: "#" },
-      { label: "Contato", href: "#" },
-      { label: "Ajuda", href: "#" },
+      { label: "Falar com vendas", href: LINKS.sales },
+      { label: "Agendar demonstração", href: LINKS.demo },
     ],
   },
   {
@@ -45,24 +47,9 @@ const FOOTER_GROUPS: FooterGroup[] = [
 
 function SigappLogo() {
   return (
-    <Link href="/" className="flex items-center gap-2.5">
+    <Link href="/" className="inline-flex min-h-11 items-center gap-2.5">
       <div className="flex size-8 items-center justify-center rounded-xl bg-primary shadow-sm shadow-black/10">
-        <svg viewBox="0 0 24 24" className="size-4 text-primary-foreground" fill="none">
-          <polygon
-            points="12,2 22,7 22,17 12,22 2,17 2,7"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinejoin="round"
-            className="fill-primary-foreground/20"
-          />
-          <polygon
-            points="12,6 18,9.5 18,14.5 12,18 6,14.5 6,9.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-            className="fill-primary-foreground/40"
-          />
-        </svg>
+        <SigappLogoMark className="size-4 text-primary-foreground" />
       </div>
       <span className="font-heading text-lg font-bold tracking-tight text-foreground">
         SIGAPP
@@ -79,37 +66,38 @@ export function LandingFooter() {
           {/* Brand */}
           <div className="flex flex-col gap-4 lg:col-span-1">
             <SigappLogo />
-            <p className="max-w-[30ch] text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-[30ch] text-sm leading-relaxed text-foreground/82">
               Plataforma SaaS para prospecção, viabilidade e gestão imobiliária B2B.
             </p>
-            <div className="flex items-center gap-3">
-              {["Li", "Tw", "In"].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="flex size-8 items-center justify-center rounded-xl border border-border bg-background text-xs font-semibold text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
-                >
-                  {social}
-                </a>
-              ))}
-            </div>
           </div>
 
           {/* Link groups */}
           {FOOTER_GROUPS.map(({ group, links }) => (
             <div key={group} className="flex flex-col gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary/78">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-foreground/88">
                 {group}
               </p>
               <ul className="flex flex-col gap-2">
                 {links.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary"
-                    >
-                      {link.label}
-                    </Link>
+                    {isExternal(link.href) ? (
+                      <a
+                        href={link.href}
+                        {...(link.href.startsWith("http")
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
+                        className="inline-flex min-h-11 items-center text-sm text-foreground/84 transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="inline-flex min-h-11 items-center text-sm text-foreground/84 transition-colors hover:text-primary"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -119,11 +107,11 @@ export function LandingFooter() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col gap-3 border-t border-border pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-foreground/76">
             © 2026 SIGAPP Tecnologia Ltda. CNPJ 00.000.000/0001-00
           </p>
           <div className="flex flex-wrap items-center gap-4">
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-foreground/76">
               Feito no Brasil para o mercado imobiliário brasileiro
             </p>
             <CookiePreferencesButton />

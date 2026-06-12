@@ -1,6 +1,7 @@
 import { PAIN_POINTS } from "@/lib/landing-data"
 import { FileSpreadsheet, FolderX, BotOff } from "lucide-react"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 
 const ICON_MAP = {
   FileSpreadsheet,
@@ -14,7 +15,7 @@ export function ProblemSection() {
       <div className="container-landing">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Left — headline */}
-          <div className="flex flex-col justify-center gap-5 lg:col-span-5">
+          <ScrollReveal stagger className="flex flex-col justify-center gap-5 lg:col-span-5">
             <SectionLabel>O problema</SectionLabel>
             <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Incorporar terreno ainda parece uma sequência de planilhas perdidas?
@@ -22,10 +23,10 @@ export function ProblemSection() {
             <p className="text-pretty text-muted-foreground md:text-lg">
               O mercado imobiliário brasileiro evoluiu. As ferramentas que a maioria usa, não.
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* Right — pain points */}
-          <div className="flex flex-col gap-6 lg:col-span-7">
+          <ScrollReveal stagger className="flex flex-col gap-6 lg:col-span-7">
             {PAIN_POINTS.map((point) => {
               const Icon = ICON_MAP[point.icon as keyof typeof ICON_MAP]
               return (
@@ -47,7 +48,7 @@ export function ProblemSection() {
                 </div>
               )
             })}
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

@@ -1,6 +1,8 @@
 import { FEATURES } from "@/lib/landing-data"
 import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
+import { MockReveal } from "@/components/landing/client/MockReveal"
 import { Check } from "lucide-react"
 import { ViabilityMock } from "@/components/landing/mocks/ViabilityMock"
 import { ChatMock } from "@/components/landing/mocks/ChatMock"
@@ -14,12 +16,19 @@ const MOCK_COMPONENTS = {
   permissions: PermissionsMock,
 }
 
+const MOCK_CLASSES: Record<string, string> = {
+  viability: "mock-viability",
+  chat: "mock-chat",
+  workflow: "mock-workflow",
+  permissions: "mock-permissions",
+}
+
 export function FeaturesZigzag() {
   return (
     <section id="funcionalidades" className="py-20 md:py-28">
       <div className="container-landing">
         {/* Section header */}
-        <div className="mb-14 flex flex-col gap-4 text-center md:mb-20">
+        <ScrollReveal stagger className="mb-14 flex flex-col gap-4 text-center md:mb-20">
           <SectionLabel className="text-center">Funcionalidades</SectionLabel>
           <h2 className="font-heading mx-auto text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-5xl">
             Do primeiro contato ao contrato assinado
@@ -27,7 +36,7 @@ export function FeaturesZigzag() {
           <p className="mx-auto max-w-[55ch] text-muted-foreground md:text-lg">
             Quatro módulos integrados que cobrem desde a prospecção inicial até a assinatura do contrato.
           </p>
-        </div>
+        </ScrollReveal>
 
         {/* Features */}
         <div className="flex flex-col gap-16 md:gap-28">
@@ -36,7 +45,7 @@ export function FeaturesZigzag() {
             const isRight = feature.side === "right"
 
             return (
-              <div
+              <ScrollReveal
                 key={feature.id}
                 className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
                   isRight ? "" : "lg:[&>*:first-child]:order-last"
@@ -64,9 +73,11 @@ export function FeaturesZigzag() {
                 {/* Mock */}
                 <div className={`relative ${isRight ? "lg:order-last" : ""}`}>
                   <div className="absolute -inset-4 rounded-3xl bg-linear-to-br from-secondary/12 via-primary/5 to-transparent" />
-                  <MockComponent />
+                  <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>
+                    <MockComponent />
+                  </MockReveal>
                 </div>
-              </div>
+              </ScrollReveal>
             )
           })}
         </div>

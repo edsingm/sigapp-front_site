@@ -56,7 +56,7 @@ export function WorkflowMock() {
       {/* Kanban */}
       <div className="flex gap-2 overflow-x-auto p-3">
         {COLUMNS.map((col, i) => (
-          <div key={col.label} className={`shrink-0 flex-col gap-2 w-24 md:w-36 ${i >= 3 ? 'hidden md:flex' : 'flex'}`}>
+          <div key={col.label} className={`workflow-col shrink-0 flex-col gap-2 w-24 md:w-36 ${i >= 3 ? 'hidden md:flex' : 'flex'}`}>
             <div className="flex items-center gap-1.5">
               <span className={`size-1.5 rounded-full ${col.dot}`} />
               <span className="text-[9px] font-semibold uppercase tracking-wide text-muted-foreground">

@@ -1,5 +1,6 @@
 import { COMPARISON_ROWS, LINKS } from "@/lib/landing-data"
 import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Button } from "@/components/ui/button"
 import { Check, X, ArrowRight } from "lucide-react"
 
@@ -34,7 +35,7 @@ export function ComparisonSection() {
   return (
     <section className="py-20 md:py-28">
       <div className="container-landing">
-        <div className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
+        <ScrollReveal stagger className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
           <EyebrowBadge variant="brand" className="self-center">Por que SIGAPP</EyebrowBadge>
           <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Tudo que a planilha e o ERP não fazem
@@ -43,50 +44,52 @@ export function ComparisonSection() {
             Uma plataforma desenhada do zero para incorporação — não um genérico
             adaptado às pressas.
           </p>
-        </div>
+        </ScrollReveal>
 
-        <div className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
-          {/* Cabeçalho */}
-          <div className="grid grid-cols-[1.6fr_repeat(3,1fr)] border-b border-border bg-muted/40">
-            <div className="px-3 py-4 text-xs font-medium text-muted-foreground sm:px-5 sm:py-5 sm:text-sm">
-              Recurso
-            </div>
-            {COLUMNS.map((col) => (
-              <div
-                key={col.key}
-                className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
-                  col.highlight
-                    ? "bg-primary/6 text-primary"
-                    : "text-foreground"
-                }`}
-              >
-                {col.label}
-              </div>
-            ))}
-          </div>
-
-          {/* Linhas */}
-          {COMPARISON_ROWS.map((row, i) => (
-            <div
-              key={row.label}
-              className={`grid grid-cols-[1.6fr_repeat(3,1fr)] ${
-                i < COMPARISON_ROWS.length - 1 ? "border-b border-border" : ""
-              }`}
-            >
-              <div className="px-3 py-3 text-xs font-medium text-foreground sm:px-5 sm:py-4 sm:text-sm">
-                {row.label}
+        <ScrollReveal className="mx-auto max-w-3xl">
+          <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+            {/* Cabeçalho */}
+            <div className="grid grid-cols-[1.6fr_repeat(3,1fr)] border-b border-border bg-muted/40">
+              <div className="px-3 py-4 text-xs font-medium text-muted-foreground sm:px-5 sm:py-5 sm:text-sm">
+                Recurso
               </div>
               {COLUMNS.map((col) => (
                 <div
                   key={col.key}
-                  className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/6" : ""}`}
+                  className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
+                    col.highlight
+                      ? "bg-primary/6 text-primary"
+                      : "text-foreground"
+                  }`}
                 >
-                  <Cell value={row[col.key]} highlight={col.highlight} />
+                  {col.label}
                 </div>
               ))}
             </div>
-          ))}
-        </div>
+
+            {/* Linhas */}
+            {COMPARISON_ROWS.map((row, i) => (
+              <div
+                key={row.label}
+                className={`grid grid-cols-[1.6fr_repeat(3,1fr)] ${
+                  i < COMPARISON_ROWS.length - 1 ? "border-b border-border" : ""
+                }`}
+              >
+                <div className="px-3 py-3 text-xs font-medium text-foreground sm:px-5 sm:py-4 sm:text-sm">
+                  {row.label}
+                </div>
+                {COLUMNS.map((col) => (
+                  <div
+                    key={col.key}
+                    className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/6" : ""}`}
+                  >
+                    <Cell value={row[col.key]} highlight={col.highlight} />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
 
         {/* CTA intermediário — ponto de maior persuasão antes do pricing */}
         <div className="mt-14 flex flex-col items-center gap-3 md:mt-16">
