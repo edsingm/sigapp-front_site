@@ -1,0 +1,16 @@
+services:
+  front:
+    container_name: sigapp-front-site
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+      target: runner
+    restart: always
+    ports:
+      - "8081:3000"
+    networks:
+      - database_sigapp
+
+networks:
+  database_sigapp:
+    external: true
