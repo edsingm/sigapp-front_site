@@ -1,35 +1,25 @@
-import { METRICS } from "@/lib/landing-data"
-
-const LOGOS = [
-  "Terraplan",
-  "Grupo Habitare",
-  "Incorp. Leste Sul",
-  "Construtora Meridian",
-  "Grupo Imobiliare",
-  "Incorp. Vitória",
-  "Construtora Nobre",
-  "Grupo Panorama",
-]
+import { METRICS, CLIENT_LOGOS } from "@/lib/landing-data"
 
 export function SocialProofBar() {
   return (
     <section className="border-y border-border bg-muted/30">
-      <div className="container-landing py-8 sm:py-9">
-        <div className="mb-5 flex items-center gap-4">
-          <div className="h-px flex-1 bg-primary/12" />
-          <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-foreground/88">
+      <div className="container-landing py-8 sm:py-10">
+        <div className="mb-6 flex items-center gap-4">
+          <div className="h-px flex-1 bg-border" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Usado por incorporadoras em todo o Brasil
           </span>
-          <div className="h-px flex-1 bg-primary/12" />
+          <div className="h-px flex-1 bg-border" />
         </div>
 
-        <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="mb-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {METRICS.map((metric) => (
             <div
               key={metric.label}
-              className="rounded-2xl border border-border bg-background/80 px-4 py-3 shadow-sm"
+              className="relative overflow-hidden rounded-2xl border border-primary/15 bg-background px-5 py-4 shadow-sm"
             >
-              <p className="font-heading text-xl font-black tracking-tight text-foreground sm:text-2xl">
+              <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0" />
+              <p className="font-heading text-2xl font-black tracking-tight text-primary sm:text-3xl">
                 {metric.value}
               </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
@@ -39,16 +29,17 @@ export function SocialProofBar() {
           ))}
         </div>
 
-        <div className="marquee-mask overflow-hidden">
-          <div className="animate-marquee">
-            {[...LOGOS, ...LOGOS].map((logo, i) => (
+        <div className="marquee-mask overflow-hidden" aria-label="Clientes que usam o SIGAPP">
+          <div className="animate-marquee" aria-hidden="true">
+            {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
               <div
                 key={`${logo}-${i}`}
-                className="mx-6 flex shrink-0 items-center justify-center sm:mx-8"
+                className="mx-6 flex shrink-0 items-center gap-6 sm:mx-8"
               >
-                <span className="font-heading whitespace-nowrap text-sm font-extrabold tracking-tight text-foreground/88 sm:text-base">
+                <span className="font-heading whitespace-nowrap text-sm font-extrabold tracking-tight text-foreground/70 sm:text-base">
                   {logo}
                 </span>
+                <span className="size-1 shrink-0 rounded-full bg-primary/30" />
               </div>
             ))}
           </div>

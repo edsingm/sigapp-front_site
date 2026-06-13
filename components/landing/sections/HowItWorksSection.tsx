@@ -2,12 +2,13 @@ import { HOW_IT_WORKS, LINKS } from "@/lib/landing-data"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Button } from "@/components/ui/button"
-import { MapPin, Calculator, Handshake, ArrowRight } from "lucide-react"
+import { MapPin, Calculator, Handshake, FileCheck, ArrowRight } from "lucide-react"
 
 const ICON_MAP = {
   MapPin,
   Calculator,
   Handshake,
+  FileCheck,
 }
 
 export function HowItWorksSection() {
@@ -17,7 +18,7 @@ export function HowItWorksSection() {
         <ScrollReveal stagger className="mx-auto mb-14 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
           <SectionLabel className="text-center">Como funciona</SectionLabel>
           <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
-            Do cadastro à viabilidade aprovada em 3 passos
+            Do cadastro ao registro imobiliário em 4 passos
           </h2>
           <p className="text-pretty text-muted-foreground md:text-lg">
             Sem implantação demorada, sem consultoria obrigatória. Configure e
@@ -25,20 +26,22 @@ export function HowItWorksSection() {
           </p>
         </ScrollReveal>
 
-        <ScrollReveal stagger className="grid gap-7 md:grid-cols-3 lg:gap-12">
+        <ScrollReveal stagger className="grid gap-7 md:grid-cols-4 lg:gap-12">
           {HOW_IT_WORKS.map((step, i) => {
             const Icon = ICON_MAP[step.icon as keyof typeof ICON_MAP]
             return (
-              <div key={step.title} className="relative flex flex-col gap-3.5 sm:gap-4">
-                {/* Linha conectora entre passos (desktop) */}
-                {i < HOW_IT_WORKS.length - 1 && (
-                  <div className="absolute left-14 right-0 top-6 hidden h-px bg-border md:block" />
+              <div key={`${step.title}-${i}`} className="relative flex flex-col items-center gap-3.5 text-center sm:gap-4">
+                {i > 0 && (
+                  <div className="absolute left-0 right-1/2 top-6 hidden h-px bg-border md:block" />
                 )}
-                <div className="relative flex items-center gap-3">
+                {i < HOW_IT_WORKS.length - 1 && (
+                  <div className="absolute left-1/2 right-0 top-6 hidden h-px bg-border md:block" />
+                )}
+                <div className="relative z-10">
                   <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm shadow-primary/25">
                     {Icon && <Icon className="size-5" strokeWidth={1.75} />}
                   </span>
-                  <span className="font-mono text-sm font-bold text-secondary">
+                  <span className="absolute -right-1.5 -top-1.5 flex size-5 items-center justify-center rounded-full bg-muted font-mono text-[10px] font-bold text-primary ring-1 ring-border">
                     0{i + 1}
                   </span>
                 </div>

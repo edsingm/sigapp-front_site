@@ -436,6 +436,17 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
 ]
 
+export const CLIENT_LOGOS = [
+  "Terraplan",
+  "Grupo Habitare",
+  "Incorp. Leste Sul",
+  "Construtora Meridian",
+  "Grupo Imobiliare",
+  "Incorp. Vitória",
+  "Construtora Nobre",
+  "Grupo Panorama",
+]
+
 export type HowItWorksStep = {
   icon: string
   title: string
@@ -461,6 +472,12 @@ export const HOW_IT_WORKS: HowItWorksStep[] = [
     title: "Aprove e feche",
     description:
       "Envie ao comitê, negocie com histórico completo e conduza a legalização no mesmo pipeline — sem trocar de ferramenta.",
+  },
+  {
+    icon: "FileCheck",
+    title: "Legalize e registre",
+    description:
+      "Acompanhe toda a documentação, escritura e registro imobiliário dentro da plataforma, com status em tempo real.",
   },
 ]
 
