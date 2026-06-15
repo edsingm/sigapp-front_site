@@ -17,7 +17,7 @@ export function HowItWorksSection() {
       <div className="container-landing">
         <ScrollReveal stagger className="mx-auto mb-14 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
           <SectionLabel className="text-center">Como funciona</SectionLabel>
-          <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+          <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Do cadastro ao registro imobiliário em 4 passos
           </h2>
           <p className="text-pretty text-muted-foreground md:text-lg">

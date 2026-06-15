@@ -50,7 +50,7 @@ export function PricingFeatureMatrix() {
           <SectionLabel className="text-center">
             {PRICING_MATRIX_COPY.eyebrow}
           </SectionLabel>
-          <h3 className="font-heading text-2xl font-black tracking-tight text-foreground md:text-3xl">
+          <h3 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
             {PRICING_MATRIX_COPY.title}
           </h3>
           <p className="mx-auto max-w-[58ch] text-sm text-muted-foreground md:text-base">

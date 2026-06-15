@@ -88,7 +88,7 @@ Essa análise, que levaria um dia inteiro em Excel, o SIGAPP produz em minutos.
     publishedAt: "2026-05-28",
     readTime: 7,
     category: "Mercado Imobiliário",
-    coverColor: "from-amber-500/20 to-orange-600/10",
+    coverColor: "from-secondary/20 to-primary/8",
     tags: ["TIR", "Viabilidade", "Análise Financeira"],
     featured: true,
   },
@@ -127,7 +127,7 @@ Nenhuma dessas consultas funciona bem em um assistente de IA genérico, porque e
     publishedAt: "2026-05-15",
     readTime: 6,
     category: "Inteligência Artificial",
-    coverColor: "from-violet-500/20 to-purple-600/10",
+    coverColor: "from-primary/18 to-secondary/10",
     tags: ["IA", "SIG_IA", "Automação"],
     featured: true,
   },
@@ -160,7 +160,7 @@ No SIGAPP, entendemos que para dados tão sensíveis quanto prospecções imobil
     publishedAt: "2026-05-02",
     readTime: 5,
     category: "Tecnologia",
-    coverColor: "from-slate-500/20 to-zinc-600/10",
+    coverColor: "from-muted-foreground/15 to-primary/8",
     tags: ["Segurança", "Multi-tenant", "Dados"],
   },
   {
@@ -206,7 +206,7 @@ No SIGAPP, o módulo de Comitê faz exatamente isso, com rastreabilidade complet
     publishedAt: "2026-04-20",
     readTime: 8,
     category: "Dicas",
-    coverColor: "from-emerald-500/20 to-teal-600/10",
+    coverColor: "from-emerald-500/16 to-primary/8",
     tags: ["Comitê", "Gestão", "Processo"],
   },
   {
@@ -243,7 +243,7 @@ O SIGAPP calcula corretamente as duas modalidades, incluindo os impactos em IRPJ
     publishedAt: "2026-04-08",
     readTime: 9,
     category: "Mercado Imobiliário",
-    coverColor: "from-amber-500/20 to-yellow-600/10",
+    coverColor: "from-secondary/18 to-accent",
     tags: ["INCC", "CUB", "Permuta", "Tributação"],
   },
   {
@@ -290,7 +290,7 @@ A TIR do terreno aprovado nessa reunião: 19,3%. A meta da empresa: 17%.
     publishedAt: "2026-03-25",
     readTime: 6,
     category: "Produto",
-    coverColor: "from-blue-500/20 to-cyan-600/10",
+    coverColor: "from-primary/20 to-secondary/12",
     tags: ["Case", "Digitalização", "Onboarding"],
   },
 ]

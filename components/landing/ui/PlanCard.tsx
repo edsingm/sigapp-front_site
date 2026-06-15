@@ -34,7 +34,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {plan.tagline}
         </p>
-        <h3 className="mt-1 font-heading text-xl font-black text-foreground">
+        <h3 className="mt-1 font-heading text-xl font-semibold text-foreground">
           {plan.name}
         </h3>
       </div>

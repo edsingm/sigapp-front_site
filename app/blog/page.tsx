@@ -19,12 +19,10 @@ export const metadata: Metadata = {
 }
 
 const CATEGORY_COLORS: Record<BlogCategory, string> = {
-  "Mercado Imobiliário":
-    "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  Tecnologia: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
-  "Inteligência Artificial":
-    "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
-  Produto: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+  "Mercado Imobiliário": "bg-secondary/20 text-accent-foreground dark:text-secondary",
+  Tecnologia: "bg-muted text-muted-foreground",
+  "Inteligência Artificial": "bg-primary/10 text-primary",
+  Produto: "bg-accent text-accent-foreground",
   Dicas: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
 }
 
@@ -106,7 +104,7 @@ export default function BlogPage() {
             <EyebrowBadge variant="brand" className="mb-4">
               Blog do SIGAPP
             </EyebrowBadge>
-            <h1 className="font-heading mt-4 text-4xl font-black tracking-tight text-foreground md:text-5xl">
+            <h1 className="font-heading mt-4 text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
               Conteúdo sobre incorporação imobiliária
             </h1>
             <p className="mx-auto mt-4 max-w-[52ch] text-lg text-muted-foreground">

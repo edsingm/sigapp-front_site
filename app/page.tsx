@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 
 export const metadata: Metadata = {
-  title: "SIGAPP — Prospecte terrenos. Calcule viabilidade. Feche negócios.",
+  title: "SIGAPP — Do terreno ao retorno",
   description:
     "Da prospecção à legalização em uma única plataforma. DRE, TIR e fluxo de caixa em segundos — aprovação no comitê em uma rodada, não quatro. Trial de 7 dias grátis.",
 }

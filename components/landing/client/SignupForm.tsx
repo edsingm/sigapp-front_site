@@ -172,8 +172,8 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           sizes="50vw"
           className="object-cover object-center"
         />
-        <div className="absolute inset-0 bg-linear-to-br from-[oklch(0.08_0.03_262.9)]/96 via-[oklch(0.11_0.04_262.9)]/92 to-[oklch(0.30_0.12_262.9)]/85" />
-        <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-[0.18]" />
+        <div className="absolute inset-0 bg-linear-to-br from-[#071529]/98 via-[#0B1E39]/94 to-[#1648C9]/84" />
+        <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-70" />
 
         {/* Topo — logo */}
         <div className="relative">
@@ -183,12 +183,12 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
         {/* Meio — proposta + resumo do plano */}
         <div className="relative flex flex-col gap-7">
           <div className="flex flex-col gap-3">
-            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+            <span className="inline-flex w-fit items-center gap-2 rounded-md border border-white/20 bg-white/8 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
               <span className="size-1.5 rounded-full bg-(--color-data-green)" />
               {selectedPlan ? `Trial de ${selectedPlan.trial_days} dias` : "Trial de 7 dias"}
             </span>
-            <h1 className="font-heading text-3xl font-black leading-tight tracking-tight text-white xl:text-4xl">
-              Comece a calcular viabilidade hoje.
+            <h1 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-white xl:text-4xl">
+              Do terreno ao retorno.
             </h1>
           </div>
 
@@ -250,7 +250,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
               Passo {step} de 2
             </p>
-            <h2 className="font-heading text-2xl font-black tracking-tight text-foreground md:text-3xl">
+            <h2 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               {step === 1 ? "Crie seu acesso" : "Agora configure sua conta"}
             </h2>
             <p className="mt-1.5 text-sm text-muted-foreground">
@@ -526,7 +526,7 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-white/50">Resumo</p>
-          <h2 className="mt-1.5 font-heading text-xl font-black text-white">{plan.name}</h2>
+          <h2 className="mt-1.5 font-heading text-xl font-semibold text-white">{plan.name}</h2>
         </div>
         <div className="text-right">
           <p className="font-mono text-2xl font-bold tracking-tight text-white">
@@ -561,14 +561,12 @@ function BrandLogo({ variant }: { variant: "light" | "dark" }) {
   const mark = variant === "light" ? "text-white" : "text-primary"
   const box =
     variant === "light"
-      ? "border border-white/20 bg-white/15"
-      : "bg-primary/10"
+      ? "text-secondary"
+      : "text-primary"
   return (
-    <Link href="/" className="flex items-center gap-2.5 focus:outline-none">
-      <div className={`flex size-8 items-center justify-center rounded-lg ${box}`}>
-        <SigappLogoMark className={`size-4 ${mark}`} />
-      </div>
-      <span className={`font-heading text-lg font-extrabold tracking-tight ${wordmark}`}>
+    <Link href="/" className="flex items-center gap-3 focus:outline-none">
+      <SigappLogoMark className={`size-7 ${mark} ${box}`} />
+      <span className={`font-heading text-base font-bold tracking-[0.14em] ${wordmark}`}>
         SIGAPP
       </span>
     </Link>

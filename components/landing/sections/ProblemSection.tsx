@@ -17,7 +17,7 @@ export function ProblemSection() {
           {/* Left — headline */}
           <ScrollReveal stagger className="flex flex-col justify-center gap-5 lg:col-span-5">
             <SectionLabel>O problema</SectionLabel>
-            <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+            <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
               Incorporar terreno ainda parece uma sequência de planilhas perdidas?
             </h2>
             <p className="text-pretty text-muted-foreground md:text-lg">

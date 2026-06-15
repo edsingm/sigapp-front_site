@@ -37,7 +37,7 @@ export function ComparisonSection() {
       <div className="container-landing">
         <ScrollReveal stagger className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
           <EyebrowBadge variant="brand" className="self-center">Por que SIGAPP</EyebrowBadge>
-          <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+          <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
             Tudo que a planilha e o ERP não fazem
           </h2>
           <p className="text-pretty text-muted-foreground md:text-lg">

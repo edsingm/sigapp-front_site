@@ -1,4 +1,4 @@
-import { Geist_Mono, Inter, Roboto } from "next/font/google"
+import { Geist_Mono, Manrope, Space_Grotesk } from "next/font/google"
 import type { Metadata, Viewport } from "next"
 
 import "./globals.css"
@@ -8,16 +8,14 @@ import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
 import { cn } from "@/lib/utils"
 import { PLANS, SITE, SITE_URL } from "@/lib/landing-data"
 
-const robotoHeading = Roboto({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
   variable: "--font-heading",
   display: "swap",
 })
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   variable: "--font-sans",
   display: "swap",
 })
@@ -134,8 +132,8 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         fontMono.variable,
-        inter.variable,
-        robotoHeading.variable
+        manrope.variable,
+        spaceGrotesk.variable
       )}
     >
       <body suppressHydrationWarning>

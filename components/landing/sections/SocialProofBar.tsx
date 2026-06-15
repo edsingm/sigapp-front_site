@@ -2,7 +2,7 @@ import { METRICS, CLIENT_LOGOS } from "@/lib/landing-data"
 
 export function SocialProofBar() {
   return (
-    <section className="border-y border-border bg-muted/30">
+    <section className="border-y border-border bg-background">
       <div className="container-landing py-8 sm:py-10">
         <div className="mb-6 flex items-center gap-4">
           <div className="h-px flex-1 bg-border" />
@@ -16,10 +16,10 @@ export function SocialProofBar() {
           {METRICS.map((metric) => (
             <div
               key={metric.label}
-              className="relative overflow-hidden rounded-2xl border border-primary/15 bg-background px-5 py-4 shadow-sm"
+              className="relative overflow-hidden rounded-xl border border-border bg-card px-5 py-4"
             >
-              <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0" />
-              <p className="font-heading text-2xl font-black tracking-tight text-primary sm:text-3xl">
+              <div className="absolute inset-y-0 left-0 w-0.5 bg-primary" />
+              <p className="font-heading text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
                 {metric.value}
               </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground">

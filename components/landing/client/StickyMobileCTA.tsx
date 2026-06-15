@@ -62,7 +62,7 @@ export function StickyMobileCTA() {
 
         <Button
           size="lg"
-          className="h-11 w-full gap-2 rounded-full"
+          className="h-11 w-full gap-2 rounded-md"
           nativeButton={false}
           render={
             <a

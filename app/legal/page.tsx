@@ -17,7 +17,7 @@ const LEGAL_DOCS = [
       "As condições que regem o uso da plataforma SIGAPP, incluindo direitos, obrigações, planos e limitação de responsabilidade.",
     href: "/legal/termos-de-uso",
     updated: "07 de junho de 2026",
-    color: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+    color: "bg-primary/10 text-primary",
   },
   {
     icon: Shield,
@@ -26,7 +26,7 @@ const LEGAL_DOCS = [
       "Como coletamos, utilizamos e protegemos seus dados pessoais, em conformidade com a LGPD (Lei 13.709/2018).",
     href: "/legal/privacidade",
     updated: "07 de junho de 2026",
-    color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
+    color: "bg-secondary/20 text-accent-foreground dark:text-secondary",
   },
   {
     icon: Lock,
@@ -44,7 +44,7 @@ const LEGAL_DOCS = [
       "Quais cookies utilizamos, para quê servem e como você pode gerenciar suas preferências de rastreamento.",
     href: "/legal/cookies",
     updated: "07 de junho de 2026",
-    color: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400",
+    color: "bg-muted text-muted-foreground",
   },
 ]
 

@@ -14,16 +14,15 @@ export function EyebrowBadge({
   return (
     <span
       className={cn(
-        "inline-flex self-start items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium tracking-[0.14em] shadow-sm shadow-black/5",
+        "inline-flex self-start items-center gap-2 rounded-md border-l-2 px-2.5 py-1 text-[11px] font-bold tracking-[0.16em] uppercase",
         variant === "brand" &&
-          "border border-primary/18 bg-accent/80 text-primary",
+          "border-primary bg-accent/70 text-primary",
         variant === "default" &&
-          "border border-border bg-muted text-muted-foreground",
-        variant === "muted" && "bg-muted text-muted-foreground",
+          "border-muted-foreground/40 bg-muted text-muted-foreground",
+        variant === "muted" && "border-border bg-muted text-muted-foreground",
         className
       )}
     >
-      <span className="size-1.5 rounded-full bg-secondary" />
       {children}
     </span>
   )

@@ -19,11 +19,9 @@ const NAV_LINKS = [
 
 function SigappLogo() {
   return (
-    <Link href="/" className="inline-flex min-h-11 items-center gap-2.5 focus:outline-none">
-      <div className="flex size-8 items-center justify-center rounded-lg border border-white/18 bg-white/12 shadow-sm shadow-black/10 backdrop-blur-sm">
-        <SigappLogoMark className="size-4 text-white" />
-      </div>
-      <span className="font-heading text-lg font-extrabold tracking-tight text-white">
+    <Link href="/" className="inline-flex min-h-11 items-center gap-3 focus:outline-none">
+      <SigappLogoMark className="size-7 text-secondary" />
+      <span className="font-heading text-base font-bold tracking-[0.14em] text-white">
         SIGAPP
       </span>
     </Link>
@@ -45,7 +43,7 @@ export function LandingNav() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="inline-flex min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-white/10 hover:text-secondary"
+                className="inline-flex min-h-11 items-center rounded-md px-4 py-2 text-sm font-semibold text-white/85 transition-colors hover:bg-white/8 hover:text-white"
               >
                 {link.label}
               </Link>
@@ -59,13 +57,13 @@ export function LandingNav() {
               href={LINKS.login}
               data-analytics-event="login_click"
               data-analytics-location="nav"
-              className="hidden min-h-11 items-center rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:text-secondary md:inline-flex"
+              className="hidden min-h-11 items-center rounded-md px-4 py-2 text-sm font-semibold text-white/85 transition-colors hover:text-white md:inline-flex"
             >
               Entrar
             </a>
             <Button
               size="sm"
-              className="hidden min-h-11 gap-1.5 rounded-full bg-white px-4 font-semibold text-primary shadow-sm shadow-black/10 hover:bg-white/90 active:scale-[0.98] sm:inline-flex"
+              className="hidden min-h-11 gap-1.5 rounded-md bg-primary px-4 font-semibold text-white shadow-sm shadow-black/10 hover:bg-primary/90 active:scale-[0.98] sm:inline-flex"
               nativeButton={false}
               render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav" />}
             >
@@ -75,7 +73,7 @@ export function LandingNav() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen((v) => !v)}
-              className="flex size-11 items-center justify-center rounded-full border border-white/14 bg-white/8 text-white transition-colors hover:bg-white/12 hover:text-white md:hidden"
+              className="flex size-11 items-center justify-center rounded-md border border-white/14 bg-white/8 text-white transition-colors hover:bg-white/12 hover:text-white md:hidden"
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             >
               {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}

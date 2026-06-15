@@ -30,7 +30,7 @@ export function FeaturesZigzag() {
         {/* Section header */}
         <ScrollReveal stagger className="mb-14 flex flex-col gap-4 text-center md:mb-20">
           <SectionLabel className="text-center">Funcionalidades</SectionLabel>
-          <h2 className="font-heading mx-auto text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-5xl">
+          <h2 className="font-heading mx-auto text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-5xl">
             Do primeiro contato ao contrato assinado
           </h2>
           <p className="mx-auto max-w-[55ch] text-muted-foreground md:text-lg">
@@ -54,7 +54,7 @@ export function FeaturesZigzag() {
                 {/* Text */}
                 <div className={`flex flex-col gap-5 ${isRight ? "" : "lg:order-last"}`}>
                   <EyebrowBadge variant="brand">{feature.eyebrow}</EyebrowBadge>
-                  <h3 className="font-heading text-2xl font-black leading-tight tracking-tight text-foreground text-balance md:text-3xl lg:text-4xl">
+                  <h3 className="font-heading text-2xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-3xl lg:text-4xl">
                     {feature.title}
                   </h3>
                   <p className="max-w-[52ch] text-muted-foreground md:text-lg leading-relaxed">

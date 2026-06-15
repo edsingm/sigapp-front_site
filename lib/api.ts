@@ -3,8 +3,8 @@
 // { success, data, message } / { success: false, errors, error }.
 
 function apiBaseUrl(): string {
-  const url = process.env.NEXT_PUBLIC_API_URL
-  if (!url) throw new Error("NEXT_PUBLIC_API_URL não configurada")
+  const url = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL
+  if (!url) throw new Error("API_URL não configurada")
   return url.replace(/\/$/, "")
 }
 

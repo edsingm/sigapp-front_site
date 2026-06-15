@@ -1,8 +1,10 @@
+import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
+
 const STATUS_COLORS: Record<string, string> = {
-  "Em Análise": "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400",
-  "Aguardando Viab.": "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+  "Em Análise": "bg-primary/10 text-primary",
+  "Aguardando Viab.": "bg-secondary/20 text-accent-foreground dark:text-secondary",
   "Aprovado": "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
-  "Em Negociação": "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+  "Em Negociação": "bg-foreground/8 text-foreground",
   "Rascunho": "bg-muted text-muted-foreground",
 }
 
@@ -55,8 +57,8 @@ export function DashboardPreviewMock() {
       {/* Mock Navbar */}
       <div className="flex items-center justify-between border-b border-border bg-muted/40 px-4 py-2.5">
         <div className="flex items-center gap-2">
-          <div className="flex size-5 items-center justify-center rounded bg-primary">
-            <span className="text-[8px] font-black text-primary-foreground">S</span>
+          <div className="flex size-5 items-center justify-center text-primary">
+            <SigappLogoMark className="size-4" />
           </div>
           <span className="text-xs font-semibold text-foreground">SIGAPP</span>
         </div>

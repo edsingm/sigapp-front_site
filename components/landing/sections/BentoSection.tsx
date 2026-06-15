@@ -251,7 +251,7 @@ export function BentoSection() {
       <div className="container-landing">
         <ScrollReveal stagger className="mb-16 flex flex-col items-center gap-2 text-center md:mb-20">
           <SectionLabel className="text-center">Capacidades</SectionLabel>
-          <h2 className="font-heading text-3xl font-black leading-tight tracking-tight text-foreground text-balance md:text-4xl">
+          <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl">
             Mais do que uma planilha. Muito mais.
           </h2>
         </ScrollReveal>

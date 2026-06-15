@@ -19,8 +19,7 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 80,
-          background:
-            "linear-gradient(135deg, #171f4a 0%, #223d98 55%, #3156e3 100%)",
+          background: "#0B1E39",
           fontFamily: "sans-serif",
           position: "relative",
           overflow: "hidden",
@@ -48,13 +47,13 @@ export default function OpengraphImage() {
             <path d="M298 84 456 70 596 120 574 222 388 222 412 126Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.18)" />
             <path d="M456 70 634 88 792 154 764 262 574 222 596 120Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.22)" />
             <path d="M226 234 388 222 370 348 198 364 108 296Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.18)" />
-            <path d="M388 222 574 222 564 340 370 348Z" fill="rgba(245,197,66,0.16)" stroke="rgba(255,255,255,0.4)" />
+            <path d="M388 222 574 222 564 340 370 348Z" fill="rgba(46,107,255,0.18)" stroke="rgba(108,160,255,0.55)" />
             <path d="M574 222 764 262 748 374 564 340Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.22)" />
             <path d="M198 364 370 348 360 470 206 494 122 422Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.18)" />
             <path d="M370 348 564 340 554 456 360 470Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" />
             <path d="M564 340 748 374 732 478 554 456Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.18)" />
             <path d="M636 281 574 281 512 281" stroke="rgba(255,255,255,0.34)" strokeWidth="2" strokeDasharray="8 14" />
-            <circle cx="574" cy="281" r="10" fill="#f5c542" />
+            <circle cx="574" cy="281" r="10" fill="#2E6BFF" />
             <circle cx="512" cy="281" r="7" fill="rgba(255,255,255,0.9)" />
             <circle cx="636" cy="281" r="7" fill="rgba(255,255,255,0.9)" />
           </svg>
@@ -78,17 +77,15 @@ export default function OpengraphImage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              width: 56,
-              height: 56,
-              borderRadius: 16,
-              background: "rgba(255,255,255,0.14)",
-              border: "1px solid rgba(255,255,255,0.25)",
+              width: 48,
+              height: 48,
+              color: "#6CA0FF",
             }}
           >
-            <SigappLogoMark width={28} height={28} className="text-white" />
+            <SigappLogoMark width={42} height={42} />
           </div>
           <span
-            style={{ fontSize: 34, fontWeight: 800, color: "#ffffff" }}
+            style={{ fontSize: 30, fontWeight: 700, color: "#ffffff", letterSpacing: "0.14em" }}
           >
             {SITE.name}
           </span>
@@ -102,14 +99,11 @@ export default function OpengraphImage() {
             position: "relative",
           }}
         >
-          <span style={{ fontSize: 68, fontWeight: 800, color: "#ffffff" }}>
-            Prospecte terrenos.
+          <span style={{ fontSize: 72, fontWeight: 700, color: "#ffffff" }}>
+            Do terreno
           </span>
-          <span style={{ fontSize: 68, fontWeight: 800, color: "#ffffff" }}>
-            Calcule viabilidade.
-          </span>
-          <span style={{ fontSize: 68, fontWeight: 800, color: "#f5c542" }}>
-            Decida com dados.
+          <span style={{ fontSize: 72, fontWeight: 700, color: "#6CA0FF" }}>
+            ao retorno.
           </span>
         </div>
 
@@ -131,8 +125,8 @@ export default function OpengraphImage() {
               alignItems: "center",
               gap: 10,
               padding: "12px 18px",
-              borderRadius: 999,
-              background: "rgba(255,255,255,0.1)",
+              borderRadius: 8,
+              background: "#2E6BFF",
               color: "#ffffff",
               fontSize: 22,
               fontWeight: 600,

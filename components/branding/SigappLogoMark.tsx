@@ -20,27 +20,9 @@ export function SigappLogoMark({
       width={width}
       height={height}
     >
-      <path
-        d="M12 3 2.75 7.6 12 12.2l9.25-4.6L12 3Z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M2.75 12 12 16.6 21.25 12"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M2.75 16.4 12 21l9.25-4.6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <rect x="7" y="3.5" width="14" height="4.5" rx="2.25" fill="currentColor" />
+      <rect x="3" y="9.75" width="18" height="4.5" rx="2.25" fill="currentColor" />
+      <rect x="3" y="16" width="14" height="4.5" rx="2.25" fill="currentColor" />
     </svg>
   )
 }

@@ -19,12 +19,12 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          borderRadius: 20,
-          background: "#3156e3",
-          color: "white",
+          borderRadius: 16,
+          background: "#0B1E39",
+          color: "#6CA0FF",
         }}
       >
-        <SigappLogoMark width={36} height={36} className="text-white" />
+        <SigappLogoMark width={38} height={38} />
       </div>
     ),
     size

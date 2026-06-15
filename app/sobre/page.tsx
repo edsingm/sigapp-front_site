@@ -17,21 +17,21 @@ const TEAM = [
     role: "Co-fundador & CEO",
     bio: "15 anos no mercado imobiliário. Ex-Incorporadora Nacional, onde liderou análise de mais de R$ 1,2B em projetos.",
     initials: "EC",
-    color: "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300",
+    color: "bg-primary/10 text-primary",
   },
   {
     name: "Rafael Torres",
     role: "Co-fundador & CTO",
     bio: "Engenheiro de software com passagem pelo Nubank e Quinto Andar. Especialista em sistemas financeiros e multi-tenancy.",
     initials: "RT",
-    color: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300",
+    color: "bg-muted text-muted-foreground",
   },
   {
     name: "Carla Mendes",
     role: "Head de Produto",
     bio: "Ex-gestora de incorporação no Grupo Habitare. Traz a perspectiva do usuário para cada decisão de produto.",
     initials: "CM",
-    color: "bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-300",
+    color: "bg-secondary/20 text-accent-foreground dark:text-secondary",
   },
   {
     name: "Luciana Faria",
@@ -123,7 +123,7 @@ export default function SobrePage() {
               <EyebrowBadge variant="brand" className="mb-4">
                 Nossa história
               </EyebrowBadge>
-              <h1 className="font-heading mt-4 text-4xl font-black tracking-tight text-foreground md:text-6xl">
+              <h1 className="font-heading mt-4 text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
                 Construído por quem viveu o problema
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
