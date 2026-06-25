@@ -1,14 +1,15 @@
 import type { Metadata } from "next"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
+import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
 import { Button } from "@/components/ui/button"
-import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
 import { ArrowRight, MapPin, Target, Zap, Shield, Users } from "lucide-react"
+import { LINKS } from "@/lib/landing-data"
 
 export const metadata: Metadata = {
   title: "Sobre — SIGAPP",
   description:
-    "Conheça a história do SIGAPP, a plataforma SaaS que está transformando a forma como incorporadoras analisam terrenos e calculam viabilidade financeira.",
+    "Conheça a história do SIGAPP, o sistema de inteligência de incorporação criado para decisões de terreno com clareza financeira.",
 }
 
 const TEAM = [
@@ -24,28 +25,28 @@ const TEAM = [
     role: "Co-fundador & CTO",
     bio: "Engenheiro de software com passagem pelo Nubank e Quinto Andar. Especialista em sistemas financeiros e multi-tenancy.",
     initials: "RT",
-    color: "bg-muted text-muted-foreground",
+    color: "bg-muted text-foreground/72",
   },
   {
     name: "Carla Mendes",
     role: "Head de Produto",
     bio: "Ex-gestora de incorporação no Grupo Habitare. Traz a perspectiva do usuário para cada decisão de produto.",
     initials: "CM",
-    color: "bg-secondary/20 text-accent-foreground dark:text-secondary",
+    color: "bg-accent text-primary",
   },
   {
     name: "Luciana Faria",
     role: "Engenheira de IA",
     bio: "PhD em Ciência da Computação pela USP. Arquitetou o sistema de ferramentas da SIG_IA e o pipeline de embeddings.",
     initials: "LF",
-    color: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300",
+    color: "bg-primary/12 text-primary",
   },
   {
     name: "Bruno Alves",
     role: "Head de Vendas",
     bio: "15 anos em mercado imobiliário. Conhece a dor de quem ainda usa Excel para análise de viabilidade em 2026.",
     initials: "BA",
-    color: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
+    color: "bg-muted text-foreground/72",
   },
 ]
 
@@ -115,53 +116,44 @@ export default function SobrePage() {
       <LandingNav />
       <main>
         {/* Hero */}
-        <section className="relative overflow-hidden py-24">
-          <div className="bg-dot-pattern absolute inset-0 opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
-          <div className="container-landing relative">
-            <div className="mx-auto max-w-3xl text-center">
-              <EyebrowBadge variant="brand" className="mb-4">
-                Nossa história
-              </EyebrowBadge>
-              <h1 className="font-heading mt-4 text-4xl font-semibold tracking-tight text-foreground md:text-6xl">
-                Construído por quem viveu o problema
-              </h1>
-              <p className="mt-6 text-lg leading-relaxed text-muted-foreground md:text-xl">
-                O SIGAPP nasceu da frustração de um Diretor de Incorporação que perdeu um comitê
-                por causa de uma fórmula errada no Excel. Decidimos que o mercado imobiliário
-                merecia uma ferramenta à altura.
-              </p>
-              <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="size-4 text-primary" />
-                <span>São Paulo, Brasil · Fundado em 2022</span>
-              </div>
+        <SecondaryPageHero
+          eyebrow="Nossa história"
+          title="Construído para incorporadoras que decidem com números"
+          description="O SIGAPP nasceu da frustração de perder um comitê por causa de uma fórmula errada no Excel. Desde então, nosso foco é um só: transformar terreno, risco e retorno em decisão clara."
+          meta={
+            <div className="flex items-center justify-center gap-2 text-sm text-white/62">
+              <MapPin className="size-4 text-secondary" />
+              <span>São Paulo, Brasil · Fundado em 2022</span>
             </div>
-          </div>
-        </section>
+          }
+        />
 
         {/* Mission */}
         <section className="border-y border-border bg-muted/20 py-20">
           <div className="container-landing">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+                <p className="text-xs font-semibold tracking-widest text-primary uppercase">
                   Nossa missão
                 </p>
-                <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl">
                   Eliminar decisões imobiliárias baseadas em dados errados.
                 </h2>
               </div>
               <div className="flex flex-col gap-4">
-                <p className="text-muted-foreground leading-relaxed">
-                  No Brasil, mais de 90% das análises de viabilidade imobiliária ainda são feitas em
-                  planilhas Excel sem controle de versão, sem validação de premissas e sem histórico
-                  auditável. Isso resulta em projetos aprovados com margem irreal, em comitês que
-                  discutem dados diferentes e em incorporadoras que descobrem o erro só na entrega.
+                <p className="leading-relaxed text-muted-foreground">
+                  No Brasil, mais de 90% das análises de viabilidade imobiliária
+                  ainda são feitas em planilhas Excel sem controle de versão,
+                  sem validação de premissas e sem histórico auditável. Isso
+                  resulta em projetos aprovados com margem irreal, em comitês
+                  que discutem dados diferentes e em incorporadoras que
+                  descobrem o erro só na entrega.
                 </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  O SIGAPP existe para mudar isso. Não é sobre digitalizar o Excel — é sobre
-                  reimaginar como análises financeiras imobiliárias são feitas, com precisão de
-                  engenharia e assistência de IA treinada para o domínio.
+                <p className="leading-relaxed text-muted-foreground">
+                  O SIGAPP existe para mudar isso. Não é sobre digitalizar o
+                  Excel — é sobre reimaginar como análises financeiras
+                  imobiliárias são feitas, com precisão de engenharia e
+                  assistência de IA treinada para o domínio.
                 </p>
               </div>
             </div>
@@ -172,10 +164,10 @@ export default function SobrePage() {
         <section className="py-20">
           <div className="container-landing">
             <div className="mb-12 text-center">
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              <p className="text-xs font-semibold tracking-widest text-primary uppercase">
                 Nossos valores
               </p>
-              <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground">
+              <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-foreground">
                 O que nos guia
               </h2>
             </div>
@@ -207,16 +199,16 @@ export default function SobrePage() {
         <section className="bg-muted/20 py-20">
           <div className="container-landing">
             <div className="mb-12 text-center">
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              <p className="text-xs font-semibold tracking-widest text-primary uppercase">
                 Nossa trajetória
               </p>
-              <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground">
+              <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-foreground">
                 De uma ideia a uma plataforma nacional
               </h2>
             </div>
             <div className="relative mx-auto max-w-2xl">
               {/* Vertical line */}
-              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-border sm:left-1/2" />
+              <div className="absolute top-0 bottom-0 left-[19px] w-px bg-border sm:left-1/2" />
               <div className="flex flex-col gap-8">
                 {TIMELINE.map((item, i) => (
                   <div
@@ -232,7 +224,9 @@ export default function SobrePage() {
                     {/* Content */}
                     <div
                       className={`ml-12 flex flex-col gap-1 sm:ml-0 sm:w-[calc(50%-2rem)] ${
-                        i % 2 === 0 ? "sm:pr-8 sm:text-right" : "sm:pl-8 sm:text-left"
+                        i % 2 === 0
+                          ? "sm:pr-8 sm:text-right"
+                          : "sm:pl-8 sm:text-left"
                       }`}
                     >
                       <span className="font-mono text-sm font-bold text-primary">
@@ -256,10 +250,10 @@ export default function SobrePage() {
         <section className="py-20">
           <div className="container-landing">
             <div className="mb-12 text-center">
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">
+              <p className="text-xs font-semibold tracking-widest text-primary uppercase">
                 Time fundador
               </p>
-              <h2 className="font-heading mt-3 text-3xl font-bold tracking-tight text-foreground">
+              <h2 className="mt-3 font-heading text-3xl font-bold tracking-tight text-foreground">
                 As pessoas por trás do SIGAPP
               </h2>
             </div>
@@ -280,7 +274,9 @@ export default function SobrePage() {
                     </h3>
                     <p className="text-xs text-primary">{member.role}</p>
                   </div>
-                  <p className="text-xs leading-relaxed text-muted-foreground">{member.bio}</p>
+                  <p className="text-xs leading-relaxed text-muted-foreground">
+                    {member.bio}
+                  </p>
                 </div>
               ))}
             </div>
@@ -288,20 +284,46 @@ export default function SobrePage() {
         </section>
 
         {/* CTA */}
-        <section className="bg-foreground py-20">
+        <section className="relative overflow-hidden bg-[#071529] py-20">
+          <div className="bg-blueprint-grid absolute inset-0 opacity-60" />
           <div className="container-landing text-center">
-            <h2 className="font-heading text-3xl font-bold text-background md:text-4xl">
-              Faça parte dessa história.
+            <h2 className="font-heading text-3xl font-bold text-white md:text-4xl">
+              Decisões de incorporação merecem um sistema à altura.
             </h2>
-            <p className="mx-auto mt-4 max-w-[45ch] text-lg text-background/60">
-              Junte-se a 340+ incorporadoras que já transformaram sua análise de viabilidade.
+            <p className="mx-auto mt-4 max-w-[45ch] text-lg text-white/62">
+              Junte-se a 340+ incorporadoras que já trocaram planilha dispersa
+              por clareza financeira.
             </p>
             <div className="mt-8 flex justify-center gap-3">
-              <Button variant="brand" size="lg" className="h-12 gap-2 px-6 text-base font-semibold">
-                Começar trial grátis
+              <Button
+                variant="brand"
+                size="lg"
+                className="h-12 gap-2 px-6 text-base font-semibold"
+                nativeButton={false}
+                render={
+                  <a
+                    href={LINKS.signup}
+                    data-analytics-event="trial_signup_click"
+                    data-analytics-location="about-cta"
+                  />
+                }
+              >
+                Começar 7 dias grátis
                 <ArrowRight className="size-4" />
               </Button>
-              <Button variant="ghost-white" size="lg" className="h-12 px-6 text-base">
+              <Button
+                variant="ghost-white"
+                size="lg"
+                className="h-12 px-6 text-base"
+                nativeButton={false}
+                render={
+                  <a
+                    href={LINKS.sales}
+                    data-analytics-event="sales_contact_click"
+                    data-analytics-location="about-cta"
+                  />
+                }
+              >
                 Falar com a equipe
               </Button>
             </div>

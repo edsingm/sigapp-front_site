@@ -10,9 +10,9 @@ export const SITE = {
   legalName: "SIGAPP Tecnologia Ltda.",
   url: SITE_URL,
   email: "contato@sigapp.com.br",
-  title: "SIGAPP — Plataforma de Viabilidade e Gestão Imobiliária",
+  title: "SIGAPP — Inteligência para incorporar",
   description:
-    "Motor financeiro com 50+ parâmetros, IA conversacional especializada e workflow end-to-end para incorporadoras e imobiliárias. Trial de 7 dias grátis.",
+    "Sistema de inteligência de incorporação para incorporadoras. Cadastro, viabilidade, DRE, fluxo de caixa, TIR, VPL e legalização em um só lugar.",
   locale: "pt_BR",
 }
 
@@ -20,7 +20,8 @@ export const SITE = {
 export const LINKS = {
   signup: "/cadastro",
   login: `${APP_URL}/login`,
-  sales: "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
+  sales:
+    "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
   demo: "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
 }
 
@@ -102,9 +103,9 @@ export const METRICS: MetricItem[] = [
 
 export const STICKY_MOBILE_CTA = {
   badge: "7 dias grátis",
-  title: "Comece seu trial hoje",
+  title: "Comece sua avaliação hoje",
   description: "Crie sua conta e calcule a primeira viabilidade em minutos.",
-  cta: "Começar trial gratuito",
+  cta: "Começar 7 dias grátis",
 }
 
 export const PLANS: PlanConfig[] = [
@@ -129,7 +130,7 @@ export const PLANS: PlanConfig[] = [
       "Exportação Excel",
       "Regionais e base territorial",
     ],
-    cta: "Começar trial grátis",
+    cta: "Começar 7 dias grátis",
     ctaHref: `${LINKS.signup}?plan=broker`,
   },
   {
@@ -153,7 +154,7 @@ export const PLANS: PlanConfig[] = [
       "Exportação PDF",
       "Gestão de equipe",
     ],
-    cta: "Começar trial grátis",
+    cta: "Começar 7 dias grátis",
     ctaHref: `${LINKS.signup}?plan=basico`,
   },
   {
@@ -178,7 +179,7 @@ export const PLANS: PlanConfig[] = [
       "Permissões avançadas (RBAC)",
     ],
     highlighted: true,
-    cta: "Começar trial grátis",
+    cta: "Começar 7 dias grátis",
     ctaHref: `${LINKS.signup}?plan=master`,
   },
   {
@@ -375,9 +376,9 @@ export const TESTIMONIALS: Testimonial[] = [
 
 export const FAQ_ITEMS: FAQItem[] = [
   {
-    question: "O trial de 7 dias tem todas as funcionalidades do plano?",
+    question: "Os 7 dias grátis têm todas as funcionalidades do plano?",
     answer:
-      "Sim. O trial ativa o plano completo escolhido por 7 dias, incluindo SIG_IA (nos planos que oferecem), legalização, comitê e todas as funcionalidades. Sem restrições artificiais. Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
+      "Sim. Os 7 dias grátis ativam o plano completo escolhido, incluindo SIG_IA (nos planos que oferecem), legalização, comitê e todas as funcionalidades. Sem restrições artificiais. Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
   },
   {
     question: "Posso migrar meus dados de planilhas Excel existentes?",
@@ -400,17 +401,19 @@ export const FAQ_ITEMS: FAQItem[] = [
       "Não. A SIG_IA usa modelos de linguagem externos com acesso apenas aos dados da sua empresa no momento da consulta. Seus dados nunca são usados para treinar modelos de IA.",
   },
   {
-    question: "O motor financeiro atende normas do mercado imobiliário brasileiro?",
+    question:
+      "O motor financeiro atende normas do mercado imobiliário brasileiro?",
     answer:
       "Sim. O motor calcula com INCC, CUB, permuta com pessoa física/jurídica, ITBI, impostos sobre ganho de capital e outros parâmetros específicos do mercado imobiliário brasileiro.",
   },
   {
-    question: "Quantos usuários posso adicionar durante o trial?",
+    question: "Quantos usuários posso adicionar durante os 7 dias grátis?",
     answer:
-      "Durante o trial você tem acesso ao limite do plano escolhido: Broker (1 usuário), Básico (3), Master (10) e Pro (ilimitado).",
+      "Durante os 7 dias grátis você tem acesso ao limite do plano escolhido: Broker (1 usuário), Básico (3), Master (10) e Pro (ilimitado).",
   },
   {
-    question: "Posso convidar outras áreas da empresa, como comitê, jurídico e diretoria?",
+    question:
+      "Posso convidar outras áreas da empresa, como comitê, jurídico e diretoria?",
     answer:
       "Sim. Você pode adicionar usuários por perfil e distribuir permissões conforme a função de cada área. Isso permite envolver viabilidade, comercial, jurídico e diretoria sem expor tudo para toda a empresa.",
   },
@@ -420,9 +423,10 @@ export const FAQ_ITEMS: FAQItem[] = [
       "Planos Broker e Básico têm suporte por e-mail (SLA 48h). O Master tem suporte prioritário (24h). O Pro tem gerente de conta dedicado e suporte via WhatsApp em horário comercial.",
   },
   {
-    question: "Quanto tempo leva para sair da planilha e começar a operar no SIGAPP?",
+    question:
+      "Quanto tempo leva para sair da planilha e começar a operar no SIGAPP?",
     answer:
-      "Na maioria dos casos, a equipe começa com o trial no mesmo dia. O cadastro leva poucos minutos e a importação inicial pode ser feita por planilha. Para operações maiores, nosso onboarding ajuda a estruturar a carteira e os parâmetros financeiros nas primeiras semanas.",
+      "Na maioria dos casos, a equipe começa no mesmo dia. O cadastro leva poucos minutos e a importação inicial pode ser feita por planilha. Para operações maiores, nosso onboarding ajuda a estruturar a carteira e os parâmetros financeiros nas primeiras semanas.",
   },
   {
     question: "Posso exportar os dados se cancelar o plano?",
@@ -490,13 +494,48 @@ export type ComparisonRow = {
 
 // Tabela comparativa (estilo "taxas vs concorrentes")
 export const COMPARISON_ROWS: ComparisonRow[] = [
-  { label: "Prospecção territorial centralizada", sigapp: true, planilha: false, erp: true },
-  { label: "Motor de viabilidade (TIR, VPL, Payback)", sigapp: true, planilha: true, erp: false },
-  { label: "IA especializada em incorporação", sigapp: true, planilha: false, erp: false },
-  { label: "Comitê de aprovação com workflow", sigapp: true, planilha: false, erp: false },
-  { label: "Legalização end-to-end", sigapp: true, planilha: false, erp: false },
-  { label: "Histórico e auditoria completos", sigapp: true, planilha: false, erp: true },
-  { label: "Parâmetros do mercado BR (INCC, CUB, permuta)", sigapp: true, planilha: false, erp: false },
+  {
+    label: "Prospecção territorial centralizada",
+    sigapp: true,
+    planilha: false,
+    erp: true,
+  },
+  {
+    label: "Motor de viabilidade (TIR, VPL, Payback)",
+    sigapp: true,
+    planilha: true,
+    erp: false,
+  },
+  {
+    label: "IA especializada em incorporação",
+    sigapp: true,
+    planilha: false,
+    erp: false,
+  },
+  {
+    label: "Comitê de aprovação com workflow",
+    sigapp: true,
+    planilha: false,
+    erp: false,
+  },
+  {
+    label: "Legalização end-to-end",
+    sigapp: true,
+    planilha: false,
+    erp: false,
+  },
+  {
+    label: "Histórico e auditoria completos",
+    sigapp: true,
+    planilha: false,
+    erp: true,
+  },
+  {
+    label: "Parâmetros do mercado BR (INCC, CUB, permuta)",
+    sigapp: true,
+    planilha: false,
+    erp: false,
+  },
 ]
 
 export const PAIN_POINTS = [

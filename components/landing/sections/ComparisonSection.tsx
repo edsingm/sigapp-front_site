@@ -35,13 +35,18 @@ export function ComparisonSection() {
   return (
     <section className="py-20 md:py-28">
       <div className="container-landing">
-        <ScrollReveal stagger className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20">
-          <EyebrowBadge variant="brand" className="self-center">Por que SIGAPP</EyebrowBadge>
-          <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl lg:text-5xl">
+        <ScrollReveal
+          stagger
+          className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20"
+        >
+          <EyebrowBadge variant="brand" className="self-center">
+            Por que SIGAPP
+          </EyebrowBadge>
+          <h2 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
             Tudo que a planilha e o ERP não fazem
           </h2>
           <p className="text-pretty text-muted-foreground md:text-lg">
-            Uma plataforma desenhada do zero para incorporação — não um genérico
+            Um sistema desenhado do zero para incorporação — não um genérico
             adaptado às pressas.
           </p>
         </ScrollReveal>
@@ -98,13 +103,20 @@ export function ComparisonSection() {
             size="lg"
             className="h-12 gap-2 px-6 text-base font-semibold"
             nativeButton={false}
-            render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="comparison" />}
+            render={
+              <a
+                href={LINKS.signup}
+                data-analytics-event="trial_signup_click"
+                data-analytics-location="comparison"
+              />
+            }
           >
             Trocar a planilha pelo SIGAPP
             <ArrowRight className="size-4" />
           </Button>
           <p className="text-sm text-muted-foreground">
-            7 dias grátis · Cancele antes do fim e não paga nada · Importe via Excel
+            7 dias grátis · Cancele antes do fim e não paga nada · Importe via
+            Excel
           </p>
         </div>
       </div>

@@ -3,7 +3,15 @@
 import { useEffect, useState, type ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Check, Eye, EyeOff, Loader2, ShieldCheck, X, ArrowRight } from "lucide-react"
+import {
+  Check,
+  Eye,
+  EyeOff,
+  Loader2,
+  ShieldCheck,
+  X,
+  ArrowRight,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -58,7 +66,10 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   const [step, setStep] = useState<1 | 2>(1)
 
   // Resultado de disponibilidade atrelado ao slug consultado (evita estado obsoleto)
-  const [availability, setAvailability] = useState<{ slug: string; available: boolean } | null>(null)
+  const [availability, setAvailability] = useState<{
+    slug: string
+    available: boolean
+  } | null>(null)
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({})
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -89,29 +100,41 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
     if (!slugValid) return
     const handle = setTimeout(async () => {
       const result = await checkSubdomain(subdomain)
-      if (result !== null) setAvailability({ slug: subdomain, available: result.available })
+      if (result !== null)
+        setAvailability({ slug: subdomain, available: result.available })
     }, 500)
     return () => clearTimeout(handle)
   }, [subdomain, slugValid])
 
   function validateStepOne(): Record<string, string[]> {
     const errs: Record<string, string[]> = {}
-    if (adminName.trim().length < 3) errs.admin_name = ["Seu nome deve ter ao menos 3 caracteres"]
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(adminEmail)) errs.admin_email = ["E-mail inválido"]
+    if (adminName.trim().length < 3)
+      errs.admin_name = ["Seu nome deve ter ao menos 3 caracteres"]
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(adminEmail))
+      errs.admin_email = ["E-mail inválido"]
     if (adminPassword.length < 8 || !PASSWORD_REGEX.test(adminPassword))
-      errs.admin_password = ["A senha precisa de 8+ caracteres, com maiúscula, minúscula e número"]
+      errs.admin_password = [
+        "A senha precisa de 8+ caracteres, com maiúscula, minúscula e número",
+      ]
     if (!acceptContract)
-      errs.accept_usage_contract = ["Você precisa aceitar o Contrato de Utilização"]
+      errs.accept_usage_contract = [
+        "Você precisa aceitar o Contrato de Utilização",
+      ]
     return errs
   }
 
   function validateStepTwo(): Record<string, string[]> {
     const errs: Record<string, string[]> = {}
     if (organizationName.trim().length < 3)
-      errs.organization_name = ["O nome da organização deve ter ao menos 3 caracteres"]
+      errs.organization_name = [
+        "O nome da organização deve ter ao menos 3 caracteres",
+      ]
     if (!SLUG_REGEX.test(subdomain) || subdomain.length < 3)
-      errs.slug = ["O endereço deve ter ao menos 3 caracteres (letras minúsculas, números e hífens)"]
-    else if (slugStatus === "taken") errs.slug = ["Este endereço já está em uso"]
+      errs.slug = [
+        "O endereço deve ter ao menos 3 caracteres (letras minúsculas, números e hífens)",
+      ]
+    else if (slugStatus === "taken")
+      errs.slug = ["Este endereço já está em uso"]
     return errs
   }
 
@@ -185,9 +208,11 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           <div className="flex flex-col gap-3">
             <span className="inline-flex w-fit items-center gap-2 rounded-md border border-white/20 bg-white/8 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
               <span className="size-1.5 rounded-full bg-(--color-data-green)" />
-              {selectedPlan ? `Trial de ${selectedPlan.trial_days} dias` : "Trial de 7 dias"}
+              {selectedPlan
+                ? `${selectedPlan.trial_days} dias grátis`
+                : "7 dias grátis"}
             </span>
-            <h1 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-white xl:text-4xl">
+            <h1 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-white xl:text-4xl">
               Do terreno ao retorno.
             </h1>
           </div>
@@ -200,7 +225,9 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           <div className="grid grid-cols-3 gap-4">
             {METRICS.slice(0, 3).map((m) => (
               <div key={m.label}>
-                <p className="font-heading text-xl font-black text-white">{m.value}</p>
+                <p className="font-heading text-xl font-black text-white">
+                  {m.value}
+                </p>
                 <p className="text-xs leading-tight text-white/60">{m.label}</p>
               </div>
             ))}
@@ -208,7 +235,8 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           <div className="flex items-center gap-1.5 text-xs text-white/55">
             <ShieldCheck className="size-3.5 shrink-0" />
             <span>
-              Pagamento seguro via <span className="font-semibold text-white/80">Stripe</span>
+              Pagamento seguro via{" "}
+              <span className="font-semibold text-white/80">Stripe</span>
             </span>
           </div>
         </div>
@@ -234,10 +262,14 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           {selectedPlan && (
             <div className="mb-6 flex items-center justify-between rounded-xl border border-border bg-card p-4 lg:hidden">
               <div>
-                <p className="text-xs text-muted-foreground">Plano {selectedPlan.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  Plano {selectedPlan.name}
+                </p>
                 <p className="font-mono text-lg font-bold text-foreground">
                   {selectedPlan.formatted_price}
-                  <span className="text-xs font-normal text-muted-foreground">/mês</span>
+                  <span className="text-xs font-normal text-muted-foreground">
+                    /mês
+                  </span>
                 </p>
               </div>
               <span className="inline-flex items-center rounded-full bg-(--color-data-green)/12 px-2.5 py-1 text-xs font-medium text-(--color-data-green)">
@@ -247,7 +279,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           )}
 
           <div className="mb-7">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+            <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
               Passo {step} de 2
             </p>
             <h2 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
@@ -258,18 +290,20 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                 "Comece com nome, e-mail e senha. Os dados da conta ficam para o próximo passo."
               ) : selectedPlan ? (
                 <>
-                  Defina o nome da organização, o endereço da conta e revise o plano antes de seguir
-                  para o checkout. O trial continua sendo de {selectedPlan.trial_days} dias.
+                  Defina o nome da organização, o endereço da conta e revise o
+                  plano antes de seguir para o checkout. Seus{" "}
+                  {selectedPlan.trial_days} dias grátis continuam valendo.
                 </>
               ) : (
-                "Comece seu trial e calcule viabilidade hoje mesmo."
+                "Crie sua conta e calcule viabilidade hoje mesmo."
               )}
             </p>
           </div>
 
           {cancelled && (
             <div className="mb-6 rounded-lg border border-border bg-muted/50 px-4 py-3 text-sm text-muted-foreground">
-              Pagamento não concluído. Seus dados continuam aqui — é só revisar e tentar novamente.
+              Pagamento não concluído. Seus dados continuam aqui — é só revisar
+              e tentar novamente.
             </div>
           )}
 
@@ -292,7 +326,11 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           >
             {step === 1 ? (
               <>
-                <Field id="admin_name" label="Seu nome" error={fieldErrors.admin_name?.[0]}>
+                <Field
+                  id="admin_name"
+                  label="Seu nome"
+                  error={fieldErrors.admin_name?.[0]}
+                >
                   <Input
                     id="admin_name"
                     value={adminName}
@@ -303,7 +341,11 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                   />
                 </Field>
 
-                <Field id="admin_email" label="E-mail" error={fieldErrors.admin_email?.[0]}>
+                <Field
+                  id="admin_email"
+                  label="E-mail"
+                  error={fieldErrors.admin_email?.[0]}
+                >
                   <Input
                     id="admin_email"
                     type="email"
@@ -340,9 +382,15 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
                       className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground hover:text-foreground"
-                      aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
+                      aria-label={
+                        showPassword ? "Ocultar senha" : "Mostrar senha"
+                      }
                     >
-                      {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                      {showPassword ? (
+                        <EyeOff className="size-4" />
+                      ) : (
+                        <Eye className="size-4" />
+                      )}
                     </button>
                   </div>
                 </Field>
@@ -402,7 +450,9 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                               : "border-border hover:border-primary/40 hover:bg-muted/50"
                           }`}
                         >
-                          <span className="text-sm font-semibold text-foreground">{plan.name}</span>
+                          <span className="text-sm font-semibold text-foreground">
+                            {plan.name}
+                          </span>
                           <span className="text-xs text-muted-foreground">
                             {plan.formatted_price}/mês
                           </span>
@@ -456,8 +506,8 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                 <div className="rounded-2xl border border-border bg-muted/35 p-4 text-sm text-muted-foreground">
                   <p className="font-medium text-foreground">Quase pronto.</p>
                   <p className="mt-1 leading-relaxed">
-                    Depois do checkout, você continua a configuração dentro do produto com mais
-                    contexto sobre equipe, carteira e operação.
+                    Depois do checkout, você continua a configuração dentro do
+                    produto com mais contexto sobre equipe, carteira e operação.
                   </p>
                 </div>
               </>
@@ -469,7 +519,9 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
               size="lg"
               disabled={submitting}
               className="mt-1 h-12 w-full gap-2 text-base font-semibold"
-              data-analytics-event={step === 2 ? "trial_signup_click" : undefined}
+              data-analytics-event={
+                step === 2 ? "trial_signup_click" : undefined
+              }
               data-analytics-location={step === 2 ? "signup-form" : undefined}
               data-analytics-plan={step === 2 ? selectedSlug : undefined}
             >
@@ -502,13 +554,18 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
               <ShieldCheck className="size-3.5 shrink-0 text-[oklch(0.55_0.22_272)]" />
               <span>
                 Pagamento seguro via{" "}
-                <span className="font-semibold text-[oklch(0.55_0.22_272)]">Stripe</span>
+                <span className="font-semibold text-[oklch(0.55_0.22_272)]">
+                  Stripe
+                </span>
               </span>
             </div>
 
             <p className="text-center text-sm text-muted-foreground">
               Já tem conta?{" "}
-              <a href={LINKS.login} className="font-medium text-primary hover:underline">
+              <a
+                href={LINKS.login}
+                className="font-medium text-primary hover:underline"
+              >
                 Entrar
               </a>
             </p>
@@ -525,8 +582,12 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
     <div className="rounded-2xl border border-white/15 bg-white/8 p-6 backdrop-blur-md">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/50">Resumo</p>
-          <h2 className="mt-1.5 font-heading text-xl font-semibold text-white">{plan.name}</h2>
+          <p className="text-xs font-semibold tracking-widest text-white/50 uppercase">
+            Resumo
+          </p>
+          <h2 className="mt-1.5 font-heading text-xl font-semibold text-white">
+            {plan.name}
+          </h2>
         </div>
         <div className="text-right">
           <p className="font-mono text-2xl font-bold tracking-tight text-white">
@@ -536,7 +597,9 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
         </div>
       </div>
 
-      {plan.description && <p className="mt-2 text-sm text-white/65">{plan.description}</p>}
+      {plan.description && (
+        <p className="mt-2 text-sm text-white/65">{plan.description}</p>
+      )}
 
       <div className="my-5 h-px bg-white/15" />
 
@@ -559,14 +622,13 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
 function BrandLogo({ variant }: { variant: "light" | "dark" }) {
   const wordmark = variant === "light" ? "text-white" : "text-foreground"
   const mark = variant === "light" ? "text-white" : "text-primary"
-  const box =
-    variant === "light"
-      ? "text-secondary"
-      : "text-primary"
+  const box = variant === "light" ? "text-secondary" : "text-primary"
   return (
     <Link href="/" className="flex items-center gap-3 focus:outline-none">
       <SigappLogoMark className={`size-7 ${mark} ${box}`} />
-      <span className={`font-heading text-base font-bold tracking-[0.14em] ${wordmark}`}>
+      <span
+        className={`font-heading text-base font-bold tracking-[0.14em] ${wordmark}`}
+      >
         SIGAPP
       </span>
     </Link>
@@ -625,6 +687,8 @@ function SlugHint({ status }: { status: SlugStatus }) {
       </span>
     )
   return (
-    <span className="text-xs text-muted-foreground">Será o endereço de acesso da sua equipe.</span>
+    <span className="text-xs text-muted-foreground">
+      Será o endereço de acesso da sua equipe.
+    </span>
   )
 }

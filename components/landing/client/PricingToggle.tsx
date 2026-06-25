@@ -13,26 +13,32 @@ export function PricingToggle() {
   function goTo(i: number) {
     setActive(i)
     if (carouselRef.current) {
-      carouselRef.current.scrollTo({ left: i * carouselRef.current.clientWidth, behavior: "smooth" })
+      carouselRef.current.scrollTo({
+        left: i * carouselRef.current.clientWidth,
+        behavior: "smooth",
+      })
     }
   }
 
   function onCarouselScroll() {
     if (!carouselRef.current) return
-    const idx = Math.round(carouselRef.current.scrollLeft / carouselRef.current.clientWidth)
+    const idx = Math.round(
+      carouselRef.current.scrollLeft / carouselRef.current.clientWidth
+    )
     setActive(idx)
   }
 
   return (
     <div>
-      <div className="mb-8 flex justify-center sm:mb-10">
-        <div className="inline-flex w-full max-w-sm items-center gap-0 rounded-full border border-border bg-muted p-1 sm:w-auto sm:max-w-none">
+      <div className="mb-8 flex flex-col items-center justify-center gap-3 sm:mb-10">
+        <div className="inline-flex w-full max-w-sm items-center gap-1 rounded-2xl border border-border bg-card/90 p-1.5 shadow-sm backdrop-blur sm:w-auto sm:max-w-none">
           <button
             onClick={() => setCycle("monthly")}
+            aria-pressed={cycle === "monthly"}
             className={cn(
-              "flex min-h-11 flex-1 items-center justify-center rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 sm:flex-none sm:px-5 sm:py-2",
+              "flex min-h-11 flex-1 items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 sm:flex-none sm:px-7",
               cycle === "monthly"
-                ? "bg-background text-foreground shadow-sm"
+                ? "bg-[var(--color-brand-navy)] text-white shadow-md"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
@@ -40,19 +46,30 @@ export function PricingToggle() {
           </button>
           <button
             onClick={() => setCycle("annual")}
+            aria-pressed={cycle === "annual"}
             className={cn(
-              "flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-200 sm:flex-none sm:px-5 sm:py-2",
+              "flex min-h-11 flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 sm:flex-none sm:px-7",
               cycle === "annual"
-                ? "bg-background text-foreground shadow-sm"
+                ? "bg-[var(--color-brand-navy)] text-white shadow-md"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
             Anual
-            <span className="rounded-full bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-secondary-foreground">
+            <span
+              className={cn(
+                "rounded-full px-2 py-0.5 text-[10px] font-bold",
+                cycle === "annual"
+                  ? "bg-secondary text-secondary-foreground"
+                  : "bg-primary/10 text-primary"
+              )}
+            >
               −20%
             </span>
           </button>
         </div>
+        <p className="text-xs text-muted-foreground">
+          No anual, você economiza dois meses de assinatura.
+        </p>
       </div>
 
       {/* Mobile: carousel */}
@@ -60,7 +77,7 @@ export function PricingToggle() {
         <div
           ref={carouselRef}
           onScroll={onCarouselScroll}
-          className="scrollbar-none -mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
+          className="-mx-4 flex snap-x snap-mandatory scrollbar-none overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
         >
           {PLANS.map((plan) => (
             <div key={plan.id} className="w-full shrink-0 snap-start px-1 pt-4">
@@ -78,7 +95,9 @@ export function PricingToggle() {
             >
               <span
                 className={`block rounded-full transition-all duration-200 ${
-                  i === active ? "h-2 w-6 bg-primary" : "size-2 bg-muted-foreground/45"
+                  i === active
+                    ? "h-2 w-6 bg-primary"
+                    : "size-2 bg-muted-foreground/45"
                 }`}
               />
             </button>
@@ -87,7 +106,7 @@ export function PricingToggle() {
       </div>
 
       {/* sm+: grid */}
-      <div className="hidden sm:grid sm:grid-cols-2 sm:gap-6 xl:grid-cols-4">
+      <div className="hidden items-stretch sm:grid sm:grid-cols-2 sm:gap-6 sm:pt-4 xl:grid-cols-4 xl:gap-5">
         {PLANS.map((plan) => (
           <PlanCard key={plan.id} plan={plan} billingCycle={cycle} />
         ))}

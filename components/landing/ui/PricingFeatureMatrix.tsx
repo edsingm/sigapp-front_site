@@ -36,7 +36,12 @@ function MatrixCell({ plan, row }: { plan: PlanConfig; row: PlanMatrixRow }) {
   }
 
   return (
-    <span className={cn("font-medium text-foreground", value === "—" && "text-muted-foreground")}>
+    <span
+      className={cn(
+        "font-medium text-foreground",
+        value === "—" && "text-muted-foreground"
+      )}
+    >
       {String(value)}
     </span>
   )
@@ -60,7 +65,7 @@ export function PricingFeatureMatrix() {
 
         <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
           <div className="overflow-x-auto">
-            <table className="min-w-[980px] w-full border-collapse">
+            <table className="w-full min-w-[980px] border-collapse">
               <thead>
                 <tr className="border-b border-border bg-muted/35">
                   <th className="w-[30%] px-6 py-5 text-left align-bottom">
@@ -74,7 +79,10 @@ export function PricingFeatureMatrix() {
                   {PLANS.map((plan) => (
                     <th
                       key={plan.id}
-                      className="px-5 py-5 text-left align-bottom"
+                      className={cn(
+                        "px-5 py-5 text-left align-bottom",
+                        plan.highlighted && "bg-primary/[0.06]"
+                      )}
                     >
                       <div className="flex flex-col gap-1.5">
                         <div className="flex items-center gap-2">
@@ -82,8 +90,8 @@ export function PricingFeatureMatrix() {
                             {plan.name}
                           </span>
                           {plan.highlighted ? (
-                            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] text-secondary-foreground">
-                              Popular
+                            <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold tracking-[0.12em] text-secondary-foreground uppercase">
+                              Recomendado
                             </span>
                           ) : null}
                         </div>
@@ -114,7 +122,13 @@ export function PricingFeatureMatrix() {
                       </div>
                     </td>
                     {PLANS.map((plan) => (
-                      <td key={`${row.id}-${plan.id}`} className="px-5 py-4 align-top">
+                      <td
+                        key={`${row.id}-${plan.id}`}
+                        className={cn(
+                          "px-5 py-4 align-top",
+                          plan.highlighted && "bg-primary/[0.04]"
+                        )}
+                      >
                         <MatrixCell plan={plan} row={row} />
                       </td>
                     ))}

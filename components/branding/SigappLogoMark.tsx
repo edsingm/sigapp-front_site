@@ -6,23 +6,22 @@ type SigappLogoMarkProps = {
   height?: number
 }
 
-export function SigappLogoMark({
-  className,
-  width,
-  height,
-}: SigappLogoMarkProps) {
+export function SigappLogoMark({ className, width, height }: SigappLogoMarkProps) {
   return (
     <svg
-      viewBox="0 0 24 24"
+      viewBox="0 0 64 64"
       fill="none"
       aria-hidden="true"
       className={cn("size-4", className)}
       width={width}
       height={height}
     >
-      <rect x="7" y="3.5" width="14" height="4.5" rx="2.25" fill="currentColor" />
-      <rect x="3" y="9.75" width="18" height="4.5" rx="2.25" fill="currentColor" />
-      <rect x="3" y="16" width="14" height="4.5" rx="2.25" fill="currentColor" />
+      <rect x="29" y="30" width="6" height="24" rx="3" fill="currentColor" />
+      <path
+        fillRule="evenodd"
+        d="M32,24 C28,21 24,18 24,14 A8,8,0,0,1,40,14 C40,18 36,21 32,24 Z M35.5,14 A3.5,3.5,0,1,1,28.5,14 A3.5,3.5,0,1,1,35.5,14 Z"
+        fill="currentColor"
+      />
     </svg>
   )
 }

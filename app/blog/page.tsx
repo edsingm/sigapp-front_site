@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
-import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
+import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
 import { Clock, ArrowRight } from "lucide-react"
 import {
   BLOG_POSTS,
@@ -15,15 +15,15 @@ import {
 export const metadata: Metadata = {
   title: "Blog — SIGAPP",
   description:
-    "Artigos sobre viabilidade financeira imobiliária, inteligência artificial no mercado de incorporação e boas práticas de gestão de terrenos.",
+    "Conteúdo para incorporadoras sobre viabilidade, comitê, inteligência imobiliária e operação de incorporação.",
 }
 
 const CATEGORY_COLORS: Record<BlogCategory, string> = {
-  "Mercado Imobiliário": "bg-secondary/20 text-accent-foreground dark:text-secondary",
-  Tecnologia: "bg-muted text-muted-foreground",
-  "Inteligência Artificial": "bg-primary/10 text-primary",
-  Produto: "bg-accent text-accent-foreground",
-  Dicas: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
+  "Mercado Imobiliário": "bg-primary/10 text-primary",
+  Tecnologia: "bg-muted text-foreground/70",
+  "Inteligência Artificial": "bg-secondary/20 text-primary",
+  Produto: "bg-accent text-primary",
+  Dicas: "bg-muted text-foreground/70",
 }
 
 function PostCard({
@@ -58,7 +58,7 @@ function PostCard({
       {/* Content */}
       <div className="flex flex-1 flex-col gap-3 p-6">
         <h2
-          className={`font-heading font-bold tracking-tight text-foreground group-hover:text-primary transition-colors ${
+          className={`font-heading font-bold tracking-tight text-foreground transition-colors group-hover:text-primary ${
             featured ? "text-xl lg:text-2xl" : "text-base"
           }`}
         >
@@ -68,14 +68,18 @@ function PostCard({
           {post.excerpt}
         </p>
 
-        <div className="mt-auto flex items-center justify-between pt-3 border-t border-border">
+        <div className="mt-auto flex items-center justify-between border-t border-border pt-3">
           <div className="flex items-center gap-2">
             <div className="flex size-7 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-primary">
               {post.author.initials}
             </div>
             <div>
-              <p className="text-xs font-medium text-foreground">{post.author.name}</p>
-              <p className="text-[10px] text-muted-foreground">{formatDate(post.publishedAt)}</p>
+              <p className="text-xs font-medium text-foreground">
+                {post.author.name}
+              </p>
+              <p className="text-[10px] text-muted-foreground">
+                {formatDate(post.publishedAt)}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -97,22 +101,11 @@ export default function BlogPage() {
       <LandingNav />
       <main>
         {/* Header */}
-        <section className="relative overflow-hidden border-b border-border py-20">
-          <div className="bg-dot-pattern absolute inset-0 opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background" />
-          <div className="container-landing relative text-center">
-            <EyebrowBadge variant="brand" className="mb-4">
-              Blog do SIGAPP
-            </EyebrowBadge>
-            <h1 className="font-heading mt-4 text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
-              Conteúdo sobre incorporação imobiliária
-            </h1>
-            <p className="mx-auto mt-4 max-w-[52ch] text-lg text-muted-foreground">
-              Artigos técnicos sobre viabilidade financeira, IA no mercado imobiliário e boas
-              práticas para incorporadoras.
-            </p>
-          </div>
-        </section>
+        <SecondaryPageHero
+          eyebrow="Blog do SIGAPP"
+          title="Conteúdo para quem decide terreno, risco e retorno"
+          description="Artigos sobre viabilidade, comitê, inteligência imobiliária e operação de incorporação. Menos jargão de software, mais clareza para decisão."
+        />
 
         <section className="py-16">
           <div className="container-landing">
@@ -124,7 +117,7 @@ export default function BlogPage() {
               {BLOG_CATEGORIES.map((cat) => (
                 <span
                   key={cat}
-                  className="rounded-full border border-border px-4 py-1.5 text-xs font-medium text-muted-foreground hover:border-primary/30 hover:text-foreground cursor-pointer transition-colors"
+                  className="cursor-pointer rounded-full border border-border px-4 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
                 >
                   {cat}
                 </span>
@@ -134,7 +127,7 @@ export default function BlogPage() {
             {/* Featured posts */}
             {featured.length > 0 && (
               <div className="mb-10">
-                <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
                   Destaques
                 </p>
                 <div className="flex flex-col gap-6">
@@ -147,7 +140,7 @@ export default function BlogPage() {
 
             {/* All other posts */}
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
                 Todos os artigos
               </p>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -160,20 +153,22 @@ export default function BlogPage() {
         </section>
 
         {/* Newsletter CTA */}
-        <section className="border-t border-border bg-muted/20 py-16">
+        <section className="relative overflow-hidden border-t border-white/10 bg-[#071529] py-16">
+          <div className="bg-blueprint-grid absolute inset-0 opacity-50" />
           <div className="container-landing">
             <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-2xl font-bold text-foreground">
-                Receba novos artigos toda semana
+              <h2 className="font-heading text-2xl font-bold text-white">
+                Receba análises novas sem ruído.
               </h2>
-              <p className="mt-2 text-muted-foreground">
-                Conteúdo técnico sobre o mercado imobiliário e tecnologia. Sem spam.
+              <p className="mt-2 text-white/62">
+                Conteúdo técnico para incorporadoras, com foco em decisão e
+                operação. Sem spam.
               </p>
               <div className="mt-6 flex gap-2">
                 <input
                   type="email"
                   placeholder="seu@email.com.br"
-                  className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/50 focus:ring-2 focus:ring-primary/20"
+                  className="flex-1 rounded-lg border border-white/10 bg-white/6 px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/36 focus:border-secondary/50 focus:ring-2 focus:ring-secondary/20"
                 />
                 <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/85">
                   Assinar

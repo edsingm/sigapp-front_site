@@ -4,7 +4,6 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { NavScrollClient } from "@/components/landing/client/NavScrollClient"
-import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
 import { ArrowRight, Menu, X } from "lucide-react"
 import { LINKS } from "@/lib/landing-data"
@@ -19,7 +18,10 @@ const NAV_LINKS = [
 
 function SigappLogo() {
   return (
-    <Link href="/" className="inline-flex min-h-11 items-center gap-3 focus:outline-none">
+    <Link
+      href="/"
+      className="inline-flex min-h-11 items-center gap-3 focus:outline-none"
+    >
       <SigappLogoMark className="size-7 text-secondary" />
       <span className="font-heading text-base font-bold tracking-[0.14em] text-white">
         SIGAPP
@@ -52,7 +54,6 @@ export function LandingNav() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <ThemeToggleButton className="border border-white/14 bg-white/8 text-white shadow-sm shadow-black/5 hover:bg-white/12 hover:text-white" />
             <a
               href={LINKS.login}
               data-analytics-event="login_click"
@@ -65,9 +66,15 @@ export function LandingNav() {
               size="sm"
               className="hidden min-h-11 gap-1.5 rounded-md bg-primary px-4 font-semibold text-white shadow-sm shadow-black/10 hover:bg-primary/90 active:scale-[0.98] sm:inline-flex"
               nativeButton={false}
-              render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav" />}
+              render={
+                <a
+                  href={LINKS.signup}
+                  data-analytics-event="trial_signup_click"
+                  data-analytics-location="nav"
+                />
+              }
             >
-              Trial grátis
+              7 dias grátis
               <ArrowRight className="size-3.5" />
             </Button>
             {/* Mobile hamburger */}
@@ -76,7 +83,11 @@ export function LandingNav() {
               className="flex size-11 items-center justify-center rounded-md border border-white/14 bg-white/8 text-white transition-colors hover:bg-white/12 hover:text-white md:hidden"
               aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
             >
-              {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+              {mobileOpen ? (
+                <X className="size-5" />
+              ) : (
+                <Menu className="size-5" />
+              )}
             </button>
           </div>
         </div>
@@ -106,12 +117,18 @@ export function LandingNav() {
                   Entrar
                 </a>
                 <Button
-                  className="h-12 w-full rounded-xl gap-2 bg-white font-semibold text-primary hover:bg-white/90"
+                  className="h-12 w-full gap-2 rounded-xl bg-white font-semibold text-primary hover:bg-white/90"
                   onClick={() => setMobileOpen(false)}
                   nativeButton={false}
-                  render={<a href={LINKS.signup} data-analytics-event="trial_signup_click" data-analytics-location="nav-mobile" />}
+                  render={
+                    <a
+                      href={LINKS.signup}
+                      data-analytics-event="trial_signup_click"
+                      data-analytics-location="nav-mobile"
+                    />
+                  }
                 >
-                  Começar trial grátis
+                  Começar 7 dias grátis
                   <ArrowRight className="size-4" />
                 </Button>
               </div>

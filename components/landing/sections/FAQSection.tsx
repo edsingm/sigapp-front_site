@@ -29,19 +29,25 @@ export function FAQSection() {
           {/* Left */}
           <div className="flex flex-col gap-5 lg:col-span-4 lg:pr-4">
             <SectionLabel>Perguntas frequentes</SectionLabel>
-            <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl">
+            <h2 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-balance text-foreground md:text-4xl">
               Tire suas dúvidas antes de começar
             </h2>
             <p className="text-muted-foreground">
-              Segurança, LGPD, migração de planilhas, multiusuário e onboarding explicados de
-              forma objetiva antes do trial.
+              Segurança, LGPD, migração de planilhas, multiusuário e onboarding
+              explicados de forma objetiva antes dos 7 dias grátis.
             </p>
             <Button
               variant="outline"
               size="lg"
               className="mt-2 gap-2 self-start"
               nativeButton={false}
-              render={<a href={LINKS.sales} data-analytics-event="sales_contact_click" data-analytics-location="faq" />}
+              render={
+                <a
+                  href={LINKS.sales}
+                  data-analytics-event="sales_contact_click"
+                  data-analytics-location="faq"
+                />
+              }
             >
               <MessageCircle className="size-4" />
               Falar com vendas

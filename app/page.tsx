@@ -4,7 +4,7 @@ import { LandingNav } from "@/components/landing/layout/LandingNav"
 export const metadata: Metadata = {
   title: "SIGAPP — Do terreno ao retorno",
   description:
-    "Da prospecção à legalização em uma única plataforma. DRE, TIR e fluxo de caixa em segundos — aprovação no comitê em uma rodada, não quatro. Trial de 7 dias grátis.",
+    "Da prospecção à legalização em um único sistema. DRE, TIR e fluxo de caixa em segundos — aprovação no comitê em uma rodada, não quatro. Comece com 7 dias grátis.",
 }
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { StickyMobileCTA } from "@/components/landing/client/StickyMobileCTA"

@@ -7,15 +7,20 @@ import { SignupStatus } from "@/components/landing/client/SignupStatus"
 export const metadata: Metadata = {
   title: "Criar conta · SIGAPP",
   description:
-    "Crie sua conta no SIGAPP e comece o trial de 7 dias. Calcule viabilidade de incorporação com precisão de engenharia.",
+    "Crie sua conta no SIGAPP e comece com 7 dias grátis. Calcule viabilidade de incorporação com precisão de engenharia.",
   robots: { index: false, follow: false },
 }
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>
 
-export default async function CadastroPage({ searchParams }: { searchParams: SearchParams }) {
+export default async function CadastroPage({
+  searchParams,
+}: {
+  searchParams: SearchParams
+}) {
   const params = await searchParams
-  const sessionId = typeof params.session_id === "string" ? params.session_id : undefined
+  const sessionId =
+    typeof params.session_id === "string" ? params.session_id : undefined
   const success = params.success === "1"
   const cancelled = params.cancelled === "1"
   const planParam = typeof params.plan === "string" ? params.plan : undefined
@@ -39,8 +44,8 @@ export default async function CadastroPage({ searchParams }: { searchParams: Sea
           Cadastro temporariamente indisponível
         </h1>
         <p className="mt-2 max-w-md text-sm text-muted-foreground">
-          Não conseguimos carregar os planos no momento. Atualize a página em instantes ou tente
-          novamente mais tarde.
+          Não conseguimos carregar os planos no momento. Atualize a página em
+          instantes ou tente novamente mais tarde.
         </p>
         <Link
           href="/"
@@ -52,5 +57,11 @@ export default async function CadastroPage({ searchParams }: { searchParams: Sea
     )
   }
 
-  return <SignupForm plans={plans} initialPlanSlug={planParam} cancelled={cancelled} />
+  return (
+    <SignupForm
+      plans={plans}
+      initialPlanSlug={planParam}
+      cancelled={cancelled}
+    />
+  )
 }

@@ -12,7 +12,8 @@ import {
 
 export const metadata: Metadata = {
   title: "Política de Cookies — SIGAPP",
-  description: "Quais cookies o SIGAPP utiliza, para quê servem e como você pode gerenciar suas preferências.",
+  description:
+    "Quais cookies o SIGAPP utiliza, para quê servem e como você pode gerenciar suas preferências.",
 }
 
 const SECTIONS: LegalSection[] = [
@@ -35,20 +36,23 @@ export default function CookiesPage() {
       sections={SECTIONS}
     >
       <LHighlight>
-        Utilizamos cookies para garantir o funcionamento correto da Plataforma, lembrar suas
-        preferências e, com seu consentimento, entender como você usa nosso site para que possamos
-        melhorá-lo. Você pode ajustar suas preferências a qualquer momento.
+        Utilizamos cookies para garantir o funcionamento correto da Plataforma,
+        lembrar suas preferências e, com seu consentimento, entender como você
+        usa nosso site para que possamos melhorá-lo. Você pode ajustar suas
+        preferências a qualquer momento.
       </LHighlight>
 
       <LSection id="o-que-sao" title="1. O que são Cookies">
         <LP>
-          Cookies são pequenos arquivos de texto armazenados no seu navegador ou dispositivo quando
-          você visita um site. Eles permitem que o site reconheça seu dispositivo em visitas
-          subsequentes e lembre informações como suas preferências de idioma, status de login e
-          configurações de interface.
+          Cookies são pequenos arquivos de texto armazenados no seu navegador ou
+          dispositivo quando você visita um site. Eles permitem que o site
+          reconheça seu dispositivo em visitas subsequentes e lembre informações
+          como suas preferências de idioma, status de login e configurações de
+          interface.
         </LP>
         <LP>
-          Além de cookies (arquivos de texto), utilizamos tecnologias similares como:
+          Além de cookies (arquivos de texto), utilizamos tecnologias similares
+          como:
         </LP>
         <LList
           items={[
@@ -92,79 +96,123 @@ export default function CookiesPage() {
       <LSection id="cookies-usados" title="3. Cookies que o SIGAPP Utiliza">
         <LSubsection title="3.1 Cookies estritamente necessários">
           <LP>
-            Estes cookies são essenciais para o funcionamento da Plataforma. Não podem ser
-            desativados sem impactar funcionalidades críticas. <strong>Não requerem consentimento</strong>{" "}
-            com base no legítimo interesse (Art. 7º, inciso IX da LGPD).
+            Estes cookies são essenciais para o funcionamento da Plataforma. Não
+            podem ser desativados sem impactar funcionalidades críticas.{" "}
+            <strong>Não requerem consentimento</strong> com base no legítimo
+            interesse (Art. 7º, inciso IX da LGPD).
           </LP>
           <LTable
             headers={["Nome", "Duração", "Finalidade"]}
             rows={[
-              ["sigapp_session", "Sessão (até 8 horas)", "Token de autenticação da sessão na Plataforma."],
-              ["sigapp_csrf", "Sessão", "Proteção contra ataques CSRF (Cross-Site Request Forgery)."],
-              ["sigapp_theme", "1 ano", "Lembra sua preferência de tema (claro/escuro)."],
-              ["cookie_consent", "1 ano", "Armazena suas preferências de consentimento de cookies."],
+              [
+                "sigapp_session",
+                "Sessão (até 8 horas)",
+                "Token de autenticação da sessão na Plataforma.",
+              ],
+              [
+                "sigapp_csrf",
+                "Sessão",
+                "Proteção contra ataques CSRF (Cross-Site Request Forgery).",
+              ],
+              [
+                "cookie_consent",
+                "1 ano",
+                "Armazena suas preferências de consentimento de cookies.",
+              ],
             ]}
           />
         </LSubsection>
 
         <LSubsection title="3.2 Cookies funcionais">
           <LP>
-            Permitem melhorar sua experiência lembrando escolhas e preferências. Requerem
-            consentimento quando vão além do estritamente necessário.
+            Permitem melhorar sua experiência lembrando escolhas e preferências.
+            Requerem consentimento quando vão além do estritamente necessário.
           </LP>
           <LTable
             headers={["Nome", "Duração", "Finalidade"]}
             rows={[
-              ["sigapp_locale", "6 meses", "Lembra idioma/localidade selecionados."],
-              ["sigapp_sidebar", "6 meses", "Estado aberto/fechado do menu lateral na Plataforma."],
-              ["sigapp_last_tenant", "30 dias", "Último tenant acessado (multi-conta)."],
+              [
+                "sigapp_locale",
+                "6 meses",
+                "Lembra idioma/localidade selecionados.",
+              ],
+              [
+                "sigapp_sidebar",
+                "6 meses",
+                "Estado aberto/fechado do menu lateral na Plataforma.",
+              ],
+              [
+                "sigapp_last_tenant",
+                "30 dias",
+                "Último tenant acessado (multi-conta).",
+              ],
             ]}
           />
         </LSubsection>
 
         <LSubsection title="3.3 Cookies analíticos (com consentimento)">
           <LP>
-            Coletamos dados de uso de forma agregada para entender como o site e a Plataforma são
-            usados. Esses dados ajudam a identificar problemas e melhorar funcionalidades. Requerem
-            seu consentimento.
+            Coletamos dados de uso de forma agregada para entender como o site e
+            a Plataforma são usados. Esses dados ajudam a identificar problemas
+            e melhorar funcionalidades. Requerem seu consentimento.
           </LP>
           <LTable
             headers={["Provedor", "Nome", "Duração", "Finalidade"]}
             rows={[
-              ["SIGAPP (interno)", "sig_analytics_id", "2 anos", "Identificador anônimo de sessão para análise de funil e uso."],
-              ["PostHog (se habilitado)", "_ph_*", "1 ano", "Análise de comportamento de produto, heatmaps e sessões gravadas (apenas com consentimento explícito)."],
+              [
+                "SIGAPP (interno)",
+                "sig_analytics_id",
+                "2 anos",
+                "Identificador anônimo de sessão para análise de funil e uso.",
+              ],
+              [
+                "PostHog (se habilitado)",
+                "_ph_*",
+                "1 ano",
+                "Análise de comportamento de produto, heatmaps e sessões gravadas (apenas com consentimento explícito).",
+              ],
             ]}
           />
           <LP>
-            Os dados analíticos são tratados de forma agregada e anonimizada — não identificamos
-            Usuários individualmente por meio deles. Você pode optar por não participar sem perda
-            de funcionalidade.
+            Os dados analíticos são tratados de forma agregada e anonimizada —
+            não identificamos Usuários individualmente por meio deles. Você pode
+            optar por não participar sem perda de funcionalidade.
           </LP>
         </LSubsection>
 
         <LSubsection title="3.4 Cookies de marketing (com consentimento)">
           <LP>
-            No <strong>site institucional</strong> (sigapp.com.br), podemos usar cookies de
-            marketing para medir a efetividade de campanhas. <strong>Dentro da Plataforma</strong>{" "}
-            (app.sigapp.com.br), não utilizamos cookies de marketing.
+            No <strong>site institucional</strong> (sigapp.com.br), podemos usar
+            cookies de marketing para medir a efetividade de campanhas.{" "}
+            <strong>Dentro da Plataforma</strong> (app.sigapp.com.br), não
+            utilizamos cookies de marketing.
           </LP>
           <LTable
             headers={["Provedor", "Finalidade", "Duração"]}
             rows={[
-              ["Google Ads (se habilitado)", "Rastreamento de conversão de anúncios pagos.", "90 dias"],
-              ["Meta Pixel (se habilitado)", "Rastreamento de conversão em campanhas Meta.", "90 dias"],
+              [
+                "Google Ads (se habilitado)",
+                "Rastreamento de conversão de anúncios pagos.",
+                "90 dias",
+              ],
+              [
+                "Meta Pixel (se habilitado)",
+                "Rastreamento de conversão em campanhas Meta.",
+                "90 dias",
+              ],
             ]}
           />
           <LP>
-            Estes cookies só são ativados após consentimento explícito na banner de cookies. Você
-            pode revogar a qualquer momento.
+            Estes cookies só são ativados após consentimento explícito na banner
+            de cookies. Você pode revogar a qualquer momento.
           </LP>
         </LSubsection>
       </LSection>
 
       <LSection id="terceiros" title="4. Cookies de Terceiros">
         <LP>
-          Alguns cookies são definidos por terceiros cujos serviços incorporamos:
+          Alguns cookies são definidos por terceiros cujos serviços
+          incorporamos:
         </LP>
         <LList
           items={[
@@ -174,29 +222,31 @@ export default function CookiesPage() {
           ]}
         />
         <LP>
-          O SIGAPP não controla os cookies de terceiros. Recomendamos consultar as políticas de
-          privacidade de cada provedor.
+          O SIGAPP não controla os cookies de terceiros. Recomendamos consultar
+          as políticas de privacidade de cada provedor.
         </LP>
       </LSection>
 
       <LSection id="gestao" title="5. Como Gerenciar Cookies">
         <LSubsection title="5.1 Central de preferências do SIGAPP">
           <LP>
-            Ao acessar o site pela primeira vez, exibimos uma banner de consentimento. Você pode:
+            Ao acessar o site pela primeira vez, exibimos uma banner de
+            consentimento. Você pode:
           </LP>
           <LList
             items={[
               "Aceitar todos os cookies.",
               "Aceitar apenas os necessários.",
               "Personalizar categoria por categoria.",
-              "Alterar suas preferências a qualquer momento clicando em \"Preferências de Cookies\" no rodapé.",
+              'Alterar suas preferências a qualquer momento clicando em "Preferências de Cookies" no rodapé.',
             ]}
           />
         </LSubsection>
 
         <LSubsection title="5.2 Configurações do navegador">
           <LP>
-            Você pode controlar cookies diretamente pelo navegador. Veja como em cada um:
+            Você pode controlar cookies diretamente pelo navegador. Veja como em
+            cada um:
           </LP>
           <LList
             items={[
@@ -207,24 +257,26 @@ export default function CookiesPage() {
             ]}
           />
           <LHighlight>
-            Bloquear cookies estritamente necessários pode impedir o login e o uso da Plataforma.
-            Recomendamos gerenciar apenas os cookies analíticos e de marketing, mantendo os
-            necessários e funcionais ativos.
+            Bloquear cookies estritamente necessários pode impedir o login e o
+            uso da Plataforma. Recomendamos gerenciar apenas os cookies
+            analíticos e de marketing, mantendo os necessários e funcionais
+            ativos.
           </LHighlight>
         </LSubsection>
 
         <LSubsection title="5.3 Opt-out de analytics">
           <LP>
-            Para desativar rastreamento analítico sem alterar preferências de outros cookies,
-            acesse as configurações de conta em &ldquo;Privacidade&rdquo; dentro da Plataforma.
+            Para desativar rastreamento analítico sem alterar preferências de
+            outros cookies, acesse as configurações de conta em
+            &ldquo;Privacidade&rdquo; dentro da Plataforma.
           </LP>
         </LSubsection>
       </LSection>
 
       <LSection id="lgpd" title="6. LGPD e Consentimento">
         <LP>
-          Em conformidade com a LGPD (Lei 13.709/2018) e com o Marco Civil da Internet
-          (Lei 12.965/2014), o SIGAPP:
+          Em conformidade com a LGPD (Lei 13.709/2018) e com o Marco Civil da
+          Internet (Lei 12.965/2014), o SIGAPP:
         </LP>
         <LList
           items={[
@@ -236,34 +288,36 @@ export default function CookiesPage() {
           ]}
         />
         <LP>
-          Cookies estritamente necessários não requerem consentimento, pois seu uso é
-          indispensável para o fornecimento do serviço solicitado pelo Usuário (base legal:
-          execução de contrato, Art. 7º, inciso V da LGPD, e legítimo interesse, inciso IX).
+          Cookies estritamente necessários não requerem consentimento, pois seu
+          uso é indispensável para o fornecimento do serviço solicitado pelo
+          Usuário (base legal: execução de contrato, Art. 7º, inciso V da LGPD,
+          e legítimo interesse, inciso IX).
         </LP>
       </LSection>
 
       <LSection id="atualizacoes" title="7. Atualizações desta Política">
         <LP>
-          Esta Política pode ser atualizada para refletir mudanças nos cookies utilizados,
-          nas tecnologias de rastreamento ou na legislação aplicável. Atualizações serão
-          comunicadas por meio de notificação na banner de cookies ou por e-mail, conforme
-          a materialidade da alteração.
+          Esta Política pode ser atualizada para refletir mudanças nos cookies
+          utilizados, nas tecnologias de rastreamento ou na legislação
+          aplicável. Atualizações serão comunicadas por meio de notificação na
+          banner de cookies ou por e-mail, conforme a materialidade da
+          alteração.
         </LP>
         <LP>
-          A data de &ldquo;última atualização&rdquo; no topo desta página indica quando a versão
-          vigente foi publicada.
+          A data de &ldquo;última atualização&rdquo; no topo desta página indica
+          quando a versão vigente foi publicada.
         </LP>
       </LSection>
 
       <LSection id="contato" title="8. Contato">
         <LP>
-          Para dúvidas sobre o uso de cookies ou para exercer seus direitos relacionados a
-          rastreamento, entre em contato com nosso DPO:
+          Para dúvidas sobre o uso de cookies ou para exercer seus direitos
+          relacionados a rastreamento, entre em contato com nosso DPO:
         </LP>
         <LList
           items={[
             "E-mail: privacidade@sigapp.com.br",
-            "Assunto sugerido: \"Política de Cookies — [sua dúvida]\"",
+            'Assunto sugerido: "Política de Cookies — [sua dúvida]"',
             "Prazo de resposta: até 15 dias corridos.",
           ]}
         />
