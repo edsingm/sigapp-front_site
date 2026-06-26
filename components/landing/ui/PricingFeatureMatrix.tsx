@@ -51,14 +51,14 @@ export function PricingFeatureMatrix() {
   return (
     <div className="mt-10 sm:mt-14">
       <div className="hidden sm:block">
-        <div className="mb-6 flex flex-col gap-3 text-center">
-          <SectionLabel className="text-center">
-            {PRICING_MATRIX_COPY.eyebrow}
-          </SectionLabel>
-          <h3 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-            {PRICING_MATRIX_COPY.title}
-          </h3>
-          <p className="mx-auto max-w-[58ch] text-sm text-muted-foreground md:text-base">
+        <div className="mb-6 grid gap-5 lg:grid-cols-12 lg:items-end">
+          <div className="flex flex-col gap-3 lg:col-span-5">
+            <SectionLabel>{PRICING_MATRIX_COPY.eyebrow}</SectionLabel>
+            <h3 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+              {PRICING_MATRIX_COPY.title}
+            </h3>
+          </div>
+          <p className="max-w-[58ch] text-sm text-muted-foreground md:text-base lg:col-span-7 lg:justify-self-end">
             {PRICING_MATRIX_COPY.description}
           </p>
         </div>

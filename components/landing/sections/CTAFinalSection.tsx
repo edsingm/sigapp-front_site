@@ -6,51 +6,34 @@ import { CadastralMapBackdrop } from "@/components/landing/ui/CadastralMapBackdr
 
 export function CTAFinalSection() {
   return (
-    <section id="cta-final" className="py-20 md:py-28">
-      <div className="w-full">
-        <div className="relative overflow-hidden bg-[#0B1E39] px-6 py-16 shadow-2xl shadow-black/20 sm:px-12 sm:py-20 md:py-24">
-          <CadastralMapBackdrop className="opacity-90" />
-          <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-50" />
-          <div className="pointer-events-none absolute -top-20 -right-20 size-64 rounded-full bg-primary/18 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 size-48 rounded-full bg-white/10 blur-3xl" />
+    <section id="cta-final" className="py-24 md:py-32">
+      <div className="container-landing">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-[#0B1E39] px-6 py-20 ring-1 ring-white/10 sm:px-12 md:py-28">
+          <CadastralMapBackdrop className="brand-map--dark opacity-90" />
+          <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-40" />
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
           <ScrollReveal
             stagger
             className="relative flex flex-col items-center gap-7 text-center"
           >
-            <span className="inline-flex items-center gap-1.5 rounded-md border border-white/18 bg-white/6 px-3 py-1 text-xs font-semibold text-white">
-              7 dias grátis · Sem compromisso
+            <span className="eyebrow eyebrow--center text-secondary">
+              Do mapa à decisão · Fluxo real da sua equipe
             </span>
 
-            <h2 className="font-heading text-3xl leading-[1.05] font-semibold tracking-tighter text-balance text-white sm:text-4xl md:text-5xl lg:text-6xl">
-              Viabilidade sem achismo.
+            <h2 className="font-heading text-4xl leading-[1.02] font-bold tracking-[-0.03em] text-balance text-white sm:text-5xl md:text-6xl">
+              Leve um terreno real para a demonstração.
             </h2>
 
-            <p className="max-w-[45ch] text-lg leading-relaxed text-white/88">
-              Acesso completo por 7 dias. Cancele antes do fim e não será
-              cobrado. Dados exportáveis se mudar de ideia.
+            <p className="max-w-[45ch] text-lg leading-relaxed text-white/80">
+              Mostramos análise, comitê, permissões e rastreabilidade em um
+              cenário territorial próximo da sua operação.
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 size="lg"
-                className="h-12 gap-2 bg-primary px-6 text-base font-semibold text-white shadow-sm hover:bg-primary/90 active:scale-[0.98]"
-                nativeButton={false}
-                render={
-                  <a
-                    href={LINKS.signup}
-                    data-analytics-event="trial_signup_click"
-                    data-analytics-location="cta-final"
-                  />
-                }
-              >
-                Criar conta gratuita
-                <ArrowRight className="size-4" />
-              </Button>
-              <Button
-                variant="ghost-white"
-                size="lg"
-                className="h-12 gap-2 px-6 text-base"
+                className="group/cta h-13 gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-[0_14px_40px_-12px_rgba(46,107,255,0.7)] hover:bg-primary/90 active:scale-[0.98]"
                 nativeButton={false}
                 render={
                   <a
@@ -60,20 +43,39 @@ export function CTAFinalSection() {
                   />
                 }
               >
+                Solicitar demonstração
+                <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-px">
+                  <ArrowRight className="size-4" />
+                </span>
+              </Button>
+              <Button
+                variant="ghost-white"
+                size="lg"
+                className="h-13 gap-2.5 rounded-full border border-white/16 bg-white/6 px-6 text-base"
+                nativeButton={false}
+                render={
+                  <a
+                    href={LINKS.sales}
+                    data-analytics-event="sales_contact_click"
+                    data-analytics-location="cta-final"
+                  />
+                }
+              >
                 <CalendarDays className="size-4" />
-                Agendar demonstração
+                Construir caso de negócio
               </Button>
             </div>
 
             <p className="text-sm text-white/72">
-              Cancele antes do 7º dia e não paga nada · Suporte em português
+              Demonstração guiada · Suporte em português · Dados e integrações
+              em contexto
             </p>
 
             <div className="flex items-center gap-1.5 text-xs text-white/68">
               <ShieldCheck className="size-3.5 shrink-0 text-secondary" />
               <span>
-                Pagamento seguro processado via{" "}
-                <span className="font-semibold text-secondary">Stripe</span>
+                Permissões, histórico e arquitetura apresentados na mesma
+                conversa comercial
               </span>
             </div>
           </ScrollReveal>

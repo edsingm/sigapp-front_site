@@ -9,16 +9,21 @@ export function TestimonialsSection() {
   const smalls = TESTIMONIALS.filter((t) => t.size === "sm")
 
   return (
-    <section className="bg-muted/20 py-20 md:py-28">
+    <section className="bg-muted/20 py-24 md:py-32">
       <div className="container-landing">
-        <ScrollReveal stagger className="mb-16 flex flex-col items-center gap-3 text-center md:mb-20">
-          <SectionLabel className="text-center">Depoimentos</SectionLabel>
-          <h2 className="font-heading text-3xl font-semibold leading-tight tracking-tight text-foreground text-balance md:text-4xl">
-            Incorporadoras que deixaram as planilhas para trás
-          </h2>
-          <p className="max-w-[56ch] text-sm leading-relaxed text-muted-foreground md:text-base">
-            Resultados concretos em prospecção, comitê e migração operacional, com identidade visual
-            ligada à empresa e à cidade de cada operação.
+        <ScrollReveal
+          stagger
+          className="mb-16 grid gap-6 md:mb-20 lg:grid-cols-12 lg:items-end"
+        >
+          <div className="flex flex-col gap-4 lg:col-span-5">
+            <SectionLabel>Depoimentos</SectionLabel>
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl">
+              Incorporadoras que deram contexto à decisão
+            </h2>
+          </div>
+          <p className="max-w-[58ch] text-sm leading-relaxed text-muted-foreground md:text-base lg:col-span-7 lg:justify-self-end">
+            Provas de uso real em prospecção, comitê e migração operacional, com
+            ganhos percebidos no ritmo da análise e na clareza entre áreas.
           </p>
         </ScrollReveal>
 
@@ -28,7 +33,10 @@ export function TestimonialsSection() {
         </div>
 
         {/* Desktop: grid */}
-        <ScrollReveal stagger className="hidden lg:grid lg:grid-cols-12 lg:gap-6">
+        <ScrollReveal
+          stagger
+          className="hidden lg:grid lg:grid-cols-12 lg:gap-6"
+        >
           {large && (
             <div className="lg:col-span-7">
               <TestimonialCard

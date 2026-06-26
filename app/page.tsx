@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 
 export const metadata: Metadata = {
-  title: "SIGAPP — Do terreno ao retorno",
+  title: "SIGAPP — Decisões que ganham território",
   description:
-    "Da prospecção à legalização em um único sistema. DRE, TIR e fluxo de caixa em segundos — aprovação no comitê em uma rodada, não quatro. Comece com 7 dias grátis.",
+    "Plataforma de gestão territorial inteligente para conectar mapas, dados, viabilidade e processo em uma única fonte de decisão.",
 }
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { StickyMobileCTA } from "@/components/landing/client/StickyMobileCTA"

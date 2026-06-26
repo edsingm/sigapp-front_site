@@ -1,11 +1,16 @@
+import { readFileSync } from "node:fs"
+import { join } from "node:path"
 import { ImageResponse } from "next/og"
-
-import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
-import { SITE } from "@/lib/landing-data"
 
 export const alt = "SIGAPP — Inteligência para incorporar"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
+
+const logoMarkSvg = readFileSync(
+  join(process.cwd(), "public/logo-mark.svg"),
+  "utf8"
+)
+const logoMarkSrc = `data:image/svg+xml;utf8,${encodeURIComponent(logoMarkSvg)}`
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -131,23 +136,21 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            width: 48,
-            height: 48,
-            color: "#6CA0FF",
+            width: 178,
+            height: 58,
+            padding: "8px 14px",
+            borderRadius: 14,
+            background: "#ffffff",
           }}
         >
-          <SigappLogoMark width={42} height={42} />
+          <img
+            src={logoMarkSrc}
+            alt="SIGAPP"
+            width={150}
+            height={46}
+            style={{ objectFit: "contain" }}
+          />
         </div>
-        <span
-          style={{
-            fontSize: 30,
-            fontWeight: 700,
-            color: "#ffffff",
-            letterSpacing: "0.14em",
-          }}
-        >
-          {SITE.name}
-        </span>
       </div>
 
       <div
@@ -191,7 +194,7 @@ export default function OpengraphImage() {
             fontWeight: 600,
           }}
         >
-          7 dias grátis
+          Solicitar demonstração
         </span>
       </div>
     </div>,

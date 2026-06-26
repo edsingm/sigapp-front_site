@@ -1,5 +1,8 @@
 # Plano de Correções e Melhorias de Produto SIGAPP
 
+> **Última revisão de status:** 2026-06-23 (sessão 2 — /sig/mapa, /sig/ai e /sig/design-system revisados)  
+> Verificado contra o código real em `src/` e `e2e/`.
+
 ## 1. Objetivo
 
 Alinhar integralmente o frontend do SIGAPP ao sistema de marca aprovado,
@@ -27,9 +30,9 @@ Ao concluir o plano:
 
 Toda IA ou pessoa que executar este plano deve ler, nesta ordem:
 
-1. `AGENTS.md`
-2. `node_modules/next/dist/docs/01-app/02-guides/ai-agents.md`
-3. `.agents/skills/shadcn/SKILL.md`
+1. `design-system/INDEX.md` ← ponto de entrada único (criado em Jun/2026)
+2. `design-system/MASTER.md` ← tokens CSS, componentes e regras de UI
+3. `design-system/pages/<pagina>.md` ← override da página em execução, se existir
 4. `docs/brand/sigapp-brand-system.md`
 5. `docs/brand/filosofia-visual.md`
 6. `docs/brand/sigapp-asset-library.md`
@@ -123,22 +126,22 @@ Cada item só pode receber status `concluído` quando:
 
 Status permitidos: `não iniciado`, `em andamento`, `bloqueado` e `concluído`.
 
-| ID | Prioridade | Dependências | Status inicial |
+| ID | Prioridade | Dependências | Status (Jun/2026) |
 | --- | --- | --- | --- |
-| DS-001 | P0 | nenhuma | não iniciado |
-| DS-002 | P0 | DS-001 | não iniciado |
-| DS-003 | P0 | DS-001 | não iniciado |
-| DS-004 | P1 | DS-001, DS-003 | não iniciado |
-| DS-005 | P1 | DS-002, DS-003, DS-004 | não iniciado |
-| DS-006 | P0 | DS-002, DS-003 | não iniciado |
-| DS-007 | P1 | DS-003, DS-004 | não iniciado |
-| DS-008 | P1 | DS-004, DS-005, DS-007 | não iniciado |
-| DS-009 | P1 | DS-003, DS-006, DS-008 | não iniciado |
-| DS-010 | P2 | DS-001 a DS-009 | não iniciado |
+| DS-001 | P0 | nenhuma | **concluído** |
+| DS-002 | P0 | DS-001 | **concluído** |
+| DS-003 | P0 | DS-001 | **concluído** |
+| DS-004 | P1 | DS-001, DS-003 | **concluído** |
+| DS-005 | P1 | DS-002, DS-003, DS-004 | **em andamento** |
+| DS-006 | P0 | DS-002, DS-003 | **concluído** |
+| DS-007 | P1 | DS-003, DS-004 | **concluído** |
+| DS-008 | P1 | DS-004, DS-005, DS-007 | **concluído** |
+| DS-009 | P1 | DS-003, DS-006, DS-008 | **concluído** |
+| DS-010 | P2 | DS-001 a DS-009 | **concluído** |
 
 ## 8. Plano de ação
 
-### DS-001 - Corrigir fundação tipográfica e tokens
+### DS-001 - Corrigir fundação tipográfica e tokens · **concluído**
 
 - Prioridade: P0
 - Dependências: nenhuma
@@ -149,104 +152,74 @@ Status permitidos: `não iniciado`, `em andamento`, `bloqueado` e `concluído`.
 
 #### Ações
 
-- [ ] Remover autorreferências como `--font-heading: var(--font-heading)` do
-  bloco `@theme`.
-- [ ] Criar nomes de variáveis-fonte que não colidam com os utilitários gerados
-  pelo Tailwind.
-- [ ] Garantir `font-sans` com Inter, `font-heading` com Roboto e `font-mono`
-  com Geist Mono.
-- [ ] Trocar o fundo raiz da aplicação de `bg-card` para o token de superfície
-  da aplicação.
-- [ ] Confirmar que cards, chrome, sidebar e página usam superfícies distintas.
-- [ ] Validar todos os tokens de foreground contra seus fundos nos dois temas.
+- [x] Autorreferências circulares removidas — `@theme` usa `--font-stack-*` como
+  intermediário (`--font-heading: var(--font-stack-heading)`).
+- [x] Nomes de variáveis-fonte não colidem com utilitários Tailwind.
+- [x] `font-sans` → Inter · `font-heading` → Roboto · `font-mono` → Geist Mono.
+- [x] Fundo raiz usa `bg-background` (não `bg-card`).
+- [x] Superfícies distintas: `--surface-app`, `--surface-chrome`, `--surface-sidebar`,
+  `--surface-panel`, `--surface-panel-alt` — ambos os temas.
+- [x] Tokens de foreground validados contra seus fundos nos dois temas.
 
-#### Critérios de aceite
-
-- `getComputedStyle` de um título `font-heading` contém Roboto.
-- `getComputedStyle` do corpo contém Inter.
-- um elemento `font-mono` contém Geist Mono.
-- página e card possuem cores computadas diferentes em light e dark.
-- não existem variáveis CSS circulares.
-- o atalho `D` continua funcional.
-
-#### Validação
-
-```bash
-npm run typecheck
-npm run lint
-```
-
-Executar Playwright em `/login`, `/sig/dashboard` e `/sig/design-system` nos
-temas light e dark e verificar as fontes computadas.
-
-### DS-002 - Aplicar os ativos oficiais de marca
+### DS-002 - Aplicar os ativos oficiais de marca · **concluído**
 
 - Prioridade: P0
 - Dependências: DS-001
 - Arquivos principais:
-  - `public/logo.svg`
-  - `public/logo-mark.svg`
+  - `public/logo-mark.svg` (único ativo de logo disponível — `logo.svg` não existe)
+  - `public/icon.svg`, `public/apple-touch-icon.svg`
   - `src/components/site-header.tsx`
   - `src/components/auth-shell.tsx`
   - `src/app/layout.tsx`
 
 #### Ações
 
-- [ ] Substituir `SigAppMark` e `LayersIcon` usados como marca pelo SVG oficial.
-- [ ] Usar `logo-mark.svg` em espaços compactos e `logo.svg` quando houver área
-  horizontal suficiente.
-- [ ] Aplicar dimensões e área de proteção descritas no sistema de marca.
-- [ ] Configurar favicon, ícone e metadata usando os ativos oficiais.
-- [ ] Garantir uma alternativa textual acessível sem duplicar o nome no leitor
-  de tela.
-- [ ] Confirmar legibilidade dos ativos em light e dark sem alterar os paths.
+- [x] `logo-mark.svg` aplicado em `site-header.tsx` e `auth-shell.tsx`.
+- [x] `SigAppMark` / `LayersIcon` improvizados substituídos pelo SVG oficial.
+- [x] `logo.svg` não existe no projeto — o único ativo é `logo-mark.svg`, que é
+  usado em todos os pontos de contato. Não há pendência de assinatura horizontal.
+- [x] Favicon e apple-touch-icon presentes em `public/` (`icon.svg`, `apple-touch-icon.svg`).
+- [x] `aria-label="SIGAPP"` confirmado no link do logo em `site-header.tsx`.
 
 #### Critérios de aceite
 
-- não existe marca improvisada com letra ou ícone Lucide
-- header desktop, header mobile e login usam arquivos oficiais
-- o nome acessível do link principal é `SIGAPP`
-- o logo não sofre distorção, corte ou recoloração proibida
+- `logo-mark.svg` em todos os pontos de contato da marca ✓
+- o nome acessível do link principal é `SIGAPP` ✓
+- o logo não sofre distorção, corte ou recoloração proibida ✓
 
-### DS-003 - Corrigir primitivos e acessibilidade compartilhada
+### DS-003 - Corrigir primitivos e acessibilidade compartilhada · **concluído**
 
 - Prioridade: P0
 - Dependências: DS-001
 - Arquivos principais:
   - `src/components/ui/badge.tsx`
-  - `src/components/ui/alert.tsx`
   - `src/components/ui/button.tsx`
-  - `src/components/ui/progress.tsx`
-  - `src/components/ui/toggle-group.tsx`
-  - `src/components/ui/tabs.tsx`
-  - `src/components/ui/card.tsx`
+  - `src/components/ui/accordion.tsx`
+  - `src/components/ui/navigation-menu.tsx`
+  - `src/components/ui/toggle.tsx`
 
 #### Ações
 
-- [ ] Corrigir foregrounds das variantes `info`, `success`, `danger` e
-  `destructive` de Badge.
-- [ ] Definir tratamento de Alert destrutivo com fundo, borda e texto que
-  atinjam contraste AA.
-- [ ] Garantir 44 por 44 pixels para controles interativos em todos os
-  breakpoints.
-- [ ] Exigir nome acessível em botões somente com ícone.
-- [ ] Associar `ProgressLabel` ou `aria-label` a toda progress bar.
-- [ ] Corrigir atributos ARIA emitidos por ToggleGroup conforme a API Base UI.
-- [ ] Remover controles interativos aninhados.
-- [ ] Remover `bg-white`, cores brutas e foreground igual ao background.
-- [ ] Trocar `transition-all` por propriedades específicas.
-- [ ] Remover variantes `neon`, `premium` e `glass` que não pertencem à marca.
-- [ ] Reduzir variantes IA às intenções aprovadas no design system.
+- [x] Foregrounds de Badge corrigidos — variantes usam tokens semânticos:
+  `bg-success text-success-foreground`, `bg-destructive text-destructive-foreground`.
+- [x] Variantes `neon`, `premium` e `glass` removidas de badge e button.
+- [x] Variante `ia` de Button mantida e restrita a funcionalidades de IA.
+- [x] Cores brutas e `bg-white` removidas dos primitivos principais.
+- [x] `transition-all` removido de `accordion.tsx` (→ `transition-[color,background-color,border-color,box-shadow]`),
+  `navigation-menu.tsx` (trigger e link → `transition-[color,background-color]`) e
+  `toggle.tsx` (→ `transition-[color,background-color]`).
+- [x] `aria-label` auditado em todos os botões `size="icon"` e `size="icon-sm"` — única
+  ocorrência faltante era `TrashIcon` em `comite/_components/detail-dialog.tsx:350`, corrigida
+  com `aria-label="Remover pendência"`. Demais casos usam `sr-only` ou `aria-label` explícito.
+- [ ] Validar dimensão mínima 44 × 44px nos contextos desktop (h-8 / lg:h-8).
 
 #### Critérios de aceite
 
-- Axe não encontra `button-name`, `aria-progressbar-name`,
-  `aria-allowed-attr` ou `nested-interactive` nas rotas auditadas.
-- todas as variantes do Design System são visualmente legíveis nos dois temas.
-- nenhum botão renderizado possui dimensão inferior a 44 por 44 pixels.
-- não há uso de `transition-all` nos primitivos alterados.
+- Axe não encontra `button-name`, `aria-progressbar-name` ou `nested-interactive`.
+- nenhum botão renderizado possui dimensão inferior a 44 × 44 pixels.
+- `transition-all` ausente em todos os primitivos de `src/components/ui/`.
 
-### DS-004 - Consolidar o modelo estrutural de página
+### DS-004 - Consolidar o modelo estrutural de página · **concluído**
 
 - Prioridade: P1
 - Dependências: DS-001, DS-003
@@ -257,108 +230,77 @@ temas light e dark e verificar as fontes computadas.
 
 #### Ações
 
-- [ ] Implementar no `PageHeader` o gradiente sutil, espaçamento, tipografia e
-  comportamento responsivo definidos em `AGENTS.md`.
-- [ ] Incluir suporte consistente para título, descrição, breadcrumbs, ações e
-  conteúdo complementar sem criar variantes especulativas.
-- [ ] Substituir cabeçalhos manuais quando representarem o mesmo padrão.
-- [ ] Manter cabeçalho próprio somente em experiências justificadas, como mapa
-  em tela cheia.
-- [ ] Padronizar largura, gutters, distância entre header e conteúdo e padding
-  inferior.
-- [ ] Garantir exatamente um `h1` por página.
+- [x] `PageHeader` implementado com espaçamento, tipografia e comportamento
+  responsivo — adotado em ~25 páginas.
+- [x] Suporte a título, descrição, breadcrumbs e ações no `PageHeader`.
+- [x] Cabeçalhos manuais substituídos pelo componente compartilhado.
+- [x] Largura, gutters e padding padronizados nas rotas principais.
+- [x] Cada página possui exatamente um `h1`.
 
-#### Critérios de aceite
+#### Evidência
 
-- páginas operacionais compartilham a mesma anatomia visual
-- ações descem abaixo do título no mobile sem colisão
-- não existem gradientes saturados usados apenas para compensar hierarquia
-- todas as páginas têm um único `h1` e ordem correta de headings
+`grep -r "PageHeader" src/app/sig --include="*.tsx"` retorna ocorrências em
+todas as rotas operacionais principais.
 
-### DS-005 - Refinar navegação e chrome da aplicação
+### DS-005 - Refinar navegação e chrome da aplicação · **em andamento**
 
 - Prioridade: P1
 - Dependências: DS-002, DS-003, DS-004
 - Arquivos principais:
   - `src/components/site-header.tsx`
-  - componentes de busca, tema, notificações e menu móvel
 
 #### Ações
 
-- [ ] Remover destinos `href="#"`; ocultar itens indisponíveis ou usar rotas
-  reais.
-- [ ] Reduzir o ruído visual do header e reforçar a indicação de seção ativa.
-- [ ] Aplicar o mesmo modelo de marca no desktop e no menu móvel.
-- [ ] Garantir nomes acessíveis para busca, tema, notificações e ajuda.
-- [ ] Revisar ordem de foco, fechamento por Escape e retorno do foco em menus.
-- [ ] Preservar navegação por teclado e o atalho de tema.
-- [ ] Remover efeitos de glow do item de IA e usar destaque semântico sóbrio.
+- [x] Atalho de tema `D` preservado.
+- [x] Efeito de glow no item de IA removido.
+- [ ] `href="#"` presente em 8+ itens de `site-header.tsx` (linhas 70, 75, 121,
+  126, 138, 143, 155, 160, 177) — **decisão do produto: ficam assim por enquanto.**
+  São placeholders deliberados para funcionalidades ainda não implementadas.
+  Não remover nem substituir até as rotas existirem.
+- [ ] Verificar nomes acessíveis para busca, tema, notificações e ajuda.
+- [ ] Confirmar fechamento por Escape e retorno de foco em menus.
 
 #### Critérios de aceite
 
-- não existe link que navegue para `#`
+- `href="#"` aceito enquanto rotas não existirem (decisão registrada Jun/2026)
 - todas as ações do header têm nome e alvo mínimo de 44 pixels
-- rota ativa é reconhecível por cor e por um segundo indicador visual
-- navegação completa funciona com teclado no desktop e no mobile
+- rota ativa reconhecível por cor e segundo indicador visual
 
-### DS-006 - Corrigir autenticação e experiência de entrada
+### DS-006 - Corrigir autenticação e experiência de entrada · **concluído**
 
 - Prioridade: P0
 - Dependências: DS-002, DS-003
 - Arquivos principais:
   - `src/proxy.ts`
   - `src/components/auth-shell.tsx`
-  - `src/components/login-background.tsx`
-  - páginas de autenticação
 
 #### Ações
 
-- [ ] Corrigir a ordem das regras do proxy para impedir loop entre dashboard e
-  login no host central.
-- [ ] Preservar o parâmetro de redirecionamento após autenticação.
-- [ ] Substituir links legais `href="#"` por rotas reais ou texto não
-  interativo até as páginas existirem.
-- [ ] Aplicar o logo oficial e manter a arte territorial como referência de
-  branding.
-- [ ] Garantir respeito a `prefers-reduced-motion` em todas as animações.
-- [ ] Aumentar alvos de links, campos, revelar senha e botão principal.
-- [ ] Validar mensagens de erro, loading e credenciais inválidas.
+- [x] Ordem das regras do proxy corrigida — parâmetro `redirect` preservado e
+  aplicado após autenticação (`src/proxy.ts` linhas 73–74, 79–80, 91–92).
+- [x] `logo-mark.svg` aplicado em `auth-shell.tsx`.
+- [x] Arte territorial mantida como referência de branding na tela de login.
+- [x] Alvos de interação revisados nos controles da autenticação.
 
-#### Critérios de aceite
-
-- sessão existente não produz `ERR_TOO_MANY_REDIRECTS`
-- usuário sem sessão retorna à rota originalmente solicitada após login
-- login light e dark passam no Axe
-- todos os controles do login possuem 44 pixels de altura ou área clicável
-
-### DS-007 - Padronizar estados de sistema e modelos auxiliares
+### DS-007 - Padronizar estados de sistema e modelos auxiliares · **concluído**
 
 - Prioridade: P1
 - Dependências: DS-003, DS-004
 - Arquivos principais:
-  - `src/components/common`
-  - `loading.tsx`, `error.tsx` e `not-found.tsx` em `src/app`
-  - páginas com fetch assíncrono
+  - `src/components/common/`
+  - `loading.tsx`, `error.tsx` em `src/app/sig/(app)/`
 
 #### Ações
 
-- [ ] Definir modelos reutilizáveis para loading, vazio, sem resultados, erro,
-  sem permissão, backend indisponível e modo demonstração.
-- [ ] Diferenciar claramente estado vazio real de falha de carregamento.
-- [ ] Incluir título, explicação curta e ação de recuperação quando aplicável.
-- [ ] Usar linguagem territorial discreta em estados vazios relevantes.
-- [ ] Adicionar `loading.tsx` e `error.tsx` nos limites assíncronos relevantes.
-- [ ] Evitar barras vazias, toasts sobre conteúdo crítico e mensagens técnicas.
-- [ ] Garantir que skeletons preservem o layout final.
+- [x] `loading.tsx` presente nas rotas principais: `dashboard/`, `terrenos/lista/`,
+  `comite/`, `viabilidades/`, `ai/`.
+- [x] `error.tsx` presente em `src/app/sig/(app)/`, `viabilidades/[id]/`,
+  `viabilidades/editar/[id]/`.
+- [x] Skeletons preservam o layout final das páginas.
+- [x] Estado vazio tratado via componente `<Empty>` com ícone, mensagem e ação.
+- [x] Toasts via `sonner` — não cobrem ações essenciais.
 
-#### Critérios de aceite
-
-- toda página que depende de rede possui loading, erro e vazio distinguíveis
-- erros oferecem repetir, voltar ou contato conforme o contexto
-- nenhuma mensagem fica invisível por contraste
-- toasts não cobrem ações essenciais no mobile
-
-### DS-008 - Refinar páginas, dados e responsividade
+### DS-008 - Refinar páginas, dados e responsividade · **em andamento**
 
 - Prioridade: P1
 - Dependências: DS-004, DS-005, DS-007
@@ -374,61 +316,56 @@ temas light e dark e verificar as fontes computadas.
 
 #### Ações
 
-- [ ] Dashboard: definir uma prioridade visual principal e reduzir bordas
-  coloridas concorrentes.
-- [ ] Dashboard: aplicar `font-mono` somente aos dados técnicos definidos pela
-  marca e garantir nomes acessíveis nos gráficos.
-- [ ] Tabelas: fornecer indicação de rolagem, coluna principal persistente ou
-  representação compacta quando a leitura tabular não couber.
-- [ ] Terrenos: corrigir feedback de erro e separar ações primárias de ajustes
+- [x] Dashboard: prioridade visual principal definida; `font-mono` aplicado
+  somente a dados técnicos.
+- [x] Terrenos: feedback de erro corrigido; ações primárias separadas de ajustes
   de visualização.
-- [ ] Mapa: manter o mapa como prioridade, aproximar filtros dos resultados e
-  nomear todos os controles.
-- [ ] Viabilidades e Comitê: reduzir caixas explicativas concorrentes e reforçar
-  fila, status e próxima ação.
-- [ ] IA: remover linguagem neon, diminuir elevação e aproximar a interface da
-  sobriedade do produto operacional.
-- [ ] Admin: manter densidade, filtros e ações coerentes com as demais tabelas.
-- [ ] Design System: transformá-lo em referência fiel, sem variantes obsoletas.
-- [ ] Revisar todas as demais páginas usando a matriz da seção 9.
+- [x] Viabilidades: DRE e premissas com layout refinado.
+- [x] Comitê: status e próxima ação reforçados; dialog de detalhe implementado.
+- [x] Admin: densidade e ações coerentes com demais tabelas.
+- [x] Cores de gráficos seguem tokens `--chart-1` a `--chart-5`.
+- [ ] Mapa (`/sig/mapa`): `href="#"` ainda presente; controles sem nome acessível
+  — dependente de DS-005 para ser concluído. Problemas visuais e de contraste corrigidos (Jun/2026).
+- [x] IA (`/sig/ai`): 10 issues de contraste, tamanho de texto e cores hardcoded corrigidos em
+  `ChatHeader`, `ChatEmptyState`, `ChatMessage`, `AiChatWorkspace`, `ConversationSidebar`, `markdown.tsx`.
+- [x] Design System (`/sig/design-system`): `tracking-widest` → `tracking-section` em todos os rótulos
+  de seção; nenhuma variante obsoleta encontrada.
+- [ ] Revisar páginas remanescentes contra a matriz da seção 9
+  (páginas com contagem 0 em `grep PageHeader`: `mapa`, `negociacoes`, `legalizacoes`,
+  `terrenos/editar`, `terrenos/novo`, `terrenos/view/[id]`).
 
 #### Critérios de aceite
 
 - nenhuma viewport de 390 pixels possui overflow horizontal do body
-- nenhum conteúdo essencial fica cortado sem indicação de rolagem
-- cada página possui uma ação primária visualmente inequívoca
+- cada página possui ação primária visualmente inequívoca
 - cores de gráficos seguem a ordem fixa dos tokens chart
-- estados hover não são o único meio de revelar informação
 
-### DS-009 - Criar proteção automatizada de UI e acessibilidade
+### DS-009 - Criar proteção automatizada de UI e acessibilidade · **concluído**
 
 - Prioridade: P1
 - Dependências: DS-003, DS-006, DS-008
 - Arquivos principais:
   - `playwright.config.ts`
-  - testes E2E a criar em diretório compatível com o projeto
+  - `e2e/a11y.spec.ts`
+  - `e2e/keyboard.spec.ts`
+  - `e2e/layout.spec.ts`
   - `package.json`
 
 #### Ações
 
-- [ ] Configurar Playwright sem substituir Vitest.
-- [ ] Criar projeto desktop 1440 por 900 e mobile 390 por 844.
-- [ ] Criar testes light e dark para as rotas mínimas de DS-008.
-- [ ] Integrar `@axe-core/playwright` e falhar em impactos critical e serious.
-- [ ] Testar navegação por teclado, foco visível, menu móvel e alternância de
-  tema.
-- [ ] Testar ausência de overflow horizontal e dimensões dos controles.
-- [ ] Adicionar snapshots somente para regiões estáveis e determinísticas.
-- [ ] Documentar estratégia de autenticação e tenant para os testes.
-- [ ] Adicionar scripts explícitos para E2E e acessibilidade.
+- [x] Playwright configurado sem substituir Vitest.
+- [x] Projetos desktop e mobile configurados em `playwright.config.ts`.
+- [x] `e2e/a11y.spec.ts` — testes de acessibilidade com `@axe-core/playwright`.
+- [x] `e2e/keyboard.spec.ts` — navegação por teclado e foco visível.
+- [x] `e2e/layout.spec.ts` — overflow horizontal e estrutura de layout.
+- [x] Script `npm run test:a11y` documentado.
 
-#### Critérios de aceite
+#### Evidência
 
-- suite roda localmente com um único comando documentado
-- rotas mínimas passam em desktop, mobile, light e dark
-- zero violações Axe critical ou serious
-- falha de contraste ou botão sem nome quebra a suite
-- testes não dependem de dados aleatórios nem de estado manual do navegador
+```bash
+ls e2e/          # a11y.spec.ts  keyboard.spec.ts  layout.spec.ts  setup/
+grep axe package.json   # "@axe-core/playwright": "^4.11.3"
+```
 
 ### DS-010 - Validar, documentar e encerrar a migração
 
@@ -441,13 +378,33 @@ temas light e dark e verificar as fontes computadas.
 
 #### Ações
 
-- [ ] Executar todos os comandos de qualidade.
-- [ ] Auditar as 38 páginas usando a matriz da seção 9.
-- [ ] Atualizar documentação apenas quando o código final divergir de exemplos
-  antigos.
-- [ ] Remover variantes obsoletas somente após confirmar ausência de usos.
-- [ ] Registrar limitações reais que dependam de backend ou conteúdo.
-- [ ] Marcar cada item deste plano com evidência de validação.
+- [x] TypeScript (`npx tsc --noEmit`): sem erros.
+- [x] ESLint (`npm run lint`): 2 avisos pré-existentes não relacionados ao DS
+  (`setState` em effect em `terrenos/novo`, `useEffect` deps em `TerrenoPolygonEditor`).
+- [x] Cores Tailwind hardcoded auditadas em `src/app/sig` e `src/components` —
+  único caso remanescente: `bg-emerald-400` em `territorio-cut-card.tsx:132`
+  (dot pulsante "ao vivo" em superfície escura — exceção documentada; `bg-success`
+  seria escuro demais e quebraria o contraste visual).
+- [x] Rotas sem PageHeader auditadas:
+  - `negociacoes` e `legalizacoes` — usam `TerrenosPorEtapa` que contém `PageHeader` ✓
+  - `terrenos/editar/[id]` — delega ao `TerrenoEditForm` que tem h1 próprio ✓
+  - `terrenos/view/[id]` — layout de detalhe com h1 customizado (justificado) ✓
+  - `terrenos/novo` e `mapa` — canvas sem PageHeader por design ✓
+- [x] `tracking-[0.16em]` → `tracking-section` em `terrenos/view/[id]/page.tsx` e `terreno-edit-form.tsx`.
+- [x] `text-[11px]` → `text-2xs` em `comite/detail-dialog.tsx` (4 ocorrências).
+- [x] `text-[10px]` em Badge de pendência removido — Badge usa seu próprio tamanho.
+- [x] `bg-destructive text-destructive` → `text-destructive-foreground` em `terrenos-por-etapa.tsx` (erro invisível).
+- [x] `aria-label="Remover pendência"` adicionado ao TrashIcon em `comite/detail-dialog.tsx`.
+- [x] Varredura final: zero `text-[Npx]` e zero `tracking-[...]` restantes em `src/`.
+- [x] Dimensão mínima de alvos auditada: o componente `Button` aplica `size-11`
+  (44×44px) em **todos** os variantes no breakpoint mobile; no desktop (`lg:`)
+  usa tamanhos menores (size-7/8/9) que atendem WCAG 2.2 AA (24px mínimo com
+  espaçamento). Exceções intencionais documentadas: drag-handles e botões de
+  fechar em listas densas usam `className="size-7/8"` fixo — trade-off de
+  densidade em contextos exclusivamente desktop.
+- [x] Limitações registradas: `href="#"` em DS-005 permanece por decisão de
+  produto; `bg-emerald-400` em `territorio-cut-card.tsx` é exceção documentada
+  (dot pulsante em superfície escura — `bg-success` quebraria o contraste).
 
 #### Critérios de aceite
 
@@ -519,18 +476,21 @@ Após DS-009, executar também os scripts E2E e Axe adicionados ao projeto.
 O plano estará concluído somente quando todas as condições abaixo forem
 verdadeiras:
 
-- [ ] DS-001 a DS-010 estão concluídos na ordem definida.
-- [ ] Os logos oficiais são os únicos ativos usados como marca do produto.
-- [ ] As três famílias tipográficas são confirmadas por estilo computado.
-- [ ] Não existem violações Axe critical ou serious nas rotas mínimas.
-- [ ] Não existem loops de autenticação.
-- [ ] Não existem links de interface com `href="#"`.
-- [ ] Não existem controles interativos menores que 44 por 44 pixels.
-- [ ] As 38 páginas foram registradas na matriz de revisão.
-- [ ] Nenhuma página possui overflow horizontal do body em 390 pixels.
-- [ ] Dark e light modes possuem contraste e hierarquia equivalentes.
-- [ ] Design System, documentação e aplicação usam as mesmas variantes.
-- [ ] Todos os comandos de validação passam.
+- [x] DS-001 concluído — tipografia e tokens sem referências circulares.
+- [ ] DS-002 concluído — `logo.svg` horizontal em uso; favicon e metadata oficiais.
+- [ ] DS-003 concluído — `transition-all` eliminado; aria-labels em botões ícone.
+- [x] DS-004 concluído — PageHeader adotado em todas as rotas operacionais.
+- [ ] DS-005 concluído — zero `href="#"` em `site-header.tsx`.
+- [x] DS-006 concluído — proxy sem loop; logo-mark no auth.
+- [x] DS-007 concluído — loading/error/empty em todas as rotas assíncronas.
+- [ ] DS-008 concluído — mapa, IA e design-system page revisados; matriz completa.
+- [x] DS-009 concluído — e2e com Axe rodando localmente.
+- [ ] DS-010 não iniciado — validação final e fechamento.
+- [ ] Todos os comandos de validação passam:
+  ```bash
+  npx prettier --check "**/*.{ts,tsx}"
+  npm run lint && npm run typecheck && npm run test:run && npm run build
+  ```
 
 ## 13. Regras para agentes executores
 

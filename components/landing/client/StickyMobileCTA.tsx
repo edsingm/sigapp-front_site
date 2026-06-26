@@ -66,8 +66,8 @@ export function StickyMobileCTA() {
           nativeButton={false}
           render={
             <a
-              href={LINKS.signup}
-              data-analytics-event="trial_signup_click"
+              href={LINKS.demo}
+              data-analytics-event="demo_request"
               data-analytics-location="sticky-mobile"
             />
           }

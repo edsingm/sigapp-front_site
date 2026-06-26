@@ -15,7 +15,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { SigappLogoMark } from "@/components/branding/SigappLogoMark"
 import { PLANS, LINKS, METRICS } from "@/lib/landing-data"
 import { checkSubdomain, submitSignup, type ApiPlan } from "@/lib/api"
 
@@ -620,17 +619,20 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
 }
 
 function BrandLogo({ variant }: { variant: "light" | "dark" }) {
-  const wordmark = variant === "light" ? "text-white" : "text-foreground"
-  const mark = variant === "light" ? "text-white" : "text-primary"
-  const box = variant === "light" ? "text-secondary" : "text-primary"
+  // variant "light" = sobre painel escuro (campo branco) · "dark" = sobre painel claro
   return (
-    <Link href="/" className="flex items-center gap-3 focus:outline-none">
-      <SigappLogoMark className={`size-7 ${mark} ${box}`} />
-      <span
-        className={`font-heading text-base font-bold tracking-[0.14em] ${wordmark}`}
-      >
-        SIGAPP
-      </span>
+    <Link
+      href="/"
+      aria-label="SIGAPP"
+      className="inline-flex w-fit items-center focus:outline-none"
+    >
+      {variant === "light" ? (
+        <span className="inline-flex rounded-xl bg-white px-3.5 py-2.5">
+          <Image src="/logo-mark.svg" alt="SIGAPP" width={92} height={28} />
+        </span>
+      ) : (
+        <Image src="/logo-mark.svg" alt="SIGAPP" width={92} height={28} />
+      )}
     </Link>
   )
 }

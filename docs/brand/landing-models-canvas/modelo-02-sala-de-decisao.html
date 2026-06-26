@@ -1,0 +1,190 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">
+<link rel="stylesheet" href="base.css">
+<style>
+.page{width:1440px;background:var(--marinho);position:relative;overflow:hidden;color:#fff}
+.page::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgb(255 255 255/5%) 1px,transparent 1px),linear-gradient(90deg,rgb(255 255 255/5%) 1px,transparent 1px);
+  background-size:80px 80px;mask-image:radial-gradient(120% 80% at 50% 0%,#000 30%,transparent 75%)}
+.glow{position:absolute;width:760px;height:760px;border-radius:50%;top:-280px;left:50%;transform:translateX(-50%);
+  background:radial-gradient(circle,rgb(46 107 255 / 26%),transparent 62%);pointer-events:none}
+.glow.b{top:auto;bottom:-360px;left:14%;transform:none;width:560px;height:560px;
+  background:radial-gradient(circle,rgb(46 107 255 / 16%),transparent 65%)}
+
+nav{position:relative;display:flex;align-items:center;justify-content:space-between;padding:30px 88px}
+.nav-links{display:flex;gap:38px;font-size:.95rem;font-weight:500;color:#9fb0cc}
+.nav-right{display:flex;align-items:center;gap:22px}
+.nav-right .login{font-size:.95rem;font-weight:600;color:#fff}
+
+.hero{position:relative;text-align:center;padding:70px 88px 0}
+.badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgb(255 255 255/16%);
+  background:rgb(255 255 255/4%);border-radius:999px;padding:8px 16px 8px 10px;font-size:.82rem;color:#c3d2ec;margin-bottom:34px}
+.badge .pill{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;background:var(--azul);color:#fff;
+  border-radius:999px;padding:3px 9px;text-transform:uppercase;font-weight:600}
+.hero h1{font-family:var(--head);font-weight:900;font-size:4.6rem;line-height:1.02;letter-spacing:-.04em;
+  max-width:16em;margin:0 auto}
+.hero h1 em{font-style:normal;color:transparent;background:linear-gradient(100deg,#5b8cff,#2E6BFF);-webkit-background-clip:text;background-clip:text}
+.hero p.lead{margin:30px auto 0;font-size:1.25rem;line-height:1.6;color:#9fb0cc;max-width:40em}
+.cta-row{margin-top:40px;display:flex;align-items:center;justify-content:center;gap:18px}
+
+/* corner coordinates */
+.coord-mark{position:absolute;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:rgb(255 255 255/34%)}
+
+/* product mockup */
+.product{position:relative;margin:64px 88px 0;padding-bottom:90px}
+.frame{position:relative;background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -2px 0 rgb(46 107 255/30%),var(--shadow-xl);
+  overflow:hidden;border:1px solid rgb(255 255 255/10%)}
+.app-bar{display:flex;align-items:center;gap:14px;padding:14px 20px;background:var(--nevoa);border-bottom:1px solid var(--border)}
+.dots{display:flex;gap:7px}.dots i{width:11px;height:11px;border-radius:50%;background:#cdd6e6;display:block}
+.app-bar .crumb{font-size:.82rem;color:var(--ardosia);font-weight:500}
+.app-bar .crumb b{color:var(--marinho)}
+.app-bar .right{margin-left:auto;display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:.7rem;color:var(--ardosia)}
+.app-grid{display:grid;grid-template-columns:230px 1fr;min-height:520px;background:#fff;color:var(--marinho)}
+/* sidebar */
+.side{background:var(--nevoa);border-right:1px solid var(--border);padding:22px 16px}
+.side .logo{margin:6px 8px 22px}
+.side .item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;font-size:.9rem;
+  color:var(--ardosia);font-weight:500;margin-bottom:3px}
+.side .item.active{background:rgb(46 107 255/8%);color:var(--marinho);font-weight:600}
+.side .item .d{width:18px;height:18px;border-radius:5px;border:1.6px solid currentColor;opacity:.8}
+.side .item.active .d{background:var(--azul);border-color:var(--azul)}
+/* main */
+.main{padding:26px 30px}
+.main .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.main .ph h4{font-family:var(--head);font-weight:700;font-size:1.5rem;letter-spacing:-.02em}
+.main .ph .sub{font-size:.85rem;color:var(--ardosia);margin-top:3px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.kpi{border:1px solid var(--border);border-radius:13px;padding:16px 16px;background:#fff}
+.kpi .l{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ardosia)}
+.kpi .v{font-family:var(--head);font-weight:700;font-size:1.7rem;letter-spacing:-.02em;margin-top:8px;line-height:1}
+.kpi .v small{font-size:.74rem;font-weight:600;margin-left:6px}
+.kpi.accent{background:var(--marinho);color:#fff;border-color:var(--marinho)}
+.kpi.accent .l{color:#9fb0cc}
+.up{color:var(--verde)}.warn{color:var(--ambar)}
+.panels{display:grid;grid-template-columns:1.55fr 1fr;gap:14px}
+.panel{border:1px solid var(--border);border-radius:14px;padding:18px 18px;background:#fff}
+.panel .pt{font-size:.82rem;font-weight:600;color:var(--ardosia);display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.panel .pt .tag{font-family:var(--mono);font-size:.64rem;color:var(--azul);letter-spacing:.1em}
+/* mini chart */
+.chart{height:138px;position:relative}
+.chart svg{position:absolute;inset:0;width:100%;height:100%}
+/* pipeline rows */
+.prow{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+.prow:last-child{border-bottom:0}
+.prow .pin2{width:11px;height:11px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);flex:none}
+.prow .nm{font-size:.86rem;font-weight:600;flex:1}
+.prow .st{font-size:.72rem;font-weight:600;padding:3px 9px;border-radius:999px}
+.st.ok{background:rgb(30 138 91/12%);color:var(--verde)}
+.st.pend{background:rgb(224 164 54/16%);color:#9a6f15}
+.st.an{background:rgb(46 107 255/10%);color:var(--azul-deep)}
+.prow .sc{font-family:var(--mono);font-size:.8rem;color:var(--ardosia);width:42px;text-align:right}
+
+/* metrics strip below */
+.belt{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid rgb(255 255 255/10%);
+  margin:0 88px;padding:46px 0 60px}
+.belt .b{padding:0 30px;border-left:1px solid rgb(255 255 255/8%)}
+.belt .b:first-child{border-left:0;padding-left:0}
+.belt .n{font-family:var(--head);font-weight:900;font-size:2.7rem;letter-spacing:-.03em}
+.belt .n span{color:var(--azul)}
+.belt .d{color:#9fb0cc;margin-top:8px;font-size:.92rem;line-height:1.45}
+.foot-meta{position:relative;display:flex;align-items:center;justify-content:space-between;margin:0 88px;
+  padding:26px 0 46px;border-top:1px solid rgb(255 255 255/8%);color:#9fb0cc;font-size:.85rem}
+.foot-meta .mono{font-family:var(--mono);letter-spacing:.04em}
+</style></head>
+<body>
+<div class="page">
+  <div class="glow"></div><div class="glow b"></div>
+  <div class="coord-mark" style="top:120px;left:88px">N 23°30'04"</div>
+  <div class="coord-mark" style="top:120px;right:88px;text-align:right">W 46°50'31"</div>
+
+  <nav>
+    <div class="logo on-dark"><span class="sig">SIG</span><span class="app">APP</span></div>
+    <div class="nav-links"><span>Plataforma</span><span>Viabilidade</span><span>Comitê</span><span>Inteligência</span><span>Preços</span></div>
+    <div class="nav-right">
+      <span class="login">Entrar</span>
+      <a class="btn btn-primary" href="#">Agendar demonstração</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge"><span class="pill">Novo</span> Inteligência territorial assistida por IA</div>
+    <h1>A sala de decisão para <em>cada território.</em></h1>
+    <p class="lead">Reúna mapa, viabilidade, pipeline e comitê numa única plataforma. Da oportunidade ao parecer, com o contexto e a rastreabilidade que decisões imobiliárias de alto impacto exigem.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#" style="padding:1rem 1.7rem;font-size:1.02rem">Agendar demonstração
+        <svg class="arrow" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a class="btn btn-ghost on-dark" href="#" style="padding:1rem 1.7rem;font-size:1.02rem">Ver a plataforma</a>
+    </div>
+  </section>
+
+  <section class="product">
+    <div class="frame">
+      <div class="app-bar">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <div class="crumb">SIGAPP · <b>Painel territorial</b> · Carteira São Paulo</div>
+        <div class="right"><span>●&nbsp;ao vivo</span><span>·</span><span>2026‑06‑25</span></div>
+      </div>
+      <div class="app-grid">
+        <aside class="side">
+          <div class="logo"><span class="sig">SIG</span><span class="app">APP</span></div>
+          <div class="item active"><span class="d"></span>Painel</div>
+          <div class="item"><span class="d"></span>Terrenos</div>
+          <div class="item"><span class="d"></span>Viabilidades</div>
+          <div class="item"><span class="d"></span>Comitê</div>
+          <div class="item"><span class="d"></span>Inteligência</div>
+          <div class="item"><span class="d"></span>Relatórios</div>
+        </aside>
+        <main class="main">
+          <div class="ph">
+            <div>
+              <h4>Painel territorial</h4>
+              <div class="sub">38 terrenos em avaliação · 6 prontos para comitê</div>
+            </div>
+            <div class="btn btn-primary" style="padding:.6rem 1rem;font-size:.85rem">+ Novo terreno</div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><div class="l">Pipeline ativo</div><div class="v">R$ 2,4<small class="up">bi</small></div></div>
+            <div class="kpi"><div class="l">VGV potencial</div><div class="v">R$ 880<small class="up">mi</small></div></div>
+            <div class="kpi"><div class="l">Em risco</div><div class="v">7<small class="warn">terrenos</small></div></div>
+            <div class="kpi accent"><div class="l">Confiança média IA</div><div class="v">82<small style="color:#7fa6ff">%</small></div></div>
+          </div>
+          <div class="panels">
+            <div class="panel">
+              <div class="pt">Evolução do pipeline <span class="tag">12 MESES</span></div>
+              <div class="chart">
+                <svg viewBox="0 0 520 138" preserveAspectRatio="none">
+                  <defs><linearGradient id="ar" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#2E6BFF" stop-opacity=".22"/><stop offset="1" stop-color="#2E6BFF" stop-opacity="0"/></linearGradient></defs>
+                  <g stroke="#E5EAF3" stroke-width="1"><line x1="0" y1="34" x2="520" y2="34"/><line x1="0" y1="70" x2="520" y2="70"/><line x1="0" y1="106" x2="520" y2="106"/></g>
+                  <path d="M0 112 L52 100 L104 104 L156 82 L208 86 L260 60 L312 64 L364 44 L416 50 L468 30 L520 22 L520 138 L0 138 Z" fill="url(#ar)"/>
+                  <path d="M0 112 L52 100 L104 104 L156 82 L208 86 L260 60 L312 64 L364 44 L416 50 L468 30 L520 22" fill="none" stroke="#2E6BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="520" cy="22" r="4.5" fill="#2E6BFF"/><circle cx="520" cy="22" r="9" fill="#2E6BFF" opacity=".16"/>
+                </svg>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="pt">Prontos para comitê <span class="tag">6</span></div>
+              <div class="prow"><span class="pin2" style="background:#1E8A5B"></span><span class="nm">Gleba Anhanguera</span><span class="st ok">Aprovar</span><span class="sc">91</span></div>
+              <div class="prow"><span class="pin2" style="background:#2E6BFF"></span><span class="nm">Quadra Lapa 04</span><span class="st an">Análise</span><span class="sc">82</span></div>
+              <div class="prow"><span class="pin2" style="background:#E0A436"></span><span class="nm">Lote Vila Leopoldina</span><span class="st pend">Pendência</span><span class="sc">64</span></div>
+              <div class="prow"><span class="pin2" style="background:#2E6BFF"></span><span class="nm">Terreno Pinheiros 12</span><span class="st an">Análise</span><span class="sc">77</span></div>
+              <div class="prow"><span class="pin2" style="background:#1E8A5B"></span><span class="nm">Área Barra Funda</span><span class="st ok">Aprovar</span><span class="sc">88</span></div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <section class="belt">
+    <div class="b"><div class="n">4<span>×</span></div><div class="d">mais rápido da oportunidade ao parecer do comitê</div></div>
+    <div class="b"><div class="n">100<span>%</span></div><div class="d">das decisões com trilha auditável ponta a ponta</div></div>
+    <div class="b"><div class="n">82<span>%</span></div><div class="d">de confiança média nas recomendações de viabilidade</div></div>
+    <div class="b"><div class="n">1</div><div class="d">fonte de verdade para todo o time, sobre cada terreno</div></div>
+  </section>
+
+  <div class="foot-meta">
+    <div class="logo on-dark"><span class="sig">SIG</span><span class="app">APP</span></div>
+    <div class="mono">GESTÃO TERRITORIAL INTELIGENTE · DECISÕES QUE GANHAM TERRITÓRIO</div>
+  </div>
+</div>
+</body></html>

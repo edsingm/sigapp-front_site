@@ -1,7 +1,8 @@
 const MESSAGES = [
   {
     role: "user",
-    content: "Qual é a TIR do terreno Av. Paulista e ela está dentro da meta do plano master?",
+    content:
+      "Qual é a TIR do terreno Av. Paulista e ela está dentro da meta do plano master?",
   },
   {
     role: "ai",
@@ -16,20 +17,24 @@ const MESSAGES = [
 
 export function ChatMock() {
   return (
-    <div className="pointer-events-none w-full select-none overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
+    <div className="pointer-events-none w-full overflow-hidden rounded-2xl border border-border bg-card shadow-xl select-none">
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border bg-muted/30 px-4 py-3">
         <div className="flex items-center gap-2">
           <div className="flex size-6 items-center justify-center rounded-md bg-primary">
-            <span className="text-[9px] font-black text-primary-foreground">IA</span>
+            <span className="text-[9px] font-black text-primary-foreground">
+              IA
+            </span>
           </div>
           <div>
             <p className="text-xs font-semibold text-foreground">SIG_IA</p>
-            <p className="text-[9px] text-muted-foreground">25+ ferramentas imobiliárias</p>
+            <p className="text-[9px] text-muted-foreground">
+              25+ ferramentas imobiliárias
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <span className="size-1.5 animate-pulse rounded-full bg-green-500" />
+          <span className="size-1.5 animate-pulse rounded-full bg-[var(--color-data-green)]" />
           <span className="text-[9px] text-muted-foreground">Online</span>
         </div>
       </div>
@@ -43,7 +48,9 @@ export function ChatMock() {
           >
             {msg.role === "ai" && (
               <div className="mr-2 flex size-5 shrink-0 items-center justify-center rounded bg-primary">
-                <span className="text-[7px] font-black text-primary-foreground">IA</span>
+                <span className="text-[7px] font-black text-primary-foreground">
+                  IA
+                </span>
               </div>
             )}
             <div
@@ -61,7 +68,9 @@ export function ChatMock() {
         {/* Typing indicator */}
         <div className="chat-msg flex items-center gap-2">
           <div className="flex size-5 shrink-0 items-center justify-center rounded bg-primary">
-            <span className="text-[7px] font-black text-primary-foreground">IA</span>
+            <span className="text-[7px] font-black text-primary-foreground">
+              IA
+            </span>
           </div>
           <div className="flex items-center gap-1 rounded-xl border border-border bg-muted px-3 py-2">
             <span className="h-1 w-1 animate-bounce rounded-full bg-muted-foreground [animation-delay:0ms]" />
@@ -78,7 +87,11 @@ export function ChatMock() {
             Pergunte sobre terrenos, viabilidade, TIR...
           </span>
           <div className="flex size-5 items-center justify-center rounded-md bg-primary">
-            <svg className="size-3 text-primary-foreground" viewBox="0 0 16 16" fill="currentColor">
+            <svg
+              className="size-3 text-primary-foreground"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+            >
               <path d="M8 1l7 7-7 7V9H1V7h7V1z" />
             </svg>
           </div>

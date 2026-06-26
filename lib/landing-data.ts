@@ -102,10 +102,11 @@ export const METRICS: MetricItem[] = [
 ]
 
 export const STICKY_MOBILE_CTA = {
-  badge: "7 dias grátis",
-  title: "Comece sua avaliação hoje",
-  description: "Crie sua conta e calcule a primeira viabilidade em minutos.",
-  cta: "Começar 7 dias grátis",
+  badge: "Do mapa a decisao",
+  title: "Conheca o fluxo completo",
+  description:
+    "Veja como uma oportunidade territorial percorre analise, comite e legalizacao em um unico sistema.",
+  cta: "Solicitar demonstracao",
 }
 
 export const PLANS: PlanConfig[] = [
@@ -130,7 +131,7 @@ export const PLANS: PlanConfig[] = [
       "Exportação Excel",
       "Regionais e base territorial",
     ],
-    cta: "Começar 7 dias grátis",
+    cta: "Começar avaliação",
     ctaHref: `${LINKS.signup}?plan=broker`,
   },
   {
@@ -154,7 +155,7 @@ export const PLANS: PlanConfig[] = [
       "Exportação PDF",
       "Gestão de equipe",
     ],
-    cta: "Começar 7 dias grátis",
+    cta: "Começar avaliação",
     ctaHref: `${LINKS.signup}?plan=basico`,
   },
   {
@@ -179,7 +180,7 @@ export const PLANS: PlanConfig[] = [
       "Permissões avançadas (RBAC)",
     ],
     highlighted: true,
-    cta: "Começar 7 dias grátis",
+    cta: "Começar avaliação",
     ctaHref: `${LINKS.signup}?plan=master`,
   },
   {
@@ -212,7 +213,7 @@ export const PRICING_MATRIX_COPY = {
   eyebrow: "Comparativo completo",
   title: "Veja exatamente o que muda em cada plano",
   description:
-    "Limites, automações e recursos avançados lado a lado para sua equipe escolher sem adivinhar.",
+    "Limites, governanca e capacidade operacional lado a lado para sua equipe decidir com criterio.",
   mobileSummary: "Comparar recursos dos planos",
 }
 

@@ -1,5 +1,5 @@
 import { COMPARISON_ROWS, LINKS } from "@/lib/landing-data"
-import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
+import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Button } from "@/components/ui/button"
 import { Check, X, ArrowRight } from "lucide-react"
@@ -33,21 +33,21 @@ function Cell({ value, highlight }: { value: boolean; highlight: boolean }) {
 
 export function ComparisonSection() {
   return (
-    <section className="py-20 md:py-28">
+    <section className="py-24 md:py-32">
       <div className="container-landing">
         <ScrollReveal
           stagger
-          className="mx-auto mb-16 flex max-w-3xl flex-col items-center gap-5 text-center md:mb-20"
+          className="mb-16 grid gap-6 md:mb-20 lg:grid-cols-12 lg:items-end"
         >
-          <EyebrowBadge variant="brand" className="self-center">
-            Por que SIGAPP
-          </EyebrowBadge>
-          <h2 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
-            Tudo que a planilha e o ERP não fazem
-          </h2>
-          <p className="text-pretty text-muted-foreground md:text-lg">
-            Um sistema desenhado do zero para incorporação — não um genérico
-            adaptado às pressas.
+          <div className="flex flex-col gap-5 lg:col-span-5">
+            <SectionLabel>Por que SIGAPP</SectionLabel>
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
+              Tudo que a planilha e o ERP não fazem
+            </h2>
+          </div>
+          <p className="max-w-[58ch] text-pretty text-muted-foreground md:text-lg lg:col-span-7 lg:justify-self-end">
+            Um sistema desenhado para incorporação, com contexto territorial,
+            trilha de decisão e governança operacional desde a primeira análise.
           </p>
         </ScrollReveal>
 
@@ -97,26 +97,28 @@ export function ComparisonSection() {
         </ScrollReveal>
 
         {/* CTA intermediário — ponto de maior persuasão antes do pricing */}
-        <div className="mt-14 flex flex-col items-center gap-3 md:mt-16">
+        <div className="mt-14 flex flex-col items-start gap-3 md:mt-16 lg:pl-1">
           <Button
             variant="brand"
             size="lg"
-            className="h-12 gap-2 px-6 text-base font-semibold"
+            className="group/cta h-13 gap-2 rounded-full pr-2 pl-6 text-base font-semibold"
             nativeButton={false}
             render={
               <a
-                href={LINKS.signup}
-                data-analytics-event="trial_signup_click"
+                href={LINKS.sales}
+                data-analytics-event="sales_contact_click"
                 data-analytics-location="comparison"
               />
             }
           >
-            Trocar a planilha pelo SIGAPP
-            <ArrowRight className="size-4" />
+            Construir o caso de negócio
+            <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5">
+              <ArrowRight className="size-4" />
+            </span>
           </Button>
           <p className="text-sm text-muted-foreground">
-            7 dias grátis · Cancele antes do fim e não paga nada · Importe via
-            Excel
+            Compare o fluxo atual da sua equipe com uma operação territorial
+            centralizada no SIGAPP.
           </p>
         </div>
       </div>

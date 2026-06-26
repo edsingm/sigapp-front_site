@@ -1,4 +1,4 @@
-import { Geist_Mono, Manrope, Space_Grotesk } from "next/font/google"
+import { Geist_Mono, Inter, Roboto } from "next/font/google"
 import type { Metadata, Viewport } from "next"
 
 import "./globals.css"
@@ -8,13 +8,16 @@ import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
 import { cn } from "@/lib/utils"
 import { PLANS, SITE, SITE_URL } from "@/lib/landing-data"
 
-const spaceGrotesk = Space_Grotesk({
+// Sistema tipográfico da marca SIGAPP — Roboto (títulos), Inter (corpo),
+// Geist Mono (coordenadas, áreas, IDs e valores tabulares).
+const roboto = Roboto({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
   variable: "--font-heading",
   display: "swap",
 })
 
-const manrope = Manrope({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
@@ -132,8 +135,8 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         fontMono.variable,
-        manrope.variable,
-        spaceGrotesk.variable
+        inter.variable,
+        roboto.variable
       )}
     >
       <body suppressHydrationWarning>

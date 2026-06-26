@@ -19,7 +19,7 @@ export function FAQSection() {
   }
 
   return (
-    <section id="faq" className="py-20 md:py-28">
+    <section id="faq" className="py-24 md:py-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -29,12 +29,12 @@ export function FAQSection() {
           {/* Left */}
           <div className="flex flex-col gap-5 lg:col-span-4 lg:pr-4">
             <SectionLabel>Perguntas frequentes</SectionLabel>
-            <h2 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-balance text-foreground md:text-4xl">
-              Tire suas dúvidas antes de começar
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl">
+              Tire suas dúvidas antes de avançar
             </h2>
             <p className="text-muted-foreground">
               Segurança, LGPD, migração de planilhas, multiusuário e onboarding
-              explicados de forma objetiva antes dos 7 dias grátis.
+              explicados de forma objetiva antes da avaliação.
             </p>
             <Button
               variant="outline"

@@ -7,34 +7,40 @@ export function PricingSection() {
   return (
     <section
       id="precos"
-      className="relative overflow-hidden border-y border-border/70 bg-[linear-gradient(180deg,var(--background)_0%,var(--color-brand-subtle)_48%,var(--background)_100%)] py-20 md:py-28"
+      className="relative overflow-hidden border-y border-border/70 bg-muted/40 py-24 md:py-32"
     >
-      <div className="pointer-events-none absolute top-32 -left-24 size-72 rounded-full bg-primary/10 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/3 -right-24 size-80 rounded-full bg-secondary/15 blur-3xl" />
+      <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-40" />
 
       <div className="container-landing relative">
         <ScrollReveal
           stagger
-          className="mb-10 flex flex-col gap-4 text-center md:mb-12"
+          className="mb-10 grid gap-6 md:mb-12 lg:grid-cols-12 lg:items-end"
         >
-          <SectionLabel className="text-center">Planos e preços</SectionLabel>
-          <h2 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-balance text-foreground md:text-5xl">
-            Um plano para cada estágio da sua operação
-          </h2>
-          <p className="mx-auto max-w-[56ch] text-muted-foreground md:text-lg">
-            Comece com o que sua equipe precisa hoje e evolua sem trocar de
-            sistema.
-          </p>
-          <div className="mt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-medium text-foreground/75 sm:gap-3 sm:text-sm">
-            <span className="rounded-full border border-border bg-card/80 px-3 py-1.5 shadow-sm">
-              7 dias grátis
-            </span>
-            <span className="rounded-full border border-border bg-card/80 px-3 py-1.5 shadow-sm">
-              Sem fidelidade
-            </span>
-            <span className="rounded-full border border-border bg-card/80 px-3 py-1.5 shadow-sm">
-              Dados sempre exportáveis
-            </span>
+          <div className="flex flex-col gap-4 lg:col-span-5">
+            <SectionLabel>Planos e preços</SectionLabel>
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-5xl">
+              Um plano para cada estágio da sua operação
+            </h2>
+          </div>
+          <div className="flex flex-col gap-4 lg:col-span-7 lg:justify-self-end">
+            <p className="max-w-[56ch] text-muted-foreground md:text-lg">
+              Compare capacidade operacional, governança e suporte para escolher
+              o ritmo certo da sua equipe hoje sem trocar de sistema amanhã.
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-2 sm:gap-3">
+              {[
+                "Avaliação guiada",
+                "Sem fidelidade",
+                "Dados sempre exportáveis",
+              ].map((chip) => (
+                <span
+                  key={chip}
+                  className="coord rounded-full border border-border bg-card px-3 py-1.5 text-muted-foreground"
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
 
@@ -45,7 +51,8 @@ export function PricingSection() {
         </ScrollReveal>
 
         <p className="mt-8 text-center text-sm text-muted-foreground">
-          Preços em reais · Cancele quando quiser · Suporte em português
+          Preços em reais · Suporte em português · Avaliação no contexto da sua
+          operação
         </p>
       </div>
     </section>

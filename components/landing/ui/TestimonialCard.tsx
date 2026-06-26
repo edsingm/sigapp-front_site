@@ -9,7 +9,7 @@ type TestimonialCardProps = {
 const AVATAR_TONES = [
   "bg-primary text-primary-foreground ring-primary/20",
   "bg-secondary/22 text-foreground ring-secondary/20",
-  "bg-emerald-500/12 text-emerald-700 ring-emerald-500/15 dark:text-emerald-300",
+  "bg-[color:rgba(224,164,54,0.16)] text-[var(--color-data-amber)] ring-[color:rgba(224,164,54,0.18)]",
 ]
 
 function getInitials(value: string) {
@@ -22,7 +22,10 @@ function getInitials(value: string) {
 }
 
 function getTone(value: string) {
-  const hash = Array.from(value).reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  const hash = Array.from(value).reduce(
+    (acc, char) => acc + char.charCodeAt(0),
+    0
+  )
   return AVATAR_TONES[hash % AVATAR_TONES.length]
 }
 

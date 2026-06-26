@@ -34,7 +34,7 @@ export function SecondaryPageHero({
       <div className="bg-blueprint-grid absolute inset-0 opacity-70" />
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-[#071529]/45" />
 
-      <div className="container-landing relative py-20 md:py-24">
+      <div className="container-landing relative pt-28 pb-20 md:pt-32 md:pb-24">
         <div
           className={cn(
             "flex flex-col gap-6",
@@ -71,7 +71,12 @@ export function SecondaryPageHero({
             </div>
           ) : null}
 
-          <span className="inline-flex items-center gap-3 border-l-2 border-secondary pl-3 font-mono text-[11px] font-semibold tracking-[0.18em] text-secondary uppercase">
+          <span
+            className={cn(
+              "eyebrow text-secondary",
+              centered && "eyebrow--center"
+            )}
+          >
             {eyebrow}
           </span>
 

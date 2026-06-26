@@ -43,14 +43,14 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       className={cn(
         "group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border p-5 transition-[transform,border-color,box-shadow] duration-300 sm:p-6",
         highlighted
-          ? "border-primary/60 bg-[var(--color-brand-navy)] text-white shadow-[0_28px_70px_-28px_rgba(46,107,255,0.8)] ring-1 ring-primary/35 xl:-translate-y-4"
+          ? "border-white/10 bg-[var(--color-brand-navy)] text-white shadow-[0_28px_70px_-34px_rgba(11,30,57,0.9)] ring-1 ring-white/10 xl:-translate-y-4"
           : "border-border bg-card shadow-[0_16px_45px_-36px_rgba(11,30,57,0.65)] hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_24px_55px_-34px_rgba(11,30,57,0.55)]"
       )}
     >
       {highlighted ? (
         <>
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-secondary via-primary to-secondary" />
-          <div className="pointer-events-none absolute -top-16 -right-16 size-44 rounded-full bg-primary/30 blur-3xl" />
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-white/0 via-secondary to-white/0" />
+          <div className="pointer-events-none absolute -top-20 right-8 h-28 w-28 rounded-full bg-white/6 blur-3xl" />
         </>
       ) : null}
 
@@ -182,7 +182,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         size="lg"
         className={cn(
           "relative h-12 w-full rounded-xl",
-          highlighted && "shadow-lg shadow-primary/25"
+          highlighted && "shadow-lg shadow-black/20"
         )}
         nativeButton={false}
         render={
@@ -212,7 +212,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
             highlighted ? "text-secondary" : "text-primary"
           )}
         />
-        <span>7 dias grátis · Pagamento seguro</span>
+        <span>Dados exportáveis · Pagamento seguro</span>
       </div>
     </div>
   )
