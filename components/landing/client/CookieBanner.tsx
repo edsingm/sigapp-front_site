@@ -168,7 +168,7 @@ export function CookieBanner() {
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-start gap-3">
                 <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                  <Cookie className="size-4 text-primary" strokeWidth={1.75} />
+                  <Cookie className="size-4 text-primary" strokeWidth={1.5} />
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-foreground">
@@ -221,7 +221,7 @@ export function CookieBanner() {
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
             <div className="flex items-center gap-2.5">
               <div className="flex size-7 items-center justify-center rounded-lg bg-primary/10">
-                <Cookie className="size-3.5 text-primary" strokeWidth={1.75} />
+                <Cookie className="size-3.5 text-primary" strokeWidth={1.5} />
               </div>
               <h2 className="font-heading text-base font-bold text-foreground">
                 Preferências de Cookies
@@ -256,10 +256,7 @@ export function CookieBanner() {
             <div className="mb-3 flex items-start justify-between gap-4 rounded-xl border border-border bg-muted/30 p-3.5">
               <div className="flex items-start gap-2.5">
                 <div className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-primary/10">
-                  <Shield
-                    className="size-3.5 text-primary"
-                    strokeWidth={1.75}
-                  />
+                  <Shield className="size-3.5 text-primary" strokeWidth={1.5} />
                 </div>
                 <div>
                   <p className="text-xs font-semibold text-foreground">
@@ -289,7 +286,7 @@ export function CookieBanner() {
                       <div className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-md bg-muted">
                         <Icon
                           className="size-3.5 text-muted-foreground"
-                          strokeWidth={1.75}
+                          strokeWidth={1.5}
                         />
                       </div>
                       <div>

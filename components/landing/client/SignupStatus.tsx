@@ -48,11 +48,11 @@ export function SignupStatus({ sessionId }: Props) {
 
   return (
     <main className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-background px-5 py-16">
-      <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-[0.5] [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)]" />
+      <div className="bg-dot-pattern pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_72%)] opacity-[0.5]" />
 
       <Link
         href="/"
-        className="absolute left-1/2 top-8 flex -translate-x-1/2 items-center gap-2.5 focus:outline-none"
+        className="absolute top-8 left-1/2 flex -translate-x-1/2 items-center gap-2.5 focus:outline-none"
       >
         <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10">
           <svg viewBox="0 0 24 24" className="size-4 text-primary" fill="none">
@@ -80,8 +80,8 @@ export function SignupStatus({ sessionId }: Props) {
               Conta criada com sucesso!
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Seu pagamento foi confirmado e seu ambiente está pronto. Faça login para começar a
-              calcular viabilidade.
+              Seu pagamento foi confirmado e seu ambiente está pronto. Faça
+              login para começar a calcular viabilidade.
             </p>
             <Button
               variant="brand"
@@ -103,9 +103,9 @@ export function SignupStatus({ sessionId }: Props) {
               Quase lá…
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Seu pagamento foi recebido e estamos finalizando a preparação do seu ambiente. Isso
-              pode levar mais alguns instantes. Você receberá um e-mail assim que estiver tudo
-              pronto.
+              Seu pagamento foi recebido e estamos finalizando a preparação do
+              seu ambiente. Isso pode levar mais alguns instantes. Você receberá
+              um e-mail assim que estiver tudo pronto.
             </p>
             <Button
               variant="outline"
@@ -127,8 +127,9 @@ export function SignupStatus({ sessionId }: Props) {
               Preparando seu ambiente
             </h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Pagamento confirmado. Estamos provisionando sua conta com segurança — isso leva apenas
-              alguns segundos. Não feche esta página.
+              Pagamento confirmado. Estamos provisionando sua conta com
+              segurança — isso leva apenas alguns segundos. Não feche esta
+              página.
             </p>
           </>
         )}

@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
+import { fetchPlans } from "@/lib/api"
+import { mapApiPlansToLandingPlans } from "@/lib/plan-display"
 
 export const metadata: Metadata = {
   title: "SIGAPP — Decisões que ganham território",
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
 }
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { StickyMobileCTA } from "@/components/landing/client/StickyMobileCTA"
+import { BezelSpotlight } from "@/components/landing/client/BezelSpotlight"
 import { HeroSection } from "@/components/landing/sections/HeroSection"
 import { SocialProofBar } from "@/components/landing/sections/SocialProofBar"
 import { ProblemSection } from "@/components/landing/sections/ProblemSection"
@@ -20,11 +23,18 @@ import { TestimonialsSection } from "@/components/landing/sections/TestimonialsS
 import { FAQSection } from "@/components/landing/sections/FAQSection"
 import { CTAFinalSection } from "@/components/landing/sections/CTAFinalSection"
 
-export default function Page() {
+export const dynamic = "force-dynamic"
+
+export default async function Page() {
+  const plans = await fetchPlans()
+    .then(mapApiPlansToLandingPlans)
+    .catch(() => [])
+
   return (
     <>
       <LandingNav />
       <StickyMobileCTA />
+      <BezelSpotlight />
       <main>
         <HeroSection />
         <SocialProofBar />
@@ -34,7 +44,7 @@ export default function Page() {
         <BentoSection />
         <ComparisonSection />
         <TestimonialsSection />
-        <PricingSection />
+        <PricingSection plans={plans} />
         <FAQSection />
         <CTAFinalSection />
       </main>

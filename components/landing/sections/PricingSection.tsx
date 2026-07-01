@@ -2,8 +2,15 @@ import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { PricingToggle } from "@/components/landing/client/PricingToggle"
 import { PricingFeatureMatrix } from "@/components/landing/ui/PricingFeatureMatrix"
+import type { PlanConfig } from "@/lib/landing-data"
 
-export function PricingSection() {
+type PricingSectionProps = {
+  plans: PlanConfig[]
+}
+
+export function PricingSection({ plans }: PricingSectionProps) {
+  const hasPlans = plans.length > 0
+
   return (
     <section
       id="precos"
@@ -18,7 +25,7 @@ export function PricingSection() {
         >
           <div className="flex flex-col gap-4 lg:col-span-5">
             <SectionLabel>Planos e preços</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-5xl">
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
               Um plano para cada estágio da sua operação
             </h2>
           </div>
@@ -44,16 +51,30 @@ export function PricingSection() {
           </div>
         </ScrollReveal>
 
-        <PricingToggle />
+        {hasPlans ? (
+          <>
+            <PricingToggle plans={plans} />
 
-        <ScrollReveal>
-          <PricingFeatureMatrix />
-        </ScrollReveal>
+            <ScrollReveal>
+              <PricingFeatureMatrix plans={plans} />
+            </ScrollReveal>
 
-        <p className="mt-8 text-center text-sm text-muted-foreground">
-          Preços em reais · Suporte em português · Avaliação no contexto da sua
-          operação
-        </p>
+            <p className="mt-8 text-center text-sm text-muted-foreground">
+              Preços em reais · Suporte em português · Avaliação no contexto da
+              sua operação
+            </p>
+          </>
+        ) : (
+          <div className="glass-card mx-auto max-w-2xl p-8 text-center">
+            <h3 className="font-heading text-xl font-semibold text-foreground">
+              Planos temporariamente indisponíveis
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Não conseguimos carregar os planos do backend agora. Tente
+              atualizar a página em instantes ou fale com vendas.
+            </p>
+          </div>
+        )}
       </div>
     </section>
   )

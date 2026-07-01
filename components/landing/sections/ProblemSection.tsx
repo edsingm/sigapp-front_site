@@ -37,7 +37,7 @@ export function ProblemSection() {
               return (
                 <div
                   key={point.title}
-                  className="group flex items-start gap-5 rounded-2xl border border-border bg-card p-6 transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-destructive/25 hover:shadow-[0_18px_40px_-24px_rgba(11,30,57,0.35)]"
+                  className="group flex items-start gap-5 rounded-2xl border border-border bg-card p-6 transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-0.5 hover:border-destructive/25 hover:shadow-panel"
                 >
                   <div className="flex shrink-0 flex-col items-center gap-3">
                     <span className="coord text-muted-foreground/50">

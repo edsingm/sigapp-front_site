@@ -1,49 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
 import { CookiePreferencesButton } from "@/components/landing/client/CookiePreferencesButton"
-import { LINKS } from "@/lib/landing-data"
-
-type FooterLink = { label: string; href: string }
-type FooterGroup = { group: string; links: FooterLink[] }
+import { FOOTER_GROUPS } from "@/lib/landing-data"
 
 function isExternal(href: string) {
   return href.startsWith("http") || href.startsWith("mailto:")
 }
-
-const FOOTER_GROUPS: FooterGroup[] = [
-  {
-    group: "Produto",
-    links: [
-      { label: "Funcionalidades", href: "/#funcionalidades" },
-      { label: "Planos", href: "/#precos" },
-      { label: "Perguntas frequentes", href: "/#faq" },
-      { label: "Entrar", href: LINKS.login },
-    ],
-  },
-  {
-    group: "Empresa",
-    links: [
-      { label: "Sobre", href: "/sobre" },
-      { label: "Blog", href: "/blog" },
-    ],
-  },
-  {
-    group: "Contato",
-    links: [
-      { label: "Falar com vendas", href: LINKS.sales },
-      { label: "Agendar demonstração", href: LINKS.demo },
-    ],
-  },
-  {
-    group: "Legal",
-    links: [
-      { label: "Termos de Uso", href: "/legal/termos-de-uso" },
-      { label: "Privacidade", href: "/legal/privacidade" },
-      { label: "LGPD", href: "/legal/lgpd" },
-      { label: "Cookies", href: "/legal/cookies" },
-    ],
-  },
-]
 
 function FooterBrand() {
   return (
@@ -59,8 +21,9 @@ function FooterBrand() {
 
 export function LandingFooter() {
   return (
-    <footer className="border-t border-white/8 bg-[#07182E] text-white">
-      <div className="container-landing py-16 md:py-18">
+    <footer className="relative border-t border-white/8 bg-(--color-brand-navy) text-white">
+      <div className="grain-overlay" />
+      <div className="container-landing relative py-16 md:py-18">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5 lg:gap-12">
           {/* Brand */}
           <div className="flex flex-col gap-4 lg:col-span-1">
@@ -109,7 +72,7 @@ export function LandingFooter() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/48">
-            © 2026 SIGAPP Tecnologia Ltda. CNPJ 00.000.000/0001-00
+            © 2026 SIGAPP Tecnologia Ltda.
           </p>
           <div className="flex flex-wrap items-center gap-4">
             <p className="text-xs text-white/48">Do terreno ao retorno.</p>

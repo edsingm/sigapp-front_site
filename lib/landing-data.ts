@@ -34,11 +34,12 @@ export type PlanConfig = {
   users: string
   terrenos: string
   storage: string
+  products: string
+  aiBudget: string
   hasAI: boolean
   hasCommittee: boolean
   hasNegotiation: boolean
   hasLegal: boolean
-  support: string
   features: string[]
   highlighted?: boolean
   cta: string
@@ -49,7 +50,8 @@ export type PlanMatrixField =
   | "users"
   | "terrenos"
   | "storage"
-  | "support"
+  | "products"
+  | "aiBudget"
   | "hasAI"
   | "hasCommittee"
   | "hasNegotiation"
@@ -94,6 +96,101 @@ export type MetricItem = {
   label: string
 }
 
+// Hero — provas rápidas abaixo dos CTAs
+export const HERO_PROOF_ITEMS = [
+  "Análise em contexto",
+  "Governança por etapa",
+  "Dados na sua nuvem",
+]
+
+export type NavLink = { label: string; href: string }
+
+// Links do menu principal (desktop e mobile)
+export const NAV_LINKS: NavLink[] = [
+  { label: "Como funciona", href: "/#como-funciona" },
+  { label: "Funcionalidades", href: "/#funcionalidades" },
+  { label: "Planos", href: "/#precos" },
+  { label: "FAQ", href: "/#faq" },
+  { label: "Sobre", href: "/sobre" },
+]
+
+export type FooterLink = { label: string; href: string }
+export type FooterGroup = { group: string; links: FooterLink[] }
+
+export const FOOTER_GROUPS: FooterGroup[] = [
+  {
+    group: "Produto",
+    links: [
+      { label: "Funcionalidades", href: "/#funcionalidades" },
+      { label: "Planos", href: "/#precos" },
+      { label: "Perguntas frequentes", href: "/#faq" },
+      { label: "Entrar", href: LINKS.login },
+    ],
+  },
+  {
+    group: "Empresa",
+    links: [
+      { label: "Sobre", href: "/sobre" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    group: "Contato",
+    links: [
+      { label: "Falar com vendas", href: LINKS.sales },
+      { label: "Agendar demonstração", href: LINKS.demo },
+    ],
+  },
+  {
+    group: "Legal",
+    links: [
+      { label: "Termos de Uso", href: "/legal/termos-de-uso" },
+      { label: "Privacidade", href: "/legal/privacidade" },
+      { label: "LGPD", href: "/legal/lgpd" },
+      { label: "Cookies", href: "/legal/cookies" },
+    ],
+  },
+]
+
+// BentoSection — dados de demonstração dos cards
+export const BENTO_DRE = {
+  project: {
+    label: "Projeto em análise",
+    name: "Residencial Av. Paulista · 120 un.",
+    status: "Viável",
+  },
+  receitas: [
+    { label: "Receita Bruta (VGV)", value: "R$ 28,4M" },
+    { label: "(-) Deduções e impostos", value: "(R$ 1,7M)" },
+  ],
+  custos: [
+    { label: "Custo de Obra (CUB)", value: "(R$ 14,9M)" },
+    { label: "Marketing e Corretagem", value: "(R$ 1,1M)" },
+    { label: "Despesas Operacionais", value: "(R$ 5,8M)" },
+  ],
+  lucro: { label: "Lucro Líquido", value: "R$ 4,9M", margin: "17,3%" },
+  kpis: [
+    { label: "TIR", value: "18,4%" },
+    { label: "ROI", value: "17,5%" },
+    { label: "Payback", value: "28 meses" },
+    { label: "VPL", value: "R$ 2,1M" },
+  ],
+}
+
+export const BENTO_EXPORT_FILES = [
+  { name: "Viabilidade_Paulista_v3.pdf", ext: "pdf" },
+  { name: "Terrenos_Q2_2026.xlsx", ext: "xlsx" },
+  { name: "Parecer_Comite_Jun.pdf", ext: "pdf" },
+]
+
+export type BentoAlert = { msg: string; type: "warn" | "ok" }
+
+export const BENTO_ALERTS: BentoAlert[] = [
+  { msg: "Viabilidade pendente há 3 dias", type: "warn" },
+  { msg: "Comitê aprovado: Av. Paulista", type: "ok" },
+  { msg: "Prazo de legalização em 5 dias", type: "warn" },
+]
+
 export const METRICS: MetricItem[] = [
   { value: "340+", label: "Incorporadoras ativas" },
   { value: "R$ 2,4B", label: "Em terrenos analisados" },
@@ -102,118 +199,18 @@ export const METRICS: MetricItem[] = [
 ]
 
 export const STICKY_MOBILE_CTA = {
-  badge: "Do mapa a decisao",
-  title: "Conheca o fluxo completo",
+  badge: "Do mapa à decisão",
+  title: "Conheça o fluxo completo",
   description:
-    "Veja como uma oportunidade territorial percorre analise, comite e legalizacao em um unico sistema.",
-  cta: "Solicitar demonstracao",
+    "Veja como uma oportunidade territorial percorre análise, comitê e legalização em um único sistema.",
+  cta: "Solicitar demonstração",
 }
-
-export const PLANS: PlanConfig[] = [
-  {
-    id: "broker",
-    name: "SIG Broker",
-    tagline: "Para corretores autônomos",
-    monthlyPrice: 97,
-    annualPrice: 78,
-    users: "1 usuário",
-    terrenos: "50 terrenos",
-    storage: "—",
-    hasAI: false,
-    hasCommittee: false,
-    hasNegotiation: false,
-    hasLegal: false,
-    support: "E-mail",
-    features: [
-      "Prospecção de terrenos",
-      "Motor de viabilidade básico",
-      "Configuração de produtos",
-      "Exportação Excel",
-      "Regionais e base territorial",
-    ],
-    cta: "Começar avaliação",
-    ctaHref: `${LINKS.signup}?plan=broker`,
-  },
-  {
-    id: "basico",
-    name: "SIG Básico",
-    tagline: "Para pequenas equipes",
-    monthlyPrice: 247,
-    annualPrice: 198,
-    users: "Até 3 usuários",
-    terrenos: "100 terrenos",
-    storage: "1 GB",
-    hasAI: false,
-    hasCommittee: false,
-    hasNegotiation: false,
-    hasLegal: false,
-    support: "E-mail",
-    features: [
-      "Tudo do Broker",
-      "Dashboard básico",
-      "Viabilidade completa (DRE + fluxo)",
-      "Exportação PDF",
-      "Gestão de equipe",
-    ],
-    cta: "Começar avaliação",
-    ctaHref: `${LINKS.signup}?plan=basico`,
-  },
-  {
-    id: "master",
-    name: "SIG Master",
-    tagline: "Para equipes em crescimento",
-    monthlyPrice: 597,
-    annualPrice: 478,
-    users: "Até 10 usuários",
-    terrenos: "200 terrenos",
-    storage: "3 GB",
-    hasAI: true,
-    hasCommittee: false,
-    hasNegotiation: false,
-    hasLegal: true,
-    support: "Prioritário",
-    features: [
-      "Tudo do Básico",
-      "SIG_IA conversacional",
-      "Legalização end-to-end",
-      "Dashboard completo",
-      "Permissões avançadas (RBAC)",
-    ],
-    highlighted: true,
-    cta: "Começar avaliação",
-    ctaHref: `${LINKS.signup}?plan=master`,
-  },
-  {
-    id: "pro",
-    name: "SIG Pro",
-    tagline: "Para grandes incorporadoras",
-    monthlyPrice: 947,
-    annualPrice: 758,
-    users: "Ilimitado",
-    terrenos: "Ilimitado",
-    storage: "5 GB",
-    hasAI: true,
-    hasCommittee: true,
-    hasNegotiation: true,
-    hasLegal: true,
-    support: "Dedicado",
-    features: [
-      "Tudo do Master",
-      "Comitê de revisão",
-      "Gestão de negociações",
-      "Sala de projetos",
-      "API de integração",
-    ],
-    cta: "Falar com vendas",
-    ctaHref: LINKS.sales,
-  },
-]
 
 export const PRICING_MATRIX_COPY = {
   eyebrow: "Comparativo completo",
   title: "Veja exatamente o que muda em cada plano",
   description:
-    "Limites, governanca e capacidade operacional lado a lado para sua equipe decidir com criterio.",
+    "Limites, governança e capacidade operacional lado a lado para sua equipe decidir com critério.",
   mobileSummary: "Comparar recursos dos planos",
 }
 
@@ -240,11 +237,18 @@ export const PLAN_MATRIX_ROWS: PlanMatrixRow[] = [
     field: "storage",
   },
   {
-    id: "support",
-    label: "Suporte",
-    helper: "Canal e prioridade de atendimento",
+    id: "products",
+    label: "Produtos por viabilidade",
+    helper: "Quantidade de produtos imobiliários permitidos",
     kind: "text",
-    field: "support",
+    field: "products",
+  },
+  {
+    id: "ai-budget",
+    label: "Orçamento mensal de IA",
+    helper: "Budget mensal configurado no plano",
+    kind: "text",
+    field: "aiBudget",
   },
   {
     id: "ai",

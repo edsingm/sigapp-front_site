@@ -2,6 +2,7 @@ import { HOW_IT_WORKS, LINKS } from "@/lib/landing-data"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import {
   MapPin,
   Calculator,
@@ -23,38 +24,49 @@ export function HowItWorksSection() {
       <div className="container-landing">
         <ScrollReveal
           stagger
-          className="mb-16 grid gap-6 lg:grid-cols-12 lg:items-end md:mb-24"
+          className="mb-16 grid gap-6 md:mb-24 lg:grid-cols-12 lg:items-end"
         >
           <div className="flex flex-col gap-5 lg:col-span-5">
             <SectionLabel>Como funciona</SectionLabel>
             <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
-              Do cadastro ao registro imobiliario em 4 passos
+              Do cadastro ao registro imobiliário em 4 passos
             </h2>
           </div>
           <p className="max-w-[52ch] text-pretty text-muted-foreground md:text-lg lg:col-span-7 lg:pb-1">
-            Sem implantacao demorada nem repasse de contexto entre planilha,
-            comite e juridico. Cada etapa avanca sobre a mesma oportunidade.
+            Sem implantação demorada nem repasse de contexto entre planilha,
+            comitê e jurídico. Cada etapa avança sobre a mesma oportunidade.
           </p>
         </ScrollReveal>
 
-        {/* Linha de decisão — rota conectando os passos */}
-        <ScrollReveal stagger className="grid gap-10 md:grid-cols-4 md:gap-6">
+        {/* Rota cartográfica — percurso curvo conectando os passos (md+) */}
+        <ScrollReveal
+          stagger
+          className="relative grid gap-10 md:grid-cols-4 md:gap-6"
+        >
+          <svg
+            viewBox="0 0 1200 112"
+            preserveAspectRatio="none"
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 hidden h-28 w-full md:block"
+          >
+            <path
+              d="M150 28 C 270 28 330 84 450 84 S 630 28 750 28 S 930 84 1050 84"
+              className="hiw-route"
+            />
+          </svg>
+
           {HOW_IT_WORKS.map((step, i) => {
             const Icon = ICON_MAP[step.icon as keyof typeof ICON_MAP]
             return (
               <div
                 key={`${step.title}-${i}`}
-                className="relative flex flex-col items-center gap-4 text-center"
-              >
-                {/* Rota entre os nós (md+) */}
-                {i < HOW_IT_WORKS.length - 1 && (
-                  <div
-                    aria-hidden="true"
-                    className="absolute top-7 left-1/2 hidden h-px w-full border-t border-dashed border-primary/30 md:block"
-                  />
+                className={cn(
+                  "relative flex flex-col items-center gap-4 text-center",
+                  i % 2 === 1 && "md:translate-y-14"
                 )}
+              >
                 <div className="relative z-10">
-                  <span className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-card text-primary shadow-[0_12px_24px_-18px_rgba(11,30,57,0.45)] ring-4 ring-muted/30">
+                  <span className="flex size-14 items-center justify-center rounded-2xl border border-primary/20 bg-card text-primary ring-4 shadow-raise ring-muted/30">
                     {Icon && <Icon className="size-6" strokeWidth={1.5} />}
                   </span>
                   <span className="data-mono absolute -top-2 -right-2 flex size-6 items-center justify-center rounded-full bg-card text-[11px] font-bold text-primary ring-1 ring-border">
@@ -86,7 +98,7 @@ export function HowItWorksSection() {
               />
             }
           >
-            Solicitar demonstracao
+            Solicitar demonstração
             <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5">
               <ArrowRight className="size-4" />
             </span>

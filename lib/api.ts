@@ -29,7 +29,7 @@ type ApiSuccess<T> = { success: true; data: T; message: string }
 export async function fetchPlans(): Promise<ApiPlan[]> {
   const res = await fetch(`${apiBaseUrl()}/api/v1/plans`, {
     headers: { Accept: "application/json" },
-    next: { revalidate: 300 },
+    cache: "no-store",
   })
   if (!res.ok) throw new Error(`Falha ao carregar planos (${res.status})`)
   const json = (await res.json()) as ApiSuccess<ApiPlan[]>
@@ -61,19 +61,25 @@ export type SignupResult =
  * Cria o tenant pendente e devolve a URL de Checkout do Stripe.
  * Erros de validação (422) voltam como fieldErrors sem lançar exceção.
  */
-export async function submitSignup(payload: SignupPayload): Promise<SignupResult> {
+export async function submitSignup(
+  payload: SignupPayload
+): Promise<SignupResult> {
   let res: Response
   try {
     res = await fetch(`${apiBaseUrl()}/api/v1/signup`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       body: JSON.stringify(payload),
     })
   } catch {
     return {
       ok: false,
       fieldErrors: {},
-      message: "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.",
+      message:
+        "Não foi possível conectar ao servidor. Verifique sua conexão e tente novamente.",
     }
   }
 
@@ -83,17 +89,27 @@ export async function submitSignup(payload: SignupPayload): Promise<SignupResult
     return { ok: true, data: json.data as SignupSuccess }
   }
 
-  const fieldErrors = (json?.errors ?? json?.error?.details ?? {}) as Record<string, string[]>
+  const fieldErrors = (json?.errors ?? json?.error?.details ?? {}) as Record<
+    string,
+    string[]
+  >
   const message =
-    json?.message ?? json?.error?.message ?? "Não foi possível concluir o cadastro. Tente novamente."
+    json?.message ??
+    json?.error?.message ??
+    "Não foi possível concluir o cadastro. Tente novamente."
 
   return { ok: false, fieldErrors, message }
 }
 
-export type AvailabilityResult = { available: boolean; normalized_subdomain: string }
+export type AvailabilityResult = {
+  available: boolean
+  normalized_subdomain: string
+}
 
 /** Verifica disponibilidade do subdomínio (slug). */
-export async function checkSubdomain(slug: string): Promise<AvailabilityResult | null> {
+export async function checkSubdomain(
+  slug: string
+): Promise<AvailabilityResult | null> {
   try {
     const res = await fetch(
       `${apiBaseUrl()}/api/v1/tenant/subdomain-availability/${encodeURIComponent(slug)}`,
@@ -114,7 +130,9 @@ export type SignupStatusData = {
 }
 
 /** Consulta o status do provisionamento do tenant após o checkout. */
-export async function fetchSignupStatus(sessionId: string): Promise<SignupStatusData | null> {
+export async function fetchSignupStatus(
+  sessionId: string
+): Promise<SignupStatusData | null> {
   try {
     const res = await fetch(
       `${apiBaseUrl()}/api/v1/signup/${encodeURIComponent(sessionId)}/status`,

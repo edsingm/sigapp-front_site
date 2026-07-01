@@ -29,7 +29,7 @@ export function FAQSection() {
           {/* Left */}
           <div className="flex flex-col gap-5 lg:col-span-4 lg:pr-4">
             <SectionLabel>Perguntas frequentes</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl">
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
               Tire suas dúvidas antes de avançar
             </h2>
             <p className="text-muted-foreground">
@@ -54,9 +54,19 @@ export function FAQSection() {
             </Button>
           </div>
 
-          {/* Right */}
+          {/* Right — duas colunas independentes em lg+ */}
           <div className="lg:col-span-8">
-            <FAQAccordion items={FAQ_ITEMS} />
+            <div className="grid items-start gap-x-10 lg:grid-cols-2">
+              <FAQAccordion
+                items={FAQ_ITEMS.slice(0, Math.ceil(FAQ_ITEMS.length / 2))}
+                defaultOpenIndex={0}
+              />
+              <div className="border-t border-border lg:border-t-0">
+                <FAQAccordion
+                  items={FAQ_ITEMS.slice(Math.ceil(FAQ_ITEMS.length / 2))}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -15,8 +15,9 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { PLANS, LINKS, METRICS } from "@/lib/landing-data"
+import { LINKS, METRICS } from "@/lib/landing-data"
 import { checkSubdomain, submitSignup, type ApiPlan } from "@/lib/api"
+import { planFeatureBullets } from "@/lib/plan-display"
 
 type Props = {
   plans: ApiPlan[]
@@ -38,11 +39,6 @@ function slugify(value: string): string {
 
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
-
-// Bullets de marketing por slug (copy curada em landing-data)
-function featureBullets(slug: string): string[] {
-  return PLANS.find((p) => p.id === slug)?.features ?? []
-}
 
 type SlugStatus = "idle" | "checking" | "available" | "taken" | "invalid"
 
@@ -603,7 +599,7 @@ function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
       <div className="my-5 h-px bg-white/15" />
 
       <ul className="space-y-2.5 text-sm">
-        {featureBullets(plan.slug).map((f) => (
+        {planFeatureBullets(plan).map((f) => (
           <li key={f} className="flex items-start gap-2">
             <Check className="mt-0.5 size-4 shrink-0 text-(--color-data-green)" />
             <span className="text-white/85">{f}</span>

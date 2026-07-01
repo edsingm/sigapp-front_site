@@ -1,4 +1,4 @@
-import { Geist_Mono, Inter, Roboto } from "next/font/google"
+import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google"
 import type { Metadata, Viewport } from "next"
 
 import "./globals.css"
@@ -6,11 +6,11 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { CookieBanner } from "@/components/landing/client/CookieBanner"
 import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
 import { cn } from "@/lib/utils"
-import { PLANS, SITE, SITE_URL } from "@/lib/landing-data"
+import { SITE, SITE_URL } from "@/lib/landing-data"
 
-// Sistema tipográfico da marca SIGAPP — Roboto (títulos), Inter (corpo),
+// Sistema tipográfico da marca SIGAPP — Space Grotesk (títulos), Inter (corpo),
 // Geist Mono (coordenadas, áreas, IDs e valores tabulares).
-const roboto = Roboto({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
   variable: "--font-heading",
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
   },
 }
 
-// Dados estruturados (JSON-LD) — Organization + SoftwareApplication com offers dos planos
+// Dados estruturados (JSON-LD) — Organization + SoftwareApplication
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -112,13 +112,6 @@ const jsonLd = {
       description: SITE.description,
       url: SITE_URL,
       publisher: { "@id": `${SITE_URL}/#organization` },
-      offers: PLANS.map((plan) => ({
-        "@type": "Offer",
-        name: plan.name,
-        price: plan.monthlyPrice,
-        priceCurrency: "BRL",
-        category: "subscription",
-      })),
     },
   ],
 }
@@ -136,7 +129,7 @@ export default function RootLayout({
         "antialiased",
         fontMono.variable,
         inter.variable,
-        roboto.variable
+        spaceGrotesk.variable
       )}
     >
       <body suppressHydrationWarning>

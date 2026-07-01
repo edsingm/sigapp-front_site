@@ -2,36 +2,21 @@ import Link from "next/link"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Zap, FileDown, Bell, Map, ArrowUpRight } from "lucide-react"
+import { BENTO_ALERTS, BENTO_DRE, BENTO_EXPORT_FILES } from "@/lib/landing-data"
 
 function MiniDRE() {
-  const receitas = [
-    { label: "Receita Bruta (VGV)", value: "R$ 28,4M" },
-    { label: "(-) Deduções e impostos", value: "(R$ 1,7M)" },
-  ]
-  const custos = [
-    { label: "Custo de Obra (CUB)", value: "(R$ 14,9M)" },
-    { label: "Marketing e Corretagem", value: "(R$ 1,1M)" },
-    { label: "Despesas Operacionais", value: "(R$ 5,8M)" },
-  ]
-  const kpis = [
-    { label: "TIR", value: "18,4%" },
-    { label: "ROI", value: "17,5%" },
-    { label: "Payback", value: "28 meses" },
-    { label: "VPL", value: "R$ 2,1M" },
-  ]
+  const { project, receitas, custos, lucro, kpis } = BENTO_DRE
 
   return (
     <div className="mt-5 space-y-3 text-xs">
       <div className="flex items-center justify-between rounded-xl bg-muted/60 px-3 py-2.5">
         <div>
-          <p className="coord text-muted-foreground">Projeto em análise</p>
-          <p className="mt-0.5 font-semibold text-foreground">
-            Residencial Av. Paulista · 120 un.
-          </p>
+          <p className="coord text-muted-foreground">{project.label}</p>
+          <p className="mt-0.5 font-semibold text-foreground">{project.name}</p>
         </div>
         <span className="flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold text-primary">
           <span className="size-1.5 rounded-full bg-primary" />
-          Viável
+          {project.status}
         </span>
       </div>
 
@@ -68,13 +53,13 @@ function MiniDRE() {
       <div className="border-t border-border" />
 
       <div className="flex items-center justify-between rounded-xl bg-primary/8 px-3 py-2.5">
-        <span className="font-semibold text-foreground">Lucro Líquido</span>
+        <span className="font-semibold text-foreground">{lucro.label}</span>
         <div className="flex items-baseline gap-2">
           <span className="data-mono text-sm font-black text-primary">
-            R$ 4,9M
+            {lucro.value}
           </span>
           <span className="data-mono rounded-full bg-primary/15 px-1.5 py-0.5 text-[9px] font-bold text-primary">
-            17,3%
+            {lucro.margin}
           </span>
         </div>
       </div>
@@ -152,18 +137,6 @@ function MapPins() {
   )
 }
 
-const EXPORT_FILES = [
-  { name: "Viabilidade_Paulista_v3.pdf", ext: "pdf" },
-  { name: "Terrenos_Q2_2026.xlsx", ext: "xlsx" },
-  { name: "Parecer_Comite_Jun.pdf", ext: "pdf" },
-]
-
-const ALERT_ITEMS = [
-  { msg: "Viabilidade pendente há 3 dias", type: "warn" as const },
-  { msg: "Comitê aprovado: Av. Paulista", type: "ok" as const },
-  { msg: "Prazo de legalização em 5 dias", type: "warn" as const },
-]
-
 function CardHead({
   icon: Icon,
   eyebrow,
@@ -203,7 +176,7 @@ export function BentoSection() {
         >
           <div className="flex flex-col gap-4 lg:col-span-5">
             <SectionLabel>Capacidades</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl">
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
               Cada terreno, um dossiê vivo de decisão
             </h2>
           </div>
@@ -219,7 +192,8 @@ export function BentoSection() {
         >
           {/* Âncora marinho — promessa de marca */}
           <div className="card-bezel card-bezel--navy lg:col-span-4 lg:row-span-2">
-            <div className="card-bezel__core flex h-full flex-col justify-between gap-8 p-7 text-white">
+            <div className="card-bezel__core relative flex h-full flex-col justify-between gap-8 overflow-hidden p-7 text-white">
+              <div className="grain-overlay" />
               <div className="flex flex-col gap-4">
                 <p className="coord text-secondary">Decisão segura</p>
                 <h3 className="font-heading text-2xl leading-tight font-bold tracking-tight text-balance">
@@ -245,10 +219,10 @@ export function BentoSection() {
                 </div>
                 <Link
                   href="/#funcionalidades"
-                  className="group/link inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-[#0B1E39] transition-colors hover:bg-white/90"
+                  className="group/link inline-flex w-fit items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-(--color-brand-navy) transition-colors hover:bg-white/90"
                 >
                   Conhecer funcionalidades
-                  <span className="flex size-6 items-center justify-center rounded-full bg-[#0B1E39]/8 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/link:translate-x-0.5">
+                  <span className="flex size-6 items-center justify-center rounded-full bg-(--color-brand-navy)/8 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/link:translate-x-0.5">
                     <ArrowUpRight className="size-3.5" />
                   </span>
                 </Link>
@@ -292,7 +266,7 @@ export function BentoSection() {
                 description="Relatórios formatados prontos para o comitê ou o cliente."
               />
               <div className="mt-4 flex flex-col gap-2">
-                {EXPORT_FILES.map((f) => (
+                {BENTO_EXPORT_FILES.map((f) => (
                   <div
                     key={f.name}
                     className="flex items-center gap-2 rounded-xl border border-border bg-background px-3 py-2"
@@ -325,7 +299,7 @@ export function BentoSection() {
                 description="Avisos quando viabilidades ficam pendentes ou prazos se aproximam."
               />
               <div className="mt-4 space-y-2">
-                {ALERT_ITEMS.map((a, i) => (
+                {BENTO_ALERTS.map((a, i) => (
                   <div
                     key={i}
                     className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-xs ${

@@ -16,9 +16,7 @@ export function ScrollReveal({ stagger = false, className, children }: Props) {
     if (!el) return
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
 
-    const targets = stagger
-      ? (Array.from(el.children) as HTMLElement[])
-      : [el]
+    const targets = stagger ? (Array.from(el.children) as HTMLElement[]) : [el]
 
     const viewportH = window.innerHeight
     const toObserve: HTMLElement[] = []

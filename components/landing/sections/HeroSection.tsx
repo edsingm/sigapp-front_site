@@ -1,31 +1,19 @@
 import Link from "next/link"
-import { ArrowRight, LayoutGrid, MapPinned, ShieldCheck } from "lucide-react"
+import { ArrowRight, LayoutGrid, MapPinned } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { CadastralMapBackdrop } from "@/components/landing/ui/CadastralMapBackdrop"
-import { LINKS } from "@/lib/landing-data"
-
-const PROOF_ITEMS = [
-  "Analise em contexto",
-  "Governanca por etapa",
-  "Dados na sua nuvem",
-]
-
-const HERO_METRICS = [
-  { value: "340+", label: "incorporadoras ativas" },
-  { value: "R$ 2,4B", label: "em terrenos analisados" },
-  { value: "12.800+", label: "viabilidades calculadas" },
-]
+import { HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
 
 function TerritoryPanel() {
   return (
     <div className="relative">
       <div className="absolute -inset-4 rounded-[2rem] bg-primary/8 blur-3xl dark:bg-primary/12" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-[0_28px_80px_-42px_rgba(11,30,57,0.45)]">
+      <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-float">
         <div className="flex items-center justify-between border-b border-border bg-muted/35 px-4 py-3 sm:px-5">
           <div className="flex items-center gap-2">
             <span className="flex size-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <MapPinned className="size-4" strokeWidth={1.7} />
+              <MapPinned className="size-4" strokeWidth={1.5} />
             </span>
             <div>
               <p className="coord text-muted-foreground">Leitura territorial</p>
@@ -90,7 +78,7 @@ function TerritoryPanel() {
             />
           </svg>
 
-          <div className="absolute top-8 right-6 rounded-2xl border border-border bg-card/94 p-4 shadow-[0_18px_42px_-28px_rgba(11,30,57,0.45)] backdrop-blur-sm sm:right-10">
+          <div className="absolute top-8 right-6 rounded-2xl border border-border bg-card/94 p-4 shadow-panel backdrop-blur-sm sm:right-10">
             <p className="coord text-muted-foreground">Potencial</p>
             <div className="mt-2 flex items-end gap-2">
               <p className="font-heading text-3xl font-bold text-foreground">
@@ -105,7 +93,7 @@ function TerritoryPanel() {
             </div>
           </div>
 
-          <div className="absolute bottom-8 left-5 rounded-2xl border border-border bg-card/94 p-4 shadow-[0_18px_42px_-28px_rgba(11,30,57,0.45)] backdrop-blur-sm sm:left-10">
+          <div className="absolute bottom-8 left-5 rounded-2xl border border-border bg-card/94 p-4 shadow-panel backdrop-blur-sm sm:left-10">
             <p className="coord text-muted-foreground">Área aproveitável</p>
             <p className="data-mono mt-1 text-2xl font-bold text-foreground">
               12.480 m²
@@ -149,7 +137,7 @@ export function HeroSection() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 size="lg"
-                className="group/cta h-13 w-full gap-2 rounded-xl pr-2 pl-6 text-base font-semibold shadow-[0_16px_34px_-18px_rgba(46,107,255,0.8)] sm:w-auto"
+                className="group/cta h-13 w-full gap-2 rounded-xl pr-2 pl-6 text-base font-semibold shadow-cta sm:w-auto"
                 nativeButton={false}
                 render={
                   <a
@@ -159,7 +147,7 @@ export function HeroSection() {
                   />
                 }
               >
-                Solicitar demonstracao
+                Solicitar demonstração
                 <span className="flex size-9 items-center justify-center rounded-lg bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-px">
                   <ArrowRight className="size-4" />
                 </span>
@@ -178,12 +166,12 @@ export function HeroSection() {
                 }
               >
                 <LayoutGrid className="size-4" />
-                Ver analise territorial
+                Ver análise territorial
               </Button>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3">
-              {PROOF_ITEMS.map((item) => (
+              {HERO_PROOF_ITEMS.map((item) => (
                 <div key={item} className="flex items-center gap-2 text-sm">
                   <span className="size-2 rounded-full bg-primary" />
                   <span className="text-muted-foreground">
@@ -198,28 +186,6 @@ export function HeroSection() {
           </div>
 
           <TerritoryPanel />
-        </div>
-
-        <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-3">
-          {HERO_METRICS.map((metric) => (
-            <div
-              key={metric.label}
-              className="flex items-center justify-between gap-4 bg-card px-5 py-5 sm:px-7"
-            >
-              <div>
-                <p className="data-mono font-heading text-3xl font-bold tracking-tight text-foreground">
-                  {metric.value}
-                </p>
-                <p className="coord mt-1 text-muted-foreground">
-                  {metric.label}
-                </p>
-              </div>
-              <ShieldCheck
-                className="size-5 shrink-0 text-primary"
-                strokeWidth={1.7}
-              />
-            </div>
-          ))}
         </div>
       </div>
     </section>

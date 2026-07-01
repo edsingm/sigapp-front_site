@@ -36,7 +36,11 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
 const AUTHORS: Record<string, BlogAuthor> = {
   rafael: { name: "Rafael Torres", role: "Co-fundador & CTO", initials: "RT" },
   carla: { name: "Carla Mendes", role: "Head de Produto", initials: "CM" },
-  bruno: { name: "Bruno Alves", role: "Especialista Imobiliário", initials: "BA" },
+  bruno: {
+    name: "Bruno Alves",
+    role: "Especialista Imobiliário",
+    initials: "BA",
+  },
   luciana: { name: "Luciana Faria", role: "Engenheira de IA", initials: "LF" },
 }
 
@@ -133,7 +137,8 @@ Nenhuma dessas consultas funciona bem em um assistente de IA genérico, porque e
   },
   {
     slug: "multi-tenancy-dados-incorporadoras",
-    title: "Multi-tenancy: Por que Isolamento de Dados Importa para Incorporadoras",
+    title:
+      "Multi-tenancy: Por que Isolamento de Dados Importa para Incorporadoras",
     excerpt:
       "Quando múltiplas empresas compartilham um banco de dados, o risco de vazamento de dados estratégicos é real. Entenda a arquitetura database-per-tenant do SIGAPP.",
     content: `
@@ -211,7 +216,8 @@ No SIGAPP, o módulo de Comitê faz exatamente isso, com rastreabilidade complet
   },
   {
     slug: "incc-cub-permuta-parametros-viabilidade",
-    title: "INCC, CUB e Permuta: Os Parâmetros que Definem uma Viabilidade Precisa",
+    title:
+      "INCC, CUB e Permuta: Os Parâmetros que Definem uma Viabilidade Precisa",
     excerpt:
       "Uma análise de viabilidade imobiliária brasileira que ignora INCC, CUB ou a estrutura tributária da permuta estará sempre errada. Entenda cada um.",
     content: `

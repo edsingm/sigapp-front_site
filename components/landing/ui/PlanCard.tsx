@@ -2,9 +2,10 @@ import { cn } from "@/lib/utils"
 import {
   ArrowRight,
   Check,
+  Brain,
   HardDrive,
-  Headphones,
   MapPinned,
+  Package,
   ShieldCheck,
   Sparkles,
   UsersRound,
@@ -23,18 +24,16 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
   const limits = [
     { id: "users", icon: UsersRound, value: plan.users },
     { id: "land", icon: MapPinned, value: plan.terrenos },
+    { id: "products", icon: Package, value: plan.products },
     {
       id: "storage",
       icon: HardDrive,
-      value:
-        plan.storage === "—"
-          ? "Sem armazenamento extra"
-          : `${plan.storage} armazenamento`,
+      value: plan.storage,
     },
     {
-      id: "support",
-      icon: Headphones,
-      value: `Suporte ${plan.support.toLowerCase()}`,
+      id: "ai-budget",
+      icon: Brain,
+      value: plan.aiBudget,
     },
   ]
 
@@ -43,8 +42,8 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
       className={cn(
         "group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border p-5 transition-[transform,border-color,box-shadow] duration-300 sm:p-6",
         highlighted
-          ? "border-white/10 bg-[var(--color-brand-navy)] text-white shadow-[0_28px_70px_-34px_rgba(11,30,57,0.9)] ring-1 ring-white/10 xl:-translate-y-4"
-          : "border-border bg-card shadow-[0_16px_45px_-36px_rgba(11,30,57,0.65)] hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_24px_55px_-34px_rgba(11,30,57,0.55)]"
+          ? "border-white/10 bg-[var(--color-brand-navy)] text-white ring-1 shadow-float ring-white/10 xl:-translate-y-4"
+          : "border-border bg-card shadow-raise hover:-translate-y-1 hover:border-primary/35 hover:shadow-float"
       )}
     >
       {highlighted ? (
@@ -166,7 +165,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
                   : "bg-primary/10 text-primary"
               )}
             >
-              <Check className="size-2.5" strokeWidth={3} />
+              <Check className="size-2.5" strokeWidth={2.5} />
             </span>
             <span
               className={highlighted ? "text-white/85" : "text-foreground/85"}

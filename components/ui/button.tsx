@@ -8,13 +8,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/85 active:scale-[0.97]",
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/85 active:scale-[0.97]",
         brand:
-          "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-[0.98] shadow-sm shadow-primary/25 hover:shadow-md hover:shadow-primary/30",
+          "bg-primary text-primary-foreground shadow-sm shadow-primary/25 hover:bg-primary/90 hover:shadow-md hover:shadow-primary/30 active:scale-[0.98]",
         "brand-outline":
-          "border border-primary/40 text-primary bg-transparent hover:bg-accent hover:border-primary/60 active:scale-[0.98]",
+          "border border-primary/40 bg-transparent text-primary hover:border-primary/60 hover:bg-accent active:scale-[0.98]",
         outline:
-          "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border-border bg-background hover:bg-muted hover:text-foreground active:scale-[0.98] aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
@@ -23,7 +24,7 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
         "ghost-white":
-          "text-white/80 hover:text-white hover:bg-white/10 active:scale-[0.97]",
+          "text-white/80 hover:bg-white/10 hover:text-white active:scale-[0.97]",
       },
       size: {
         default:

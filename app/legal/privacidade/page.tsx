@@ -12,7 +12,8 @@ import {
 
 export const metadata: Metadata = {
   title: "Política de Privacidade — SIGAPP",
-  description: "Como o SIGAPP coleta, utiliza e protege seus dados pessoais conforme a LGPD.",
+  description:
+    "Como o SIGAPP coleta, utiliza e protege seus dados pessoais conforme a LGPD.",
 }
 
 const SECTIONS: LegalSection[] = [
@@ -38,19 +39,21 @@ export default function PrivacidadePage() {
       sections={SECTIONS}
     >
       <LHighlight>
-        Esta Política se aplica a todos os dados pessoais tratados pelo SIGAPP no contexto da
-        plataforma, do site institucional e de comunicações com Usuários e potenciais clientes.
-        Leia com atenção — ela explica seus direitos e como exercê-los.
+        Esta Política se aplica a todos os dados pessoais tratados pelo SIGAPP
+        no contexto da plataforma, do site institucional e de comunicações com
+        Usuários e potenciais clientes. Leia com atenção — ela explica seus
+        direitos e como exercê-los.
       </LHighlight>
 
       <LSection id="controlador" title="1. Controlador e DPO">
         <LP>
-          <strong>Controlador:</strong> SIGAPP Tecnologia Ltda., CNPJ 00.000.000/0001-00,
-          com sede na Av. Paulista, 1234, Conjunto 56, Bela Vista, São Paulo – SP, CEP 01310-100.
+          <strong>Controlador:</strong> SIGAPP Tecnologia Ltda., CNPJ
+          00.000.000/0001-00, com sede na Av. Paulista, 1234, Conjunto 56, Bela
+          Vista, São Paulo – SP, CEP 01310-100.
         </LP>
         <LP>
-          <strong>Encarregado de Dados (DPO):</strong> Responsável pelo canal oficial de
-          comunicação sobre privacidade, conforme o Art. 41 da LGPD.
+          <strong>Encarregado de Dados (DPO):</strong> Responsável pelo canal
+          oficial de comunicação sobre privacidade, conforme o Art. 41 da LGPD.
         </LP>
         <LList
           items={[
@@ -60,11 +63,12 @@ export default function PrivacidadePage() {
           ]}
         />
         <LP>
-          Quando o SIGAPP processa dados inseridos pelo Cliente na Plataforma (dados de terrenos,
-          viabilidades, contatos, documentos), atua como <strong>operador</strong> sob instrução
-          do Cliente (controlador). Nesse contexto, o Cliente é responsável pelas bases legais
-          do tratamento e pelo atendimento aos direitos dos titulares de dados que ele próprio
-          inseriu.
+          Quando o SIGAPP processa dados inseridos pelo Cliente na Plataforma
+          (dados de terrenos, viabilidades, contatos, documentos), atua como{" "}
+          <strong>operador</strong> sob instrução do Cliente (controlador).
+          Nesse contexto, o Cliente é responsável pelas bases legais do
+          tratamento e pelo atendimento aos direitos dos titulares de dados que
+          ele próprio inseriu.
         </LP>
       </LSection>
 
@@ -93,9 +97,10 @@ export default function PrivacidadePage() {
         </LSubsection>
         <LSubsection title="2.3 Dados inseridos pelo Cliente (operação)">
           <LP>
-            Dados de negócio inseridos pelo Cliente — como informações de terrenos, contatos de
-            proprietários, parâmetros de viabilidade e documentos — são tratados pelo SIGAPP
-            exclusivamente como operador, para prestação dos serviços contratados.
+            Dados de negócio inseridos pelo Cliente — como informações de
+            terrenos, contatos de proprietários, parâmetros de viabilidade e
+            documentos — são tratados pelo SIGAPP exclusivamente como operador,
+            para prestação dos serviços contratados.
           </LP>
         </LSubsection>
         <LSubsection title="2.4 Dados de comunicação">
@@ -110,7 +115,10 @@ export default function PrivacidadePage() {
         <LSubsection title="2.5 Dados de cookies e rastreamento">
           <LP>
             Cookies e tecnologias similares são usados conforme descrito na{" "}
-            <a href="/legal/cookies" className="font-medium text-primary hover:underline">
+            <a
+              href="/legal/cookies"
+              className="font-medium text-primary hover:underline"
+            >
               Política de Cookies
             </a>
             .
@@ -120,11 +128,16 @@ export default function PrivacidadePage() {
 
       <LSection id="finalidade" title="3. Finalidade e Base Legal">
         <LP>
-          O SIGAPP trata dados pessoais com base nas hipóteses legais previstas no Art. 7º da
-          LGPD. A tabela abaixo descreve cada tratamento, sua finalidade e base legal:
+          O SIGAPP trata dados pessoais com base nas hipóteses legais previstas
+          no Art. 7º da LGPD. A tabela abaixo descreve cada tratamento, sua
+          finalidade e base legal:
         </LP>
         <LTable
-          headers={["Finalidade", "Dados envolvidos", "Base legal (LGPD Art. 7º)"]}
+          headers={[
+            "Finalidade",
+            "Dados envolvidos",
+            "Base legal (LGPD Art. 7º)",
+          ]}
           rows={[
             [
               "Criação e gestão de conta",
@@ -174,14 +187,16 @@ export default function PrivacidadePage() {
           ]}
         />
         <LP>
-          O consentimento para marketing pode ser revogado a qualquer momento clicando em
-          &ldquo;cancelar inscrição&rdquo; em nossos e-mails ou pelo canal do DPO.
+          O consentimento para marketing pode ser revogado a qualquer momento
+          clicando em &ldquo;cancelar inscrição&rdquo; em nossos e-mails ou pelo
+          canal do DPO.
         </LP>
       </LSection>
 
       <LSection id="compartilhamento" title="4. Compartilhamento de Dados">
         <LP>
-          O SIGAPP não vende dados pessoais. Compartilhamos dados apenas nas seguintes situações:
+          O SIGAPP não vende dados pessoais. Compartilhamos dados apenas nas
+          seguintes situações:
         </LP>
         <LSubsection title="4.1 Prestadores de serviço (suboperadores)">
           <LList
@@ -194,20 +209,23 @@ export default function PrivacidadePage() {
             ]}
           />
           <LP>
-            Todos os suboperadores são contratualmente obrigados a tratar os dados com
-            confidencialidade e em conformidade com a LGPD ou regulação equivalente.
+            Todos os suboperadores são contratualmente obrigados a tratar os
+            dados com confidencialidade e em conformidade com a LGPD ou
+            regulação equivalente.
           </LP>
         </LSubsection>
         <LSubsection title="4.2 Obrigações legais">
           <LP>
-            Podemos divulgar dados em resposta a ordens judiciais, requisições de autoridades
-            competentes ou quando necessário para proteger direitos legais do SIGAPP.
+            Podemos divulgar dados em resposta a ordens judiciais, requisições
+            de autoridades competentes ou quando necessário para proteger
+            direitos legais do SIGAPP.
           </LP>
         </LSubsection>
         <LSubsection title="4.3 Transferência de empresa">
           <LP>
-            Em caso de fusão, aquisição ou venda de ativos, os dados poderão ser transferidos ao
-            novo controlador, que ficará sujeito a esta Política. Os Usuários serão notificados.
+            Em caso de fusão, aquisição ou venda de ativos, os dados poderão ser
+            transferidos ao novo controlador, que ficará sujeito a esta
+            Política. Os Usuários serão notificados.
           </LP>
         </LSubsection>
       </LSection>
@@ -216,25 +234,49 @@ export default function PrivacidadePage() {
         <LTable
           headers={["Tipo de dado", "Prazo de retenção", "Critério"]}
           rows={[
-            ["Dados de conta (nome, e-mail, CPF/CNPJ)", "5 anos após encerramento", "Obrigação legal fiscal (Lei 9.430/96)"],
-            ["Logs de acesso", "6 meses", "Marco Civil da Internet (Lei 12.965/2014, Art. 15)"],
+            [
+              "Dados de conta (nome, e-mail, CPF/CNPJ)",
+              "5 anos após encerramento",
+              "Obrigação legal fiscal (Lei 9.430/96)",
+            ],
+            [
+              "Logs de acesso",
+              "6 meses",
+              "Marco Civil da Internet (Lei 12.965/2014, Art. 15)",
+            ],
             ["Dados de faturamento", "5 anos", "Código Tributário Nacional"],
-            ["Conteúdo do Usuário (dados de negócio)", "30 dias após cancelamento", "Período de exportação; excluídos após"],
-            ["Comunicações de suporte", "2 anos", "Legítimo interesse / defesa em processos"],
-            ["Dados de leads (marketing)", "Até revogação do consentimento ou 2 anos sem atividade", "Consentimento"],
+            [
+              "Conteúdo do Usuário (dados de negócio)",
+              "30 dias após cancelamento",
+              "Período de exportação; excluídos após",
+            ],
+            [
+              "Comunicações de suporte",
+              "2 anos",
+              "Legítimo interesse / defesa em processos",
+            ],
+            [
+              "Dados de leads (marketing)",
+              "Até revogação do consentimento ou 2 anos sem atividade",
+              "Consentimento",
+            ],
           ]}
         />
         <LP>
-          Após o prazo de retenção, os dados são excluídos de forma segura ou anonimizados.
-          A anonimização torna os dados não mais sujeitos à LGPD.
+          Após o prazo de retenção, os dados são excluídos de forma segura ou
+          anonimizados. A anonimização torna os dados não mais sujeitos à LGPD.
         </LP>
       </LSection>
 
-      <LSection id="transferencia" title="6. Transferência Internacional de Dados">
+      <LSection
+        id="transferencia"
+        title="6. Transferência Internacional de Dados"
+      >
         <LP>
-          Alguns de nossos suboperadores (Stripe, AWS, OpenRouter) podem processar dados fora do
-          Brasil. Nesses casos, garantimos que a transferência ocorre em conformidade com o Art.
-          33 da LGPD, com base em:
+          Alguns de nossos suboperadores (Stripe, AWS, OpenRouter) podem
+          processar dados fora do Brasil. Nesses casos, garantimos que a
+          transferência ocorre em conformidade com o Art. 33 da LGPD, com base
+          em:
         </LP>
         <LList
           items={[
@@ -247,8 +289,9 @@ export default function PrivacidadePage() {
 
       <LSection id="seguranca" title="7. Segurança">
         <LP>
-          Adotamos medidas técnicas e organizacionais para proteger seus dados pessoais contra
-          acesso não autorizado, alteração, divulgação ou destruição:
+          Adotamos medidas técnicas e organizacionais para proteger seus dados
+          pessoais contra acesso não autorizado, alteração, divulgação ou
+          destruição:
         </LP>
         <LList
           items={[
@@ -262,17 +305,20 @@ export default function PrivacidadePage() {
           ]}
         />
         <LP>
-          Em caso de incidente de segurança que possa causar risco ou dano relevante aos
-          titulares, o SIGAPP comunicará a ANPD e os titulares afetados no prazo legal de 72 horas
-          a contar da ciência do incidente.
+          Em caso de incidente de segurança que possa causar risco ou dano
+          relevante aos titulares, o SIGAPP comunicará a ANPD e os titulares
+          afetados no prazo legal de 72 horas a contar da ciência do incidente.
         </LP>
       </LSection>
 
       <LSection id="direitos" title="8. Seus Direitos (LGPD Art. 18)">
         <LP>
-          Como titular de dados pessoais, você tem os seguintes direitos, que podem ser exercidos
-          gratuitamente por meio do canal{" "}
-          <a href="mailto:privacidade@sigapp.com.br" className="font-medium text-primary hover:underline">
+          Como titular de dados pessoais, você tem os seguintes direitos, que
+          podem ser exercidos gratuitamente por meio do canal{" "}
+          <a
+            href="mailto:privacidade@sigapp.com.br"
+            className="font-medium text-primary hover:underline"
+          >
             privacidade@sigapp.com.br
           </a>
           :
@@ -280,43 +326,76 @@ export default function PrivacidadePage() {
         <LTable
           headers={["Direito", "O que significa"]}
           rows={[
-            ["Confirmação e acesso", "Confirmar se tratamos seus dados e obter cópia deles."],
-            ["Correção", "Solicitar correção de dados incompletos, inexatos ou desatualizados."],
-            ["Anonimização, bloqueio ou eliminação", "Solicitar que dados desnecessários, excessivos ou tratados em desconformidade sejam anonimizados, bloqueados ou eliminados."],
-            ["Portabilidade", "Receber seus dados em formato estruturado e interoperável para transferência a outro fornecedor."],
-            ["Eliminação (consentimento)", "Solicitar eliminação de dados tratados com base em consentimento, após sua revogação."],
-            ["Informação sobre compartilhamento", "Saber com quais entidades públicas e privadas compartilhamos seus dados."],
-            ["Informação sobre consentimento", "Ser informado sobre a possibilidade de não consentir e as consequências da negativa."],
-            ["Revogação do consentimento", "Revogar consentimento a qualquer momento, sem ônus."],
-            ["Oposição", "Opor-se ao tratamento realizado com base em legítimo interesse quando violar seus direitos."],
-            ["Revisão de decisões automatizadas", "Solicitar revisão de decisões tomadas exclusivamente com base em tratamento automatizado que afetem seus interesses."],
+            [
+              "Confirmação e acesso",
+              "Confirmar se tratamos seus dados e obter cópia deles.",
+            ],
+            [
+              "Correção",
+              "Solicitar correção de dados incompletos, inexatos ou desatualizados.",
+            ],
+            [
+              "Anonimização, bloqueio ou eliminação",
+              "Solicitar que dados desnecessários, excessivos ou tratados em desconformidade sejam anonimizados, bloqueados ou eliminados.",
+            ],
+            [
+              "Portabilidade",
+              "Receber seus dados em formato estruturado e interoperável para transferência a outro fornecedor.",
+            ],
+            [
+              "Eliminação (consentimento)",
+              "Solicitar eliminação de dados tratados com base em consentimento, após sua revogação.",
+            ],
+            [
+              "Informação sobre compartilhamento",
+              "Saber com quais entidades públicas e privadas compartilhamos seus dados.",
+            ],
+            [
+              "Informação sobre consentimento",
+              "Ser informado sobre a possibilidade de não consentir e as consequências da negativa.",
+            ],
+            [
+              "Revogação do consentimento",
+              "Revogar consentimento a qualquer momento, sem ônus.",
+            ],
+            [
+              "Oposição",
+              "Opor-se ao tratamento realizado com base em legítimo interesse quando violar seus direitos.",
+            ],
+            [
+              "Revisão de decisões automatizadas",
+              "Solicitar revisão de decisões tomadas exclusivamente com base em tratamento automatizado que afetem seus interesses.",
+            ],
           ]}
         />
         <LHighlight>
-          Responderemos a todas as solicitações em até <strong>15 dias corridos</strong> a partir
-          do recebimento, conforme o Art. 18, §3º da LGPD. Podemos solicitar documentação para
-          confirmar sua identidade antes de processar a solicitação.
+          Responderemos a todas as solicitações em até{" "}
+          <strong>15 dias corridos</strong> a partir do recebimento, conforme o
+          Art. 18, §3º da LGPD. Podemos solicitar documentação para confirmar
+          sua identidade antes de processar a solicitação.
         </LHighlight>
         <LP>
           Caso não esteja satisfeito com nossa resposta, você pode peticionar à{" "}
-          <strong>Autoridade Nacional de Proteção de Dados (ANPD)</strong> pelo site
-          gov.br/anpd.
+          <strong>Autoridade Nacional de Proteção de Dados (ANPD)</strong> pelo
+          site gov.br/anpd.
         </LP>
       </LSection>
 
       <LSection id="menores" title="9. Menores de Idade">
         <LP>
-          A Plataforma SIGAPP é destinada exclusivamente a pessoas maiores de 18 anos no contexto
-          empresarial. Não coletamos intencionalmente dados pessoais de menores de 18 anos. Se
-          identificarmos que coletamos dados de menor, excluiremos tais dados imediatamente.
+          A Plataforma SIGAPP é destinada exclusivamente a pessoas maiores de 18
+          anos no contexto empresarial. Não coletamos intencionalmente dados
+          pessoais de menores de 18 anos. Se identificarmos que coletamos dados
+          de menor, excluiremos tais dados imediatamente.
         </LP>
       </LSection>
 
       <LSection id="alteracoes" title="10. Alterações desta Política">
         <LP>
-          Esta Política pode ser atualizada periodicamente. Alterações materiais serão comunicadas
-          por e-mail ao endereço cadastrado, com antecedência mínima de 30 dias. O uso continuado
-          da Plataforma após a vigência das alterações implica aceite das novas condições.
+          Esta Política pode ser atualizada periodicamente. Alterações materiais
+          serão comunicadas por e-mail ao endereço cadastrado, com antecedência
+          mínima de 30 dias. O uso continuado da Plataforma após a vigência das
+          alterações implica aceite das novas condições.
         </LP>
         <LP>
           O histórico de versões desta Política pode ser solicitado ao DPO.
@@ -324,7 +403,9 @@ export default function PrivacidadePage() {
       </LSection>
 
       <LSection id="contato" title="11. Contato">
-        <LP>Para exercer seus direitos ou esclarecer dúvidas sobre privacidade:</LP>
+        <LP>
+          Para exercer seus direitos ou esclarecer dúvidas sobre privacidade:
+        </LP>
         <LList
           items={[
             "E-mail DPO: privacidade@sigapp.com.br",

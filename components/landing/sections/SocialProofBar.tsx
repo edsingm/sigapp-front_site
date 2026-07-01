@@ -1,5 +1,14 @@
 import { METRICS, CLIENT_LOGOS } from "@/lib/landing-data"
 
+// Tratamentos tipográficos alternados — wordmarks com identidade própria,
+// em vez de strings uniformes que denunciam placeholder
+const WORDMARK_STYLES = [
+  "font-heading text-sm font-bold tracking-tight sm:text-base",
+  "font-mono text-xs font-semibold tracking-[0.18em] uppercase sm:text-sm",
+  "font-sans text-sm font-black italic sm:text-base",
+  "font-heading text-xs font-semibold tracking-[0.12em] uppercase sm:text-sm",
+]
+
 export function SocialProofBar() {
   return (
     <section className="border-b border-border bg-background">
@@ -37,7 +46,11 @@ export function SocialProofBar() {
                 key={`${logo}-${i}`}
                 className="mx-6 flex shrink-0 items-center gap-6 sm:mx-8"
               >
-                <span className="font-heading text-sm font-bold whitespace-nowrap text-foreground/55 sm:text-base">
+                <span
+                  className={`whitespace-nowrap text-foreground/55 ${
+                    WORDMARK_STYLES[i % WORDMARK_STYLES.length]
+                  }`}
+                >
                   {logo}
                 </span>
                 <span className="size-1 shrink-0 rounded-full bg-primary/30" />

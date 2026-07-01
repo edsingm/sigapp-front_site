@@ -5,93 +5,93 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #f7f9fd;
-  --foreground: #0b1e39;
-  --card: #ffffff;
-  --card-foreground: #0b1e39;
-  --popover: #ffffff;
-  --popover-foreground: #0b1e39;
-  --primary: #2e6bff;
-  --primary-foreground: #ffffff;
-  --secondary: #6ca0ff;
-  --secondary-foreground: #0b1e39;
-  --muted: #f4f6fb;
-  --muted-foreground: #54627a;
-  --accent: #eef3fe;
-  --accent-foreground: #1648c9;
-  --destructive: #c0392b;
-  --border: #e5eaf3;
-  --input: #dce3ee;
-  --ring: #2e6bff;
-  --chart-1: #2e6bff;
-  --chart-2: #6ca0ff;
-  --chart-3: #1e8a5b;
-  --chart-4: #1648c9;
-  --chart-5: #7e91b0;
+  --background: oklch(98.2% 0.006 264.5);
+  --foreground: oklch(23.6% 0.058 257.5);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(23.6% 0.058 257.5);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(23.6% 0.058 257.5);
+  --primary: oklch(58% 0.229 263.7);
+  --primary-foreground: oklch(100% 0 0);
+  --secondary: oklch(71.2% 0.15 261.6);
+  --secondary-foreground: oklch(23.6% 0.058 257.5);
+  --muted: oklch(97.3% 0.007 268.5);
+  --muted-foreground: oklch(49.4% 0.042 261.1);
+  --accent: oklch(96.4% 0.016 266.3);
+  --accent-foreground: oklch(46.2% 0.207 263.8);
+  --destructive: oklch(54.3% 0.174 29.7);
+  --border: oklch(93.6% 0.013 262.4);
+  --input: oklch(91.4% 0.017 259.4);
+  --ring: oklch(58% 0.229 263.7);
+  --chart-1: oklch(58% 0.229 263.7);
+  --chart-2: oklch(71.2% 0.15 261.6);
+  --chart-3: oklch(56.3% 0.119 159);
+  --chart-4: oklch(46.2% 0.207 263.8);
+  --chart-5: oklch(65.3% 0.051 260.2);
   --radius: 0.625rem;
-  --sidebar: #f4f6fb;
-  --sidebar-foreground: #0b1e39;
-  --sidebar-primary: #2e6bff;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #eef3fe;
-  --sidebar-accent-foreground: #1648c9;
-  --sidebar-border: #e5eaf3;
-  --sidebar-ring: #2e6bff;
+  --sidebar: oklch(97.3% 0.007 268.5);
+  --sidebar-foreground: oklch(23.6% 0.058 257.5);
+  --sidebar-primary: oklch(58% 0.229 263.7);
+  --sidebar-primary-foreground: oklch(100% 0 0);
+  --sidebar-accent: oklch(96.4% 0.016 266.3);
+  --sidebar-accent-foreground: oklch(46.2% 0.207 263.8);
+  --sidebar-border: oklch(93.6% 0.013 262.4);
+  --sidebar-ring: oklch(58% 0.229 263.7);
 
-  --color-brand-navy: #0b1e39;
-  --color-brand-sky: #6ca0ff;
-  --color-brand-subtle: #eef3fe;
-  --color-brand-line: #c7d3e6;
-  --color-brand-muted: #f4f6fb;
-  --color-data-green: #1e8a5b;
-  --color-data-amber: #b87d12;
-  --nav-bg: #0b1e39;
-  --color-data-red: #c0392b;
-  --color-surface-raised: #ffffff;
-  --color-surface-sunken: #f4f6fb;
+  --color-brand-navy: oklch(23.6% 0.058 257.5);
+  --color-brand-sky: oklch(71.2% 0.15 261.6);
+  --color-brand-subtle: oklch(96.4% 0.016 266.3);
+  --color-brand-line: oklch(86.4% 0.029 259.6);
+  --color-brand-muted: oklch(97.3% 0.007 268.5);
+  --color-data-green: oklch(56.3% 0.119 159);
+  --color-data-amber: oklch(63.5% 0.13 74.6);
+  --nav-bg: oklch(23.6% 0.058 257.5);
+  --color-data-red: oklch(54.3% 0.174 29.7);
+  --color-surface-raised: oklch(100% 0 0);
+  --color-surface-sunken: oklch(97.3% 0.007 268.5);
 }
 
 .dark {
-  --background: #071529;
-  --foreground: #f4f6fb;
-  --card: #0e2547;
-  --card-foreground: #f4f6fb;
-  --popover: #0e2547;
-  --popover-foreground: #f4f6fb;
-  --primary: #4f86ff;
-  --primary-foreground: #ffffff;
-  --secondary: #6ca0ff;
-  --secondary-foreground: #071529;
-  --muted: #102442;
-  --muted-foreground: #9fb0cb;
-  --accent: #142f58;
-  --accent-foreground: #cbd8f5;
-  --destructive: #e46d61;
-  --border: rgb(255 255 255 / 10%);
-  --input: rgb(255 255 255 / 14%);
-  --ring: #6ca0ff;
-  --chart-1: #4f86ff;
-  --chart-2: #6ca0ff;
-  --chart-3: #4eae80;
-  --chart-4: #9fb0cb;
-  --chart-5: #c7d3e6;
-  --sidebar: #0b1e39;
-  --sidebar-foreground: #f4f6fb;
-  --sidebar-primary: #4f86ff;
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #142f58;
-  --sidebar-accent-foreground: #cbd8f5;
-  --sidebar-border: rgb(255 255 255 / 10%);
-  --sidebar-ring: #6ca0ff;
+  --background: oklch(19.6% 0.045 257.1);
+  --foreground: oklch(97.3% 0.007 268.5);
+  --card: oklch(26.7% 0.07 258.2);
+  --card-foreground: oklch(97.3% 0.007 268.5);
+  --popover: oklch(26.7% 0.07 258.2);
+  --popover-foreground: oklch(97.3% 0.007 268.5);
+  --primary: oklch(64.5% 0.189 263.6);
+  --primary-foreground: oklch(100% 0 0);
+  --secondary: oklch(71.2% 0.15 261.6);
+  --secondary-foreground: oklch(19.6% 0.045 257.1);
+  --muted: oklch(26.1% 0.062 258.4);
+  --muted-foreground: oklch(75.3% 0.043 259.6);
+  --accent: oklch(30.8% 0.081 258.6);
+  --accent-foreground: oklch(88.2% 0.042 266.3);
+  --destructive: oklch(67.4% 0.15 27.6);
+  --border: oklch(100% 0 0 / 10%);
+  --input: oklch(100% 0 0 / 14%);
+  --ring: oklch(71.2% 0.15 261.6);
+  --chart-1: oklch(64.5% 0.189 263.6);
+  --chart-2: oklch(71.2% 0.15 261.6);
+  --chart-3: oklch(68% 0.115 160.2);
+  --chart-4: oklch(75.3% 0.043 259.6);
+  --chart-5: oklch(86.4% 0.029 259.6);
+  --sidebar: oklch(23.6% 0.058 257.5);
+  --sidebar-foreground: oklch(97.3% 0.007 268.5);
+  --sidebar-primary: oklch(64.5% 0.189 263.6);
+  --sidebar-primary-foreground: oklch(100% 0 0);
+  --sidebar-accent: oklch(30.8% 0.081 258.6);
+  --sidebar-accent-foreground: oklch(88.2% 0.042 266.3);
+  --sidebar-border: oklch(100% 0 0 / 10%);
+  --sidebar-ring: oklch(71.2% 0.15 261.6);
 
-  --color-brand-subtle: #142f58;
-  --color-brand-line: #315486;
-  --color-brand-muted: #102442;
-  --color-data-green: #4eae80;
-  --color-data-amber: #e0a436;
-  --color-data-red: #e46d61;
-  --color-surface-raised: #0e2547;
-  --color-surface-sunken: #071529;
+  --color-brand-subtle: oklch(30.8% 0.081 258.6);
+  --color-brand-line: oklch(44.4% 0.092 257.4);
+  --color-brand-muted: oklch(26.1% 0.062 258.4);
+  --color-data-green: oklch(68% 0.115 160.2);
+  --color-data-amber: oklch(75.7% 0.139 78.3);
+  --color-data-red: oklch(67.4% 0.15 27.6);
+  --color-surface-raised: oklch(26.7% 0.07 258.2);
+  --color-surface-sunken: oklch(19.6% 0.045 257.1);
 }
 
 @theme inline {
@@ -192,6 +192,34 @@
   }
 }
 
+/* ─── Sombras tintadas de navy — escala única de elevação ─────────────────── */
+@utility shadow-raise {
+  box-shadow: 0 16px 45px -36px
+    color-mix(in oklch, var(--color-brand-navy) 65%, transparent);
+}
+@utility shadow-panel {
+  box-shadow: 0 18px 42px -28px
+    color-mix(in oklch, var(--color-brand-navy) 45%, transparent);
+}
+@utility shadow-float {
+  box-shadow: 0 28px 80px -42px
+    color-mix(in oklch, var(--color-brand-navy) 50%, transparent);
+}
+@utility shadow-cta {
+  box-shadow: 0 16px 36px -16px
+    color-mix(in oklch, var(--primary) 75%, transparent);
+}
+
+/* ─── Grain — quebra a esterilidade das superfícies escuras ───────────────── */
+@utility grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
 /* ─── Linguagem de marca — "Cartografia Decisiva" ─────────────────────────── */
 @layer utilities {
   /* Eyebrow — rótulo microscópico mono, maiúsculas estreitas, com risca */
@@ -219,12 +247,32 @@
 
   /* Double-bezel — casca externa + núcleo concêntrico (hardware usinado) */
   .card-bezel {
+    position: relative;
     border-radius: 1.75rem;
     padding: 0.4rem;
     background: color-mix(in oklch, var(--foreground) 4%, transparent);
     border: 1px solid color-mix(in oklch, var(--foreground) 7%, transparent);
   }
+  /* Spotlight — a moldura ilumina sob o cursor (coords via BezelSpotlight) */
+  .card-bezel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      200px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in oklch, var(--primary) 22%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity var(--motion-fast, 250ms) ease;
+  }
+  .card-bezel:hover::after {
+    opacity: 1;
+  }
   .card-bezel__core {
+    position: relative;
+    z-index: 1;
     height: 100%;
     border-radius: 1.4rem;
     background: var(--card);
@@ -256,6 +304,25 @@
     font-size: 0.625rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+}
+
+/* ─── HowItWorks — rota cartográfica entre os passos (md+) ────────────────── */
+.hiw-route {
+  fill: none;
+  stroke: color-mix(in oklch, var(--primary) 35%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 10;
+  stroke-linecap: round;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hiw-route {
+    animation: hiw-route-dash 9s linear infinite;
+  }
+  @keyframes hiw-route-dash {
+    to {
+      stroke-dashoffset: -60;
+    }
   }
 }
 
@@ -406,7 +473,7 @@
   fill: rgb(11 30 57 / 82%);
 }
 .brand-map__pin-core {
-  fill: #2e6bff;
+  fill: var(--primary);
 }
 .brand-map__pin--focus .brand-map__pin-dot {
   fill: #6ca0ff;

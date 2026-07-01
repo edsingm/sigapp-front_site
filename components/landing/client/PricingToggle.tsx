@@ -2,10 +2,14 @@
 
 import { useRef, useState } from "react"
 import { cn } from "@/lib/utils"
-import { PLANS } from "@/lib/landing-data"
+import type { PlanConfig } from "@/lib/landing-data"
 import { PlanCard } from "@/components/landing/ui/PlanCard"
 
-export function PricingToggle() {
+type PricingToggleProps = {
+  plans: PlanConfig[]
+}
+
+export function PricingToggle({ plans }: PricingToggleProps) {
   const [cycle, setCycle] = useState<"monthly" | "annual">("monthly")
   const [active, setActive] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
@@ -79,14 +83,14 @@ export function PricingToggle() {
           onScroll={onCarouselScroll}
           className="-mx-4 flex snap-x snap-mandatory scrollbar-none overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
         >
-          {PLANS.map((plan) => (
+          {plans.map((plan) => (
             <div key={plan.id} className="w-full shrink-0 snap-start px-1 pt-4">
               <PlanCard plan={plan} billingCycle={cycle} />
             </div>
           ))}
         </div>
         <div className="mt-5 flex justify-center gap-2">
-          {PLANS.map((_, i) => (
+          {plans.map((_, i) => (
             <button
               key={i}
               onClick={() => goTo(i)}
@@ -107,7 +111,7 @@ export function PricingToggle() {
 
       {/* sm+: grid */}
       <div className="hidden items-stretch sm:grid sm:grid-cols-2 sm:gap-6 sm:pt-4 xl:grid-cols-4 xl:gap-5">
-        {PLANS.map((plan) => (
+        {plans.map((plan) => (
           <PlanCard key={plan.id} plan={plan} billingCycle={cycle} />
         ))}
       </div>

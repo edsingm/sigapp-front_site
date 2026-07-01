@@ -4,14 +4,21 @@ import { useRef, useState } from "react"
 import { TestimonialCard } from "@/components/landing/ui/TestimonialCard"
 import type { Testimonial } from "@/lib/landing-data"
 
-export function TestimonialsCarousel({ testimonials }: { testimonials: Testimonial[] }) {
+export function TestimonialsCarousel({
+  testimonials,
+}: {
+  testimonials: Testimonial[]
+}) {
   const [active, setActive] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
 
   function goTo(i: number) {
     setActive(i)
     if (ref.current) {
-      ref.current.scrollTo({ left: i * ref.current.clientWidth, behavior: "smooth" })
+      ref.current.scrollTo({
+        left: i * ref.current.clientWidth,
+        behavior: "smooth",
+      })
     }
   }
 
@@ -26,7 +33,7 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
       <div
         ref={ref}
         onScroll={onScroll}
-        className="scrollbar-none -mx-4 flex snap-x snap-mandatory overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 flex snap-x snap-mandatory scrollbar-none overflow-x-auto px-4 [&::-webkit-scrollbar]:hidden"
       >
         {testimonials.map((t) => (
           <div key={t.id} className="w-full shrink-0 snap-start px-1">
@@ -45,7 +52,9 @@ export function TestimonialsCarousel({ testimonials }: { testimonials: Testimoni
           >
             <span
               className={`block rounded-full transition-all duration-200 ${
-                i === active ? "h-2 w-6 bg-secondary" : "size-2 bg-muted-foreground/45"
+                i === active
+                  ? "h-2 w-6 bg-secondary"
+                  : "size-2 bg-muted-foreground/45"
               }`}
             />
           </button>

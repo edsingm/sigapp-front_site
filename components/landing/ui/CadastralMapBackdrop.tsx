@@ -94,9 +94,24 @@ export function CadastralMapBackdrop({ className }: { className?: string }) {
               "brand-map__pin--focus": pin.focus,
             })}
           >
-            <circle className="brand-map__pin-halo" cx={pin.cx} cy={pin.cy} r="20" />
-            <circle className="brand-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.focus ? 6 : 4.5} />
-            <circle className="brand-map__pin-core" cx={pin.cx} cy={pin.cy} r={pin.focus ? 2.4 : 1.8} />
+            <circle
+              className="brand-map__pin-halo"
+              cx={pin.cx}
+              cy={pin.cy}
+              r="20"
+            />
+            <circle
+              className="brand-map__pin-dot"
+              cx={pin.cx}
+              cy={pin.cy}
+              r={pin.focus ? 6 : 4.5}
+            />
+            <circle
+              className="brand-map__pin-core"
+              cx={pin.cx}
+              cy={pin.cy}
+              r={pin.focus ? 2.4 : 1.8}
+            />
           </g>
         ))}
       </svg>

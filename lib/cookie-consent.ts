@@ -35,7 +35,8 @@ export function getConsent(): CookieConsent | null {
 }
 
 export function saveConsent(categories: CookieCategories): CookieConsent {
-  if (typeof window === "undefined") throw new Error("saveConsent must run client-side")
+  if (typeof window === "undefined")
+    throw new Error("saveConsent must run client-side")
 
   // mantém o mesmo consent_id se já existir (permite rastrear mudanças)
   const existing = getConsent()
@@ -48,7 +49,9 @@ export function saveConsent(categories: CookieCategories): CookieConsent {
   }
 
   localStorage.setItem(CONSENT_KEY, JSON.stringify(consent))
-  window.dispatchEvent(new CustomEvent("sigapp:consent-changed", { detail: consent }))
+  window.dispatchEvent(
+    new CustomEvent("sigapp:consent-changed", { detail: consent })
+  )
 
   // cookie HTTP para possível leitura server-side futura
   const maxAge = 365 * 24 * 60 * 60
@@ -68,14 +71,19 @@ export function openCookiePrefs(): void {
 }
 
 /** Envia o consentimento ao backend Laravel (fire-and-forget). */
-export async function sendConsentToBackend(consent: CookieConsent): Promise<void> {
+export async function sendConsentToBackend(
+  consent: CookieConsent
+): Promise<void> {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   if (!apiUrl) return
 
   try {
     await fetch(`${apiUrl}/api/v1/consent-log`, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
       body: JSON.stringify({
         consent_id: consent.consent_id,
         categories: consent.categories,

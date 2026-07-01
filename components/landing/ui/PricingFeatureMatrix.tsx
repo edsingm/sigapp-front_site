@@ -3,7 +3,6 @@ import { Check, Minus } from "lucide-react"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import {
   PLAN_MATRIX_ROWS,
-  PLANS,
   PRICING_MATRIX_COPY,
   type PlanConfig,
   type PlanMatrixRow,
@@ -47,7 +46,11 @@ function MatrixCell({ plan, row }: { plan: PlanConfig; row: PlanMatrixRow }) {
   )
 }
 
-export function PricingFeatureMatrix() {
+type PricingFeatureMatrixProps = {
+  plans: PlanConfig[]
+}
+
+export function PricingFeatureMatrix({ plans }: PricingFeatureMatrixProps) {
   return (
     <div className="mt-10 sm:mt-14">
       <div className="hidden sm:block">
@@ -76,7 +79,7 @@ export function PricingFeatureMatrix() {
                       Comparação completa entre os quatro planos
                     </p>
                   </th>
-                  {PLANS.map((plan) => (
+                  {plans.map((plan) => (
                     <th
                       key={plan.id}
                       className={cn(
@@ -121,7 +124,7 @@ export function PricingFeatureMatrix() {
                         ) : null}
                       </div>
                     </td>
-                    {PLANS.map((plan) => (
+                    {plans.map((plan) => (
                       <td
                         key={`${row.id}-${plan.id}`}
                         className={cn(
@@ -174,7 +177,7 @@ export function PricingFeatureMatrix() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  {PLANS.map((plan) => (
+                  {plans.map((plan) => (
                     <div
                       key={`${row.id}-${plan.id}`}
                       className={cn(

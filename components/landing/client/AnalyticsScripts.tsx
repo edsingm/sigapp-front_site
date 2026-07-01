@@ -32,17 +32,21 @@ export function AnalyticsScripts() {
     }
 
     window.addEventListener("sigapp:consent-changed", onConsentChanged)
-    return () => window.removeEventListener("sigapp:consent-changed", onConsentChanged)
+    return () =>
+      window.removeEventListener("sigapp:consent-changed", onConsentChanged)
   }, [])
 
   // Listener delegado: qualquer clique em elemento com [data-analytics-event] dispara trackEvent
   useEffect(() => {
     function onClick(e: MouseEvent) {
-      const el = (e.target as Element).closest("[data-analytics-event]") as HTMLElement | null
+      const el = (e.target as Element).closest(
+        "[data-analytics-event]"
+      ) as HTMLElement | null
       if (!el) return
       const name = el.dataset.analyticsEvent as AnalyticsEvent
       const params: Record<string, string> = {}
-      if (el.dataset.analyticsLocation) params.location = el.dataset.analyticsLocation
+      if (el.dataset.analyticsLocation)
+        params.location = el.dataset.analyticsLocation
       if (el.dataset.analyticsPlan) params.plan = el.dataset.analyticsPlan
       trackEvent(name, params)
     }

@@ -63,7 +63,7 @@ export function ComparisonSection() {
                   key={col.key}
                   className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
                     col.highlight
-                      ? "bg-primary/6 text-primary"
+                      ? "bg-(--color-brand-navy) text-white"
                       : "text-foreground"
                   }`}
                 >
@@ -86,7 +86,7 @@ export function ComparisonSection() {
                 {COLUMNS.map((col) => (
                   <div
                     key={col.key}
-                    className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/6" : ""}`}
+                    className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/8 ring-1 ring-primary/10 ring-inset" : ""}`}
                   >
                     <Cell value={row[col.key]} highlight={col.highlight} />
                   </div>

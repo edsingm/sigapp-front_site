@@ -1,5 +1,13 @@
-type GtagFn = (command: string, action: string, params?: Record<string, unknown>) => void
-type FbqFn = (command: string, event: string, params?: Record<string, unknown>) => void
+type GtagFn = (
+  command: string,
+  action: string,
+  params?: Record<string, unknown>
+) => void
+type FbqFn = (
+  command: string,
+  event: string,
+  params?: Record<string, unknown>
+) => void
 
 declare global {
   interface Window {
@@ -18,7 +26,10 @@ export const EVENTS = {
 
 export type AnalyticsEvent = keyof typeof EVENTS
 
-export function trackEvent(name: AnalyticsEvent, params?: Record<string, string>) {
+export function trackEvent(
+  name: AnalyticsEvent,
+  params?: Record<string, string>
+) {
   if (typeof window === "undefined") return
   window.gtag?.("event", name, params)
   window.fbq?.("trackCustom", name, params)

@@ -17,7 +17,7 @@ export function TestimonialsSection() {
         >
           <div className="flex flex-col gap-4 lg:col-span-5">
             <SectionLabel>Depoimentos</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl">
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
               Incorporadoras que deram contexto à decisão
             </h2>
           </div>

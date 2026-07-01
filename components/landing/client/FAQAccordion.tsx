@@ -7,17 +7,26 @@ import type { FAQItem } from "@/lib/landing-data"
 
 type FAQAccordionProps = {
   items: FAQItem[]
+  defaultOpenIndex?: number
 }
 
-export function FAQAccordion({ items }: FAQAccordionProps) {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+export function FAQAccordion({ items, defaultOpenIndex }: FAQAccordionProps) {
+  const [openIndex, setOpenIndex] = useState<number | null>(
+    defaultOpenIndex ?? null
+  )
 
   return (
     <div className="divide-y divide-border">
       {items.map((item, i) => {
         const isOpen = openIndex === i
         return (
-          <div key={i} className={cn("px-1 transition-colors sm:px-0", isOpen && "bg-accent/30")}>
+          <div
+            key={i}
+            className={cn(
+              "px-1 transition-colors sm:px-0",
+              isOpen && "bg-accent/30"
+            )}
+          >
             <button
               onClick={() => setOpenIndex(isOpen ? null : i)}
               className="flex w-full items-center justify-between gap-4 py-5 text-left sm:py-5"
@@ -41,7 +50,9 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
             <div
               className={cn(
                 "grid transition-all duration-200",
-                isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                isOpen
+                  ? "grid-rows-[1fr] opacity-100"
+                  : "grid-rows-[0fr] opacity-0"
               )}
             >
               <div className="overflow-hidden">

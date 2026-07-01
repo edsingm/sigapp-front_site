@@ -8,9 +8,10 @@ export function CTAFinalSection() {
   return (
     <section id="cta-final" className="py-24 md:py-32">
       <div className="container-landing">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-[#0B1E39] px-6 py-20 ring-1 ring-white/10 sm:px-12 md:py-28">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-(--color-brand-navy) px-6 py-20 ring-1 ring-white/10 sm:px-12 md:py-28">
           <CadastralMapBackdrop className="brand-map--dark opacity-90" />
           <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-40" />
+          <div className="grain-overlay" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/20 to-transparent" />
 
           <ScrollReveal
@@ -33,7 +34,7 @@ export function CTAFinalSection() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button
                 size="lg"
-                className="group/cta h-13 gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-[0_14px_40px_-12px_rgba(46,107,255,0.7)] hover:bg-primary/90 active:scale-[0.98]"
+                className="group/cta h-13 gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-cta hover:bg-primary/90 active:scale-[0.98]"
                 nativeButton={false}
                 render={
                   <a

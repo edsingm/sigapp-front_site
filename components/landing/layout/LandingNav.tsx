@@ -8,22 +8,11 @@ import { NavScrollClient } from "@/components/landing/client/NavScrollClient"
 import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { LINKS } from "@/lib/landing-data"
-
-const NAV_LINKS = [
-  { label: "Como funciona", href: "/#como-funciona" },
-  { label: "Funcionalidades", href: "/#funcionalidades" },
-  { label: "Planos", href: "/#precos" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Sobre", href: "/sobre" },
-]
+import { LINKS, NAV_LINKS } from "@/lib/landing-data"
 
 function NavBrand() {
   return (
-    <Link
-      href="/"
-      aria-label="SIGAPP"
-    >
+    <Link href="/" aria-label="SIGAPP">
       <Image
         src="/logo-mark.svg"
         alt="SIGAPP"
@@ -82,7 +71,7 @@ export function LandingNav() {
                 />
               }
             >
-              Solicitar demonstracao
+              Solicitar demonstração
               <span className="flex size-7 items-center justify-center rounded-full bg-white/18 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5">
                 <ArrowRight className="size-3.5" />
               </span>
@@ -162,7 +151,7 @@ export function LandingNav() {
                 />
               }
             >
-              Solicitar demonstracao
+              Solicitar demonstração
               <ArrowRight className="size-4" />
             </Button>
           </div>

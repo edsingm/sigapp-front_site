@@ -33,7 +33,7 @@ export function FeaturesZigzag() {
         >
           <div className="flex flex-col gap-4 lg:col-span-5">
             <SectionLabel>Funcionalidades</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-5xl">
+            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
               Do primeiro contato ao contrato assinado
             </h2>
           </div>

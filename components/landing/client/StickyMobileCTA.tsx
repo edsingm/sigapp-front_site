@@ -48,7 +48,7 @@ export function StickyMobileCTA() {
       <div className="mx-auto max-w-md rounded-2xl border border-border/70 bg-background/95 p-3 shadow-2xl shadow-black/10 backdrop-blur-xl">
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+            <p className="text-[11px] font-semibold tracking-[0.14em] text-primary uppercase">
               {STICKY_MOBILE_CTA.badge}
             </p>
             <p className="mt-1 text-sm font-semibold text-foreground">
