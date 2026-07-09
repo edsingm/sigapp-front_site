@@ -11,9 +11,10 @@
   --card-foreground: oklch(23.6% 0.058 257.5);
   --popover: oklch(100% 0 0);
   --popover-foreground: oklch(23.6% 0.058 257.5);
-  --primary: oklch(58% 0.229 263.7);
+  /* Primary levemente menos saturado — menos "SaaS azul genérico" */
+  --primary: oklch(52% 0.17 258);
   --primary-foreground: oklch(100% 0 0);
-  --secondary: oklch(71.2% 0.15 261.6);
+  --secondary: oklch(71.2% 0.12 255);
   --secondary-foreground: oklch(23.6% 0.058 257.5);
   --muted: oklch(97.3% 0.007 268.5);
   --muted-foreground: oklch(49.4% 0.042 261.1);
@@ -58,9 +59,9 @@
   --card-foreground: oklch(97.3% 0.007 268.5);
   --popover: oklch(26.7% 0.07 258.2);
   --popover-foreground: oklch(97.3% 0.007 268.5);
-  --primary: oklch(64.5% 0.189 263.6);
+  --primary: oklch(68% 0.14 255);
   --primary-foreground: oklch(100% 0 0);
-  --secondary: oklch(71.2% 0.15 261.6);
+  --secondary: oklch(74% 0.11 250);
   --secondary-foreground: oklch(19.6% 0.045 257.1);
   --muted: oklch(26.1% 0.062 258.4);
   --muted-foreground: oklch(75.3% 0.043 259.6);
@@ -154,7 +155,7 @@
   html {
     @apply font-sans;
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 5rem;
   }
 }
 

@@ -3,27 +3,30 @@ import Link from "next/link"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
-import { Clock, ArrowRight } from "lucide-react"
+import { SectionLabel } from "@/components/landing/ui/SectionLabel"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Clock } from "lucide-react"
 import {
   BLOG_POSTS,
-  BLOG_CATEGORIES,
   getFeaturedPosts,
   formatDate,
   type BlogCategory,
 } from "@/lib/blog-data"
+import { LINKS } from "@/lib/landing-data"
 
 export const metadata: Metadata = {
-  title: "Blog — SIGAPP",
+  title: "Blog",
   description:
-    "Conteúdo para incorporadoras sobre viabilidade, comitê, inteligência imobiliária e operação de incorporação.",
+    "Viabilidade, comitê e operação de incorporação — textos para quem decide terreno com critério.",
+  alternates: { canonical: "/blog" },
 }
 
-const CATEGORY_COLORS: Record<BlogCategory, string> = {
-  "Mercado Imobiliário": "bg-primary/10 text-primary",
-  Tecnologia: "bg-muted text-foreground/70",
-  "Inteligência Artificial": "bg-secondary/20 text-primary",
-  Produto: "bg-accent text-primary",
-  Dicas: "bg-muted text-foreground/70",
+const CATEGORY_TONE: Record<BlogCategory, string> = {
+  "Mercado Imobiliário": "text-foreground",
+  Tecnologia: "text-foreground",
+  "Inteligência Artificial": "text-foreground",
+  Produto: "text-foreground",
+  Dicas: "text-foreground",
 }
 
 function PostCard({
@@ -36,56 +39,49 @@ function PostCard({
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={`group flex flex-col overflow-hidden rounded-2xl border border-border bg-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg ${
-        featured ? "lg:flex-row" : ""
+      className={`group flex flex-col border-b border-border py-8 transition-colors ${
+        featured ? "lg:grid lg:grid-cols-12 lg:gap-10 lg:border-b-0 lg:py-0" : ""
       }`}
     >
-      {/* Cover */}
       <div
-        className={`bg-gradient-to-br ${post.coverColor} flex shrink-0 items-end p-5 ${
-          featured ? "lg:w-80 lg:items-center lg:justify-center" : "h-40"
-        }`}
+        className={
+          featured
+            ? "lg:col-span-4"
+            : "mb-4 flex items-center gap-3"
+        }
       >
-        <span
-          className={`rounded-full px-2.5 py-0.5 text-[10px] font-semibold ${
-            CATEGORY_COLORS[post.category]
-          }`}
-        >
-          {post.category}
-        </span>
+        <span className="coord text-muted-foreground">{post.category}</span>
+        {featured ? (
+          <p className="mt-3 hidden text-sm text-muted-foreground lg:block">
+            {formatDate(post.publishedAt)} · {post.readTime} min
+          </p>
+        ) : null}
       </div>
 
-      {/* Content */}
-      <div className="flex flex-1 flex-col gap-3 p-6">
+      <div className={featured ? "lg:col-span-8" : "flex flex-1 flex-col gap-3"}>
         <h2
           className={`font-heading font-bold tracking-tight text-foreground transition-colors group-hover:text-primary ${
-            featured ? "text-xl lg:text-2xl" : "text-base"
-          }`}
+            featured ? "text-2xl md:text-3xl" : "text-lg md:text-xl"
+          } ${CATEGORY_TONE[post.category]}`}
         >
           {post.title}
         </h2>
-        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+        <p className="max-w-[58ch] text-sm leading-relaxed text-muted-foreground md:text-base">
           {post.excerpt}
         </p>
-
-        <div className="mt-auto flex items-center justify-between border-t border-border pt-3">
-          <div className="flex items-center gap-2">
-            <div className="flex size-7 items-center justify-center rounded-full bg-accent text-[10px] font-semibold text-primary">
-              {post.author.initials}
-            </div>
-            <div>
-              <p className="text-xs font-medium text-foreground">
-                {post.author.name}
-              </p>
-              <p className="text-[10px] text-muted-foreground">
-                {formatDate(post.publishedAt)}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Clock className="size-3.5" />
-            <span>{post.readTime} min</span>
-          </div>
+        <div className="mt-3 flex items-center gap-3 text-xs text-muted-foreground">
+          <span>{post.author.name}</span>
+          <span className="size-1 rounded-full bg-border" />
+          <span className="inline-flex items-center gap-1">
+            <Clock className="size-3.5" strokeWidth={1.5} />
+            {post.readTime} min
+          </span>
+          {!featured ? (
+            <>
+              <span className="size-1 rounded-full bg-border" />
+              <span>{formatDate(post.publishedAt)}</span>
+            </>
+          ) : null}
         </div>
       </div>
     </Link>
@@ -100,81 +96,63 @@ export default function BlogPage() {
     <>
       <LandingNav />
       <main>
-        {/* Header */}
         <SecondaryPageHero
-          eyebrow="Blog do SIGAPP"
-          title="Conteúdo para quem decide terreno, risco e retorno"
-          description="Artigos sobre viabilidade, comitê, inteligência imobiliária e operação de incorporação. Menos jargão de software, mais clareza para decisão."
+          align="left"
+          eyebrow="Leituras de ofício"
+          title="Terreno, risco e retorno — sem jargão de software"
+          description="Textos para quem analisa viabilidade, senta no comitê e conduz legalização. Clareza de domínio, não hype de produto."
         />
 
-        <section className="py-16">
+        <section className="py-16 md:py-20">
           <div className="container-landing">
-            {/* Categories */}
-            <div className="mb-10 flex flex-wrap gap-2">
-              <span className="rounded-full border border-primary bg-accent px-4 py-1.5 text-xs font-semibold text-primary">
-                Todos
-              </span>
-              {BLOG_CATEGORIES.map((cat) => (
-                <span
-                  key={cat}
-                  className="cursor-pointer rounded-full border border-border px-4 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
-
-            {/* Featured posts */}
-            {featured.length > 0 && (
-              <div className="mb-10">
-                <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                  Destaques
-                </p>
-                <div className="flex flex-col gap-6">
+            {featured.length > 0 ? (
+              <div className="mb-16 border-b border-border pb-16">
+                <SectionLabel>Em destaque</SectionLabel>
+                <div className="mt-8 flex flex-col gap-12">
                   {featured.map((post) => (
                     <PostCard key={post.slug} post={post} featured />
                   ))}
                 </div>
               </div>
-            )}
+            ) : null}
 
-            {/* All other posts */}
-            <div>
-              <p className="mb-4 text-xs font-semibold tracking-widest text-muted-foreground uppercase">
-                Todos os artigos
-              </p>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {rest.map((post) => (
-                  <PostCard key={post.slug} post={post} />
-                ))}
-              </div>
+            <SectionLabel>Arquivo</SectionLabel>
+            <div className="mt-2 divide-y divide-border border-t border-border">
+              {rest.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Newsletter CTA */}
-        <section className="relative overflow-hidden border-t border-white/10 bg-[#071529] py-16">
-          <div className="bg-blueprint-grid absolute inset-0 opacity-50" />
+        <section className="border-t border-border py-16 md:py-20">
           <div className="container-landing">
-            <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-2xl font-bold text-white">
-                Receba análises novas sem ruído.
+            <div className="mx-auto flex max-w-xl flex-col items-start gap-5 md:items-center md:text-center">
+              <h2 className="font-heading text-2xl font-bold text-foreground md:text-3xl">
+                Prefere ver o dossiê ao vivo?
               </h2>
-              <p className="mt-2 text-white/62">
-                Conteúdo técnico para incorporadoras, com foco em decisão e
-                operação. Sem spam.
+              <p className="text-muted-foreground">
+                Solicite uma demonstração com um terreno da sua carteira — ou um
+                cenário próximo da sua operação.
               </p>
-              <div className="mt-6 flex gap-2">
-                <input
-                  type="email"
-                  placeholder="seu@email.com.br"
-                  className="flex-1 rounded-lg border border-white/10 bg-white/6 px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/36 focus:border-secondary/50 focus:ring-2 focus:ring-secondary/20"
-                />
-                <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/85">
-                  Assinar
+              <Button
+                variant="brand"
+                size="lg"
+                className="group/cta h-12 gap-2 rounded-full pr-2 pl-6 font-semibold"
+                nativeButton={false}
+                render={
+                  <Link
+                    href={LINKS.demo}
+                    data-analytics-event="demo_request"
+                    data-analytics-location="blog-cta"
+                  />
+                }
+              >
+                Solicitar demonstração
+                <span className="flex size-8 items-center justify-center rounded-full bg-white/18 transition-transform group-hover/cta:translate-x-0.5">
                   <ArrowRight className="size-3.5" />
-                </button>
-              </div>
+                </span>
+              </Button>
             </div>
           </div>
         </section>

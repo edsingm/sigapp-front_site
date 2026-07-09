@@ -14,10 +14,8 @@ export function PricingSection({ plans }: PricingSectionProps) {
   return (
     <section
       id="precos"
-      className="relative overflow-hidden border-y border-border/70 bg-muted/40 py-24 md:py-32"
+      className="relative overflow-hidden border-y border-border py-24 md:py-32"
     >
-      <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-40" />
-
       <div className="container-landing relative">
         <ScrollReveal
           stagger
@@ -65,7 +63,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
             </p>
           </>
         ) : (
-          <div className="glass-card mx-auto max-w-2xl p-8 text-center">
+          <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-card p-8 text-center shadow-raise">
             <h3 className="font-heading text-xl font-semibold text-foreground">
               Planos temporariamente indisponíveis
             </h3>

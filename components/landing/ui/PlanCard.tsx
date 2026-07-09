@@ -43,7 +43,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         "group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border p-5 transition-[transform,border-color,box-shadow] duration-300 sm:p-6",
         highlighted
           ? "border-white/10 bg-[var(--color-brand-navy)] text-white ring-1 shadow-float ring-white/10 xl:-translate-y-4"
-          : "border-border bg-card shadow-raise hover:-translate-y-1 hover:border-primary/35 hover:shadow-float"
+          : "border-border bg-card shadow-raise hover:-translate-y-1 hover:border-foreground/15 hover:shadow-float"
       )}
     >
       {highlighted ? (

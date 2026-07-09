@@ -34,22 +34,34 @@ export const BLOG_CATEGORIES: BlogCategory[] = [
 ]
 
 const AUTHORS: Record<string, BlogAuthor> = {
-  rafael: { name: "Rafael Torres", role: "Co-fundador & CTO", initials: "RT" },
-  carla: { name: "Carla Mendes", role: "Head de Produto", initials: "CM" },
-  bruno: {
-    name: "Bruno Alves",
-    role: "Especialista Imobiliário",
-    initials: "BA",
+  rafael: {
+    name: "Equipe SIGAPP",
+    role: "Produto e engenharia",
+    initials: "SG",
   },
-  luciana: { name: "Luciana Faria", role: "Engenheira de IA", initials: "LF" },
+  carla: {
+    name: "Equipe SIGAPP",
+    role: "Produto",
+    initials: "SG",
+  },
+  bruno: {
+    name: "Equipe SIGAPP",
+    role: "Incorporação",
+    initials: "SG",
+  },
+  luciana: {
+    name: "Equipe SIGAPP",
+    role: "Inteligência de domínio",
+    initials: "SG",
+  },
 }
 
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "como-calcular-tir-projetos-imobiliarios",
-    title: "Motor de Viabilidade: Como Calcular TIR em Projetos Imobiliários",
+    title: "Como calcular TIR em projetos imobiliários sem planilha frágil",
     excerpt:
-      "A Taxa Interna de Retorno é o indicador mais importante em uma análise de viabilidade imobiliária. Entenda como o SIGAPP automatiza esse cálculo com 50+ parâmetros.",
+      "A TIR considera o tempo do fluxo — ROI não. O que entra no cálculo, onde a planilha falha e como manter o comitê no mesmo número.",
     content: `
 A Taxa Interna de Retorno (TIR) é o principal indicador que um investidor ou incorporador utiliza para avaliar se um projeto imobiliário vale a pena. Ela representa a taxa de desconto que iguala o Valor Presente Líquido (VPL) de um fluxo de caixa a zero.
 

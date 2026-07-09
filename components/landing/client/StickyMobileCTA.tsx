@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -48,7 +49,7 @@ export function StickyMobileCTA() {
       <div className="mx-auto max-w-md rounded-2xl border border-border/70 bg-background/95 p-3 shadow-2xl shadow-black/10 backdrop-blur-xl">
         <div className="mb-3 flex items-start justify-between gap-3">
           <div>
-            <p className="text-[11px] font-semibold tracking-[0.14em] text-primary uppercase">
+            <p className="coord text-muted-foreground">
               {STICKY_MOBILE_CTA.badge}
             </p>
             <p className="mt-1 text-sm font-semibold text-foreground">
@@ -65,7 +66,7 @@ export function StickyMobileCTA() {
           className="h-11 w-full gap-2 rounded-md"
           nativeButton={false}
           render={
-            <a
+            <Link
               href={LINKS.demo}
               data-analytics-event="demo_request"
               data-analytics-location="sticky-mobile"

@@ -15,7 +15,8 @@ export function EyebrowBadge({
     <span
       className={cn(
         "eyebrow self-start",
-        variant === "brand" && "text-primary",
+        variant === "brand" &&
+          "text-(--color-brand-navy) dark:text-secondary",
         variant === "default" && "text-muted-foreground",
         variant === "muted" && "text-muted-foreground/80",
         className

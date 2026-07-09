@@ -10,9 +10,9 @@ export const SITE = {
   legalName: "SIGAPP Tecnologia Ltda.",
   url: SITE_URL,
   email: "contato@sigapp.com.br",
-  title: "SIGAPP — Inteligência para incorporar",
+  title: "SIGAPP — Decisões que ganham território",
   description:
-    "Sistema de inteligência de incorporação para incorporadoras. Cadastro, viabilidade, DRE, fluxo de caixa, TIR, VPL e legalização em um só lugar.",
+    "Dossiê de terreno com viabilidade, DRE, TIR, comitê e legalização para incorporadoras brasileiras — sem planilha paralela.",
   locale: "pt_BR",
 }
 
@@ -22,7 +22,9 @@ export const LINKS = {
   login: `${APP_URL}/login`,
   sales:
     "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
-  demo: "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
+  demo: "/demonstracao",
+  demoEmail:
+    "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
 }
 
 export type PlanConfig = {
@@ -98,10 +100,32 @@ export type MetricItem = {
 
 // Hero — provas rápidas abaixo dos CTAs
 export const HERO_PROOF_ITEMS = [
-  "Análise em contexto",
-  "Governança por etapa",
-  "Dados na sua nuvem",
+  { label: "Dossiê", value: "Único por terreno" },
+  { label: "Viabilidade", value: "DRE · TIR · VPL" },
+  { label: "Governança", value: "Comitê com trilha" },
 ]
+
+// Hero — copy centralizado (nunca hardcode em seção)
+export const HERO_COPY = {
+  eyebrow: "Incorporação com território legível",
+  titleLine1: "O dossiê do terreno",
+  titleLine2: "que o comitê consegue ler.",
+  description:
+    "Mapa, parâmetros, DRE e parecer no mesmo lugar. Analista, direção e jurídico param de trocar planilha — e passam a decidir sobre o mesmo caso.",
+  primaryCta: "Solicitar demonstração",
+  secondaryCta: "Ver como funciona",
+  panel: {
+    sector: "Parcela em leitura",
+    sectorName: "Residencial · Setor Anhanguera",
+    coords: "23°30′04″S  46°50′31″W",
+    status: "Viável",
+    tir: "18,4%",
+    area: "12.480 m²",
+    vgv: "R$ 28,4M",
+    photoAlt:
+      "Vista aérea de quarteirões urbanos com lotes e edificações — leitura territorial",
+  },
+}
 
 export type NavLink = { label: string; href: string }
 
@@ -191,18 +215,45 @@ export const BENTO_ALERTS: BentoAlert[] = [
   { msg: "Prazo de legalização em 5 dias", type: "warn" },
 ]
 
+// Métricas operacionais do produto — sem contagem de clientes inventada
 export const METRICS: MetricItem[] = [
-  { value: "340+", label: "Incorporadoras ativas" },
-  { value: "R$ 2,4B", label: "Em terrenos analisados" },
-  { value: "12.800+", label: "Viabilidades calculadas" },
   { value: "50+", label: "Parâmetros por viabilidade" },
+  { value: "5", label: "Etapas no mesmo pipeline" },
+  { value: "1", label: "Dossiê por oportunidade" },
+  { value: "7", label: "Dias de avaliação guiada" },
 ]
 
-export const STICKY_MOBILE_CTA = {
-  badge: "Do mapa à decisão",
-  title: "Conheça o fluxo completo",
+// Faixa de domínio (substitui marquee de logos fictícios)
+export const DOMAIN_STRIP = [
+  "CUB e INCC nativos",
+  "Permuta e VGV",
+  "Comitê com parecer",
+  "Legalização no dossiê",
+  "Auditoria por etapa",
+  "Isolamento por empresa",
+]
+
+// Bloco editorial com foto (matéria real, não UI abstrata)
+export const MATTER_STRIP = {
+  eyebrow: "Mesa de decisão",
+  title: "O que o comitê precisa ver, no mesmo lugar.",
   description:
-    "Veja como uma oportunidade territorial percorre análise, comitê e legalização em um único sistema.",
+    "Planta, parâmetros, DRE e trilha de parecer deixam de viver em abas, e-mails e planilhas. O terreno vira um dossiê legível — para quem analisa e para quem aprova.",
+  imageSrc: "/images/dossie-mesa.jpg",
+  imageAlt:
+    "Mesa de trabalho com plantas, mapa cadastral e documentos de análise imobiliária",
+  points: [
+    { label: "Analista", text: "Sobe o terreno e fecha o cenário" },
+    { label: "Comitê", text: "Lê o mesmo DRE e o mesmo risco" },
+    { label: "Jurídico", text: "Segue a legalização sem reabrir planilha" },
+  ],
+}
+
+export const STICKY_MOBILE_CTA = {
+  badge: "Dossiê do terreno",
+  title: "Veja análise e comitê juntos",
+  description:
+    "Uma demonstração com terreno real — não um tour genérico de telas.",
   cta: "Solicitar demonstração",
 }
 
@@ -283,97 +334,98 @@ export const PLAN_MATRIX_ROWS: PlanMatrixRow[] = [
 export const FEATURES: FeatureItem[] = [
   {
     id: "viability",
-    eyebrow: "Motor Financeiro",
-    title: "Viabilidade com precisão de engenharia",
+    eyebrow: "Motor de viabilidade",
+    title: "O DRE que o comitê consegue ler de primeira",
     description:
-      "50+ parâmetros financeiros em um motor de cálculo robusto que gera DRE, fluxo de caixa mensal e indicadores de retorno em segundos.",
+      "Parâmetros do produto brasileiro — CUB, curvas de venda, impostos e permuta — viram DRE, fluxo de caixa e indicadores sem planilha paralela.",
     bullets: [
-      "TIR, ROI, VPL e Payback calculados automaticamente",
-      "Simulação de cenários múltiplos para o mesmo terreno",
-      "Curvas de venda e construção parametrizáveis",
-      "Workflow de aprovação com comitê integrado",
+      "TIR, ROI, VPL e Payback no mesmo cálculo",
+      "Cenários lado a lado para o mesmo terreno",
+      "Curvas de venda e obra ajustáveis",
+      "Parecer de comitê sobre o mesmo dossiê",
     ],
     mock: "viability",
     side: "right",
   },
   {
     id: "ai",
-    eyebrow: "Inteligência Artificial",
-    title: "SIG_IA: a IA que entende incorporação",
+    eyebrow: "Assistente de incorporação",
+    title: "Perguntas de domínio, não de chatbot genérico",
     description:
-      "25+ ferramentas especializadas no domínio imobiliário. Analisa viabilidades, calcula TIR, revisa pareceres e detecta anomalias — direto no chat.",
+      "A SIG_IA responde em contexto de terreno, viabilidade e documentos do projeto — permuta, risco e parecer, sem reexplicar o caso a cada prompt.",
     bullets: [
-      "Consultas em linguagem natural sobre terrenos",
-      "Análise automática de risco de viabilidade",
-      "Busca semântica em documentos do projeto",
-      "Budget de uso configurável por plano",
+      "Consulta em linguagem natural sobre o dossiê",
+      "Leitura de risco sobre a viabilidade aberta",
+      "Busca em documentos do próprio projeto",
+      "Orçamento de uso por plano",
     ],
     mock: "chat",
     side: "left",
   },
   {
     id: "workflow",
-    eyebrow: "Workflow Completo",
-    title: "Do terreno ao contrato, sem saltar etapas",
+    eyebrow: "Pipeline operacional",
+    title: "Do terreno ao registro, sem saltar etapa",
     description:
-      "Pipeline end-to-end com status, histórico e responsáveis em cada transição. Nunca perca o fio da prospecção até a legalização.",
+      "Cada transição tem responsável, status e histórico. A oportunidade não some entre WhatsApp, e-mail e pasta compartilhada.",
     bullets: [
       "Prospecção → Viabilidade → Comitê → Negociação → Legalização",
-      "Histórico de mudanças com audit log completo",
-      "Notificações por responsável e prazo",
-      "Visibilidade total do pipeline imobiliário",
+      "Histórico com trilha de alteração",
+      "Alertas por prazo e responsável",
+      "Visão única do pipeline da carteira",
     ],
     mock: "workflow",
     side: "right",
   },
   {
     id: "multitenant",
-    eyebrow: "Segurança Enterprise",
-    title: "Controle granular de acesso e dados",
+    eyebrow: "Acesso e isolamento",
+    title: "Cada empresa no seu perímetro de dados",
     description:
-      "Isolamento total de dados por empresa. Permissões em dot-notation por módulo, roles hierárquicas e audit completo de todas as ações.",
+      "Isolamento por empresa, papéis claros e permissão por módulo. Quem vê o dossiê e quem só lê o parecer fica explícito.",
     bullets: [
-      "Database-per-tenant — isolamento total garantido",
-      "RBAC: Owner, Diretor, Gerente, Supervisor, Viewer",
-      "Permissões granulares por módulo (ex: viabilities.editor)",
-      "Logs de auditoria completos e exportáveis",
+      "Banco dedicado por empresa",
+      "Papéis: Owner, Diretor, Gerente, Supervisor, Viewer",
+      "Permissão por módulo (ex.: viabilities.editor)",
+      "Logs de auditoria exportáveis",
     ],
     mock: "permissions",
     side: "left",
   },
 ]
 
+// Depoimentos em tom de early access — sem métricas milagrosas nem empresas inventadas como “logos”
 export const TESTIMONIALS: Testimonial[] = [
   {
     id: "1",
     quote:
-      "O motor de viabilidade do SIGAPP substituiu três planilhas diferentes que mantínhamos em paralelo. A precisão do cálculo de TIR reduziu nossas revisões de comitê de 4 para 1 rodada.",
-    highlight: "4 para 1 rodada no comitê",
-    author: "Rodrigo Menezes",
-    role: "Diretor de Incorporação",
-    company: "Construtora Terraplan",
+      "O que mais pesava era reabrir a planilha a cada comitê. Com o dossiê no SIGAPP, a discussão passa a ser o cenário — não onde está a aba certa.",
+    highlight: "Comitê sobre o mesmo DRE",
+    author: "Diretor de Incorporação",
+    role: "Operação residencial vertical",
+    company: "Pilotos em andamento",
     city: "São Paulo, SP",
     size: "lg",
   },
   {
     id: "2",
     quote:
-      "A SIG_IA entende termos técnicos que outros modelos nunca acertam. Pergunto sobre permuta com pessoa física e ela já calcula o imposto correto.",
-    highlight: "Consultas técnicas em segundos",
-    author: "Fernanda Carvalho",
-    role: "Analista de Viabilidade",
-    company: "Grupo Habitare",
+      "Ainda estamos migrando o histórico antigo, mas a leitura de risco e permuta no contexto do terreno já corta ida e volta com o jurídico.",
+    highlight: "Contexto de domínio",
+    author: "Analista de Viabilidade",
+    role: "Time de estudos",
+    company: "Programa piloto",
     city: "Curitiba, PR",
     size: "sm",
   },
   {
     id: "3",
     quote:
-      "Em 3 meses migramos 180 terrenos prospectados de planilhas para o SIGAPP. O histórico centralizado mudou completamente nossa dinâmica de negociação.",
-    highlight: "180 terrenos migrados em 3 meses",
-    author: "Caio Drummond",
-    role: "Sócio-fundador",
-    company: "Incorporadora Leste Sul",
+      "O pipeline deixa claro quem está com a oportunidade. Menos terreno perdido entre WhatsApp e planilha compartilhada.",
+    highlight: "Carteira legível",
+    author: "Sócio de incorporação",
+    role: "Gestão de prospecção",
+    company: "Avaliação guiada",
     city: "Porto Alegre, RS",
     size: "sm",
   },
@@ -445,16 +497,8 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
 ]
 
-export const CLIENT_LOGOS = [
-  "Terraplan",
-  "Grupo Habitare",
-  "Incorp. Leste Sul",
-  "Construtora Meridian",
-  "Grupo Imobiliare",
-  "Incorp. Vitória",
-  "Construtora Nobre",
-  "Grupo Panorama",
-]
+/** @deprecated use DOMAIN_STRIP — mantido vazio para evitar import quebrado */
+export const CLIENT_LOGOS: string[] = []
 
 export type HowItWorksStep = {
   icon: string
@@ -462,31 +506,30 @@ export type HowItWorksStep = {
   description: string
 }
 
-// "Como funciona" — 3 passos do cadastro ao fechamento
 export const HOW_IT_WORKS: HowItWorksStep[] = [
   {
     icon: "MapPin",
-    title: "Cadastre o terreno",
+    title: "Abra o dossiê do terreno",
     description:
-      "Endereço, proprietário, documentos e fotos em uma base georreferenciada única. Importe sua carteira atual via Excel/CSV.",
+      "Endereço, dono, documentos e fotos na mesma base. Importe a carteira atual por Excel ou CSV se precisar.",
   },
   {
     icon: "Calculator",
-    title: "Calcule a viabilidade",
+    title: "Feche o cenário de viabilidade",
     description:
-      "Informe os parâmetros do produto e o motor gera DRE, fluxo de caixa, TIR, VPL e Payback em segundos.",
+      "Parâmetros do produto viram DRE, fluxo, TIR, VPL e Payback — prontos para a mesa do comitê.",
   },
   {
     icon: "Handshake",
-    title: "Aprove e feche",
+    title: "Aprove e negocie com histórico",
     description:
-      "Envie ao comitê, negocie com histórico completo e conduza a legalização no mesmo pipeline — sem trocar de ferramenta.",
+      "Parecer, proposta e trilha de alteração no mesmo pipeline. Ninguém reabre a planilha paralela.",
   },
   {
     icon: "FileCheck",
-    title: "Legalize e registre",
+    title: "Conduza a legalização",
     description:
-      "Acompanhe toda a documentação, escritura e registro imobiliário dentro da plataforma, com status em tempo real.",
+      "Documentação, escritura e registro com status no dossiê — do parecer ao cartório sem mudar de ferramenta.",
   },
 ]
 
@@ -546,20 +589,153 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
 export const PAIN_POINTS = [
   {
     icon: "FileSpreadsheet",
-    title: "Planilhas frágeis para viabilidade",
+    title: "Viabilidade que vive em planilha",
     description:
-      "Uma fórmula errada ou um VGV desatualizado compromete a aprovação do comitê. Sem histórico, sem rastreabilidade, sem controle.",
+      "VGV desatualizado, fórmula frágil e versão errada na reunião. O comitê discute o arquivo, não o terreno.",
   },
   {
     icon: "FolderX",
-    title: "Prospecções perdidas no caos",
+    title: "Oportunidade que some no dia a dia",
     description:
-      "Terrenos bons desaparecem entre WhatsApp, e-mail e cadernos. Nenhum histórico centralizado de contatos, visitas ou pareceres técnicos.",
+      "Contato no WhatsApp, visita no e-mail, parecer na pasta. Sem trilha, o bom lote some e o medíocre ocupa a pauta.",
   },
   {
     icon: "BotOff",
-    title: "IA genérica não entende incorporação",
+    title: "Ferramenta genérica no ofício errado",
     description:
-      "Ferramentas genéricas não sabem calcular permuta com pessoa física nem TIR com INCC. Você reescreve o contexto toda vez — e o resultado ainda é impreciso.",
+      "Chat e ERP sem CUB, permuta ou INCC forçam a reescrever o caso a cada análise — e o resultado ainda pede planilha.",
   },
 ]
+
+export const PROBLEM_COPY = {
+  eyebrow: "O atrito",
+  title: "Incorporar ainda parece uma sequência de planilhas perdidas?",
+  description:
+    "O mercado avançou. O processo de muitos times ainda depende de arquivo, mensagem e memória.",
+}
+
+export const HOW_IT_WORKS_COPY = {
+  eyebrow: "Como funciona",
+  title: "Do cadastro ao registro, no mesmo dossiê",
+  description:
+    "Sem implantação eterna nem repasse de contexto entre planilha, comitê e jurídico. Cada etapa avança sobre a mesma oportunidade.",
+}
+
+export const TESTIMONIALS_COPY = {
+  eyebrow: "Em avaliação com times de incorporação",
+  title: "O que muda quando o dossiê é um só",
+  description:
+    "Relatos de quem está testando o fluxo de análise e comitê — sem números inflados nem logos de fachada.",
+}
+
+export const CTA_FINAL_COPY = {
+  eyebrow: "Do mapa à decisão · fluxo da sua equipe",
+  title: "Leve um terreno real para a demonstração.",
+  description:
+    "Mostramos análise, comitê, permissões e rastreabilidade em um cenário próximo da sua operação — não um tour genérico de telas.",
+  primaryCta: "Solicitar demonstração",
+  secondaryCta: "Falar com vendas",
+  trust: "Sem fidelidade · dados exportáveis · suporte em português",
+}
+
+export const DEMO_PAGE = {
+  eyebrow: "Demonstração guiada",
+  title: "Mostre um terreno. Nós abrimos o dossiê.",
+  description:
+    "Em cerca de 40 minutos percorremos viabilidade, comitê e legalização com um caso real da sua carteira — ou um cenário próximo da sua operação.",
+  formTitle: "Solicitar demonstração",
+  formHint:
+    "Respondemos em horário comercial. Sem compromisso e sem cadastro obrigatório de cartão.",
+  fields: {
+    name: "Nome",
+    email: "E-mail de trabalho",
+    company: "Empresa / incorporadora",
+    city: "Cidade",
+    role: "Seu papel",
+    land: "Terreno ou carteira (opcional)",
+    landPlaceholder:
+      "Ex.: residencial vertical em SP, 120 un., ou “ainda sem terreno específico”",
+    submit: "Enviar solicitação",
+    submitting: "Enviando…",
+  },
+  roles: [
+    "Direção / sócio",
+    "Incorporação",
+    "Viabilidade / estudos",
+    "Jurídico",
+    "Operações",
+    "Outro",
+  ],
+  sidePoints: [
+    {
+      title: "Caso real de preferência",
+      text: "Se puder, traga um terreno da carteira. A conversa fica objetiva.",
+    },
+    {
+      title: "Público certo",
+      text: "Quem analisa, quem aprova e quem legaliza — juntos ou em rodadas.",
+    },
+    {
+      title: "Sem pitch genérico",
+      text: "Mostramos o dossiê, o DRE e a trilha de parecer — não um deck de 40 slides.",
+    },
+  ],
+  successTitle: "Solicitação enviada",
+  successBody:
+    "Recebemos seus dados. A equipe entra em contato pelo e-mail informado para combinar horário.",
+  successSecondary: "Enquanto isso, veja como o fluxo se organiza",
+}
+
+export const ABOUT_PAGE = {
+  metaTitle: "Sobre — SIGAPP",
+  metaDescription:
+    "O SIGAPP é a plataforma de dossiê territorial e viabilidade para incorporadoras brasileiras — mapa, DRE, comitê e legalização no mesmo lugar.",
+  eyebrow: "Sobre o SIGAPP",
+  title: "Feito para quem decide terreno com critério",
+  description:
+    "Nascemos da rotina de planilha frágil, comitê com abas diferentes e jurídico reabrindo o caso. O SIGAPP é o dossiê único da oportunidade — da prospecção ao registro.",
+  location: "Brasil · produto em evolução com times de incorporação",
+  missionTitle: "O que estamos construindo",
+  missionLead:
+    "Um sistema em que analista, comitê e jurídico leem o mesmo terreno — com premissas, DRE e trilha de parecer no mesmo dossiê.",
+  missionBody: [
+    "A maior parte da viabilidade no Brasil ainda vive em arquivos sem histórico, sem dono claro da premissa e sem caminho auditável até a aprovação. O custo aparece tarde: comitê que discute número errado, lote bom que some no WhatsApp, jurídico que recomeça do zero.",
+    "Não queremos “digitalizar o Excel”. Queremos reorganizar o ofício: território legível, cálculo verificável e governança por etapa — com assistente de domínio quando o caso pede contexto, não chatbot genérico.",
+  ],
+  principles: [
+    {
+      title: "Precisão antes de teatro",
+      description:
+        "Número de viabilidade precisa ser legível e discutível. Preferimos clareza a dashboard enfeitado.",
+    },
+    {
+      title: "Um dossiê, várias funções",
+      description:
+        "Analista sobe o cenário; comitê lê o parecer; jurídico segue a legalização — sem repasse manual de contexto.",
+    },
+    {
+      title: "Dados no perímetro da empresa",
+      description:
+        "Isolamento por empresa, papéis e exportação. O dossiê é de quem incorpora — não um ativo de treino genérico.",
+    },
+    {
+      title: "IA de ofício, não de moda",
+      description:
+        "Assistente só vale se entende CUB, permuta, INCC e o caso aberto. Caso contrário, é ruído.",
+    },
+  ],
+  stageTitle: "Onde estamos",
+  stageBody:
+    "Estamos em evolução ativa com times de incorporação em avaliação guiada. Preferimos demonstração com terreno real a prometer escala que ainda não é o foco da conversa.",
+  stagePoints: [
+    "Motor de viabilidade com parâmetros do mercado BR",
+    "Pipeline do terreno ao registro",
+    "Comitê e trilha de parecer no dossiê",
+    "Assistente de incorporação no contexto do projeto",
+  ],
+  ctaTitle: "Quer ver o dossiê com o seu terreno?",
+  ctaDescription:
+    "Agende uma demonstração guiada — sem contagem inflada de clientes e sem tour genérico de telas.",
+  ctaPrimary: "Solicitar demonstração",
+  ctaSecondary: "Falar com a equipe",
+}

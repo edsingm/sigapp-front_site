@@ -6,5 +6,14 @@ type SectionLabelProps = {
 }
 
 export function SectionLabel({ children, className }: SectionLabelProps) {
-  return <p className={cn("eyebrow text-primary", className)}>{children}</p>
+  return (
+    <p
+      className={cn(
+        "eyebrow text-(--color-brand-navy) dark:text-secondary",
+        className
+      )}
+    >
+      {children}
+    </p>
+  )
 }

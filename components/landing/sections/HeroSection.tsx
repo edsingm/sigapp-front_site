@@ -1,106 +1,106 @@
+import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, LayoutGrid, MapPinned } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { CadastralMapBackdrop } from "@/components/landing/ui/CadastralMapBackdrop"
-import { HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
+import { HERO_COPY, HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
 
-function TerritoryPanel() {
+function HeroMapPanel() {
+  const { panel } = HERO_COPY
+
   return (
-    <div className="relative">
-      <div className="absolute -inset-4 rounded-[2rem] bg-primary/8 blur-3xl dark:bg-primary/12" />
-      <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card shadow-float">
-        <div className="flex items-center justify-between border-b border-border bg-muted/35 px-4 py-3 sm:px-5">
-          <div className="flex items-center gap-2">
-            <span className="flex size-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <MapPinned className="size-4" strokeWidth={1.5} />
-            </span>
-            <div>
-              <p className="coord text-muted-foreground">Leitura territorial</p>
-              <p className="text-sm font-semibold text-foreground">
-                Setor Anhanguera
-              </p>
-            </div>
-          </div>
-          <p className="data-mono hidden text-xs text-muted-foreground sm:block">
-            -23.5012, -46.8421
+    <div className="relative h-full min-h-[22rem] w-full overflow-hidden sm:min-h-[28rem] lg:min-h-0 lg:rounded-none">
+      <Image
+        src="/images/hero-territorio.jpg"
+        alt={panel.photoAlt}
+        fill
+        priority
+        sizes="(max-width: 1024px) 100vw, 52vw"
+        className="object-cover object-center"
+      />
+
+      {/* Gradiente de leitura — navy da marca, não filtro genérico */}
+      <div className="absolute inset-0 bg-linear-to-t from-(--color-brand-navy)/88 via-(--color-brand-navy)/25 to-(--color-brand-navy)/10" />
+      <div className="absolute inset-0 bg-linear-to-r from-(--color-brand-navy)/20 via-transparent to-transparent lg:from-transparent" />
+
+      {/* Camada cartográfica */}
+      <svg
+        viewBox="0 0 800 640"
+        className="pointer-events-none absolute inset-0 h-full w-full opacity-90"
+        fill="none"
+        aria-hidden="true"
+        preserveAspectRatio="xMidYMid slice"
+      >
+        <path
+          d="M120 180 280 140 420 160 560 120 680 200 640 360 480 400 260 380 140 300Z"
+          className="stroke-white/20"
+          strokeWidth="1"
+        />
+        <path
+          d="M280 140 310 310 140 300M420 160 400 390M560 120 500 360"
+          className="stroke-white/12"
+          strokeWidth="1"
+        />
+        <path
+          d="M340 220 490 250 520 360 360 340Z"
+          className="fill-primary/25 stroke-primary"
+          strokeWidth="2"
+        />
+        <circle cx="420" cy="290" r="4" className="fill-white" />
+        <path
+          d="M160 240C260 280 340 270 430 320 530 380 620 390 720 360"
+          className="stroke-secondary/80"
+          strokeWidth="1.5"
+          strokeDasharray="4 8"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      {/* Cabeçalho de campo */}
+      <div className="absolute top-0 right-0 left-0 flex items-start justify-between gap-4 p-5 sm:p-6 lg:p-7">
+        <div>
+          <p className="coord text-white/50">{panel.sector}</p>
+          <p className="mt-1 font-heading text-sm font-semibold text-white sm:text-base">
+            {panel.sectorName}
           </p>
         </div>
+        <p className="data-mono shrink-0 text-[11px] text-white/55 sm:text-xs">
+          {panel.coords}
+        </p>
+      </div>
 
-        <div className="relative h-[23rem] overflow-hidden bg-background sm:h-[27rem]">
-          <div className="hero-panel-grid absolute inset-0" />
-          <svg
-            viewBox="0 0 640 420"
-            className="absolute inset-0 h-full w-full"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              d="M70 142 176 112 318 106 510 132 570 254 520 342 320 320 112 340Z"
-              className="fill-muted/50 stroke-border"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M176 112 214 258 112 340M318 106 342 316M510 132 418 304M86 218 544 188M116 296 520 258"
-              className="stroke-border"
-              strokeWidth="1.5"
-            />
-            <path
-              d="M244 174 414 194 448 292 274 274Z"
-              className="fill-primary/10 stroke-primary"
-              strokeWidth="2.5"
-            />
-            <path
-              d="M86 170C162 206 226 204 306 244 392 288 480 298 572 282"
-              className="stroke-primary"
-              strokeLinecap="round"
-              strokeWidth="3"
-            />
-            <path
-              d="M362 238 250 346"
-              className="stroke-muted-foreground/35"
-              strokeDasharray="4 8"
-              strokeLinecap="round"
-              strokeWidth="1.5"
-            />
-            <circle cx="86" cy="170" r="5" className="fill-foreground" />
-            <circle cx="362" cy="238" r="7" className="fill-primary" />
-            <circle cx="572" cy="282" r="5" className="fill-foreground" />
-            <path
-              d="M336 200c-12-10-22-18-22-33a22 22 0 0 1 44 0c0 15-10 23-22 33Z"
-              className="fill-primary"
-            />
-            <circle
-              cx="336"
-              cy="166"
-              r="7"
-              className="fill-primary-foreground"
-            />
-          </svg>
-
-          <div className="absolute top-8 right-6 rounded-2xl border border-border bg-card/94 p-4 shadow-panel backdrop-blur-sm sm:right-10">
-            <p className="coord text-muted-foreground">Potencial</p>
-            <div className="mt-2 flex items-end gap-2">
-              <p className="font-heading text-3xl font-bold text-foreground">
-                Alto
-              </p>
-              <p className="data-mono pb-1 text-sm font-bold text-(--color-data-green)">
-                82%
-              </p>
-            </div>
-            <div className="mt-3 h-1.5 w-36 overflow-hidden rounded-full bg-muted">
-              <div className="h-full w-[82%] rounded-full bg-primary" />
-            </div>
-          </div>
-
-          <div className="absolute bottom-8 left-5 rounded-2xl border border-border bg-card/94 p-4 shadow-panel backdrop-blur-sm sm:left-10">
-            <p className="coord text-muted-foreground">Área aproveitável</p>
-            <p className="data-mono mt-1 text-2xl font-bold text-foreground">
-              12.480 m²
-            </p>
-          </div>
+      {/* Legenda operacional — uma faixa, sem card de dashboard genérico */}
+      <div className="absolute right-0 bottom-0 left-0 p-4 sm:p-5 lg:p-6">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/12 bg-white/10 backdrop-blur-md sm:grid-cols-4">
+          <LegendCell label="Status" value={panel.status} accent />
+          <LegendCell label="TIR" value={panel.tir} />
+          <LegendCell label="Área" value={panel.area} />
+          <LegendCell label="VGV" value={panel.vgv} />
         </div>
       </div>
+    </div>
+  )
+}
+
+function LegendCell({
+  label,
+  value,
+  accent = false,
+}: {
+  label: string
+  value: string
+  accent?: boolean
+}) {
+  return (
+    <div className="flex flex-col gap-1 bg-(--color-brand-navy)/75 px-3.5 py-3 sm:px-4 sm:py-3.5">
+      <p className="coord text-white/45">{label}</p>
+      <p
+        className={`data-mono text-sm font-bold sm:text-base ${
+          accent ? "text-(--color-data-green)" : "text-white"
+        }`}
+      >
+        {value}
+      </p>
     </div>
   )
 }
@@ -109,83 +109,82 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden border-b border-border bg-background pt-28 pb-16 text-foreground sm:pt-32 md:pb-20 lg:pt-36"
+      className="relative overflow-hidden border-b border-border bg-background"
     >
-      <CadastralMapBackdrop className="opacity-35 dark:opacity-25" />
-      <div className="hero-panel-grid pointer-events-none absolute inset-0 opacity-45" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-linear-to-t from-background to-transparent" />
-
-      <div className="container-landing relative">
-        <div className="grid items-center gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14 xl:gap-20">
-          <div className="flex max-w-2xl flex-col gap-7">
-            <span className="eyebrow text-primary">
-              Gestão territorial inteligente
+      <div className="lg:grid lg:min-h-[min(92dvh,56rem)] lg:grid-cols-12">
+        {/* Discurso — 5 colunas */}
+        <div className="container-landing flex flex-col justify-center py-28 sm:py-32 lg:col-span-5 lg:max-w-none lg:px-0 lg:py-0 lg:pl-[max(2.5rem,calc((100vw-1320px)/2+4rem))] lg:pr-10 xl:pr-14">
+          <div className="flex max-w-xl flex-col gap-8 lg:max-w-none">
+            <span className="eyebrow text-(--color-brand-navy) dark:text-secondary">
+              {HERO_COPY.eyebrow}
             </span>
 
             <div className="space-y-5">
-              <h1 className="font-heading text-[2.75rem] leading-[0.98] font-bold tracking-tight text-balance text-foreground sm:text-6xl lg:text-7xl">
-                Decisões que ganham{" "}
-                <span className="text-primary">território.</span>
+              <h1 className="font-heading text-[2.5rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance text-foreground sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
+                <span className="block">{HERO_COPY.titleLine1}</span>
+                <span className="mt-1 block text-foreground/90">
+                  {HERO_COPY.titleLine2}
+                </span>
               </h1>
-              <p className="max-w-[52ch] text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Conecte mapas, dados, processos e inteligência numa única fonte
-                de decisão. Da oportunidade ao parecer do comitê, com critério e
-                rastreabilidade.
+              <p className="max-w-[40ch] text-base leading-relaxed text-muted-foreground sm:text-lg">
+                {HERO_COPY.description}
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 size="lg"
-                className="group/cta h-13 w-full gap-2 rounded-xl pr-2 pl-6 text-base font-semibold shadow-cta sm:w-auto"
+                className="group/cta h-12 w-full gap-2 rounded-full pr-1.5 pl-6 text-base font-semibold shadow-cta sm:w-auto"
                 nativeButton={false}
                 render={
-                  <a
+                  <Link
                     href={LINKS.demo}
                     data-analytics-event="demo_request"
                     data-analytics-location="hero"
                   />
                 }
               >
-                Solicitar demonstração
-                <span className="flex size-9 items-center justify-center rounded-lg bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-px">
+                {HERO_COPY.primaryCta}
+                <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5">
                   <ArrowRight className="size-4" />
                 </span>
               </Button>
-              <Button
-                variant="brand-outline"
-                size="lg"
-                className="h-13 w-full gap-2.5 rounded-xl bg-background/70 px-6 text-base sm:w-auto"
-                nativeButton={false}
-                render={
-                  <Link
-                    href="/#funcionalidades"
-                    data-analytics-event="features_view_click"
-                    data-analytics-location="hero"
-                  />
-                }
+              <Link
+                href="/#como-funciona"
+                data-analytics-event="features_view_click"
+                data-analytics-location="hero"
+                className="inline-flex h-12 items-center justify-center px-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:justify-start"
               >
-                <LayoutGrid className="size-4" />
-                Ver análise territorial
-              </Button>
+                {HERO_COPY.secondaryCta}
+                <span className="ml-1.5 text-foreground/40">→</span>
+              </Link>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3">
+            <dl className="grid grid-cols-1 gap-4 border-t border-border pt-6 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border">
               {HERO_PROOF_ITEMS.map((item) => (
-                <div key={item} className="flex items-center gap-2 text-sm">
-                  <span className="size-2 rounded-full bg-primary" />
-                  <span className="text-muted-foreground">
-                    {item.split(" ").slice(0, -1).join(" ")}{" "}
-                    <strong className="font-semibold text-foreground">
-                      {item.split(" ").at(-1)}
-                    </strong>
-                  </span>
+                <div
+                  key={item.label}
+                  className="flex flex-col gap-1 sm:px-4 first:sm:pl-0 last:sm:pr-0"
+                >
+                  <dt className="coord text-muted-foreground">{item.label}</dt>
+                  <dd className="text-sm font-semibold tracking-tight text-foreground">
+                    {item.value}
+                  </dd>
                 </div>
               ))}
+            </dl>
+          </div>
+        </div>
+
+        {/* Evidência — 7 colunas, bleed à direita no desktop */}
+        <div className="relative lg:col-span-7">
+          <div className="px-4 pb-8 sm:px-6 lg:absolute lg:inset-0 lg:px-0 lg:pb-0">
+            <div className="h-full overflow-hidden rounded-2xl border border-border shadow-float lg:rounded-none lg:border-0 lg:border-l lg:border-border lg:shadow-none">
+              <HeroMapPanel />
             </div>
           </div>
-
-          <TerritoryPanel />
+          {/* Altura de referência no desktop (painel é absolute) */}
+          <div className="hidden lg:block lg:min-h-[min(92dvh,56rem)]" />
         </div>
       </div>
     </section>

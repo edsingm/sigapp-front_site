@@ -1,6 +1,7 @@
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, CalendarDays, ShieldCheck } from "lucide-react"
-import { LINKS } from "@/lib/landing-data"
+import { ArrowRight } from "lucide-react"
+import { CTA_FINAL_COPY, LINKS } from "@/lib/landing-data"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { CadastralMapBackdrop } from "@/components/landing/ui/CadastralMapBackdrop"
 
@@ -19,16 +20,15 @@ export function CTAFinalSection() {
             className="relative flex flex-col items-center gap-7 text-center"
           >
             <span className="eyebrow eyebrow--center text-secondary">
-              Do mapa à decisão · Fluxo real da sua equipe
+              {CTA_FINAL_COPY.eyebrow}
             </span>
 
             <h2 className="font-heading text-4xl leading-[1.02] font-bold tracking-[-0.03em] text-balance text-white sm:text-5xl md:text-6xl">
-              Leve um terreno real para a demonstração.
+              {CTA_FINAL_COPY.title}
             </h2>
 
-            <p className="max-w-[45ch] text-lg leading-relaxed text-white/80">
-              Mostramos análise, comitê, permissões e rastreabilidade em um
-              cenário territorial próximo da sua operação.
+            <p className="max-w-[42ch] text-lg leading-relaxed text-white/75">
+              {CTA_FINAL_COPY.description}
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row">
@@ -37,14 +37,14 @@ export function CTAFinalSection() {
                 className="group/cta h-13 gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-cta hover:bg-primary/90 active:scale-[0.98]"
                 nativeButton={false}
                 render={
-                  <a
+                  <Link
                     href={LINKS.demo}
                     data-analytics-event="demo_request"
                     data-analytics-location="cta-final"
                   />
                 }
               >
-                Solicitar demonstração
+                {CTA_FINAL_COPY.primaryCta}
                 <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5 group-hover/cta:-translate-y-px">
                   <ArrowRight className="size-4" />
                 </span>
@@ -62,23 +62,11 @@ export function CTAFinalSection() {
                   />
                 }
               >
-                <CalendarDays className="size-4" />
-                Construir caso de negócio
+                {CTA_FINAL_COPY.secondaryCta}
               </Button>
             </div>
 
-            <p className="text-sm text-white/72">
-              Demonstração guiada · Suporte em português · Dados e integrações
-              em contexto
-            </p>
-
-            <div className="flex items-center gap-1.5 text-xs text-white/68">
-              <ShieldCheck className="size-3.5 shrink-0 text-secondary" />
-              <span>
-                Permissões, histórico e arquitetura apresentados na mesma
-                conversa comercial
-              </span>
-            </div>
+            <p className="coord text-white/45">{CTA_FINAL_COPY.trust}</p>
           </ScrollReveal>
         </div>
       </div>

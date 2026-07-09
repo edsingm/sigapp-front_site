@@ -1,4 +1,4 @@
-import { Geist_Mono, Inter, Space_Grotesk } from "next/font/google"
+import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google"
 import type { Metadata, Viewport } from "next"
 
 import "./globals.css"
@@ -8,8 +8,7 @@ import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
 import { cn } from "@/lib/utils"
 import { SITE, SITE_URL } from "@/lib/landing-data"
 
-// Sistema tipográfico da marca SIGAPP — Space Grotesk (títulos), Inter (corpo),
-// Geist Mono (coordenadas, áreas, IDs e valores tabulares).
+// Space Grotesk (títulos) · IBM Plex Sans (corpo técnico) · Geist Mono (dados)
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["500", "600", "700"],
@@ -17,8 +16,9 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 })
 
-const inter = Inter({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 })
@@ -128,7 +128,7 @@ export default function RootLayout({
       className={cn(
         "antialiased",
         fontMono.variable,
-        inter.variable,
+        ibmPlexSans.variable,
         spaceGrotesk.variable
       )}
     >

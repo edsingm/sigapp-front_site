@@ -14,6 +14,7 @@ import { BezelSpotlight } from "@/components/landing/client/BezelSpotlight"
 import { HeroSection } from "@/components/landing/sections/HeroSection"
 import { SocialProofBar } from "@/components/landing/sections/SocialProofBar"
 import { ProblemSection } from "@/components/landing/sections/ProblemSection"
+import { MatterStripSection } from "@/components/landing/sections/MatterStripSection"
 import { HowItWorksSection } from "@/components/landing/sections/HowItWorksSection"
 import { FeaturesZigzag } from "@/components/landing/sections/FeaturesZigzag"
 import { BentoSection } from "@/components/landing/sections/BentoSection"
@@ -39,6 +40,7 @@ export default async function Page() {
         <HeroSection />
         <SocialProofBar />
         <ProblemSection />
+        <MatterStripSection />
         <HowItWorksSection />
         <FeaturesZigzag />
         <BentoSection />

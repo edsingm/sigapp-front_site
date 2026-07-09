@@ -200,40 +200,44 @@ export default async function BlogPostPage({ params }: Props) {
           </section>
         )}
 
-        {/* CTA */}
-        <section className="relative overflow-hidden border-t border-white/10 bg-[#071529] py-16">
-          <div className="bg-blueprint-grid absolute inset-0 opacity-50" />
+        <section className="border-t border-border py-16">
           <div className="container-landing">
-            <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-2xl font-bold text-white">
-                Veja o SIGAPP em ação
+            <div className="mx-auto flex max-w-xl flex-col items-start gap-5 md:items-center md:text-center">
+              <h2 className="font-heading text-2xl font-bold text-foreground">
+                Quer ver isso no dossiê do seu terreno?
               </h2>
-              <p className="mt-2 text-white/62">
-                7 dias grátis com acesso completo. Cancele antes do fim e não
-                paga nada.
+              <p className="text-muted-foreground">
+                Solicite uma demonstração guiada — com um caso real da carteira,
+                se tiver.
               </p>
-              <div className="mt-6 flex justify-center gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Button
                   variant="brand"
                   size="lg"
-                  className="gap-2"
+                  className="group/cta h-12 gap-2 rounded-full pr-2 pl-6 font-semibold"
                   nativeButton={false}
                   render={
-                    <a
-                      href={LINKS.signup}
-                      data-analytics-event="trial_signup_click"
+                    <Link
+                      href={LINKS.demo}
+                      data-analytics-event="demo_request"
                       data-analytics-location="blog-post-cta"
                     />
                   }
                 >
-                  Começar 7 dias grátis
-                  <ArrowRight className="size-4" />
+                  Solicitar demonstração
+                  <span className="flex size-8 items-center justify-center rounded-full bg-white/18 transition-transform group-hover/cta:translate-x-0.5">
+                    <ArrowRight className="size-3.5" />
+                  </span>
                 </Button>
-                <Link href="/blog">
-                  <Button variant="outline" size="lg">
-                    Mais artigos
-                  </Button>
-                </Link>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="h-12 rounded-full px-6"
+                  nativeButton={false}
+                  render={<Link href="/blog" />}
+                >
+                  Mais artigos
+                </Button>
               </div>
             </div>
           </div>

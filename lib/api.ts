@@ -145,3 +145,60 @@ export async function fetchSignupStatus(
     return null
   }
 }
+
+export type DemoRequestPayload = {
+  name: string
+  email: string
+  company: string
+  city: string
+  role: string
+  land_context: string
+  source: string
+}
+
+export type DemoRequestResult =
+  | { ok: true; message: string }
+  | { ok: false; message: string; fieldErrors?: Record<string, string[]> }
+
+/**
+ * Envia solicitação de demonstração via rota Next (proxy) para o backend
+ * ou fallback controlado no servidor.
+ */
+export async function submitDemoRequest(
+  payload: DemoRequestPayload
+): Promise<DemoRequestResult> {
+  let res: Response
+  try {
+    res = await fetch("/api/demo-request", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+  } catch {
+    return {
+      ok: false,
+      message:
+        "Não foi possível enviar agora. Tente de novo ou use o e-mail de contato.",
+    }
+  }
+
+  const json = await res.json().catch(() => null)
+
+  if (res.ok && json?.ok) {
+    return {
+      ok: true,
+      message: (json.message as string) ?? "Solicitação enviada.",
+    }
+  }
+
+  return {
+    ok: false,
+    message:
+      (json?.message as string) ??
+      "Não foi possível enviar a solicitação. Tente novamente.",
+    fieldErrors: (json?.fieldErrors as Record<string, string[]>) ?? undefined,
+  }
+}

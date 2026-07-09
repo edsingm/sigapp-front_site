@@ -1,19 +1,10 @@
-import { METRICS, CLIENT_LOGOS } from "@/lib/landing-data"
-
-// Tratamentos tipográficos alternados — wordmarks com identidade própria,
-// em vez de strings uniformes que denunciam placeholder
-const WORDMARK_STYLES = [
-  "font-heading text-sm font-bold tracking-tight sm:text-base",
-  "font-mono text-xs font-semibold tracking-[0.18em] uppercase sm:text-sm",
-  "font-sans text-sm font-black italic sm:text-base",
-  "font-heading text-xs font-semibold tracking-[0.12em] uppercase sm:text-sm",
-]
+import { DOMAIN_STRIP, METRICS } from "@/lib/landing-data"
 
 export function SocialProofBar() {
   return (
     <section className="border-b border-border bg-background">
       <div className="container-landing py-12 sm:py-16">
-        {/* Métricas — campo editorial, separadas por hairlines */}
+        {/* Métricas operacionais — prova de produto, não contagem de clientes */}
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
           {METRICS.map((metric) => (
             <div
@@ -28,32 +19,27 @@ export function SocialProofBar() {
           ))}
         </div>
 
-        {/* Logos — usado por incorporadoras em todo o Brasil */}
         <div className="mt-10 flex items-center gap-5">
           <span className="coord shrink-0 text-muted-foreground/70">
-            Usado por incorporadoras em todo o Brasil
+            Desenhado para o ofício de incorporar
           </span>
           <div className="h-px flex-1 bg-border" />
         </div>
 
         <div
           className="marquee-mask mt-5 overflow-hidden"
-          aria-label="Clientes que usam o SIGAPP"
+          aria-label="Capacidades do domínio de incorporação"
         >
           <div className="animate-marquee" aria-hidden="true">
-            {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((logo, i) => (
+            {[...DOMAIN_STRIP, ...DOMAIN_STRIP].map((item, i) => (
               <div
-                key={`${logo}-${i}`}
-                className="mx-6 flex shrink-0 items-center gap-6 sm:mx-8"
+                key={`${item}-${i}`}
+                className="mx-5 flex shrink-0 items-center gap-5 sm:mx-7"
               >
-                <span
-                  className={`whitespace-nowrap text-foreground/55 ${
-                    WORDMARK_STYLES[i % WORDMARK_STYLES.length]
-                  }`}
-                >
-                  {logo}
+                <span className="whitespace-nowrap font-heading text-sm font-semibold tracking-tight text-foreground/50 sm:text-base">
+                  {item}
                 </span>
-                <span className="size-1 shrink-0 rounded-full bg-primary/30" />
+                <span className="size-1 shrink-0 rounded-full bg-foreground/15" />
               </div>
             ))}
           </div>
