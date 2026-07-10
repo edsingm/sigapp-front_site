@@ -85,32 +85,44 @@ export async function POST(request: Request) {
         })
       }
 
-      // 404 = endpoint ainda não existe no Laravel — aceita localmente
-      if (res.status !== 404) {
-        const json = await res.json().catch(() => null)
-        if (res.status === 422) {
-          return NextResponse.json(
-            {
-              ok: false,
-              message: json?.message ?? "Revise os campos",
-              fieldErrors: json?.errors ?? json?.error?.details ?? {},
-            },
-            { status: 422 }
-          )
-        }
+      const json = await res.json().catch(() => null)
+      if (res.status === 422) {
+        return NextResponse.json(
+          {
+            ok: false,
+            message: json?.message ?? "Revise os campos",
+            fieldErrors: json?.errors ?? json?.error?.details ?? {},
+          },
+          { status: 422 }
+        )
       }
+
+      return NextResponse.json(
+        {
+          ok: false,
+          message:
+            "Não foi possível registrar sua solicitação agora. Tente novamente ou envie por e-mail.",
+        },
+        { status: 502 }
+      )
     } catch {
-      // segue para aceite local (lead capturado no log do servidor)
+      return NextResponse.json(
+        {
+          ok: false,
+          message:
+            "Não foi possível conectar ao atendimento agora. Tente novamente ou envie por e-mail.",
+        },
+        { status: 503 }
+      )
     }
   }
 
-  // Fallback honesto: registra no log do servidor para operação manual
-  // até o endpoint Laravel existir. Em produção, configure API_URL + rota.
-  console.info("[demo-request]", JSON.stringify(payload))
-
-  return NextResponse.json({
-    ok: true,
-    message:
-      "Solicitação registrada. Entraremos em contato pelo e-mail informado.",
-  })
+  return NextResponse.json(
+    {
+      ok: false,
+      message:
+        "O atendimento está indisponível no momento. Tente novamente ou envie por e-mail.",
+    },
+    { status: 503 }
+  )
 }

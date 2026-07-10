@@ -20,6 +20,8 @@ declare global {
 export const EVENTS = {
   trial_signup_click: "trial_signup_click",
   demo_request: "demo_request",
+  demo_form_submit: "demo_form_submit",
+  demo_form_error: "demo_form_error",
   sales_contact_click: "sales_contact_click",
   login_click: "login_click",
 } as const

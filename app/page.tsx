@@ -24,7 +24,7 @@ import { TestimonialsSection } from "@/components/landing/sections/TestimonialsS
 import { FAQSection } from "@/components/landing/sections/FAQSection"
 import { CTAFinalSection } from "@/components/landing/sections/CTAFinalSection"
 
-export const dynamic = "force-dynamic"
+export const revalidate = 300
 
 export default async function Page() {
   const plans = await fetchPlans()
@@ -33,7 +33,7 @@ export default async function Page() {
 
   return (
     <>
-      <LandingNav />
+      <LandingNav overlay />
       <StickyMobileCTA />
       <BezelSpotlight />
       <main>

@@ -11,6 +11,25 @@ import { DEMO_PAGE, LINKS } from "@/lib/landing-data"
 import { submitDemoRequest } from "@/lib/api"
 import { trackEvent } from "@/lib/analytics"
 
+function validateRequiredFields({
+  name,
+  email,
+  company,
+}: {
+  name: string
+  email: string
+  company: string
+}) {
+  const errors: Record<string, string[]> = {}
+
+  if (name.trim().length < 2) errors.name = ["Informe seu nome"]
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+    errors.email = ["E-mail inválido"]
+  if (company.trim().length < 2) errors.company = ["Informe a empresa"]
+
+  return errors
+}
+
 export function DemoRequestForm() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -27,6 +46,18 @@ export function DemoRequestForm() {
     e.preventDefault()
     setFormError(null)
     setFieldErrors({})
+
+    const validationErrors = validateRequiredFields({ name, email, company })
+    if (Object.keys(validationErrors).length > 0) {
+      setFieldErrors(validationErrors)
+      setFormError("Revise os campos destacados")
+      trackEvent("demo_form_error", {
+        location: "demo-form",
+        reason: "validation",
+      })
+      return
+    }
+
     setSubmitting(true)
 
     const result = await submitDemoRequest({
@@ -44,10 +75,14 @@ export function DemoRequestForm() {
     if (!result.ok) {
       setFieldErrors(result.fieldErrors ?? {})
       setFormError(result.message)
+      trackEvent("demo_form_error", {
+        location: "demo-form",
+        reason: "submission",
+      })
       return
     }
 
-    trackEvent("demo_request", { location: "demo-form" })
+    trackEvent("demo_form_submit", { location: "demo-form" })
     setDone(true)
   }
 

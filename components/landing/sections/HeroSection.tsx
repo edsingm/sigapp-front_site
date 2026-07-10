@@ -1,106 +1,67 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowDown, ArrowRight, CirclePlay, ScanLine } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import { HERO_COPY, HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
 
-function HeroMapPanel() {
-  const { panel } = HERO_COPY
-
+function TerrainMetric({ label, value }: { label: string; value: string }) {
   return (
-    <div className="relative h-full min-h-[22rem] w-full overflow-hidden sm:min-h-[28rem] lg:min-h-0 lg:rounded-none">
-      <Image
-        src="/images/hero-territorio.jpg"
-        alt={panel.photoAlt}
-        fill
-        priority
-        sizes="(max-width: 1024px) 100vw, 52vw"
-        className="object-cover object-center"
-      />
-
-      {/* Gradiente de leitura — navy da marca, não filtro genérico */}
-      <div className="absolute inset-0 bg-linear-to-t from-(--color-brand-navy)/88 via-(--color-brand-navy)/25 to-(--color-brand-navy)/10" />
-      <div className="absolute inset-0 bg-linear-to-r from-(--color-brand-navy)/20 via-transparent to-transparent lg:from-transparent" />
-
-      {/* Camada cartográfica */}
-      <svg
-        viewBox="0 0 800 640"
-        className="pointer-events-none absolute inset-0 h-full w-full opacity-90"
-        fill="none"
-        aria-hidden="true"
-        preserveAspectRatio="xMidYMid slice"
-      >
-        <path
-          d="M120 180 280 140 420 160 560 120 680 200 640 360 480 400 260 380 140 300Z"
-          className="stroke-white/20"
-          strokeWidth="1"
-        />
-        <path
-          d="M280 140 310 310 140 300M420 160 400 390M560 120 500 360"
-          className="stroke-white/12"
-          strokeWidth="1"
-        />
-        <path
-          d="M340 220 490 250 520 360 360 340Z"
-          className="fill-primary/25 stroke-primary"
-          strokeWidth="2"
-        />
-        <circle cx="420" cy="290" r="4" className="fill-white" />
-        <path
-          d="M160 240C260 280 340 270 430 320 530 380 620 390 720 360"
-          className="stroke-secondary/80"
-          strokeWidth="1.5"
-          strokeDasharray="4 8"
-          strokeLinecap="round"
-        />
-      </svg>
-
-      {/* Cabeçalho de campo */}
-      <div className="absolute top-0 right-0 left-0 flex items-start justify-between gap-4 p-5 sm:p-6 lg:p-7">
-        <div>
-          <p className="coord text-white/50">{panel.sector}</p>
-          <p className="mt-1 font-heading text-sm font-semibold text-white sm:text-base">
-            {panel.sectorName}
-          </p>
-        </div>
-        <p className="data-mono shrink-0 text-[11px] text-white/55 sm:text-xs">
-          {panel.coords}
-        </p>
-      </div>
-
-      {/* Legenda operacional — uma faixa, sem card de dashboard genérico */}
-      <div className="absolute right-0 bottom-0 left-0 p-4 sm:p-5 lg:p-6">
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-white/12 bg-white/10 backdrop-blur-md sm:grid-cols-4">
-          <LegendCell label="Status" value={panel.status} accent />
-          <LegendCell label="TIR" value={panel.tir} />
-          <LegendCell label="Área" value={panel.area} />
-          <LegendCell label="VGV" value={panel.vgv} />
-        </div>
-      </div>
+    <div className="min-w-0 border-l border-white/12 pl-3 first:border-0 first:pl-0">
+      <p className="coord text-white/42">{label}</p>
+      <p className="data-mono mt-1 truncate text-sm font-bold text-white">
+        {value}
+      </p>
     </div>
   )
 }
 
-function LegendCell({
-  label,
-  value,
-  accent = false,
-}: {
-  label: string
-  value: string
-  accent?: boolean
-}) {
+function TerrainReadout({ className }: { className?: string }) {
+  const { panel } = HERO_COPY
+
   return (
-    <div className="flex flex-col gap-1 bg-(--color-brand-navy)/75 px-3.5 py-3 sm:px-4 sm:py-3.5">
-      <p className="coord text-white/45">{label}</p>
-      <p
-        className={`data-mono text-sm font-bold sm:text-base ${
-          accent ? "text-(--color-data-green)" : "text-white"
-        }`}
-      >
-        {value}
-      </p>
+    <div
+      className={cn(
+        "relative overflow-hidden rounded-3xl border border-white/16 bg-(--color-brand-navy)/58 p-4 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-5",
+        className
+      )}
+    >
+      <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-primary/10" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/50 to-transparent" />
+
+      <div className="relative flex items-start justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-(--color-data-green) opacity-55" />
+              <span className="relative inline-flex size-2 rounded-full bg-(--color-data-green)" />
+            </span>
+            <p className="coord text-white/55">Leitura territorial ativa</p>
+          </div>
+          <p className="mt-3 max-w-[18rem] font-heading text-base leading-snug font-semibold text-white sm:text-lg">
+            {panel.sectorName}
+          </p>
+        </div>
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/12 bg-white/8 text-secondary">
+          <ScanLine className="size-4" />
+        </div>
+      </div>
+
+      <div className="relative mt-4 flex items-center justify-between gap-3 border-t border-white/12 pt-3">
+        <span className="data-mono text-[10px] text-white/48">
+          {panel.coords}
+        </span>
+        <span className="rounded-full bg-(--color-data-green)/14 px-2.5 py-1 text-[10px] font-bold text-(--color-data-green)">
+          {panel.status}
+        </span>
+      </div>
+
+      <div className="relative mt-4 grid grid-cols-3 gap-3 border-t border-white/12 pt-4">
+        <TerrainMetric label="TIR" value={panel.tir} />
+        <TerrainMetric label="Área" value={panel.area} />
+        <TerrainMetric label="VGV" value={panel.vgv} />
+      </div>
     </div>
   )
 }
@@ -109,32 +70,83 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden border-b border-border bg-background"
+      className="relative min-h-[100svh] overflow-hidden bg-(--color-brand-navy) text-white"
     >
-      <div className="lg:grid lg:min-h-[min(92dvh,56rem)] lg:grid-cols-12">
-        {/* Discurso — 5 colunas */}
-        <div className="container-landing flex flex-col justify-center py-28 sm:py-32 lg:col-span-5 lg:max-w-none lg:px-0 lg:py-0 lg:pl-[max(2.5rem,calc((100vw-1320px)/2+4rem))] lg:pr-10 xl:pr-14">
-          <div className="flex max-w-xl flex-col gap-8 lg:max-w-none">
-            <span className="eyebrow text-(--color-brand-navy) dark:text-secondary">
-              {HERO_COPY.eyebrow}
-            </span>
+      <Image
+        src="/images/hero-territorio.jpg"
+        alt={HERO_COPY.panel.photoAlt}
+        fill
+        priority
+        sizes="100vw"
+        className="hero-cinematic-image object-cover object-[58%_center] sm:object-center"
+      />
 
-            <div className="space-y-5">
-              <h1 className="font-heading text-[2.5rem] leading-[1.02] font-bold tracking-[-0.03em] text-balance text-foreground sm:text-5xl lg:text-[3.25rem] xl:text-6xl">
-                <span className="block">{HERO_COPY.titleLine1}</span>
-                <span className="mt-1 block text-foreground/90">
-                  {HERO_COPY.titleLine2}
-                </span>
-              </h1>
-              <p className="max-w-[40ch] text-base leading-relaxed text-muted-foreground sm:text-lg">
-                {HERO_COPY.description}
-              </p>
+      <div className="absolute inset-0 bg-linear-to-r from-(--color-brand-navy)/96 via-(--color-brand-navy)/62 to-(--color-brand-navy)/6" />
+      <div className="absolute inset-0 bg-linear-to-t from-(--color-brand-navy)/82 via-transparent to-(--color-brand-navy)/42" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_74%_42%,transparent_0%,transparent_24%,rgba(11,30,57,0.12)_62%,rgba(11,30,57,0.4)_100%)]" />
+      <div className="grain-overlay opacity-[0.075]" />
+
+      <svg
+        viewBox="0 0 1200 800"
+        preserveAspectRatio="xMidYMid slice"
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 h-full w-full"
+        fill="none"
+      >
+        <path
+          d="M730 198 930 154 1085 238 1038 447 856 498 684 406Z"
+          className="fill-primary/14 stroke-secondary/80"
+          strokeWidth="2"
+        />
+        <path
+          d="M730 198 824 352 684 406M930 154 902 470M1085 238 910 338 1038 447"
+          className="stroke-white/22"
+          strokeWidth="1"
+        />
+        <circle cx="866" cy="344" r="6" className="fill-white" />
+        <circle
+          cx="866"
+          cy="344"
+          r="20"
+          className="fill-none stroke-white/28"
+          strokeWidth="1"
+        />
+        <path
+          d="M604 528C742 470 840 534 970 474 1048 438 1114 432 1190 454"
+          className="hero-route-line stroke-secondary/70"
+          strokeWidth="1.5"
+          strokeDasharray="6 12"
+          strokeLinecap="round"
+        />
+      </svg>
+
+      <div className="container-landing relative z-10 flex min-h-[100svh] flex-col pt-24 pb-6 sm:pt-28 sm:pb-8 lg:pt-28">
+        <div className="flex flex-1 items-center">
+          <div className="max-w-[44rem] pb-8 lg:max-w-[38rem] lg:pb-14 xl:max-w-[45rem]">
+            <div className="mb-6 flex items-center gap-3">
+              <span className="eyebrow text-secondary">
+                {HERO_COPY.eyebrow}
+              </span>
+              <span className="hidden rounded-full border border-white/14 bg-white/8 px-3 py-1 text-[10px] font-semibold tracking-[0.12em] text-white/68 uppercase backdrop-blur sm:inline-flex">
+                Dossiê vivo
+              </span>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <h1 className="font-heading text-[2.85rem] leading-[0.94] font-bold tracking-[-0.055em] text-balance text-white sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+              <span className="block">{HERO_COPY.titleLine1}</span>
+              <span className="mt-2 block bg-linear-to-r from-white via-white to-secondary bg-clip-text text-transparent">
+                {HERO_COPY.titleLine2}
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-[42rem] text-base leading-relaxed text-white/72 sm:text-lg lg:max-w-[36rem]">
+              {HERO_COPY.description}
+            </p>
+
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button
                 size="lg"
-                className="group/cta h-12 w-full gap-2 rounded-full pr-1.5 pl-6 text-base font-semibold shadow-cta sm:w-auto"
+                className="group/cta h-13 w-full gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-[0_18px_50px_-18px_rgba(46,107,255,0.9)] hover:bg-primary/90 sm:w-auto"
                 nativeButton={false}
                 render={
                   <Link
@@ -145,29 +157,30 @@ export function HeroSection() {
                 }
               >
                 {HERO_COPY.primaryCta}
-                <span className="flex size-9 items-center justify-center rounded-full bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5">
+                <span className="flex size-9 items-center justify-center rounded-full bg-white/18 transition-transform duration-300 group-hover/cta:translate-x-0.5">
                   <ArrowRight className="size-4" />
                 </span>
               </Button>
+
               <Link
                 href="/#como-funciona"
                 data-analytics-event="features_view_click"
                 data-analytics-location="hero"
-                className="inline-flex h-12 items-center justify-center px-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:justify-start"
+                className="group/secondary inline-flex h-13 items-center justify-center gap-2 rounded-full border border-white/16 bg-white/7 px-5 text-sm font-semibold text-white/82 backdrop-blur transition-colors hover:bg-white/12 hover:text-white sm:justify-start"
               >
+                <CirclePlay className="size-4 text-secondary" />
                 {HERO_COPY.secondaryCta}
-                <span className="ml-1.5 text-foreground/40">→</span>
               </Link>
             </div>
 
-            <dl className="grid grid-cols-1 gap-4 border-t border-border pt-6 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-border">
+            <dl className="mt-7 grid grid-cols-3 divide-x divide-white/12 border-t border-white/12 pt-5">
               {HERO_PROOF_ITEMS.map((item) => (
                 <div
                   key={item.label}
-                  className="flex flex-col gap-1 sm:px-4 first:sm:pl-0 last:sm:pr-0"
+                  className="min-w-0 px-2 first:pl-0 last:pr-0 sm:px-4"
                 >
-                  <dt className="coord text-muted-foreground">{item.label}</dt>
-                  <dd className="text-sm font-semibold tracking-tight text-foreground">
+                  <dt className="coord text-white/42">{item.label}</dt>
+                  <dd className="mt-1 text-xs leading-snug font-semibold text-white/88 sm:text-sm">
                     {item.value}
                   </dd>
                 </div>
@@ -176,15 +189,25 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Evidência — 7 colunas, bleed à direita no desktop */}
-        <div className="relative lg:col-span-7">
-          <div className="px-4 pb-8 sm:px-6 lg:absolute lg:inset-0 lg:px-0 lg:pb-0">
-            <div className="h-full overflow-hidden rounded-2xl border border-border shadow-float lg:rounded-none lg:border-0 lg:border-l lg:border-border lg:shadow-none">
-              <HeroMapPanel />
-            </div>
+        <TerrainReadout className="mb-5 lg:absolute lg:top-1/2 lg:right-10 lg:mb-0 lg:w-[20rem] lg:-translate-y-1/2 xl:right-16 xl:w-[21rem]" />
+
+        <div className="hidden items-center justify-between border-t border-white/12 pt-4 lg:flex">
+          <div className="flex items-center gap-3">
+            <span className="coord text-white/40">SIGAPP · território 01</span>
+            <span className="h-px w-16 bg-white/14" />
+            <span className="data-mono text-[10px] text-white/38">
+              23°30′04″S · 46°50′31″W
+            </span>
           </div>
-          {/* Altura de referência no desktop (painel é absolute) */}
-          <div className="hidden lg:block lg:min-h-[min(92dvh,56rem)]" />
+          <Link
+            href="/#como-funciona"
+            className="group/scroll flex items-center gap-2 text-xs font-medium text-white/55 transition-colors hover:text-white"
+          >
+            Explorar o dossiê
+            <span className="flex size-8 items-center justify-center rounded-full border border-white/14 bg-white/6">
+              <ArrowDown className="size-3.5 transition-transform group-hover/scroll:translate-y-0.5" />
+            </span>
+          </Link>
         </div>
       </div>
     </section>

@@ -29,7 +29,7 @@ type ApiSuccess<T> = { success: true; data: T; message: string }
 export async function fetchPlans(): Promise<ApiPlan[]> {
   const res = await fetch(`${apiBaseUrl()}/api/v1/plans`, {
     headers: { Accept: "application/json" },
-    cache: "no-store",
+    next: { revalidate: 300 },
   })
   if (!res.ok) throw new Error(`Falha ao carregar planos (${res.status})`)
   const json = (await res.json()) as ApiSuccess<ApiPlan[]>

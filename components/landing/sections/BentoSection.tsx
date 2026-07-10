@@ -168,8 +168,9 @@ function CardHead({
 
 export function BentoSection() {
   return (
-    <section className="border-t border-border py-24 md:py-32">
-      <div className="container-landing">
+    <section className="relative overflow-hidden border-y border-border bg-muted/35 py-16 sm:py-20 md:py-32">
+      <div className="bg-dot-pattern pointer-events-none absolute inset-0 opacity-25" />
+      <div className="container-landing relative">
         <ScrollReveal
           stagger
           className="mb-16 grid gap-6 md:mb-20 lg:grid-cols-12 lg:items-end"

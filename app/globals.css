@@ -554,6 +554,30 @@
 
 /* ─── Hero — vitrine flutuante do produto (lg+) ─────────────────────────────
    --px / --py são definidos via JS (HeroShowcase) no range [-0.5, 0.5]. */
+.hero-cinematic-image {
+  transform: scale(1.035);
+  animation: hero-cinematic-drift 18s ease-in-out infinite alternate;
+}
+
+.hero-route-line {
+  animation: hero-route-dash 10s linear infinite;
+}
+
+@keyframes hero-cinematic-drift {
+  from {
+    transform: scale(1.035) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.085) translate3d(-0.75%, -0.5%, 0);
+  }
+}
+
+@keyframes hero-route-dash {
+  to {
+    stroke-dashoffset: -72;
+  }
+}
+
 .hero-mock-pos {
   position: absolute;
   top: 50%;
@@ -601,6 +625,10 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .hero-cinematic-image,
+  .hero-route-line {
+    animation: none;
+  }
   .hero-mock-pos {
     transition: none;
   }

@@ -10,27 +10,37 @@ import { ArrowRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { LINKS, NAV_LINKS } from "@/lib/landing-data"
 
-function NavBrand({ onNavigate }: { onNavigate?: () => void }) {
+function NavBrand({
+  onNavigate,
+  overlay,
+}: {
+  onNavigate?: () => void
+  overlay?: boolean
+}) {
   return (
     <Link
       href="/"
       aria-label="SIGAPP — início"
       onClick={onNavigate}
-      className="relative z-10 shrink-0"
+      className={cn(
+        "relative z-10 shrink-0",
+        overlay && "rounded-xl bg-white/94 px-2 py-1 shadow-lg shadow-black/10"
+      )}
     >
       <Image
         src="/logo-mark.svg"
         alt="SIGAPP"
         width={104}
-        height={36}
+        height={32}
         priority
         className="h-8 w-auto sm:h-9"
+        style={{ width: "auto" }}
       />
     </Link>
   )
 }
 
-export function LandingNav() {
+export function LandingNav({ overlay = false }: { overlay?: boolean }) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const close = () => setMobileOpen(false)
 
@@ -54,10 +64,10 @@ export function LandingNav() {
 
   return (
     <>
-      <NavScrollClient>
+      <NavScrollClient overlay={overlay}>
         <div className="container-landing">
           <div className="flex h-16 items-center gap-4 sm:h-[4.25rem] sm:gap-6">
-            <NavBrand onNavigate={close} />
+            <NavBrand onNavigate={close} overlay={overlay} />
 
             <nav
               aria-label="Principal"
@@ -67,10 +77,19 @@ export function LandingNav() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="group relative inline-flex h-10 items-center px-3.5 text-[13px] font-medium tracking-tight text-muted-foreground transition-colors hover:text-foreground dark:text-white/70 dark:hover:text-white"
+                  className={cn(
+                    "group relative inline-flex h-10 items-center px-3.5 text-[13px] font-medium tracking-tight text-muted-foreground transition-colors hover:text-foreground dark:text-white/70 dark:hover:text-white",
+                    overlay &&
+                      "group-data-[scrolled=false]/nav:text-white/72 group-data-[scrolled=false]/nav:hover:text-white"
+                  )}
                 >
                   {link.label}
-                  <span className="absolute inset-x-3.5 bottom-2 h-px origin-left scale-x-0 bg-foreground/80 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-x-100 dark:bg-white/80" />
+                  <span
+                    className={cn(
+                      "absolute inset-x-3.5 bottom-2 h-px origin-left scale-x-0 bg-foreground/80 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-x-100 dark:bg-white/80",
+                      overlay && "group-data-[scrolled=false]/nav:bg-white/80"
+                    )}
+                  />
                 </Link>
               ))}
             </nav>
@@ -80,11 +99,21 @@ export function LandingNav() {
                 href={LINKS.login}
                 data-analytics-event="login_click"
                 data-analytics-location="nav"
-                className="hidden h-10 items-center px-3 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground md:inline-flex dark:text-white/70 dark:hover:text-white"
+                className={cn(
+                  "hidden h-10 items-center px-3 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground md:inline-flex dark:text-white/70 dark:hover:text-white",
+                  overlay &&
+                    "group-data-[scrolled=false]/nav:text-white/72 group-data-[scrolled=false]/nav:hover:text-white"
+                )}
               >
                 Entrar
               </a>
-              <ThemeToggleButton className="hidden size-10 sm:flex" />
+              <ThemeToggleButton
+                className={cn(
+                  "hidden size-10 sm:flex",
+                  overlay &&
+                    "group-data-[scrolled=false]/nav:text-white/72 group-data-[scrolled=false]/nav:hover:bg-white/10 group-data-[scrolled=false]/nav:hover:text-white"
+                )}
+              />
               <Button
                 variant="brand"
                 size="lg"
@@ -107,7 +136,11 @@ export function LandingNav() {
               <button
                 type="button"
                 onClick={() => setMobileOpen((v) => !v)}
-                className="relative z-10 flex size-11 items-center justify-center rounded-xl text-foreground transition-colors hover:bg-muted lg:hidden dark:text-white dark:hover:bg-white/10"
+                className={cn(
+                  "relative z-10 flex size-11 items-center justify-center rounded-xl text-foreground transition-colors hover:bg-muted lg:hidden dark:text-white dark:hover:bg-white/10",
+                  overlay &&
+                    "group-data-[scrolled=false]/nav:text-white group-data-[scrolled=false]/nav:hover:bg-white/10"
+                )}
                 aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-nav"
@@ -153,7 +186,7 @@ export function LandingNav() {
         <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-40" />
 
         <div className="container-landing relative flex h-16 items-center justify-between sm:h-[4.25rem]">
-          <NavBrand onNavigate={close} />
+          <NavBrand onNavigate={close} overlay />
           <button
             type="button"
             onClick={close}
@@ -177,9 +210,7 @@ export function LandingNav() {
               href={link.href}
               onClick={close}
               style={
-                mobileOpen
-                  ? { animationDelay: `${70 + i * 50}ms` }
-                  : undefined
+                mobileOpen ? { animationDelay: `${70 + i * 50}ms` } : undefined
               }
               className={cn(
                 "border-b border-white/10 py-4 font-heading text-3xl font-semibold tracking-tight text-white transition-colors hover:text-secondary",

@@ -4,8 +4,9 @@ import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 
 export function ProblemSection() {
   return (
-    <section className="py-24 md:py-32">
-      <div className="container-landing">
+    <section className="relative overflow-hidden py-16 sm:py-20 md:py-32">
+      <div className="pointer-events-none absolute -top-24 right-0 size-[28rem] rounded-full bg-primary/5 blur-3xl" />
+      <div className="container-landing relative">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           <ScrollReveal
             stagger
@@ -20,15 +21,14 @@ export function ProblemSection() {
             </p>
           </ScrollReveal>
 
-          {/* Lista editorial — sem cards iguais de template */}
           <ScrollReveal stagger className="lg:col-span-7">
-            <ol className="divide-y divide-border border-y border-border">
+            <ol className="grid gap-3">
               {PAIN_POINTS.map((point, i) => (
                 <li
                   key={point.title}
-                  className="grid gap-4 py-7 sm:grid-cols-[4.5rem_1fr] sm:gap-8"
+                  className="group grid gap-4 rounded-2xl border border-border bg-card/80 p-5 shadow-raise transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-0.5 hover:border-primary/20 hover:shadow-panel sm:grid-cols-[4.5rem_1fr] sm:gap-7 sm:p-6"
                 >
-                  <span className="data-mono text-sm font-semibold text-muted-foreground/60">
+                  <span className="data-mono flex size-10 items-center justify-center rounded-full border border-border bg-muted text-xs font-bold text-muted-foreground transition-colors group-hover:border-primary/20 group-hover:bg-primary/10 group-hover:text-primary">
                     0{i + 1}
                   </span>
                   <div className="flex flex-col gap-2">

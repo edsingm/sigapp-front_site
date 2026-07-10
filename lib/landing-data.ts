@@ -107,11 +107,11 @@ export const HERO_PROOF_ITEMS = [
 
 // Hero — copy centralizado (nunca hardcode em seção)
 export const HERO_COPY = {
-  eyebrow: "Incorporação com território legível",
-  titleLine1: "O dossiê do terreno",
-  titleLine2: "que o comitê consegue ler.",
+  eyebrow: "Território que vira decisão",
+  titleLine1: "O terreno inteiro.",
+  titleLine2: "Uma decisão só.",
   description:
-    "Mapa, parâmetros, DRE e parecer no mesmo lugar. Analista, direção e jurídico param de trocar planilha — e passam a decidir sobre o mesmo caso.",
+    "Mapa, parâmetros, DRE e parecer convergem em um dossiê vivo — para analista, direção e jurídico decidirem sobre o mesmo cenário.",
   primaryCta: "Solicitar demonstração",
   secondaryCta: "Ver como funciona",
   panel: {

@@ -19,12 +19,13 @@ export function FAQSection() {
   }
 
   return (
-    <section id="faq" className="py-24 md:py-32">
+    <section id="faq" className="relative overflow-hidden py-16 sm:py-20 md:py-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <div className="container-landing">
+      <div className="pointer-events-none absolute -bottom-40 -left-40 size-[32rem] rounded-full bg-primary/5 blur-3xl" />
+      <div className="container-landing relative">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           {/* Left */}
           <div className="flex flex-col gap-5 lg:col-span-4 lg:pr-4">
@@ -56,15 +57,17 @@ export function FAQSection() {
 
           {/* Right — duas colunas independentes em lg+ */}
           <div className="lg:col-span-8">
-            <div className="grid items-start gap-x-10 lg:grid-cols-2">
-              <FAQAccordion
-                items={FAQ_ITEMS.slice(0, Math.ceil(FAQ_ITEMS.length / 2))}
-                defaultOpenIndex={0}
-              />
-              <div className="border-t border-border lg:border-t-0">
+            <div className="card-bezel shadow-panel">
+              <div className="card-bezel__core grid items-start px-5 sm:px-7 lg:grid-cols-2 lg:gap-x-8">
                 <FAQAccordion
-                  items={FAQ_ITEMS.slice(Math.ceil(FAQ_ITEMS.length / 2))}
+                  items={FAQ_ITEMS.slice(0, Math.ceil(FAQ_ITEMS.length / 2))}
+                  defaultOpenIndex={0}
                 />
+                <div className="border-t border-border lg:border-t-0">
+                  <FAQAccordion
+                    items={FAQ_ITEMS.slice(Math.ceil(FAQ_ITEMS.length / 2))}
+                  />
+                </div>
               </div>
             </div>
           </div>

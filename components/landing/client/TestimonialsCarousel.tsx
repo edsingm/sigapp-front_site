@@ -6,8 +6,10 @@ import type { Testimonial } from "@/lib/landing-data"
 
 export function TestimonialsCarousel({
   testimonials,
+  variant = "default",
 }: {
   testimonials: Testimonial[]
+  variant?: "default" | "dark"
 }) {
   const [active, setActive] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
@@ -37,7 +39,7 @@ export function TestimonialsCarousel({
       >
         {testimonials.map((t) => (
           <div key={t.id} className="w-full shrink-0 snap-start px-1">
-            <TestimonialCard testimonial={t} />
+            <TestimonialCard testimonial={t} variant={variant} />
           </div>
         ))}
       </div>
@@ -54,7 +56,9 @@ export function TestimonialsCarousel({
               className={`block rounded-full transition-all duration-200 ${
                 i === active
                   ? "h-2 w-6 bg-secondary"
-                  : "size-2 bg-muted-foreground/45"
+                  : variant === "dark"
+                    ? "size-2 bg-white/25"
+                    : "size-2 bg-muted-foreground/45"
               }`}
             />
           </button>

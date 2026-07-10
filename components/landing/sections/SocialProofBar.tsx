@@ -2,15 +2,17 @@ import { DOMAIN_STRIP, METRICS } from "@/lib/landing-data"
 
 export function SocialProofBar() {
   return (
-    <section className="border-b border-border bg-background">
+    <section className="relative overflow-hidden border-b border-border bg-muted/35">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/35 to-transparent" />
       <div className="container-landing py-12 sm:py-16">
         {/* Métricas operacionais — prova de produto, não contagem de clientes */}
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
           {METRICS.map((metric) => (
             <div
               key={metric.label}
-              className="flex flex-col gap-1.5 bg-card px-5 py-6 sm:px-7 sm:py-8"
+              className="group relative flex flex-col gap-1.5 bg-card px-5 py-6 transition-colors hover:bg-accent/65 sm:px-7 sm:py-8"
             >
+              <span className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-primary transition-transform duration-300 group-hover:scale-x-100" />
               <p className="data-mono font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 {metric.value}
               </p>
@@ -36,7 +38,7 @@ export function SocialProofBar() {
                 key={`${item}-${i}`}
                 className="mx-5 flex shrink-0 items-center gap-5 sm:mx-7"
               >
-                <span className="whitespace-nowrap font-heading text-sm font-semibold tracking-tight text-foreground/50 sm:text-base">
+                <span className="font-heading text-sm font-semibold tracking-tight whitespace-nowrap text-foreground/50 sm:text-base">
                   {item}
                 </span>
                 <span className="size-1 shrink-0 rounded-full bg-foreground/15" />

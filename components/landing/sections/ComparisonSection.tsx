@@ -33,8 +33,9 @@ function Cell({ value, highlight }: { value: boolean; highlight: boolean }) {
 
 export function ComparisonSection() {
   return (
-    <section className="py-24 md:py-32">
-      <div className="container-landing">
+    <section className="relative overflow-hidden py-16 sm:py-20 md:py-32">
+      <div className="pointer-events-none absolute -right-40 bottom-0 size-[34rem] rounded-full bg-primary/5 blur-3xl" />
+      <div className="container-landing relative">
         <ScrollReveal
           stagger
           className="mb-16 grid gap-6 md:mb-20 lg:grid-cols-12 lg:items-end"
@@ -51,53 +52,57 @@ export function ComparisonSection() {
           </p>
         </ScrollReveal>
 
-        <ScrollReveal className="mx-auto max-w-3xl">
-          <div className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
-            {/* Cabeçalho */}
-            <div className="grid grid-cols-[1.6fr_repeat(3,1fr)] border-b border-border bg-muted/40">
-              <div className="px-3 py-4 text-xs font-medium text-muted-foreground sm:px-5 sm:py-5 sm:text-sm">
-                Recurso
-              </div>
-              {COLUMNS.map((col) => (
-                <div
-                  key={col.key}
-                  className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
-                    col.highlight
-                      ? "bg-(--color-brand-navy) text-white"
-                      : "text-foreground"
-                  }`}
-                >
-                  {col.label}
-                </div>
-              ))}
-            </div>
-
-            {/* Linhas */}
-            {COMPARISON_ROWS.map((row, i) => (
-              <div
-                key={row.label}
-                className={`grid grid-cols-[1.6fr_repeat(3,1fr)] ${
-                  i < COMPARISON_ROWS.length - 1 ? "border-b border-border" : ""
-                }`}
-              >
-                <div className="px-3 py-3 text-xs font-medium text-foreground sm:px-5 sm:py-4 sm:text-sm">
-                  {row.label}
+        <ScrollReveal className="mx-auto max-w-4xl">
+          <div className="card-bezel shadow-float">
+            <div className="card-bezel__core overflow-hidden">
+              {/* Cabeçalho */}
+              <div className="grid grid-cols-[1.6fr_repeat(3,1fr)] border-b border-border bg-muted/40">
+                <div className="px-3 py-4 text-xs font-medium text-muted-foreground sm:px-5 sm:py-5 sm:text-sm">
+                  Recurso
                 </div>
                 {COLUMNS.map((col) => (
                   <div
                     key={col.key}
-                    className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/8 ring-1 ring-primary/10 ring-inset" : ""}`}
+                    className={`px-2 py-4 text-center text-xs font-bold sm:py-5 sm:text-sm ${
+                      col.highlight
+                        ? "bg-(--color-brand-navy) text-white"
+                        : "text-foreground"
+                    }`}
                   >
-                    <Cell value={row[col.key]} highlight={col.highlight} />
+                    {col.label}
                   </div>
                 ))}
               </div>
-            ))}
+
+              {/* Linhas */}
+              {COMPARISON_ROWS.map((row, i) => (
+                <div
+                  key={row.label}
+                  className={`grid grid-cols-[1.6fr_repeat(3,1fr)] ${
+                    i < COMPARISON_ROWS.length - 1
+                      ? "border-b border-border"
+                      : ""
+                  }`}
+                >
+                  <div className="px-3 py-3 text-xs font-medium text-foreground sm:px-5 sm:py-4 sm:text-sm">
+                    {row.label}
+                  </div>
+                  {COLUMNS.map((col) => (
+                    <div
+                      key={col.key}
+                      className={`flex items-center justify-center px-2 py-3 sm:py-4 ${col.highlight ? "bg-primary/8 ring-1 ring-primary/10 ring-inset" : ""}`}
+                    >
+                      <Cell value={row[col.key]} highlight={col.highlight} />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
 
         {/* CTA intermediário — ponto de maior persuasão antes do pricing */}
-        <div className="mt-14 flex flex-col items-start gap-3 md:mt-16 lg:pl-1">
+        <div className="mx-auto mt-14 flex max-w-4xl flex-col items-start gap-3 md:mt-16">
           <Button
             variant="brand"
             size="lg"

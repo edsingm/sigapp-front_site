@@ -25,8 +25,12 @@ const MOCK_CLASSES: Record<string, string> = {
 
 export function FeaturesZigzag() {
   return (
-    <section id="funcionalidades" className="border-t border-border py-24 md:py-32">
-      <div className="container-landing">
+    <section
+      id="funcionalidades"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-32"
+    >
+      <div className="pointer-events-none absolute top-0 left-1/2 h-64 w-[70rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+      <div className="container-landing relative">
         <ScrollReveal
           stagger
           className="mb-16 grid gap-6 md:mb-24 lg:grid-cols-12 lg:items-end"
@@ -43,7 +47,7 @@ export function FeaturesZigzag() {
           </p>
         </ScrollReveal>
 
-        <div className="flex flex-col gap-24 md:gap-36">
+        <div className="flex flex-col gap-6 md:gap-8">
           {FEATURES.map((feature, index) => {
             const MockComponent = MOCK_COMPONENTS[feature.mock]
             const isRight = feature.side === "right"
@@ -52,7 +56,7 @@ export function FeaturesZigzag() {
             return (
               <ScrollReveal
                 key={feature.id}
-                className={`grid items-center gap-10 lg:grid-cols-2 lg:gap-16 ${
+                className={`grid items-center gap-10 overflow-hidden rounded-[2rem] border border-border bg-card/75 p-5 shadow-raise backdrop-blur-sm sm:p-8 lg:grid-cols-2 lg:gap-16 lg:p-10 ${
                   isRight ? "" : "lg:[&>*:first-child]:order-last"
                 }`}
               >
@@ -69,7 +73,7 @@ export function FeaturesZigzag() {
                   <ul className="mt-1 flex flex-col gap-3">
                     {feature.bullets.map((bullet) => (
                       <li key={bullet} className="flex items-start gap-3">
-                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-muted text-foreground/70">
+                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                           <Check className="size-3" strokeWidth={2.5} />
                         </span>
                         <span className="text-sm leading-relaxed text-foreground/80">
@@ -93,7 +97,7 @@ export function FeaturesZigzag() {
                       </div>
                     </>
                   ) : (
-                    <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-raise">
+                    <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-panel">
                       <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>
                         <MockComponent />
                       </MockReveal>

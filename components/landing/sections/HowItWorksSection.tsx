@@ -3,12 +3,29 @@ import { HOW_IT_WORKS, HOW_IT_WORKS_COPY, LINKS } from "@/lib/landing-data"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import {
+  ArrowRight,
+  Calculator,
+  FileCheck,
+  Handshake,
+  MapPin,
+} from "lucide-react"
+
+const STEP_ICONS = {
+  MapPin,
+  Calculator,
+  Handshake,
+  FileCheck,
+}
 
 export function HowItWorksSection() {
   return (
-    <section id="como-funciona" className="py-24 md:py-32">
-      <div className="container-landing">
+    <section
+      id="como-funciona"
+      className="relative overflow-hidden border-b border-border bg-muted/35 py-16 sm:py-20 md:py-32"
+    >
+      <div className="brand-map__grid pointer-events-none absolute inset-0 opacity-[0.06]" />
+      <div className="container-landing relative">
         <ScrollReveal
           stagger
           className="mb-14 grid gap-6 md:mb-20 lg:grid-cols-12 lg:items-end"
@@ -24,38 +41,41 @@ export function HowItWorksSection() {
           </p>
         </ScrollReveal>
 
-        {/* Dossiê em trilha vertical — evita o grid 4 colunas genérico */}
-        <ScrollReveal stagger className="mx-auto max-w-3xl">
-          <ol className="relative flex flex-col">
+        <ScrollReveal stagger>
+          <ol className="relative grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <div
               aria-hidden="true"
-              className="absolute top-3 bottom-3 left-[1.15rem] w-px bg-border md:left-[1.35rem]"
+              className="absolute top-8 right-[10%] left-[10%] hidden border-t border-dashed border-primary/25 xl:block"
             />
 
-            {HOW_IT_WORKS.map((step, i) => (
-              <li
-                key={step.title}
-                className="relative grid gap-4 py-6 pl-12 md:grid-cols-[5.5rem_1fr] md:gap-8 md:pl-16 md:py-8"
-              >
-                <span
-                  aria-hidden="true"
-                  className="absolute top-7 left-0 flex size-9 items-center justify-center rounded-full border border-border bg-background font-mono text-xs font-bold text-foreground md:top-8 md:size-11 md:text-sm"
+            {HOW_IT_WORKS.map((step, i) => {
+              const Icon = STEP_ICONS[step.icon as keyof typeof STEP_ICONS]
+
+              return (
+                <li
+                  key={step.title}
+                  className="group relative flex min-h-72 flex-col rounded-3xl border border-border bg-card p-6 shadow-raise transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1 hover:border-primary/25 hover:shadow-float"
                 >
-                  0{i + 1}
-                </span>
-                <p className="coord hidden pt-1 text-muted-foreground md:block">
-                  Etapa
-                </p>
-                <div className="flex flex-col gap-2 border-b border-border pb-6 md:border-0 md:pb-0">
-                  <h3 className="font-heading text-xl font-bold tracking-tight text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="max-w-[48ch] text-sm leading-relaxed text-muted-foreground md:text-base">
-                    {step.description}
-                  </p>
-                </div>
-              </li>
-            ))}
+                  <div className="mb-8 flex items-center justify-between gap-4">
+                    <span className="relative z-10 flex size-13 items-center justify-center rounded-2xl border border-primary/15 bg-primary/10 text-primary shadow-sm">
+                      <Icon className="size-5" strokeWidth={1.75} />
+                    </span>
+                    <span className="data-mono text-xs font-bold text-muted-foreground/50">
+                      0{i + 1} / 04
+                    </span>
+                  </div>
+                  <div className="mt-auto">
+                    <p className="coord mb-3 text-primary">Etapa {i + 1}</p>
+                    <h3 className="font-heading text-xl font-bold tracking-tight text-foreground">
+                      {step.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {step.description}
+                    </p>
+                  </div>
+                </li>
+              )
+            })}
           </ol>
         </ScrollReveal>
 
