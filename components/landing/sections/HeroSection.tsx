@@ -1,7 +1,7 @@
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowDown, ArrowRight, CirclePlay, ScanLine } from "lucide-react"
 
+import { HeroBackgroundVideo } from "@/components/landing/client/HeroBackgroundVideo"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { HERO_COPY, HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
@@ -72,14 +72,7 @@ export function HeroSection() {
       id="hero"
       className="relative min-h-[100svh] overflow-hidden bg-(--color-brand-navy) text-white"
     >
-      <Image
-        src="/images/hero-territorio.jpg"
-        alt={HERO_COPY.panel.photoAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="hero-cinematic-image object-cover object-[58%_center] sm:object-center"
-      />
+      <HeroBackgroundVideo />
 
       <div className="absolute inset-0 bg-linear-to-r from-(--color-brand-navy)/96 via-(--color-brand-navy)/62 to-(--color-brand-navy)/6" />
       <div className="absolute inset-0 bg-linear-to-t from-(--color-brand-navy)/82 via-transparent to-(--color-brand-navy)/42" />

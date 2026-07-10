@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import {
   Check,
+  CircleHelp,
   Eye,
   EyeOff,
   Loader2,
@@ -273,21 +274,22 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
             </div>
           )}
 
+          <SignupProgress step={step} />
+
           <div className="mb-7">
-            <p className="text-xs font-semibold tracking-[0.14em] text-primary uppercase">
-              Passo {step} de 2
-            </p>
             <h2 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-              {step === 1 ? "Crie seu acesso" : "Agora configure sua conta"}
+              {step === 1
+                ? "Comece sua avaliação"
+                : "Configure seu espaço de trabalho"}
             </h2>
             <p className="mt-1.5 text-sm text-muted-foreground">
               {step === 1 ? (
-                "Comece com nome, e-mail e senha. Os dados da conta ficam para o próximo passo."
+                "Leva menos de dois minutos. Você escolhe o endereço da empresa no próximo passo."
               ) : selectedPlan ? (
                 <>
-                  Defina o nome da organização, o endereço da conta e revise o
-                  plano antes de seguir para o checkout. Seus{" "}
-                  {selectedPlan.trial_days} dias grátis continuam valendo.
+                  Revise o plano, defina o endereço da conta e continue para o
+                  pagamento seguro. A primeira cobrança será em{" "}
+                  {selectedPlan.trial_days} dias.
                 </>
               ) : (
                 "Crie sua conta e calcule viabilidade hoje mesmo."
@@ -426,9 +428,9 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
               </>
             ) : (
               <>
-                <fieldset className="rounded-2xl border border-border bg-card/60 p-4">
-                  <legend className="px-1 text-sm font-medium text-foreground">
-                    Plano escolhido
+                <fieldset className="rounded-xl border border-border bg-card p-4 shadow-raise">
+                  <legend className="px-1 text-sm font-semibold text-foreground">
+                    Escolha seu plano
                   </legend>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {plans.map((plan) => {
@@ -439,12 +441,17 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                           type="button"
                           onClick={() => setSelectedSlug(plan.slug)}
                           aria-pressed={active}
-                          className={`flex flex-col items-start rounded-lg border px-3 py-2 text-left transition-colors ${
+                          className={`relative flex min-w-28 flex-1 flex-col items-start rounded-lg border px-3 py-2.5 text-left transition-colors ${
                             active
                               ? "border-primary bg-primary/5 ring-1 ring-primary/30"
                               : "border-border hover:border-primary/40 hover:bg-muted/50"
                           }`}
                         >
+                          {plan.is_popular && (
+                            <span className="mb-1 text-[10px] font-bold tracking-[0.08em] text-primary uppercase">
+                              Mais escolhido
+                            </span>
+                          )}
                           <span className="text-sm font-semibold text-foreground">
                             {plan.name}
                           </span>
@@ -456,6 +463,8 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                     })}
                   </div>
                 </fieldset>
+
+                {selectedPlan && <CheckoutSummary plan={selectedPlan} />}
 
                 <Field
                   id="organization_name"
@@ -498,10 +507,10 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                   </div>
                 </Field>
 
-                <div className="rounded-2xl border border-border bg-muted/35 p-4 text-sm text-muted-foreground">
-                  <p className="font-medium text-foreground">Quase pronto.</p>
-                  <p className="mt-1 leading-relaxed">
-                    Depois do checkout, você continua a configuração dentro do
+                <div className="flex gap-3 rounded-xl border border-border bg-muted/35 p-4 text-sm text-muted-foreground">
+                  <CircleHelp className="mt-0.5 size-4 shrink-0 text-primary" />
+                  <p className="leading-relaxed">
+                    Depois do pagamento, você conclui a configuração dentro do
                     produto com mais contexto sobre equipe, carteira e operação.
                   </p>
                 </div>
@@ -527,11 +536,20 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                 </>
               ) : (
                 <>
-                  {step === 1 ? "Continuar" : "Continuar para o pagamento"}
+                  {step === 1
+                    ? "Continuar"
+                    : "Ir para o pagamento seguro"}
                   <ArrowRight className="size-4" />
                 </>
               )}
             </Button>
+
+            {step === 2 && selectedPlan && (
+              <p className="-mt-2 text-center text-xs text-muted-foreground">
+                Você será direcionado ao Stripe. Primeira cobrança em{" "}
+                {selectedPlan.trial_days} dias; cancele antes, sem custo.
+              </p>
+            )}
 
             {step === 2 ? (
               <Button
@@ -545,7 +563,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
               </Button>
             ) : null}
 
-            <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground lg:hidden">
+            <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
               <ShieldCheck className="size-3.5 shrink-0 text-[oklch(0.55_0.22_272)]" />
               <span>
                 Pagamento seguro via{" "}
@@ -568,6 +586,70 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
         </div>
       </div>
     </div>
+  )
+}
+
+function SignupProgress({ step }: { step: 1 | 2 }) {
+  const steps = ["Seu acesso", "Sua empresa"]
+
+  return (
+    <ol className="mb-7 grid grid-cols-2 gap-3" aria-label="Progresso do cadastro">
+      {steps.map((label, index) => {
+        const number = index + 1
+        const current = number === step
+        const complete = number < step
+
+        return (
+          <li key={label} className="flex items-center gap-2">
+            <span
+              className={`flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                current || complete
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground"
+              }`}
+              aria-current={current ? "step" : undefined}
+            >
+              {complete ? <Check className="size-3.5" /> : number}
+            </span>
+            <span
+              className={`text-xs font-semibold ${
+                current ? "text-foreground" : "text-muted-foreground"
+              }`}
+            >
+              {label}
+            </span>
+          </li>
+        )
+      })}
+    </ol>
+  )
+}
+
+function CheckoutSummary({ plan }: { plan: ApiPlan }) {
+  return (
+    <section
+      className="rounded-xl border border-primary/15 bg-primary/[0.035] p-4"
+      aria-label="Resumo do seu pedido"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold tracking-[0.12em] text-primary uppercase">
+            Seu plano
+          </p>
+          <p className="mt-1 font-semibold text-foreground">SIGAPP {plan.name}</p>
+        </div>
+        <div className="text-right">
+          <p className="font-mono text-lg font-bold text-foreground">
+            {plan.formatted_price}
+          </p>
+          <p className="text-xs text-muted-foreground">por mês</p>
+        </div>
+      </div>
+      <div className="mt-3 flex items-center gap-2 border-t border-primary/10 pt-3 text-xs text-muted-foreground">
+        <Check className="size-3.5 shrink-0 text-(--color-data-green)" />
+        {plan.trial_days} dias de avaliação antes da primeira cobrança
+      </div>
+    </section>
   )
 }
 
