@@ -20,41 +20,32 @@ export function CTAFinalSection() {
   return (
     <section
       id="cta-final"
-      className="relative mt-10 overflow-hidden rounded-t-[2.5rem] bg-(--color-brand-navy) pt-24 pb-16 text-white md:mt-16 md:rounded-t-[3.5rem] md:pt-28 md:pb-20"
+      className="relative mt-8 overflow-hidden rounded-t-[2rem] bg-(--color-brand-navy) pt-20 pb-14 text-white md:mt-12 md:rounded-t-[2.75rem] md:pt-28 md:pb-16"
     >
-      <CadastralMapBackdrop className="brand-map--dark opacity-75" />
-      <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-35" />
-      <div className="grain-overlay opacity-[0.07]" />
-      <div className="pointer-events-none absolute -top-32 left-1/3 size-[34rem] rounded-full bg-primary/16 blur-3xl" />
-      <div className="pointer-events-none absolute top-0 right-0 h-px w-2/3 bg-linear-to-l from-secondary/60 to-transparent" />
+      <CadastralMapBackdrop className="brand-map--dark opacity-70" />
+      <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-28" />
+      <div className="grain-overlay opacity-[0.06]" />
 
       <div className="container-landing relative">
-        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-14">
           <ScrollReveal
             stagger
-            className="flex flex-col items-start lg:col-span-7"
+            className="flex min-w-0 flex-col items-start lg:col-span-7"
           >
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="eyebrow text-secondary">
-                {CTA_FINAL_COPY.eyebrow}
-              </span>
-              <span className="coord rounded-full border border-white/14 bg-white/7 px-3 py-1.5 text-white/50 backdrop-blur">
-                Demo 01 · caso real
-              </span>
-            </div>
+            <p className="eyebrow text-secondary">{CTA_FINAL_COPY.eyebrow}</p>
 
-            <h2 className="mt-7 max-w-[12ch] font-heading text-4xl leading-[0.98] font-bold tracking-[-0.045em] text-balance text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+            <h2 className="mt-6 max-w-[14ch] font-heading text-4xl leading-[0.98] font-bold tracking-[-0.045em] text-balance text-white sm:text-5xl lg:text-6xl">
               {CTA_FINAL_COPY.title}
             </h2>
 
-            <p className="mt-6 max-w-[46rem] text-base leading-relaxed text-white/68 sm:text-lg">
+            <p className="mt-5 max-w-[40rem] text-base leading-relaxed text-white/65 sm:text-lg">
               {CTA_FINAL_COPY.description}
             </p>
 
-            <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <div className="mt-8 flex w-full flex-col items-stretch gap-4 sm:w-auto sm:flex-row sm:items-center">
               <Button
                 size="lg"
-                className="group/cta h-13 w-full gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-[0_18px_50px_-18px_rgba(46,107,255,0.9)] hover:bg-primary/90 active:scale-[0.98] sm:w-auto"
+                className="group/cta h-13 w-full gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-cta hover:bg-primary/90 sm:w-auto"
                 nativeButton={false}
                 render={
                   <Link
@@ -70,31 +61,23 @@ export function CTAFinalSection() {
                 </span>
               </Button>
 
-              <Button
-                variant="ghost-white"
-                size="lg"
-                className="h-13 w-full gap-2.5 rounded-full border border-white/16 bg-white/6 px-6 text-base backdrop-blur sm:w-auto"
-                nativeButton={false}
-                render={
-                  <a
-                    href={LINKS.sales}
-                    data-analytics-event="sales_contact_click"
-                    data-analytics-location="cta-final"
-                  />
-                }
+              <a
+                href={LINKS.sales}
+                data-analytics-event="sales_contact_click"
+                data-analytics-location="cta-final"
+                className="cta-link justify-center text-white/72 hover:text-white sm:justify-start"
               >
                 {CTA_FINAL_COPY.secondaryCta}
-              </Button>
+              </a>
             </div>
           </ScrollReveal>
 
-          <ScrollReveal className="lg:col-span-5">
-            <div className="relative overflow-hidden rounded-[2rem] border border-white/14 bg-white/[0.065] p-5 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-6">
-              <div className="pointer-events-none absolute inset-0 bg-linear-to-br from-white/8 via-transparent to-primary/8" />
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/45 to-transparent" />
+          <ScrollReveal className="min-w-0 lg:col-span-5">
+            <div className="relative overflow-hidden rounded-2xl border border-white/12 bg-white/[0.055] p-5 backdrop-blur-xl sm:p-6">
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/40 to-transparent" />
 
-              <div className="relative flex items-start justify-between gap-5 border-b border-white/12 pb-5">
-                <div>
+              <div className="relative flex items-start justify-between gap-4 border-b border-white/12 pb-5">
+                <div className="min-w-0">
                   <p className="coord text-secondary">Demonstração guiada</p>
                   <h3 className="mt-2 font-heading text-xl font-bold tracking-tight text-white sm:text-2xl">
                     Um terreno. O fluxo inteiro.
@@ -108,7 +91,7 @@ export function CTAFinalSection() {
                 </div>
               </div>
 
-              <ol className="relative mt-2">
+              <ol className="relative mt-1">
                 {DEMO_PAGE.sidePoints.map((point, index) => {
                   const Icon = DEMO_ICONS[index]
 
@@ -120,7 +103,7 @@ export function CTAFinalSection() {
                       <span className="flex size-10 items-center justify-center rounded-xl border border-white/10 bg-white/7 text-secondary">
                         <Icon className="size-4" strokeWidth={1.75} />
                       </span>
-                      <div>
+                      <div className="min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="data-mono text-[10px] text-white/32">
                             0{index + 1}
@@ -129,7 +112,7 @@ export function CTAFinalSection() {
                             {point.title}
                           </p>
                         </div>
-                        <p className="mt-1 text-xs leading-relaxed text-white/52 sm:text-sm">
+                        <p className="mt-1 text-xs leading-relaxed text-white/50 sm:text-sm">
                           {point.text}
                         </p>
                       </div>
@@ -141,22 +124,19 @@ export function CTAFinalSection() {
           </ScrollReveal>
         </div>
 
-        <ScrollReveal
-          stagger
-          className="mt-16 grid divide-y divide-white/10 border-y border-white/12 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
-        >
+        <div className="mt-14 grid gap-0 border-y border-white/12 sm:grid-cols-3">
           {trustItems.map((item, index) => (
             <div
               key={item}
-              className="flex items-center gap-3 py-4 sm:px-6 first:sm:pl-0 last:sm:pr-0"
+              className="flex items-center gap-3 border-b border-white/10 py-4 last:border-0 sm:border-b-0 sm:border-r sm:px-6 sm:last:border-r-0 first:sm:pl-0 last:sm:pr-0"
             >
               <span className="data-mono text-[10px] font-bold text-secondary">
                 0{index + 1}
               </span>
-              <span className="text-sm font-medium text-white/62">{item}</span>
+              <span className="text-sm font-medium text-white/58">{item}</span>
             </div>
           ))}
-        </ScrollReveal>
+        </div>
       </div>
     </section>
   )

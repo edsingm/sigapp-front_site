@@ -30,6 +30,7 @@ pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.production.example
 
 # typescript
 *.tsbuildinfo
@@ -41,5 +42,4 @@ docker-compose.yml
 # others
 .agents/
 .claude/
-
 

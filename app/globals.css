@@ -1,3 +1,8 @@
+/* Hallmark · genre: modern-minimal · macrostructure: Map / Diagram
+ * tone: technical + austere cartography · design-system: design.md · designed-as-app
+ * nav: N10 scroll-morph · footer: Ft5 Statement · enrichment: map/dossier
+ * pre-emit critique: P5 H4 E5 S4 R4 V4
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -144,18 +149,27 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    @apply font-sans;
+    overflow-x: clip;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
   body {
     @apply bg-background text-foreground;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  html {
-    @apply font-sans;
-    scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-style: normal;
   }
 }
 
@@ -190,6 +204,61 @@
       padding-left: 4rem;
       padding-right: 4rem;
     }
+  }
+
+  /* Section display heading — single H2 scale across the landing */
+  .section-display {
+    font-family: var(--font-heading), var(--font-sans), sans-serif;
+    font-size: clamp(1.875rem, 1.4rem + 1.6vw, 3rem);
+    font-weight: 700;
+    font-style: normal;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+    min-width: 0;
+  }
+
+  /* Secondary CTA — typographic, never equal weight to primary fill */
+  .cta-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: inherit;
+    text-underline-offset: 0.2em;
+    transition: color 220ms var(--motion-ease-out, cubic-bezier(0.2, 0.8, 0.2, 1));
+  }
+  .cta-link:hover {
+    color: var(--primary);
+  }
+  .cta-link:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  /* Legend strip — product metrics as map legend, not marketing card wall */
+  .legend-strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--border);
+  }
+  @media (min-width: 1024px) {
+    .legend-strip {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .legend-strip > * {
+    background: var(--card);
+    min-width: 0;
   }
 }
 
@@ -308,23 +377,53 @@
   }
 }
 
-/* ─── HowItWorks — rota cartográfica entre os passos (md+) ────────────────── */
+/* ─── HowItWorks — rota cartográfica espacial (Map / Diagram) ─────────────── */
 .hiw-route {
   fill: none;
-  stroke: color-mix(in oklch, var(--primary) 35%, transparent);
-  stroke-width: 1.5;
-  stroke-dasharray: 5 10;
+  stroke: color-mix(in oklch, var(--primary) 42%, transparent);
+  stroke-width: 1.75;
+  stroke-dasharray: 6 11;
   stroke-linecap: round;
+}
+.hiw-node {
+  transition:
+    transform 320ms var(--motion-ease-out, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    border-color 220ms ease,
+    box-shadow 320ms ease;
+}
+.hiw-node:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in oklch, var(--primary) 28%, var(--border));
 }
 @media (prefers-reduced-motion: no-preference) {
   .hiw-route {
-    animation: hiw-route-dash 9s linear infinite;
+    animation: hiw-route-dash 10s linear infinite;
   }
   @keyframes hiw-route-dash {
     to {
-      stroke-dashoffset: -60;
+      stroke-dashoffset: -68;
     }
   }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hiw-node:hover {
+    transform: none;
+  }
+  .hiw-route {
+    animation: none;
+  }
+}
+
+/* N10 — floating surface after scroll */
+.nav-morph-shell {
+  transition:
+    max-width 320ms var(--motion-ease-out, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    border-radius 320ms var(--motion-ease-out, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    box-shadow 320ms var(--motion-ease-out, cubic-bezier(0.2, 0.8, 0.2, 1)),
+    background-color 280ms ease,
+    border-color 280ms ease,
+    margin 280ms ease,
+    padding 280ms ease;
 }
 
 /* Reveal escalonado dos itens do menu mobile */

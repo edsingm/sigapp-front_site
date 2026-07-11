@@ -177,7 +177,7 @@ export function BentoSection() {
         >
           <div className="flex flex-col gap-4 lg:col-span-5">
             <SectionLabel>Capacidades</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="section-display text-foreground">
               Cada terreno, um dossiê vivo de decisão
             </h2>
           </div>

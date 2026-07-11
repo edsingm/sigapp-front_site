@@ -8,26 +8,36 @@ type NavScrollClientProps = {
   overlay?: boolean
 }
 
-/** Barra full-width: transparente no topo, sólida ao rolar. */
+/**
+ * N10 scroll-morph: full-bleed on top; denser floating surface after scroll.
+ * data-scrolled drives child styles via group-data selectors.
+ */
 export function NavScrollClient({
   children,
   overlay = false,
 }: NavScrollClientProps) {
-  const scrolled = useScrollPosition(16)
+  const scrolled = useScrollPosition(20)
 
   return (
     <header
       data-scrolled={scrolled ? "true" : "false"}
       className={cn(
-        "group/nav fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
-        scrolled
-          ? "border-b border-border/80 bg-background/90 shadow-[0_1px_0_0_color-mix(in_oklch,var(--color-brand-navy)_6%,transparent)] backdrop-blur-xl dark:border-white/10 dark:bg-(--color-brand-navy)/92 dark:shadow-none"
-          : overlay
-            ? "border-b border-white/8 bg-(--color-brand-navy)/10 backdrop-blur-[2px]"
-            : "border-b border-transparent bg-background/70 backdrop-blur-md dark:bg-(--color-brand-navy)/70"
+        "group/nav fixed inset-x-0 top-0 z-50 transition-[padding] duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]",
+        scrolled ? "px-3 pt-2 sm:px-4 sm:pt-3" : "px-0 pt-0"
       )}
     >
-      {children}
+      <div
+        className={cn(
+          "nav-morph-shell mx-auto w-full",
+          scrolled
+            ? "max-w-[72rem] rounded-2xl border border-border/80 bg-background/92 shadow-raise backdrop-blur-xl dark:border-white/10 dark:bg-(--color-brand-navy)/94 dark:shadow-none"
+            : overlay
+              ? "max-w-none border border-transparent bg-transparent"
+              : "max-w-none border-b border-border/60 bg-background/80 backdrop-blur-md dark:border-white/8 dark:bg-(--color-brand-navy)/78"
+        )}
+      >
+        {children}
+      </div>
     </header>
   )
 }

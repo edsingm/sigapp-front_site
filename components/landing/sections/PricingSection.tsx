@@ -17,7 +17,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
   return (
     <section
       id="precos"
-      className="relative overflow-hidden border-y border-border bg-background py-16 sm:py-20 md:py-32"
+      className="relative overflow-hidden border-y border-border bg-background py-16 sm:py-20 md:py-28"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[46rem] bg-(--color-brand-navy) sm:h-[42rem]">
         <div className="grain-overlay opacity-[0.065]" />
@@ -34,7 +34,7 @@ export function PricingSection({ plans }: PricingSectionProps) {
             <SectionLabel className="text-secondary">
               Planos e preços
             </SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.02] font-bold tracking-tight text-balance text-white md:text-4xl lg:text-5xl">
+            <h2 className="section-display text-white">
               Escolha o ritmo certo para sua operação
             </h2>
           </div>

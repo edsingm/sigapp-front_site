@@ -1,13 +1,15 @@
-import { FEATURES } from "@/lib/landing-data"
+import { Check } from "lucide-react"
+
+import { MockReveal } from "@/components/landing/client/MockReveal"
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
+import { ChatMock } from "@/components/landing/mocks/ChatMock"
+import { PermissionsMock } from "@/components/landing/mocks/PermissionsMock"
+import { ViabilityMock } from "@/components/landing/mocks/ViabilityMock"
+import { WorkflowMock } from "@/components/landing/mocks/WorkflowMock"
 import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
 import { SectionLabel } from "@/components/landing/ui/SectionLabel"
-import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
-import { MockReveal } from "@/components/landing/client/MockReveal"
-import { Check } from "lucide-react"
-import { ViabilityMock } from "@/components/landing/mocks/ViabilityMock"
-import { ChatMock } from "@/components/landing/mocks/ChatMock"
-import { WorkflowMock } from "@/components/landing/mocks/WorkflowMock"
-import { PermissionsMock } from "@/components/landing/mocks/PermissionsMock"
+import { FEATURES } from "@/lib/landing-data"
+import { cn } from "@/lib/utils"
 
 const MOCK_COMPONENTS = {
   viability: ViabilityMock,
@@ -27,27 +29,26 @@ export function FeaturesZigzag() {
   return (
     <section
       id="funcionalidades"
-      className="relative overflow-hidden py-16 sm:py-20 md:py-32"
+      className="relative overflow-hidden py-16 sm:py-20 md:py-28"
     >
-      <div className="pointer-events-none absolute top-0 left-1/2 h-64 w-[70rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
       <div className="container-landing relative">
         <ScrollReveal
           stagger
-          className="mb-16 grid gap-6 md:mb-24 lg:grid-cols-12 lg:items-end"
+          className="mb-14 grid gap-5 md:mb-20 lg:grid-cols-12 lg:items-end"
         >
-          <div className="flex flex-col gap-4 lg:col-span-5">
+          <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
             <SectionLabel>Capacidades</SectionLabel>
-            <h2 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
+            <h2 className="section-display text-foreground">
               O que o dossiê carrega do primeiro contato ao registro
             </h2>
           </div>
-          <p className="max-w-[52ch] text-muted-foreground md:text-lg lg:col-span-7 lg:justify-self-end">
+          <p className="max-w-[48ch] text-muted-foreground md:text-lg lg:col-span-7 lg:justify-self-end">
             Viabilidade, assistente de domínio, pipeline e permissões — o
             necessário para a equipe decidir sem repassar contexto.
           </p>
         </ScrollReveal>
 
-        <div className="flex flex-col gap-6 md:gap-8">
+        <div className="flex flex-col gap-8 md:gap-12">
           {FEATURES.map((feature, index) => {
             const MockComponent = MOCK_COMPONENTS[feature.mock]
             const isRight = feature.side === "right"
@@ -56,21 +57,30 @@ export function FeaturesZigzag() {
             return (
               <ScrollReveal
                 key={feature.id}
-                className={`grid items-center gap-10 overflow-hidden rounded-[2rem] border border-border bg-card/75 p-5 shadow-raise backdrop-blur-sm sm:p-8 lg:grid-cols-2 lg:gap-16 lg:p-10 ${
-                  isRight ? "" : "lg:[&>*:first-child]:order-last"
-                }`}
+                className={cn(
+                  "grid items-center gap-8 border-t border-border pt-10 sm:gap-10 lg:grid-cols-2 lg:gap-14 lg:pt-14",
+                  index === 0 && "border-t-0 pt-0 lg:pt-0"
+                )}
               >
                 <div
-                  className={`flex flex-col gap-5 ${isRight ? "" : "lg:order-last"}`}
+                  className={cn(
+                    "flex min-w-0 flex-col gap-4",
+                    !isRight && "lg:order-last"
+                  )}
                 >
-                  <EyebrowBadge variant="brand">{feature.eyebrow}</EyebrowBadge>
-                  <h3 className="font-heading text-2xl leading-[1.1] font-bold tracking-tight text-balance text-foreground md:text-3xl lg:text-4xl">
+                  <div className="flex items-center gap-3">
+                    <span className="data-mono text-[11px] font-bold text-muted-foreground/50">
+                      0{index + 1}
+                    </span>
+                    <EyebrowBadge variant="brand">{feature.eyebrow}</EyebrowBadge>
+                  </div>
+                  <h3 className="font-heading text-2xl leading-[1.1] font-bold tracking-tight text-balance text-foreground md:text-3xl">
                     {feature.title}
                   </h3>
-                  <p className="max-w-[48ch] leading-relaxed text-muted-foreground md:text-lg">
+                  <p className="max-w-[46ch] leading-relaxed text-muted-foreground md:text-lg">
                     {feature.description}
                   </p>
-                  <ul className="mt-1 flex flex-col gap-3">
+                  <ul className="mt-1 flex flex-col gap-2.5">
                     {feature.bullets.map((bullet) => (
                       <li key={bullet} className="flex items-start gap-3">
                         <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -84,18 +94,20 @@ export function FeaturesZigzag() {
                   </ul>
                 </div>
 
-                <div className={`relative ${isRight ? "lg:order-last" : ""}`}>
+                <div
+                  className={cn(
+                    "relative min-w-0",
+                    isRight ? "lg:order-last" : ""
+                  )}
+                >
                   {isAnchor ? (
-                    <>
-                      <div className="pointer-events-none absolute -inset-6 rounded-[2.5rem] bg-[radial-gradient(60%_60%_at_50%_40%,rgba(11,30,57,0.06),transparent_72%)]" />
-                      <div className="card-bezel relative shadow-float">
-                        <div className="card-bezel__core overflow-hidden p-2">
-                          <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>
-                            <MockComponent />
-                          </MockReveal>
-                        </div>
+                    <div className="card-bezel relative shadow-float">
+                      <div className="card-bezel__core overflow-hidden p-2">
+                        <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>
+                          <MockComponent />
+                        </MockReveal>
                       </div>
-                    </>
+                    </div>
                   ) : (
                     <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-panel">
                       <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>

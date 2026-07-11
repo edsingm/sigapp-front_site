@@ -3,10 +3,11 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
+
 import { NavScrollClient } from "@/components/landing/client/NavScrollClient"
 import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
-import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { LINKS, NAV_LINKS } from "@/lib/landing-data"
 
@@ -23,8 +24,9 @@ function NavBrand({
       aria-label="SIGAPP — início"
       onClick={onNavigate}
       className={cn(
-        "relative z-10 shrink-0",
-        overlay && "rounded-xl bg-white/94 px-2 py-1 shadow-lg shadow-black/10"
+        "relative z-10 shrink-0 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        overlay &&
+          "group-data-[scrolled=false]/nav:rounded-xl group-data-[scrolled=false]/nav:bg-white/94 group-data-[scrolled=false]/nav:px-2 group-data-[scrolled=false]/nav:py-1 group-data-[scrolled=false]/nav:shadow-lg group-data-[scrolled=false]/nav:shadow-black/10"
       )}
     >
       <Image
@@ -66,7 +68,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
     <>
       <NavScrollClient overlay={overlay}>
         <div className="container-landing">
-          <div className="flex h-16 items-center gap-4 sm:h-[4.25rem] sm:gap-6">
+          <div className="flex h-14 items-center gap-3 sm:h-16 sm:gap-5">
             <NavBrand onNavigate={close} overlay={overlay} />
 
             <nav
@@ -78,7 +80,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    "group relative inline-flex h-10 items-center px-3.5 text-[13px] font-medium tracking-tight text-muted-foreground transition-colors hover:text-foreground dark:text-white/70 dark:hover:text-white",
+                    "group relative inline-flex h-10 items-center whitespace-nowrap px-3 text-[13px] font-medium tracking-tight text-muted-foreground transition-colors hover:text-foreground dark:text-white/70 dark:hover:text-white",
                     overlay &&
                       "group-data-[scrolled=false]/nav:text-white/72 group-data-[scrolled=false]/nav:hover:text-white"
                   )}
@@ -86,7 +88,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
                   {link.label}
                   <span
                     className={cn(
-                      "absolute inset-x-3.5 bottom-2 h-px origin-left scale-x-0 bg-foreground/80 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-x-100 dark:bg-white/80",
+                      "absolute inset-x-3 bottom-2 h-px origin-left scale-x-0 bg-foreground/80 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover:scale-x-100 dark:bg-white/80",
                       overlay && "group-data-[scrolled=false]/nav:bg-white/80"
                     )}
                   />
@@ -100,7 +102,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
                 data-analytics-event="login_click"
                 data-analytics-location="nav"
                 className={cn(
-                  "hidden h-10 items-center px-3 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground md:inline-flex dark:text-white/70 dark:hover:text-white",
+                  "hidden h-10 items-center whitespace-nowrap px-3 text-[13px] font-medium text-muted-foreground transition-colors hover:text-foreground md:inline-flex dark:text-white/70 dark:hover:text-white",
                   overlay &&
                     "group-data-[scrolled=false]/nav:text-white/72 group-data-[scrolled=false]/nav:hover:text-white"
                 )}
@@ -117,7 +119,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
               <Button
                 variant="brand"
                 size="lg"
-                className="group/cta hidden h-10 gap-2 rounded-full pr-1.5 pl-4 text-[13px] font-semibold sm:inline-flex"
+                className="group/cta hidden h-10 gap-2 rounded-full pr-1.5 pl-4 text-[13px] font-semibold whitespace-nowrap sm:inline-flex"
                 nativeButton={false}
                 render={
                   <Link
@@ -171,7 +173,6 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
         </div>
       </NavScrollClient>
 
-      {/* Menu mobile — cobre a viewport inteira (acima da nav) */}
       <div
         id="mobile-nav"
         className={cn(
@@ -185,7 +186,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
         <div className="grain-overlay opacity-[0.06]" />
         <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-40" />
 
-        <div className="container-landing relative flex h-16 items-center justify-between sm:h-[4.25rem]">
+        <div className="container-landing relative flex h-16 items-center justify-between">
           <NavBrand onNavigate={close} overlay />
           <button
             type="button"
@@ -230,7 +231,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
               data-analytics-event="login_click"
               data-analytics-location="nav-mobile"
               onClick={close}
-              className="text-sm font-medium text-white/70 transition-colors hover:text-white"
+              className="text-sm font-medium whitespace-nowrap text-white/70 transition-colors hover:text-white"
             >
               Entrar na conta
             </a>
