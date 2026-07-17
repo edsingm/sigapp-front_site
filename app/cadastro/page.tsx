@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+// Esta rota depende da API interna, indisponível durante o build do container.
+export const dynamic = "force-dynamic"
+
 type SearchParams = Promise<Record<string, string | string[] | undefined>>
 
 export default async function CadastroPage({
