@@ -1,200 +1,222 @@
 import Link from "next/link"
-import { ArrowDown, ArrowRight, ScanLine } from "lucide-react"
+import {
+  ArrowDown,
+  ArrowRight,
+  Check,
+  Crosshair,
+  MapPinned,
+  Sparkles,
+} from "lucide-react"
 
-import { HeroBackgroundVideo } from "@/components/landing/client/HeroBackgroundVideo"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
 import { HERO_COPY, HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
 
-function TerrainMetric({ label, value }: { label: string; value: string }) {
+type StageNodeProps = {
+  index: number
+  label: string
+  state: string
+}
+
+function StageNode({ index, label, state }: StageNodeProps) {
+  const status = index < 2 ? "complete" : index === 2 ? "active" : "next"
+
   return (
-    <div className="min-w-0 border-l border-white/12 pl-3 first:border-0 first:pl-0">
-      <p className="coord text-white/42">{label}</p>
-      <p className="data-mono mt-1 truncate text-sm font-bold text-white">
-        {value}
-      </p>
-    </div>
+    <li className="hero-stage-node" data-status={status}>
+      <span className="hero-stage-marker" aria-hidden="true">
+        {status === "complete" ? <Check /> : `0${index + 1}`}
+      </span>
+      <span className="min-w-0">
+        <strong>{label}</strong>
+        <small className="hidden sm:block">{state}</small>
+      </span>
+    </li>
   )
 }
 
-function TerrainReadout({ className }: { className?: string }) {
+function DecisionInstrument() {
   const { panel } = HERO_COPY
 
   return (
-    <aside
-      aria-label="Leitura territorial de exemplo"
-      className={cn(
-        "relative overflow-hidden rounded-2xl border border-white/14 bg-(--color-brand-navy)/62 p-4 shadow-2xl shadow-black/25 backdrop-blur-xl sm:p-5",
-        className
-      )}
-    >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/40 to-transparent" />
-
-      <div className="relative flex items-start justify-between gap-4">
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="relative flex size-2">
-              <span className="relative inline-flex size-2 rounded-full bg-(--color-data-green)" />
-            </span>
-            <p className="coord text-white/55">Leitura territorial ativa</p>
-          </div>
-          <p className="mt-3 max-w-[18rem] font-heading text-base leading-snug font-semibold text-white sm:text-lg">
-            {panel.sectorName}
+    <aside className="hero-instrument" aria-label={panel.eyebrow}>
+      <div className="hero-instrument-heading">
+        <div>
+          <p className="hero-instrument-kicker">
+            <Crosshair aria-hidden="true" />
+            {panel.eyebrow}
           </p>
+          <h2>{panel.sectorName}</h2>
         </div>
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl border border-white/12 bg-white/8 text-secondary">
-          <ScanLine className="size-4" />
-        </div>
-      </div>
-
-      <div className="relative mt-4 flex items-center justify-between gap-3 border-t border-white/12 pt-3">
-        <span className="data-mono text-[10px] text-white/48">
-          {panel.coords}
-        </span>
-        <span className="rounded-full bg-(--color-data-green)/14 px-2.5 py-1 text-[10px] font-bold text-(--color-data-green)">
+        <span className="hero-live-status">
+          <span aria-hidden="true" />
           {panel.status}
         </span>
       </div>
 
-      <div className="relative mt-4 grid grid-cols-3 gap-3 border-t border-white/12 pt-4">
-        <TerrainMetric label="TIR" value={panel.tir} />
-        <TerrainMetric label="Área" value={panel.area} />
-        <TerrainMetric label="VGV" value={panel.vgv} />
+      <div className="hero-map-window">
+        <div className="hero-map-grid" aria-hidden="true" />
+        <div className="hero-scan-beam" aria-hidden="true" />
+
+        <svg
+          viewBox="0 0 720 380"
+          preserveAspectRatio="xMidYMid slice"
+          className="hero-map-drawing"
+          aria-hidden="true"
+          fill="none"
+        >
+          <path d="M-40 92C95 32 188 98 294 60s208-48 319 9 187 21 220-11" />
+          <path d="M-28 286c134-43 219 11 339-35 115-44 205-25 319 25 89 39 154 33 202 9" />
+          <path d="m92 68 142-33 95 73-42 128-148 35-94-76Z" />
+          <path d="m330 107 165-46 118 91-49 151-174 32-104-98Z" />
+          <path d="m495 61-43 131 112 111M330 107l122 85-62 143M45 195l156-27 86 68" />
+          <path
+            className="hero-map-route"
+            d="M112 222C214 158 286 238 374 178c85-59 132-36 208-7"
+            strokeDasharray="5 12"
+          />
+          <circle className="hero-map-halo" cx="374" cy="178" r="34" />
+          <circle className="hero-map-point" cx="374" cy="178" r="6" />
+          <circle
+            className="hero-map-point hero-map-point--secondary"
+            cx="112"
+            cy="222"
+            r="4"
+          />
+          <circle
+            className="hero-map-point hero-map-point--secondary"
+            cx="582"
+            cy="171"
+            r="4"
+          />
+        </svg>
+
+        <div className="hero-decision-signal">
+          <span>
+            <Sparkles aria-hidden="true" />
+            {panel.signal}
+          </span>
+          <strong>{panel.tir}</strong>
+          <small>{panel.metrics[0].label}</small>
+        </div>
+
+        <div className="hero-map-caption">
+          <MapPinned aria-hidden="true" />
+          {panel.coords}
+        </div>
       </div>
+
+      <dl className="hero-signal-metrics">
+        {panel.metrics.map((metric) => (
+          <div key={metric.label}>
+            <dt>{metric.label}</dt>
+            <dd>{metric.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="hero-progress-heading">
+        <span>{panel.progress}</span>
+        <span>{panel.progressIndex}</span>
+      </div>
+      <ol className="hero-stage-list">
+        {panel.stages.map((stage, index) => (
+          <StageNode
+            key={stage.label}
+            index={index}
+            label={stage.label}
+            state={stage.state}
+          />
+        ))}
+      </ol>
     </aside>
   )
 }
 
 export function HeroSection() {
   return (
-    <section
-      id="hero"
-      className="relative min-h-[100svh] overflow-hidden bg-(--color-brand-navy) text-white"
-    >
-      <HeroBackgroundVideo />
+    <section id="hero" className="hero-stage">
+      <div className="hero-ambient hero-ambient--lime" aria-hidden="true" />
+      <div className="hero-ambient hero-ambient--cyan" aria-hidden="true" />
+      <div className="hero-background-grid" aria-hidden="true" />
+      <div className="hero-noise" aria-hidden="true" />
 
-      <div className="absolute inset-0 bg-linear-to-r from-(--color-brand-navy)/96 via-(--color-brand-navy)/68 to-(--color-brand-navy)/18" />
-      <div className="absolute inset-0 bg-linear-to-t from-(--color-brand-navy)/88 via-transparent to-(--color-brand-navy)/48" />
-      <div className="grain-overlay opacity-[0.07]" />
-
-      {/* Spatial diagram — parcel language, not decoration */}
       <svg
-        viewBox="0 0 1200 800"
+        viewBox="0 0 1440 900"
         preserveAspectRatio="xMidYMid slice"
+        className="hero-background-routes"
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 h-full w-full"
         fill="none"
       >
-        <path
-          d="M730 198 930 154 1085 238 1038 447 856 498 684 406Z"
-          className="fill-primary/12 stroke-secondary/75"
-          strokeWidth="1.5"
-        />
-        <path
-          d="M730 198 824 352 684 406M930 154 902 470M1085 238 910 338 1038 447"
-          className="stroke-white/18"
-          strokeWidth="1"
-        />
-        <circle cx="866" cy="344" r="5" className="fill-white" />
-        <circle
-          cx="866"
-          cy="344"
-          r="18"
-          className="fill-none stroke-white/25"
-          strokeWidth="1"
-        />
-        <path
-          d="M604 528C742 470 840 534 970 474 1048 438 1114 432 1190 454"
-          className="hero-route-line stroke-secondary/65"
-          strokeWidth="1.5"
-          strokeDasharray="6 12"
-          strokeLinecap="round"
-        />
+        <path d="M-80 744C244 568 394 741 675 570c263-160 424-78 622-218 110-78 188-130 253-254" />
+        <path d="M-65 798C259 622 434 816 718 635c249-159 407-86 621-249" />
       </svg>
 
-      <div className="container-landing relative z-10 flex min-h-[100svh] flex-col pt-24 pb-6 sm:pt-28 sm:pb-8 lg:pt-28">
-        <div className="flex flex-1 items-center">
-          <div className="max-w-[42rem] min-w-0 pb-8 lg:pb-12">
-            <p className="eyebrow text-secondary">{HERO_COPY.eyebrow}</p>
+      <div className="container-landing relative z-10 flex min-h-[100svh] flex-col pt-24 pb-6 sm:pt-28 sm:pb-8 lg:pt-32">
+        <div className="grid flex-1 items-center gap-12 py-8 lg:grid-cols-[minmax(0,0.94fr)_minmax(27rem,0.86fr)] lg:gap-12 lg:py-10 xl:gap-20">
+          <div className="hero-copy max-w-[44rem]">
+            <p className="hero-eyebrow hero-enter">
+              <span aria-hidden="true" />
+              {HERO_COPY.eyebrow}
+            </p>
 
-            <h1 className="mt-5 font-heading text-[2.65rem] leading-[0.96] font-bold tracking-[-0.05em] text-balance text-white sm:text-6xl lg:text-7xl xl:text-[5rem]">
-              <span className="block">{HERO_COPY.titleLine1}</span>
-              <span className="mt-1.5 block text-white/92">
-                {HERO_COPY.titleLine2}
-              </span>
+            <h1 className="hero-title hero-enter hero-enter--delay-1">
+              <span>{HERO_COPY.titleLine1}</span>
+              <strong>{HERO_COPY.titleLine2}</strong>
             </h1>
 
-            <p className="mt-6 max-w-[38rem] text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="hero-description hero-enter hero-enter--delay-2">
               {HERO_COPY.description}
             </p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-              <Button
-                size="lg"
-                className="group/cta h-13 w-full gap-2 rounded-full bg-primary pr-2 pl-6 text-base font-semibold text-white shadow-cta hover:bg-primary/90 sm:w-auto"
-                nativeButton={false}
-                render={
-                  <Link
-                    href={LINKS.demo}
-                    data-analytics-event="demo_request"
-                    data-analytics-location="hero"
-                  />
-                }
+            <div className="hero-actions hero-enter hero-enter--delay-3">
+              <Link
+                href={LINKS.demo}
+                data-analytics-event="demo_request"
+                data-analytics-location="hero"
+                className="hero-primary-action"
               >
                 {HERO_COPY.primaryCta}
-                <span className="flex size-9 items-center justify-center rounded-full bg-white/18 transition-transform duration-300 group-hover/cta:translate-x-0.5">
-                  <ArrowRight className="size-4" />
+                <span aria-hidden="true">
+                  <ArrowRight />
                 </span>
-              </Button>
+              </Link>
 
               <Link
                 href="/#como-funciona"
                 data-analytics-event="features_view_click"
                 data-analytics-location="hero"
-                className="cta-link justify-center text-white/78 hover:text-white sm:justify-start"
+                className="hero-secondary-action"
               >
                 {HERO_COPY.secondaryCta}
-                <ArrowDown className="size-3.5 opacity-70" />
+                <ArrowDown aria-hidden="true" />
               </Link>
             </div>
 
-            <dl className="mt-9 grid grid-cols-3 gap-0 border-t border-white/12 pt-5">
-              {HERO_PROOF_ITEMS.map((item, i) => (
-                <div
-                  key={item.label}
-                  className={cn(
-                    "min-w-0 pr-3",
-                    i > 0 && "border-l border-white/12 pl-3 sm:pl-4"
-                  )}
-                >
-                  <dt className="coord text-white/40">{item.label}</dt>
-                  <dd className="mt-1 text-xs leading-snug font-semibold text-white/88 sm:text-sm">
-                    {item.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+            <p className="hero-audience hero-enter hero-enter--delay-4">
+              <span aria-hidden="true" />
+              {HERO_COPY.audience}
+            </p>
+          </div>
+
+          <div className="hero-visual hero-enter hero-enter--visual mx-auto w-full max-w-[38rem] lg:max-w-none">
+            <DecisionInstrument />
           </div>
         </div>
 
-        <TerrainReadout className="mb-5 lg:absolute lg:top-1/2 lg:right-10 lg:mb-0 lg:w-[19.5rem] lg:-translate-y-1/2 xl:right-14 xl:w-[20.5rem]" />
+        <div className="hero-bottom-rail hidden lg:flex">
+          <dl className="hero-proof-list">
+            {HERO_PROOF_ITEMS.map((item, index) => (
+              <div key={item.label}>
+                <dt>0{index + 1}</dt>
+                <dd>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </dd>
+              </div>
+            ))}
+          </dl>
 
-        <div className="hidden items-center justify-between border-t border-white/12 pt-4 lg:flex">
-          <div className="flex items-center gap-3">
-            <span className="coord text-white/40">Parcela · camada 01</span>
-            <span className="h-px w-12 bg-white/14" />
-            <span className="data-mono text-[10px] text-white/38">
-              {HERO_COPY.panel.coords}
-            </span>
-          </div>
-          <Link
-            href="/#como-funciona"
-            className="group/scroll flex items-center gap-2 text-xs font-medium text-white/55 transition-colors hover:text-white"
-          >
-            Percorrer o dossiê
-            <span className="flex size-8 items-center justify-center rounded-full border border-white/14 bg-white/6">
-              <ArrowDown className="size-3.5 transition-transform group-hover/scroll:translate-y-0.5" />
-            </span>
+          <Link href="/#como-funciona" className="hero-scroll-action">
+            {HERO_COPY.scrollLabel}
+            <ArrowDown aria-hidden="true" />
           </Link>
         </div>
       </div>

@@ -100,30 +100,47 @@ export type MetricItem = {
 
 // Hero — provas rápidas abaixo dos CTAs
 export const HERO_PROOF_ITEMS = [
-  { label: "Dossiê", value: "Único por terreno" },
-  { label: "Viabilidade", value: "DRE · TIR · VPL" },
-  { label: "Governança", value: "Comitê com trilha" },
+  { label: "Ciclo completo", value: "Do terreno à legalização" },
+  { label: "Decisão financeira", value: "DRE · TIR · VPL · cenários" },
+  { label: "Governança real", value: "Comitê e trilha auditável" },
 ]
 
 // Hero — copy centralizado (nunca hardcode em seção)
 export const HERO_COPY = {
-  eyebrow: "Território que vira decisão",
-  titleLine1: "O terreno inteiro.",
-  titleLine2: "Uma decisão só.",
+  eyebrow: "Sistema operacional da incorporação",
+  titleLine1: "Do terreno à decisão.",
+  titleLine2: "Sem pontos cegos.",
   description:
-    "Mapa, parâmetros, DRE e parecer convergem em um dossiê vivo — para analista, direção e jurídico decidirem sobre o mesmo cenário.",
-  primaryCta: "Solicitar demonstração",
-  secondaryCta: "Ver como funciona",
+    "Captação, viabilidade, comitê, negociação e legalização conectados em uma inteligência operacional — para sua equipe decidir com contexto, velocidade e segurança.",
+  primaryCta: "Ver o SIGAPP em ação",
+  secondaryCta: "Explorar a jornada",
+  audience: "Para incorporadoras, loteadoras e construtoras.",
+  scrollLabel: "Descobrir a plataforma",
   panel: {
-    sector: "Parcela em leitura",
-    sectorName: "Residencial · Setor Anhanguera",
-    coords: "23°30′04″S  46°50′31″W",
-    status: "Viável",
+    eyebrow: "Radar de oportunidade",
+    sectorName: "Residencial Aurora · Osasco/SP",
+    coords: "23°31′57″S · 46°47′30″W",
+    status: "Pronto para comitê",
+    signal: "Cenário recomendado",
+    progress: "5 etapas sincronizadas",
+    progressIndex: "03 / 05",
     tir: "18,4%",
     area: "12.480 m²",
     vgv: "R$ 28,4M",
     photoAlt:
       "Vista aérea de quarteirões urbanos com lotes e edificações — leitura territorial",
+    metrics: [
+      { label: "TIR projetada", value: "18,4%" },
+      { label: "Área computável", value: "12.480 m²" },
+      { label: "VGV estimado", value: "R$ 28,4M" },
+    ],
+    stages: [
+      { label: "Captação", state: "Concluída" },
+      { label: "Viabilidade", state: "Validada" },
+      { label: "Comitê", state: "Agora" },
+      { label: "Negociação", state: "Próxima" },
+      { label: "Legalização", state: "Planejada" },
+    ],
   },
 }
 
@@ -137,6 +154,17 @@ export const NAV_LINKS: NavLink[] = [
   { label: "FAQ", href: "/#faq" },
   { label: "Sobre", href: "/sobre" },
 ]
+
+export const NAV_COPY = {
+  productLabel: "Inteligência imobiliária",
+  menuLabel: "Menu",
+  openMenu: "Abrir menu",
+  closeMenu: "Fechar menu",
+  login: "Entrar",
+  mobileLogin: "Entrar na conta",
+  demo: "Agendar demonstração",
+  mobileKicker: "Plataforma para decisões imobiliárias",
+}
 
 export type FooterLink = { label: string; href: string }
 export type FooterGroup = { group: string; links: FooterLink[] }

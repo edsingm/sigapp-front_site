@@ -253,7 +253,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
           </Link>
         </div>
 
-        <div className="mx-auto w-full max-w-md">
+        <div className="mx-auto w-full max-w-xl">
           {/* Resumo compacto (somente mobile) */}
           {selectedPlan && (
             <div className="mb-6 flex items-center justify-between rounded-xl border border-border bg-card p-4 lg:hidden">
