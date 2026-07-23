@@ -9,12 +9,14 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Política de Privacidade — SIGAPP",
+export const metadata: Metadata = createPageMetadata({
+  title: "Política de Privacidade",
   description:
     "Como o SIGAPP coleta, utiliza e protege seus dados pessoais conforme a LGPD.",
-}
+  path: "/legal/privacidade",
+})
 
 const SECTIONS: LegalSection[] = [
   { id: "controlador", title: "1. Controlador e DPO" },

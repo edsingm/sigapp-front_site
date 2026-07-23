@@ -18,7 +18,7 @@ function NavBrand({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <Link
       href="/"
-      aria-label="SIGAPP — início"
+      aria-label={`${SITE.name} ${NAV_COPY.productLabel} — início`}
       onClick={onNavigate}
       className="landing-nav-brand"
     >
@@ -110,13 +110,13 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
   return (
     <>
       <NavScrollClient overlay={overlay}>
-        <div className="container-landing">
+        <div className="container-landing landing-nav-container">
           <div className="landing-nav-row">
             <NavBrand onNavigate={close} />
 
             <nav
               aria-label="Principal"
-              className="landing-nav-links hidden lg:flex"
+              className="landing-nav-links hidden xl:flex"
             >
               {NAV_LINKS.map((link, index) => (
                 <Link key={link.label} href={link.href}>
@@ -150,7 +150,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
                 ref={menuTriggerRef}
                 type="button"
                 onClick={() => setMobileOpen((current) => !current)}
-                className="landing-nav-trigger flex lg:hidden"
+                className="landing-nav-trigger flex xl:hidden"
                 aria-label={mobileOpen ? NAV_COPY.closeMenu : NAV_COPY.openMenu}
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-nav"
@@ -164,7 +164,7 @@ export function LandingNav({ overlay = false }: { overlay?: boolean }) {
 
       <div
         id="mobile-nav"
-        className={cn("landing-mobile-menu lg:hidden", mobileOpen && "is-open")}
+        className={cn("landing-mobile-menu xl:hidden", mobileOpen && "is-open")}
         role="dialog"
         aria-modal="true"
         aria-label={NAV_COPY.menuLabel}

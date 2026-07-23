@@ -1,9 +1,8 @@
 <svg viewBox="0 0 64 64" width="180" height="180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SIGAPP">
   <title>SIGAPP</title>
-  <rect width="64" height="64" fill="#0b1e39"/>
-  <text x="5" y="52" font-family="Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-weight="900" font-size="26" fill="white">S</text>
-  <rect x="29" y="33" width="6" height="19" rx="3" fill="white"/>
-  <path d="M32,27 C28,24 24,22 24,16 A8,8,0,0,1,40,16 C40,22 36,24 32,27 Z" fill="#2e6bff"/>
-  <circle cx="32" cy="14.5" r="3.5" fill="#0b1e39"/>
-  <text x="42" y="52" font-family="Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" font-weight="900" font-size="26" fill="white">G</text>
+  <rect width="64" height="64" fill="#102725"/>
+  <path d="M13 18 31.5 9 51 18.5 43.5 49 20 53 10 39Z" fill="none" stroke="#F5FBF6" stroke-width="3" stroke-linejoin="round"/>
+  <path d="m13 18 18.5 12L51 18.5M31.5 9v21M20 53l11.5-23L43.5 49" fill="none" stroke="#76E87D" stroke-width="3" stroke-linejoin="round"/>
+  <circle cx="31.5" cy="30" r="5" fill="#F5FBF6"/>
+  <circle cx="31.5" cy="30" r="2.25" fill="#102725"/>
 </svg>

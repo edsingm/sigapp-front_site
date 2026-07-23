@@ -1,73 +1,77 @@
+import { MessageSquareQuote, RadioTower } from "lucide-react"
+
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
-import { TestimonialsCarousel } from "@/components/landing/client/TestimonialsCarousel"
-import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import { TESTIMONIALS, TESTIMONIALS_COPY } from "@/lib/landing-data"
 
 export function TestimonialsSection() {
-  const [lead, ...rest] = TESTIMONIALS
-
   return (
-    <section className="relative overflow-hidden bg-(--color-brand-navy) py-16 text-white sm:py-20 md:py-28">
-      <div className="grain-overlay opacity-[0.055]" />
-      <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-22" />
-
-      <div className="container-landing relative">
+    <section
+      className="testimonials-stage"
+      aria-labelledby="testimonials-title"
+    >
+      <div className="testimonials-signal" aria-hidden="true" />
+      <div className="container-landing testimonials-shell">
         <ScrollReveal
           stagger
-          className="mb-12 grid gap-5 md:mb-16 lg:grid-cols-12 lg:items-end"
+          className="testimonials-intro lg:grid-cols-12 lg:items-end"
         >
-          <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-            <SectionLabel className="text-secondary">
+          <div className="lg:col-span-7">
+            <span className="testimonials-eyebrow">
+              <RadioTower aria-hidden="true" />
               {TESTIMONIALS_COPY.eyebrow}
-            </SectionLabel>
-            <h2 className="section-display text-white">
-              {TESTIMONIALS_COPY.title}
+            </span>
+            <h2 id="testimonials-title" className="testimonials-heading">
+              <span>{TESTIMONIALS_COPY.titleLine1}</span>
+              <strong>{TESTIMONIALS_COPY.titleLine2}</strong>
             </h2>
           </div>
-          <p className="max-w-[48ch] text-sm leading-relaxed text-white/60 md:text-base lg:col-span-7 lg:justify-self-end">
-            {TESTIMONIALS_COPY.description}
-          </p>
+          <div className="testimonials-intro-note lg:col-span-5">
+            <p>{TESTIMONIALS_COPY.description}</p>
+            <span>
+              <i />
+              {TESTIMONIALS_COPY.status}
+            </span>
+          </div>
         </ScrollReveal>
 
-        <div className="lg:hidden">
-          <TestimonialsCarousel testimonials={TESTIMONIALS} variant="dark" />
-        </div>
+        <ScrollReveal stagger className="testimonials-records lg:grid-cols-12">
+          {TESTIMONIALS.map((testimonial, index) => (
+            <figure
+              key={testimonial.id}
+              className={
+                testimonial.size === "lg"
+                  ? "testimonial-record is-lead lg:col-span-7 lg:row-span-2"
+                  : "testimonial-record lg:col-span-5"
+              }
+            >
+              <header>
+                <span>
+                  {TESTIMONIALS_COPY.recordLabel} /{" "}
+                  {testimonial.id.padStart(2, "0")}
+                </span>
+                <MessageSquareQuote aria-hidden="true" />
+              </header>
 
-        <ScrollReveal className="hidden lg:grid lg:grid-cols-12 lg:gap-10">
-          {lead ? (
-            <figure className="flex min-w-0 flex-col justify-between border-l border-secondary/40 pl-8 lg:col-span-7">
-              <p className="coord text-secondary">{lead.highlight}</p>
-              <blockquote className="mt-6 font-heading text-2xl leading-[1.25] font-medium tracking-tight text-white xl:text-3xl">
-                {lead.quote}
-              </blockquote>
-              <figcaption className="mt-10 border-t border-white/12 pt-5">
-                <p className="text-sm font-semibold text-white">{lead.author}</p>
-                <p className="mt-1 text-xs text-white/55">
-                  {lead.role}
-                  {lead.company ? ` · ${lead.company}` : ""}
-                </p>
-                <p className="coord mt-2 text-white/35">{lead.city}</p>
+              <div className="testimonial-record-context">
+                <span>{TESTIMONIALS_COPY.contextLabel}</span>
+                <strong>{testimonial.highlight}</strong>
+              </div>
+
+              <blockquote>{testimonial.quote}</blockquote>
+
+              <figcaption>
+                <div>
+                  <strong>{testimonial.author}</strong>
+                  <span>
+                    {testimonial.role} · {testimonial.company}
+                  </span>
+                </div>
+                <em>
+                  {String(index + 1).padStart(2, "0")} · {testimonial.city}
+                </em>
               </figcaption>
             </figure>
-          ) : null}
-
-          <div className="flex min-w-0 flex-col gap-8 border-t border-white/10 pt-8 lg:col-span-5 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-8">
-            {rest.map((t) => (
-              <figure key={t.id} className="min-w-0">
-                <p className="coord text-secondary/80">{t.highlight}</p>
-                <blockquote className="mt-3 text-base leading-relaxed text-white/82">
-                  {t.quote}
-                </blockquote>
-                <figcaption className="mt-4">
-                  <p className="text-sm font-semibold text-white">{t.author}</p>
-                  <p className="mt-0.5 text-xs text-white/50">
-                    {t.role}
-                    {t.company ? ` · ${t.company}` : ""}
-                  </p>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          ))}
         </ScrollReveal>
       </div>
     </section>

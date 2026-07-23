@@ -10,14 +10,14 @@ const COLUMNS = [
   },
   {
     label: "Viabilidade",
-    color: "bg-[color:rgba(224,164,54,0.14)] text-[var(--color-data-amber)]",
+    color: "bg-[oklch(72%_0.16_75/14%)] text-[var(--color-data-amber)]",
     dot: "bg-[var(--color-data-amber)]",
     cards: [{ name: "Lote Setor Oeste", area: "2.100 m²", owner: "Marcos V." }],
   },
   {
     label: "Comitê",
     color:
-      "bg-[color:rgba(11,30,57,0.08)] text-foreground dark:bg-white/10 dark:text-white",
+      "bg-[oklch(15%_0.04_200/8%)] text-foreground dark:bg-white/10 dark:text-white",
     dot: "bg-foreground/70 dark:bg-white/75",
     cards: [
       { name: "Av. Paulista, 1840", area: "2.400 m²", owner: "Dir. Menezes" },
@@ -31,7 +31,7 @@ const COLUMNS = [
   },
   {
     label: "Legalização",
-    color: "bg-[color:rgba(30,138,91,0.12)] text-[var(--color-data-green)]",
+    color: "bg-[oklch(84%_0.18_145/14%)] text-[var(--color-data-green)]",
     dot: "bg-[var(--color-data-green)]",
     cards: [{ name: "Gleba Centro-Sul", area: "4.800 m²", owner: "Caio D." }],
   },

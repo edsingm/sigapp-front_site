@@ -9,12 +9,14 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Política de Cookies — SIGAPP",
+export const metadata: Metadata = createPageMetadata({
+  title: "Política de Cookies",
   description:
     "Quais cookies o SIGAPP utiliza, para quê servem e como você pode gerenciar suas preferências.",
-}
+  path: "/legal/cookies",
+})
 
 const SECTIONS: LegalSection[] = [
   { id: "o-que-sao", title: "1. O que são Cookies" },
@@ -203,7 +205,7 @@ export default function CookiesPage() {
             ]}
           />
           <LP>
-            Estes cookies só são ativados após consentimento explícito na banner
+            Estes cookies só são ativados após consentimento explícito no banner
             de cookies. Você pode revogar a qualquer momento.
           </LP>
         </LSubsection>
@@ -230,7 +232,7 @@ export default function CookiesPage() {
       <LSection id="gestao" title="5. Como Gerenciar Cookies">
         <LSubsection title="5.1 Central de preferências do SIGAPP">
           <LP>
-            Ao acessar o site pela primeira vez, exibimos uma banner de
+            Ao acessar o site pela primeira vez, exibimos um banner de
             consentimento. Você pode:
           </LP>
           <LList
@@ -238,7 +240,7 @@ export default function CookiesPage() {
               "Aceitar todos os cookies.",
               "Aceitar apenas os necessários.",
               "Personalizar categoria por categoria.",
-              'Alterar suas preferências a qualquer momento clicando em "Preferências de Cookies" no rodapé.',
+              'Alterar suas preferências a qualquer momento clicando em "Gerenciar cookies" no rodapé.',
             ]}
           />
         </LSubsection>
@@ -299,7 +301,7 @@ export default function CookiesPage() {
         <LP>
           Esta Política pode ser atualizada para refletir mudanças nos cookies
           utilizados, nas tecnologias de rastreamento ou na legislação
-          aplicável. Atualizações serão comunicadas por meio de notificação na
+          aplicável. Atualizações serão comunicadas por meio de notificação no
           banner de cookies ou por e-mail, conforme a materialidade da
           alteração.
         </LP>

@@ -9,12 +9,14 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "LGPD — Seus Direitos como Titular de Dados — SIGAPP",
+export const metadata: Metadata = createPageMetadata({
+  title: "LGPD — Seus Direitos como Titular de Dados",
   description:
     "Conheça seus direitos garantidos pela Lei Geral de Proteção de Dados (Lei 13.709/2018) e saiba como exercê-los no SIGAPP.",
-}
+  path: "/legal/lgpd",
+})
 
 const SECTIONS: LegalSection[] = [
   { id: "o-que-e", title: "1. O que é a LGPD" },

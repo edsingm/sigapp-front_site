@@ -1,8 +1,26 @@
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://app.sigapp.com.br"
 
-// URL canônica do site de marketing (troque via NEXT_PUBLIC_SITE_URL por ambiente)
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://sigapp.com.br"
+const DEFAULT_SITE_URL = "https://sigapp.com.br"
+
+function resolvePublicSiteUrl(value?: string) {
+  try {
+    const url = new URL(value ?? DEFAULT_SITE_URL)
+    const localHosts = new Set(["localhost", "127.0.0.1", "::1"])
+
+    if (url.protocol !== "https:" || localHosts.has(url.hostname)) {
+      return DEFAULT_SITE_URL
+    }
+
+    return url.origin
+  } catch {
+    return DEFAULT_SITE_URL
+  }
+}
+
+// Canonicals nunca devem apontar para localhost, mesmo em builds locais.
+export const SITE_URL = resolvePublicSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL
+)
 
 // Metadados de marca usados em SEO, OpenGraph e dados estruturados
 export const SITE = {
@@ -19,6 +37,7 @@ export const SITE = {
 // Destinos centralizados de CTA — troque NEXT_PUBLIC_APP_URL para apontar a outro ambiente
 export const LINKS = {
   signup: "/cadastro",
+  features: "/#funcionalidades",
   login: `${APP_URL}/login`,
   sales:
     "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
@@ -148,10 +167,10 @@ export type NavLink = { label: string; href: string }
 
 // Links do menu principal (desktop e mobile)
 export const NAV_LINKS: NavLink[] = [
-  { label: "Como funciona", href: "/#como-funciona" },
+  { label: "Início", href: "/#como-funciona" },
   { label: "Funcionalidades", href: "/#funcionalidades" },
   { label: "Planos", href: "/#precos" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Blog", href: "/blog" },
   { label: "Sobre", href: "/sobre" },
 ]
 
@@ -204,6 +223,21 @@ export const FOOTER_GROUPS: FooterGroup[] = [
   },
 ]
 
+export const FOOTER_COPY = {
+  logoLabel: "SIGAPP — início",
+  eyebrow: "Inteligência imobiliária",
+  titleLine1: "Decisões que ganham",
+  titleLine2: "território.",
+  description:
+    "Gestão territorial inteligente para analisar, aprovar e conduzir cada oportunidade com critério.",
+  contactLabel: "Canal direto",
+  navigationLabel: "Navegação do rodapé",
+  copyright: "© 2026 SIGAPP Tecnologia Ltda.",
+  signature: "Do terreno ao registro · Brasil",
+  cookiePreferences: "Gerenciar cookies",
+  wordmark: "SIGAPP",
+}
+
 // BentoSection — dados de demonstração dos cards
 export const BENTO_DRE = {
   project: {
@@ -243,6 +277,52 @@ export const BENTO_ALERTS: BentoAlert[] = [
   { msg: "Prazo de legalização em 5 dias", type: "warn" },
 ]
 
+export const BENTO_COPY = {
+  eyebrow: "Inteligência operacional",
+  titleLine1: "O dossiê deixa de ser arquivo.",
+  titleLine2: "Vira superfície de decisão.",
+  description:
+    "Financeiro, território, documentos e alertas trabalham sobre a mesma oportunidade. Cada módulo adiciona contexto — sem criar outra fonte de verdade.",
+  consoleLabel: "Mesa de inteligência · Residencial Paulista",
+  consoleStatus: "05 módulos sincronizados",
+  anchor: {
+    eyebrow: "Leitura consolidada",
+    title: "Um terreno inteiro cabe na mesma conversa.",
+    description:
+      "O indicador financeiro chega ao comitê junto do mapa, do documento e do prazo que explicam a decisão.",
+    metric: "82%",
+    metricLabel: "confiança da análise",
+    signal: "Potencial alto",
+  },
+  dre: {
+    eyebrow: "Motor DRE",
+    title: "Resultado calculado no contexto",
+    description:
+      "Receitas, custos e retorno se atualizam no mesmo cenário do terreno.",
+    revenuesLabel: "Receitas",
+    costsLabel: "Custos",
+  },
+  map: {
+    eyebrow: "Radar territorial",
+    title: "Carteira visível por região",
+    description:
+      "Terrenos georreferenciados com estágio e leitura de concentração.",
+    activeLabel: "Ativo",
+    prospectedLabel: "Prospectado",
+    summary: "47 terrenos · 12 regiões",
+  },
+  exports: {
+    eyebrow: "Saídas do dossiê",
+    title: "Parecer pronto para circular",
+    description: "PDF e Excel preservam a leitura apresentada ao comitê.",
+  },
+  alerts: {
+    eyebrow: "Pulso da operação",
+    title: "O próximo risco aparece antes",
+    description: "Prazos, pendências e aprovações entram na mesma leitura.",
+  },
+}
+
 // Métricas operacionais do produto — sem contagem de clientes inventada
 export const METRICS: MetricItem[] = [
   { value: "50+", label: "Parâmetros por viabilidade" },
@@ -250,6 +330,16 @@ export const METRICS: MetricItem[] = [
   { value: "1", label: "Dossiê por oportunidade" },
   { value: "7", label: "Dias de avaliação guiada" },
 ]
+
+export const SOCIAL_PROOF_COPY = {
+  eyebrow: "Prova operacional",
+  title: "Feito para o trabalho real da incorporação.",
+  description:
+    "Parâmetros, etapas e governança que já falam a língua da sua operação.",
+  metricsLabel: "Indicadores de cobertura operacional do SIGAPP",
+  tickerLabel: "Domínio imobiliário nativo",
+  tickerAriaLabel: "Capacidades do domínio de incorporação",
+}
 
 // Faixa de domínio (substitui marquee de logos fictícios)
 export const DOMAIN_STRIP = [
@@ -263,13 +353,18 @@ export const DOMAIN_STRIP = [
 
 // Bloco editorial com foto (matéria real, não UI abstrata)
 export const MATTER_STRIP = {
-  eyebrow: "Mesa de decisão",
-  title: "O que o comitê precisa ver, no mesmo lugar.",
+  eyebrow: "Uma fonte de verdade",
+  titleLine1: "O comitê vê o terreno inteiro.",
+  titleLine2: "No mesmo contexto.",
   description:
     "Planta, parâmetros, DRE e trilha de parecer deixam de viver em abas, e-mails e planilhas. O terreno vira um dossiê legível — para quem analisa e para quem aprova.",
   imageSrc: "/images/dossie-mesa.jpg",
   imageAlt:
     "Mesa de trabalho com plantas, mapa cadastral e documentos de análise imobiliária",
+  visualEyebrow: "Campo · dossiê · parecer",
+  visualTitle: "A matéria da decisão, não só a interface.",
+  visualStatus: "Dossiê 01 · em análise",
+  perspectivesLabel: "Um fluxo · três perspectivas",
   points: [
     { label: "Analista", text: "Sobe o terreno e fecha o cenário" },
     { label: "Comitê", text: "Lê o mesmo DRE e o mesmo risco" },
@@ -283,6 +378,7 @@ export const STICKY_MOBILE_CTA = {
   description:
     "Uma demonstração com terreno real — não um tour genérico de telas.",
   cta: "Solicitar demonstração",
+  shortCta: "Demonstração",
 }
 
 export const PRICING_MATRIX_COPY = {
@@ -291,6 +387,54 @@ export const PRICING_MATRIX_COPY = {
   description:
     "Limites, governança e capacidade operacional lado a lado para sua equipe decidir com critério.",
   mobileSummary: "Comparar recursos dos planos",
+  resourceLabel: "Recurso",
+  tableDescription: "Comparação completa entre os quatro planos",
+  recommended: "Recomendado",
+  mobileHint: "Abra para comparar item por item",
+  criteriaLabel: "critérios comparados",
+  includedLabel: "Incluído",
+  notIncludedLabel: "Não incluso",
+}
+
+export const PRICING_COPY = {
+  eyebrow: "Planos e capacidade",
+  titleLine1: "Escolha o perímetro.",
+  titleLine2: "O contexto continua inteiro.",
+  description:
+    "Comece com a capacidade que sua equipe precisa hoje. A operação evolui de plano sem reconstruir dados, histórico ou governança.",
+  chips: ["Avaliação guiada", "Sem fidelidade", "Dados exportáveis"],
+  consoleLabel: "Configuração de capacidade",
+  consoleStatus: "4 perímetros operacionais",
+  monthlyLabel: "Mensal",
+  annualLabel: "Anual",
+  annualDiscount: "−20%",
+  annualHint: "No anual, você economiza 20% durante todo o período.",
+  swipeLabel: "Deslize",
+  planAriaLabel: "Ir para plano",
+  footerNote:
+    "Preços em reais · suporte em português · avaliação no contexto da sua operação",
+  unavailableTitle: "Planos temporariamente indisponíveis",
+  unavailableDescription:
+    "Não conseguimos carregar os planos agora. Você ainda pode agendar uma conversa e dimensionar a operação com nosso time.",
+  unavailableCta: "Dimensionar com o time",
+}
+
+export const PRICING_CARD_COPY = {
+  planLabel: "Perímetro",
+  recommended: "Recomendado",
+  currency: "R$",
+  monthlySuffix: "/mês",
+  monthlyNote: "Cobrança mensal · sem fidelidade",
+  annualSavingsPrefix: "Economia anual de",
+  capacityLabel: "Capacidade principal",
+  usersLabel: "Usuários",
+  landLabel: "Terrenos",
+  productsLabel: "Produtos",
+  storageLabel: "Armazenamento",
+  aiLabel: "Orçamento SIG_IA",
+  featuresLabel: "Inclui neste perímetro",
+  additionalFeatures: "recursos adicionais no comparativo",
+  trust: "Dados exportáveis · pagamento seguro",
 }
 
 export const PLAN_MATRIX_ROWS: PlanMatrixRow[] = [
@@ -422,6 +566,17 @@ export const FEATURES: FeatureItem[] = [
   },
 ]
 
+export const FEATURES_COPY = {
+  eyebrow: "Capacidades conectadas",
+  titleLine1: "Quatro camadas.",
+  titleLine2: "Nenhum contexto perdido.",
+  description:
+    "O produto financeiro, a inteligência, o fluxo e o acesso trabalham como partes do mesmo dossiê — não como módulos que exigem reconciliação.",
+  railLabel: "Arquitetura do dossiê",
+  layerLabel: "Camada",
+  evidenceLabel: "Evidências no fluxo",
+}
+
 // Depoimentos em tom de early access — sem métricas milagrosas nem empresas inventadas como “logos”
 export const TESTIMONIALS: Testimonial[] = [
   {
@@ -525,39 +680,61 @@ export const FAQ_ITEMS: FAQItem[] = [
   },
 ]
 
+export const FAQ_COPY = {
+  eyebrow: "Antes de avançar",
+  titleLine1: "As perguntas difíceis.",
+  titleLine2: "Respondidas sem rodeio.",
+  description:
+    "Segurança, migração, cobrança e operação explicadas para sua equipe avaliar o SIGAPP com o mesmo critério usado em um terreno.",
+  panelLabel: "Central de decisão",
+  panelCount: "12 tópicos operacionais",
+  cta: "Falar com vendas",
+  ctaNote: "Se o seu cenário não estiver aqui, abrimos juntos.",
+}
+
 /** @deprecated use DOMAIN_STRIP — mantido vazio para evitar import quebrado */
 export const CLIENT_LOGOS: string[] = []
 
 export type HowItWorksStep = {
   icon: string
+  stage: string
   title: string
   description: string
+  result: string
 }
 
 export const HOW_IT_WORKS: HowItWorksStep[] = [
   {
     icon: "MapPin",
+    stage: "Entrada",
     title: "Abra o dossiê do terreno",
     description:
       "Endereço, dono, documentos e fotos na mesma base. Importe a carteira atual por Excel ou CSV se precisar.",
+    result: "Oportunidade centralizada",
   },
   {
     icon: "Calculator",
+    stage: "Análise",
     title: "Feche o cenário de viabilidade",
     description:
       "Parâmetros do produto viram DRE, fluxo, TIR, VPL e Payback — prontos para a mesa do comitê.",
+    result: "Cenário comparável",
   },
   {
     icon: "Handshake",
+    stage: "Governança",
     title: "Aprove e negocie com histórico",
     description:
       "Parecer, proposta e trilha de alteração no mesmo pipeline. Ninguém reabre a planilha paralela.",
+    result: "Decisão registrada",
   },
   {
     icon: "FileCheck",
+    stage: "Execução",
     title: "Conduza a legalização",
     description:
       "Documentação, escritura e registro com status no dossiê — do parecer ao cartório sem mudar de ferramenta.",
+    result: "Registro acompanhado",
   },
 ]
 
@@ -614,56 +791,103 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
   },
 ]
 
+export const COMPARISON_COLUMNS = [
+  { key: "sigapp" as const, label: "SIGAPP", note: "Contexto nativo" },
+  { key: "planilha" as const, label: "Planilha", note: "Cálculo isolado" },
+  { key: "erp" as const, label: "ERP genérico", note: "Processo adaptado" },
+]
+
+export const COMPARISON_COPY = {
+  eyebrow: "Decisão lado a lado",
+  titleLine1: "Não é sobre ter mais telas.",
+  titleLine2: "É sobre fechar o ciclo.",
+  description:
+    "Planilha calcula. ERP registra. O SIGAPP conecta território, viabilidade e governança na mesma linha de decisão.",
+  tableLabel: "Matriz de aderência operacional",
+  scrollHint: "Deslize para comparar todos os cenários",
+  scrollRegionLabel: "Tabela comparativa com rolagem horizontal",
+  resourceLabel: "Capacidade de decisão",
+  availableLabel: "Nativo",
+  unavailableLabel: "Ausente",
+  cta: "Construir o caso de negócio",
+  ctaNote:
+    "Compare o fluxo atual da sua equipe com uma operação territorial centralizada.",
+}
+
 export const PAIN_POINTS = [
   {
     icon: "FileSpreadsheet",
     title: "Viabilidade que vive em planilha",
     description:
       "VGV desatualizado, fórmula frágil e versão errada na reunião. O comitê discute o arquivo, não o terreno.",
+    signal: "VERSÃO_FINAL_04.xlsx",
+    status: "Fonte divergente",
   },
   {
     icon: "FolderX",
     title: "Oportunidade que some no dia a dia",
     description:
       "Contato no WhatsApp, visita no e-mail, parecer na pasta. Sem trilha, o bom lote some e o medíocre ocupa a pauta.",
+    signal: "PARECER: onde está?",
+    status: "Contexto disperso",
   },
   {
     icon: "BotOff",
     title: "Ferramenta genérica no ofício errado",
     description:
       "Chat e ERP sem CUB, permuta ou INCC forçam a reescrever o caso a cada análise — e o resultado ainda pede planilha.",
+    signal: "CUB: não disponível",
+    status: "Domínio ausente",
   },
 ]
 
 export const PROBLEM_COPY = {
-  eyebrow: "O atrito",
-  title: "Incorporar ainda parece uma sequência de planilhas perdidas?",
+  eyebrow: "O custo da fragmentação",
+  titleLine1: "Sua operação cresceu.",
+  titleLine2: "A decisão ficou fragmentada.",
   description:
-    "O mercado avançou. O processo de muitos times ainda depende de arquivo, mensagem e memória.",
+    "Quando terreno, viabilidade e parecer vivem em lugares diferentes, contexto vira retrabalho — e cada reunião recomeça a análise.",
+  counter: "03 rupturas críticas",
+  matrixLabel: "Onde a decisão perde força",
 }
 
 export const HOW_IT_WORKS_COPY = {
-  eyebrow: "Como funciona",
-  title: "Do cadastro ao registro, no mesmo dossiê",
+  eyebrow: "Da entrada ao registro",
+  titleLine1: "Um terreno.",
+  titleLine2: "Uma rota inteira de decisão.",
   description:
     "Sem implantação eterna nem repasse de contexto entre planilha, comitê e jurídico. Cada etapa avança sobre a mesma oportunidade.",
+  routeLabel: "Fluxo operacional sincronizado",
+  routeProgress: "04 etapas · 01 dossiê",
+  stepLabel: "Etapa",
+  cta: "Ver essa jornada em ação",
+  ctaNote: "Preferimos um terreno real da sua carteira",
 }
 
 export const TESTIMONIALS_COPY = {
-  eyebrow: "Em avaliação com times de incorporação",
-  title: "O que muda quando o dossiê é um só",
+  eyebrow: "Notas de campo",
+  titleLine1: "A mudança aparece",
+  titleLine2: "na conversa da equipe.",
   description:
     "Relatos de quem está testando o fluxo de análise e comitê — sem números inflados nem logos de fachada.",
+  recordLabel: "Registro de avaliação",
+  contextLabel: "Contexto observado",
+  status: "Programa piloto · relatos anonimizados",
 }
 
 export const CTA_FINAL_COPY = {
-  eyebrow: "Do mapa à decisão · fluxo da sua equipe",
-  title: "Leve um terreno real para a demonstração.",
+  eyebrow: "Do mapa à decisão",
+  titleLine1: "Traga um terreno real.",
+  titleLine2: "Veja o fluxo inteiro em ação.",
   description:
     "Mostramos análise, comitê, permissões e rastreabilidade em um cenário próximo da sua operação — não um tour genérico de telas.",
   primaryCta: "Solicitar demonstração",
   secondaryCta: "Falar com vendas",
-  trust: "Sem fidelidade · dados exportáveis · suporte em português",
+  panelEyebrow: "Demonstração guiada",
+  panelTitle: "Um terreno. O fluxo inteiro.",
+  panelDuration: "≈ 40 min",
+  panelProgress: "03 pontos · 01 caso real",
+  trust: ["Sem fidelidade", "Dados exportáveis", "Suporte em português"],
 }
 
 export const DEMO_PAGE = {

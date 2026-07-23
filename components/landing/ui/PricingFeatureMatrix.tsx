@@ -1,6 +1,11 @@
-import { Check, ChevronDown, Minus, SlidersHorizontal } from "lucide-react"
+import {
+  Check,
+  ChevronDown,
+  Minus,
+  Rows3,
+  SlidersHorizontal,
+} from "lucide-react"
 
-import { SectionLabel } from "@/components/landing/ui/SectionLabel"
 import {
   PLAN_MATRIX_ROWS,
   PRICING_MATRIX_COPY,
@@ -14,19 +19,19 @@ function getMatrixValue(plan: PlanConfig, row: PlanMatrixRow) {
 }
 
 function BooleanValue({ value }: { value: boolean }) {
-  return value ? (
-    <span className="inline-flex items-center gap-2 text-primary">
-      <span className="flex size-5 items-center justify-center rounded-full bg-primary/10">
-        <Check className="size-3" strokeWidth={2.5} />
+  return (
+    <span
+      className={cn(
+        "pricing-matrix-boolean",
+        value ? "is-included" : "is-empty"
+      )}
+    >
+      {value ? <Check aria-hidden="true" /> : <Minus aria-hidden="true" />}
+      <span>
+        {value
+          ? PRICING_MATRIX_COPY.includedLabel
+          : PRICING_MATRIX_COPY.notIncludedLabel}
       </span>
-      <span className="font-medium text-foreground">Incluído</span>
-    </span>
-  ) : (
-    <span className="inline-flex items-center gap-2 text-muted-foreground/65">
-      <span className="flex size-5 items-center justify-center rounded-full bg-muted">
-        <Minus className="size-3" />
-      </span>
-      <span>Não incluso</span>
     </span>
   )
 }
@@ -38,16 +43,7 @@ function MatrixCell({ plan, row }: { plan: PlanConfig; row: PlanMatrixRow }) {
     return <BooleanValue value={Boolean(value)} />
   }
 
-  return (
-    <span
-      className={cn(
-        "font-medium text-foreground",
-        value === "—" && "text-muted-foreground"
-      )}
-    >
-      {String(value)}
-    </span>
-  )
+  return <span className="pricing-matrix-text">{String(value)}</span>
 }
 
 type PricingFeatureMatrixProps = {
@@ -56,174 +52,112 @@ type PricingFeatureMatrixProps = {
 
 export function PricingFeatureMatrix({ plans }: PricingFeatureMatrixProps) {
   return (
-    <div className="mt-18 sm:mt-24">
-      <div className="hidden sm:block">
-        <div className="mb-6 grid gap-5 lg:grid-cols-12 lg:items-end">
-          <div className="flex flex-col gap-3 lg:col-span-5">
-            <SectionLabel>{PRICING_MATRIX_COPY.eyebrow}</SectionLabel>
-            <h3 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
-              {PRICING_MATRIX_COPY.title}
-            </h3>
-          </div>
-          <p className="max-w-[58ch] text-sm text-muted-foreground md:text-base lg:col-span-7 lg:justify-self-end">
-            {PRICING_MATRIX_COPY.description}
-          </p>
+    <div className="pricing-matrix">
+      <div className="pricing-matrix-intro lg:grid-cols-12 lg:items-end">
+        <div className="lg:col-span-6">
+          <span className="pricing-matrix-eyebrow">
+            <Rows3 aria-hidden="true" />
+            {PRICING_MATRIX_COPY.eyebrow}
+          </span>
+          <h3>{PRICING_MATRIX_COPY.title}</h3>
+        </div>
+        <p className="lg:col-span-6">{PRICING_MATRIX_COPY.description}</p>
+      </div>
+
+      <div className="pricing-matrix-panel hidden sm:block">
+        <div className="pricing-matrix-panel-bar">
+          <span>{PRICING_MATRIX_COPY.tableDescription}</span>
+          <strong>
+            {String(PLAN_MATRIX_ROWS.length).padStart(2, "0")} ·{" "}
+            {PRICING_MATRIX_COPY.criteriaLabel}
+          </strong>
         </div>
 
-        <div className="card-bezel shadow-float">
-          <div className="card-bezel__core overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[980px] border-collapse">
-                <thead>
-                  <tr className="border-b border-border bg-muted/35">
-                    <th className="w-[30%] px-6 py-5 text-left align-bottom">
-                      <p className="text-sm font-semibold text-foreground">
-                        Recurso
-                      </p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        Comparação completa entre os quatro planos
-                      </p>
-                    </th>
-                    {plans.map((plan) => (
-                      <th
-                        key={plan.id}
-                        className={cn(
-                          "px-5 py-5 text-left align-bottom",
-                          plan.highlighted && "bg-(--color-brand-navy)"
-                        )}
-                      >
-                        <div className="flex flex-col gap-1.5">
-                          <div className="flex items-center gap-2">
-                            <span
-                              className={cn(
-                                "text-sm font-semibold text-foreground",
-                                plan.highlighted && "text-white"
-                              )}
-                            >
-                              {plan.name}
-                            </span>
-                            {plan.highlighted ? (
-                              <span className="rounded-full bg-secondary px-2 py-0.5 text-[10px] font-semibold tracking-[0.12em] text-secondary-foreground uppercase">
-                                Recomendado
-                              </span>
-                            ) : null}
-                          </div>
-                          <span
-                            className={cn(
-                              "text-xs text-muted-foreground",
-                              plan.highlighted && "text-white/55"
-                            )}
-                          >
-                            {plan.tagline}
-                          </span>
-                        </div>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {PLAN_MATRIX_ROWS.map((row) => (
-                    <tr
-                      key={row.id}
-                      className="border-b border-border transition-colors last:border-b-0 hover:bg-muted/25"
+        <div className="pricing-matrix-scroll">
+          <table>
+            <caption className="sr-only">{PRICING_MATRIX_COPY.title}</caption>
+            <thead>
+              <tr>
+                <th scope="col">{PRICING_MATRIX_COPY.resourceLabel}</th>
+                {plans.map((plan) => (
+                  <th
+                    key={plan.id}
+                    scope="col"
+                    className={plan.highlighted ? "is-highlighted" : undefined}
+                  >
+                    <span>{plan.name}</span>
+                    <small>{plan.tagline}</small>
+                    {plan.highlighted ? (
+                      <em>{PRICING_MATRIX_COPY.recommended}</em>
+                    ) : null}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {PLAN_MATRIX_ROWS.map((row, index) => (
+                <tr key={row.id}>
+                  <th scope="row">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <div>
+                      <strong>{row.label}</strong>
+                      {row.helper ? <small>{row.helper}</small> : null}
+                    </div>
+                  </th>
+                  {plans.map((plan) => (
+                    <td
+                      key={`${row.id}-${plan.id}`}
+                      className={
+                        plan.highlighted ? "is-highlighted" : undefined
+                      }
                     >
-                      <td className="px-6 py-4 align-top">
-                        <div className="flex flex-col gap-1">
-                          <span className="text-sm font-medium text-foreground">
-                            {row.label}
-                          </span>
-                          {row.helper ? (
-                            <span className="text-xs leading-relaxed text-muted-foreground">
-                              {row.helper}
-                            </span>
-                          ) : null}
-                        </div>
-                      </td>
-                      {plans.map((plan) => (
-                        <td
-                          key={`${row.id}-${plan.id}`}
-                          className={cn(
-                            "px-5 py-4 align-top",
-                            plan.highlighted &&
-                              "border-x border-primary/10 bg-primary/[0.045]"
-                          )}
-                        >
-                          <MatrixCell plan={plan} row={row} />
-                        </td>
-                      ))}
-                    </tr>
+                      <MatrixCell plan={plan} row={row} />
+                    </td>
                   ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <details className="group overflow-hidden rounded-2xl border border-border bg-card shadow-panel sm:hidden">
-        <summary className="flex min-h-16 cursor-pointer list-none items-center justify-between gap-4 px-5 py-4">
-          <div className="flex items-center gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-              <SlidersHorizontal className="size-4" />
-            </span>
-            <div className="flex flex-col gap-1">
-              <span className="text-sm font-semibold text-foreground">
-                {PRICING_MATRIX_COPY.mobileSummary}
-              </span>
-              <span className="text-xs text-muted-foreground">
-                Abra para comparar item por item
-              </span>
-            </div>
+      <details className="pricing-matrix-mobile group sm:hidden">
+        <summary>
+          <span>
+            <SlidersHorizontal aria-hidden="true" />
+          </span>
+          <div>
+            <strong>{PRICING_MATRIX_COPY.mobileSummary}</strong>
+            <small>{PRICING_MATRIX_COPY.mobileHint}</small>
           </div>
-          <ChevronDown className="size-4 shrink-0 text-primary transition-transform group-open:rotate-180" />
+          <ChevronDown aria-hidden="true" />
         </summary>
 
-        <div className="border-t border-border px-4 py-4">
-          <div className="flex flex-col gap-3">
-            {PLAN_MATRIX_ROWS.map((row) => (
-              <div
-                key={row.id}
-                className="rounded-2xl border border-border bg-background/80 p-4"
-              >
-                <div className="mb-3 flex flex-col gap-1">
-                  <span className="text-sm font-semibold text-foreground">
-                    {row.label}
-                  </span>
-                  {row.helper ? (
-                    <span className="text-xs leading-relaxed text-muted-foreground">
-                      {row.helper}
-                    </span>
-                  ) : null}
+        <div className="pricing-mobile-matrix-rows">
+          {PLAN_MATRIX_ROWS.map((row, index) => (
+            <article key={row.id}>
+              <header>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div>
+                  <strong>{row.label}</strong>
+                  {row.helper ? <small>{row.helper}</small> : null}
                 </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  {plans.map((plan) => (
-                    <div
-                      key={`${row.id}-${plan.id}`}
-                      className={cn(
-                        "rounded-xl border p-3",
-                        plan.highlighted
-                          ? "border-primary/30 bg-primary/8 shadow-sm"
-                          : "border-border bg-card"
-                      )}
-                    >
-                      <div className="mb-2 flex flex-col gap-0.5">
-                        <span className="text-xs font-semibold text-foreground">
-                          {plan.name}
-                        </span>
-                        <span className="text-[11px] text-muted-foreground">
-                          {plan.tagline}
-                        </span>
-                      </div>
-                      <div className="text-xs">
-                        <MatrixCell plan={plan} row={row} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+              </header>
+              <dl>
+                {plans.map((plan) => (
+                  <div
+                    key={`${row.id}-${plan.id}`}
+                    className={plan.highlighted ? "is-highlighted" : undefined}
+                  >
+                    <dt>{plan.name}</dt>
+                    <dd>
+                      <MatrixCell plan={plan} row={row} />
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </article>
+          ))}
         </div>
       </details>
     </div>

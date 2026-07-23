@@ -1,135 +1,110 @@
 import Link from "next/link"
 import {
-  ArrowRight,
+  ArrowUpRight,
   Calculator,
+  Check,
   FileCheck,
   Handshake,
   MapPin,
+  Route,
+  type LucideIcon,
 } from "lucide-react"
 
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
-import { SectionLabel } from "@/components/landing/ui/SectionLabel"
-import { Button } from "@/components/ui/button"
 import { HOW_IT_WORKS, HOW_IT_WORKS_COPY, LINKS } from "@/lib/landing-data"
-import { cn } from "@/lib/utils"
 
-const STEP_ICONS = {
-  MapPin,
+const STEP_ICONS: Record<string, LucideIcon> = {
   Calculator,
-  Handshake,
   FileCheck,
+  Handshake,
+  MapPin,
 }
-
-/** Alternating elevations — spatial path, not equal card row */
-const STEP_OFFSET = ["md:mt-0", "md:mt-10", "md:mt-4", "md:mt-14"] as const
 
 export function HowItWorksSection() {
   return (
     <section
       id="como-funciona"
-      className="relative overflow-hidden border-y border-border bg-muted/30 py-16 sm:py-20 md:py-28"
+      className="how-stage"
+      aria-labelledby="how-it-works-title"
     >
-      <div className="brand-map__grid pointer-events-none absolute inset-0 opacity-[0.05]" />
-      <div className="container-landing relative">
+      <div className="how-stage-grid" aria-hidden="true" />
+      <div className="how-stage-glow" aria-hidden="true" />
+
+      <div className="container-landing relative py-20 sm:py-24 lg:py-32">
         <ScrollReveal
           stagger
-          className="mb-12 grid gap-5 md:mb-16 lg:grid-cols-12 lg:items-end lg:gap-10"
+          className="grid items-end gap-8 lg:grid-cols-12 lg:gap-10"
         >
-          <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-            <SectionLabel>{HOW_IT_WORKS_COPY.eyebrow}</SectionLabel>
-            <h2 className="section-display text-foreground">
-              {HOW_IT_WORKS_COPY.title}
+          <div className="how-heading lg:col-span-8">
+            <p className="how-eyebrow">
+              <Route aria-hidden="true" />
+              {HOW_IT_WORKS_COPY.eyebrow}
+            </p>
+            <h2 id="how-it-works-title">
+              <span>{HOW_IT_WORKS_COPY.titleLine1}</span>
+              <strong>{HOW_IT_WORKS_COPY.titleLine2}</strong>
             </h2>
           </div>
-          <p className="max-w-[48ch] text-pretty text-muted-foreground md:text-lg lg:col-span-7 lg:pb-1">
+
+          <p className="how-description lg:col-span-4 lg:pb-2">
             {HOW_IT_WORKS_COPY.description}
           </p>
         </ScrollReveal>
 
-        <ScrollReveal>
-          <div className="relative">
-            {/* Spatial route — desktop */}
-            <svg
-              aria-hidden="true"
-              className="pointer-events-none absolute top-16 right-[6%] left-[6%] hidden h-24 w-[88%] xl:block"
-              viewBox="0 0 1000 96"
-              fill="none"
-              preserveAspectRatio="none"
+        <ScrollReveal className="how-route mt-12 lg:mt-16">
+          <div className="how-route-heading">
+            <span>{HOW_IT_WORKS_COPY.routeLabel}</span>
+            <span>{HOW_IT_WORKS_COPY.routeProgress}</span>
+          </div>
+
+          <ol aria-label={HOW_IT_WORKS_COPY.routeLabel}>
+            {HOW_IT_WORKS.map((step, index) => {
+              const Icon = STEP_ICONS[step.icon] ?? MapPin
+
+              return (
+                <li
+                  key={step.title}
+                  className="how-route-step grid grid-cols-[2.75rem_minmax(0,1fr)] lg:grid-cols-[4rem_3rem_minmax(0,1.25fr)_minmax(12rem,0.55fr)]"
+                >
+                  <div className="how-step-marker row-span-3 lg:row-auto">
+                    <span>0{index + 1}</span>
+                    <i aria-hidden="true" />
+                  </div>
+
+                  <div className="how-step-icon">
+                    <Icon aria-hidden="true" />
+                  </div>
+
+                  <div className="how-step-copy">
+                    <p>
+                      {HOW_IT_WORKS_COPY.stepLabel} {index + 1} · {step.stage}
+                    </p>
+                    <h3>{step.title}</h3>
+                    <small>{step.description}</small>
+                  </div>
+
+                  <div className="how-step-result col-start-2 lg:col-start-auto">
+                    <Check aria-hidden="true" />
+                    <span>{step.result}</span>
+                  </div>
+                </li>
+              )
+            })}
+          </ol>
+
+          <div className="how-route-footer">
+            <p>{HOW_IT_WORKS_COPY.ctaNote}</p>
+            <Link
+              href={LINKS.demo}
+              data-analytics-event="demo_request"
+              data-analytics-location="how-it-works"
+              className="how-route-action"
             >
-              <path
-                className="hiw-route"
-                d="M40 48 C 180 12, 280 84, 420 40 S 700 12, 960 52"
-              />
-              {[40, 340, 640, 960].map((x) => (
-                <circle
-                  key={x}
-                  cx={x}
-                  cy={x === 40 ? 48 : x === 340 ? 52 : x === 640 ? 36 : 52}
-                  r="4"
-                  className="fill-primary"
-                />
-              ))}
-            </svg>
-
-            <ol className="relative grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:gap-5">
-              {HOW_IT_WORKS.map((step, i) => {
-                const Icon = STEP_ICONS[step.icon as keyof typeof STEP_ICONS]
-
-                return (
-                  <li
-                    key={step.title}
-                    className={cn(
-                      "hiw-node flex min-h-64 flex-col rounded-2xl border border-border bg-card p-5 shadow-raise sm:p-6",
-                      STEP_OFFSET[i]
-                    )}
-                  >
-                    <div className="mb-8 flex items-center justify-between gap-3">
-                      <span className="flex size-11 items-center justify-center rounded-xl border border-primary/15 bg-primary/8 text-primary">
-                        <Icon className="size-5" strokeWidth={1.75} />
-                      </span>
-                      <span className="data-mono text-[11px] font-bold text-muted-foreground/55">
-                        0{i + 1}
-                      </span>
-                    </div>
-                    <div className="mt-auto">
-                      <p className="coord mb-2 text-primary">Etapa {i + 1}</p>
-                      <h3 className="font-heading text-lg font-bold tracking-tight text-foreground sm:text-xl">
-                        {step.title}
-                      </h3>
-                      <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">
-                        {step.description}
-                      </p>
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
+              {HOW_IT_WORKS_COPY.cta}
+              <ArrowUpRight aria-hidden="true" />
+            </Link>
           </div>
         </ScrollReveal>
-
-        <div className="mt-12 flex flex-col items-start gap-2 md:mt-14">
-          <Button
-            variant="brand"
-            size="lg"
-            className="group/cta h-12 gap-2 rounded-full pr-2 pl-5 text-sm font-semibold sm:h-13 sm:pl-6 sm:text-base"
-            nativeButton={false}
-            render={
-              <Link
-                href={LINKS.demo}
-                data-analytics-event="demo_request"
-                data-analytics-location="how-it-works"
-              />
-            }
-          >
-            Solicitar demonstração
-            <span className="flex size-8 items-center justify-center rounded-full bg-white/18 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5 sm:size-9">
-              <ArrowRight className="size-3.5 sm:size-4" />
-            </span>
-          </Button>
-          <p className="coord text-muted-foreground">
-            Preferimos um terreno real da sua carteira
-          </p>
-        </div>
       </div>
     </section>
   )

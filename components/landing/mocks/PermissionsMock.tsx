@@ -16,14 +16,14 @@ const ROLES = [
     role: "Diretor",
     user: "Carla Mendes",
     modules: ["prospection", "viabilities", "committee", "negotiation"],
-    color: "bg-[color:rgba(224,164,54,0.16)] text-[var(--color-data-amber)]",
+    color: "bg-[oklch(72%_0.16_75/16%)] text-[var(--color-data-amber)]",
   },
   {
     role: "Gerente",
     user: "Bruno Alves",
     modules: ["prospection", "viabilities", "legalization"],
     color:
-      "bg-[color:rgba(11,30,57,0.08)] text-foreground dark:bg-white/10 dark:text-white",
+      "bg-[oklch(15%_0.04_200/8%)] text-foreground dark:bg-white/10 dark:text-white",
   },
   {
     role: "Supervisor",
@@ -50,9 +50,21 @@ const MODULE_LABELS: Record<string, string> = {
   settings: "Configurações",
 }
 
+const MODULE_SHORT_LABELS: Record<string, string> = {
+  prospection: "Pro",
+  viabilities: "Via",
+  committee: "Com",
+  negotiation: "Neg",
+  legalization: "Leg",
+  settings: "Con",
+}
+
 export function PermissionsMock() {
   return (
-    <div className="pointer-events-none w-full overflow-hidden rounded-2xl border border-border bg-card shadow-xl select-none">
+    <div
+      aria-hidden="true"
+      className="pointer-events-none w-full overflow-hidden rounded-2xl border border-border bg-card shadow-xl select-none"
+    >
       {/* Header */}
       <div className="border-b border-border bg-muted/30 px-4 py-3">
         <p className="text-[10px] font-semibold tracking-wide text-muted-foreground uppercase">
@@ -73,7 +85,10 @@ export function PermissionsMock() {
               key={m}
               className={`text-[7px] font-semibold tracking-wide text-muted-foreground uppercase ${i >= 4 ? "hidden md:block" : ""}`}
             >
-              {MODULE_LABELS[m]}
+              <span className="sm:hidden" aria-hidden="true">
+                {MODULE_SHORT_LABELS[m]}
+              </span>
+              <span className="hidden sm:inline">{MODULE_LABELS[m]}</span>
             </div>
           ))}
         </div>

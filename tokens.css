@@ -1,30 +1,40 @@
 /* Hallmark · genre: modern-minimal · macrostructure: Map / Diagram
  * tone: technical + austere cartography · design-system: design.md · designed-as-app
  * nav: N10 · footer: Ft5 · enrichment: map/dossier
- * pre-emit critique: P5 H4 E5 S4 R4 V4
  *
- * Portable token export. Source of truth for runtime remains app/globals.css
- * (shadcn + Tailwind v4). Import this file only when reusing the system elsewhere.
+ * Portable token export for non-Next consumers.
+ * Runtime source of truth: app/globals.css (:root / .dark / @theme inline).
+ * Import this file only when reusing the system elsewhere — do not dual-source UI.
+ *
+ * Naming here is design-facing (paper/ink/accent). Runtime maps to shadcn:
+ *   paper → --background · ink → --foreground · accent → --primary · focus → --ring
  */
 
 :root {
+  /* Surfaces & text */
   --color-paper: oklch(98.2% 0.006 264.5);
   --color-paper-2: oklch(97.3% 0.007 268.5);
   --color-ink: oklch(23.6% 0.058 257.5);
   --color-ink-2: oklch(49.4% 0.042 261.1);
   --color-rule: oklch(93.6% 0.013 262.4);
+
+  /* Action */
   --color-accent: oklch(52% 0.17 258);
   --color-accent-sky: oklch(71.2% 0.15 261.6);
   --color-accent-ink: oklch(100% 0 0);
   --color-focus: oklch(58% 0.229 263.7);
+
+  /* Data status (parity with --color-data-* in globals) */
   --color-data-green: oklch(56.3% 0.119 159);
   --color-data-amber: oklch(63.5% 0.13 74.6);
   --color-data-red: oklch(54.3% 0.174 29.7);
 
+  /* Type roles */
   --font-display: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-outlier: var(--font-mono), ui-monospace, monospace;
 
+  /* Spacing (4-point) */
   --space-3xs: 0.25rem;
   --space-2xs: 0.5rem;
   --space-xs: 0.75rem;
@@ -35,6 +45,7 @@
   --space-2xl: 4.5rem;
   --space-3xl: 7rem;
 
+  /* Type scale */
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-md: 1.125rem;
@@ -43,12 +54,12 @@
   --text-2xl: 2.25rem;
   --text-display: clamp(2.5rem, 6vw, 5.25rem);
 
+  /* Motion (parity with globals --motion-*) */
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --dur-short: 220ms;
-  --dur-medium: 320ms;
+  --dur-fast: 250ms;
+  --dur-reveal: 620ms;
 
+  /* Radius */
   --radius-card: 1.75rem;
   --radius-pill: 9999px;
   --radius-input: 0.625rem;

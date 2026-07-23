@@ -1,9 +1,11 @@
 "use client"
 
 import { useEffect, useState, type ReactNode } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import {
+  ArrowLeft,
+  ArrowRight,
+  Building2,
   Check,
   CircleHelp,
   Eye,
@@ -11,14 +13,16 @@ import {
   Loader2,
   ShieldCheck,
   X,
-  ArrowRight,
 } from "lucide-react"
+
+import { SignupBrand } from "@/components/landing/ui/SignupBrand"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { LINKS, METRICS } from "@/lib/landing-data"
 import { checkSubdomain, submitSignup, type ApiPlan } from "@/lib/api"
+import { LINKS, METRICS } from "@/lib/landing-data"
 import { planFeatureBullets } from "@/lib/plan-display"
+import { cn } from "@/lib/utils"
 
 type Props = {
   plans: ApiPlan[]
@@ -45,8 +49,8 @@ type SlugStatus = "idle" | "checking" | "available" | "taken" | "invalid"
 
 export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   const initialSlug =
-    plans.find((p) => p.slug === initialPlanSlug)?.slug ??
-    plans.find((p) => p.is_popular)?.slug ??
+    plans.find((plan) => plan.slug === initialPlanSlug)?.slug ??
+    plans.find((plan) => plan.is_popular)?.slug ??
     plans[0]?.slug ??
     ""
 
@@ -60,8 +64,6 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   const [showPassword, setShowPassword] = useState(false)
   const [acceptContract, setAcceptContract] = useState(false)
   const [step, setStep] = useState<1 | 2>(1)
-
-  // Resultado de disponibilidade atrelado ao slug consultado (evita estado obsoleto)
   const [availability, setAvailability] = useState<{
     slug: string
     available: boolean
@@ -70,11 +72,9 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const selectedPlan = plans.find((p) => p.slug === selectedSlug)
-
+  const selectedPlan = plans.find((plan) => plan.slug === selectedSlug)
   const slugValid = subdomain.length >= 3 && SLUG_REGEX.test(subdomain)
 
-  // Status derivado — sem setState em render
   const slugStatus: SlugStatus =
     subdomain.length === 0
       ? "idle"
@@ -91,46 +91,52 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
     if (!subdomainTouched) setSubdomain(slugify(value))
   }
 
-  // Checagem de disponibilidade do subdomínio (debounced; setState só no callback assíncrono)
   useEffect(() => {
     if (!slugValid) return
     const handle = setTimeout(async () => {
       const result = await checkSubdomain(subdomain)
-      if (result !== null)
+      if (result !== null) {
         setAvailability({ slug: subdomain, available: result.available })
+      }
     }, 500)
     return () => clearTimeout(handle)
   }, [subdomain, slugValid])
 
   function validateStepOne(): Record<string, string[]> {
     const errs: Record<string, string[]> = {}
-    if (adminName.trim().length < 3)
+    if (adminName.trim().length < 3) {
       errs.admin_name = ["Seu nome deve ter ao menos 3 caracteres"]
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(adminEmail))
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(adminEmail)) {
       errs.admin_email = ["E-mail inválido"]
-    if (adminPassword.length < 8 || !PASSWORD_REGEX.test(adminPassword))
+    }
+    if (adminPassword.length < 8 || !PASSWORD_REGEX.test(adminPassword)) {
       errs.admin_password = [
         "A senha precisa de 8+ caracteres, com maiúscula, minúscula e número",
       ]
-    if (!acceptContract)
+    }
+    if (!acceptContract) {
       errs.accept_usage_contract = [
         "Você precisa aceitar o Contrato de Utilização",
       ]
+    }
     return errs
   }
 
   function validateStepTwo(): Record<string, string[]> {
     const errs: Record<string, string[]> = {}
-    if (organizationName.trim().length < 3)
+    if (organizationName.trim().length < 3) {
       errs.organization_name = [
         "O nome da organização deve ter ao menos 3 caracteres",
       ]
-    if (!SLUG_REGEX.test(subdomain) || subdomain.length < 3)
+    }
+    if (!SLUG_REGEX.test(subdomain) || subdomain.length < 3) {
       errs.slug = [
         "O endereço deve ter ao menos 3 caracteres (letras minúsculas, números e hífens)",
       ]
-    else if (slugStatus === "taken")
+    } else if (slugStatus === "taken") {
       errs.slug = ["Este endereço já está em uso"]
+    }
     return errs
   }
 
@@ -170,7 +176,6 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
     })
 
     if (result.ok) {
-      // Mantém o botão em "Redirecionando" durante a navegação para o Stripe
       window.location.href = result.data.checkout_url
       return
     }
@@ -181,145 +186,123 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   }
 
   return (
-    <div className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
-      {/* ───────── Painel de marca (desktop) ───────── */}
-      <aside className="relative hidden overflow-hidden lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-14">
-        <Image
-          src="/hero-bg.webp"
-          alt=""
-          fill
-          sizes="50vw"
-          className="object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-linear-to-br from-[#071529]/98 via-[#0B1E39]/94 to-[#1648C9]/84" />
-        <div className="bg-blueprint-grid pointer-events-none absolute inset-0 opacity-70" />
+    <main className="signup-stage">
+      <aside className="signup-context" aria-label="Contexto da avaliação">
+        <div className="signup-context-grid" aria-hidden="true" />
+        <div className="signup-context-orbit" aria-hidden="true" />
 
-        {/* Topo — logo */}
-        <div className="relative">
-          <BrandLogo variant="light" />
+        <header className="signup-context-header">
+          <SignupBrand tone="on-dark" />
+          <span>Ativação segura</span>
+        </header>
+
+        <div className="signup-context-body">
+          <span className="signup-context-eyebrow">
+            <i aria-hidden="true" />
+            Avaliação guiada / 02 etapas
+          </span>
+          <p className="signup-context-title">
+            Sua operação começa <strong>inteira.</strong>
+          </p>
+          <p className="signup-context-description">
+            Abra sua conta com plano, equipe e território no mesmo contexto —
+            sem uma implantação longa antes da primeira análise.
+          </p>
+
+          <ol className="signup-context-route" aria-label="Jornada de ativação">
+            <li>
+              <span>01</span>
+              <strong>Acesso</strong>
+              <small>Credenciais seguras</small>
+            </li>
+            <li>
+              <span>02</span>
+              <strong>Empresa</strong>
+              <small>Plano e endereço</small>
+            </li>
+            <li>
+              <span>03</span>
+              <strong>Território</strong>
+              <small>Primeira análise</small>
+            </li>
+          </ol>
+
+          {selectedPlan ? <PlanSummary plan={selectedPlan} /> : null}
         </div>
 
-        {/* Meio — proposta + resumo do plano */}
-        <div className="relative flex flex-col gap-7">
-          <div className="flex flex-col gap-3">
-            <span className="inline-flex w-fit items-center gap-2 rounded-md border border-white/20 bg-white/8 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
-              <span className="size-1.5 rounded-full bg-(--color-data-green)" />
-              {selectedPlan
-                ? `${selectedPlan.trial_days} dias grátis`
-                : "7 dias grátis"}
-            </span>
-            <h1 className="font-heading text-3xl leading-tight font-semibold tracking-tight text-white xl:text-4xl">
-              Do terreno ao retorno.
-            </h1>
-          </div>
-
-          {selectedPlan && <PlanSummaryGlass plan={selectedPlan} />}
-        </div>
-
-        {/* Base — social proof + selo */}
-        <div className="relative flex flex-col gap-5">
-          <div className="grid grid-cols-3 gap-4">
-            {METRICS.slice(0, 3).map((m) => (
-              <div key={m.label}>
-                <p className="font-heading text-xl font-black text-white">
-                  {m.value}
-                </p>
-                <p className="text-xs leading-tight text-white/60">{m.label}</p>
+        <footer className="signup-context-footer">
+          <dl>
+            {METRICS.slice(0, 3).map((metric) => (
+              <div key={metric.label}>
+                <dt>{metric.label}</dt>
+                <dd>{metric.value}</dd>
               </div>
             ))}
-          </div>
-          <div className="flex items-center gap-1.5 text-xs text-white/55">
-            <ShieldCheck className="size-3.5 shrink-0" />
-            <span>
-              Pagamento seguro via{" "}
-              <span className="font-semibold text-white/80">Stripe</span>
-            </span>
-          </div>
-        </div>
+          </dl>
+          <p>
+            <ShieldCheck aria-hidden="true" />
+            Pagamento processado com segurança pelo Stripe
+          </p>
+        </footer>
       </aside>
 
-      {/* ───────── Painel do formulário ───────── */}
-      <div className="flex flex-col bg-background px-5 py-8 sm:px-8 lg:px-12 lg:py-10 xl:px-16">
-        {/* Barra superior */}
-        <div className="mb-8 flex items-center justify-between">
+      <section className="signup-form-panel" aria-labelledby="signup-title">
+        <header className="signup-form-header">
           <span className="lg:hidden">
-            <BrandLogo variant="dark" />
+            <SignupBrand compact />
           </span>
-          <Link
-            href="/"
-            className="ml-auto text-sm font-medium text-muted-foreground hover:text-foreground"
-          >
+          <Link href="/" className="signup-back-link">
+            <ArrowLeft aria-hidden="true" />
             Voltar ao site
           </Link>
-        </div>
+        </header>
 
-        <div className="mx-auto w-full max-w-xl">
-          {/* Resumo compacto (somente mobile) */}
-          {selectedPlan && (
-            <div className="mb-6 flex items-center justify-between rounded-xl border border-border bg-card p-4 lg:hidden">
-              <div>
-                <p className="text-xs text-muted-foreground">
-                  Plano {selectedPlan.name}
-                </p>
-                <p className="font-mono text-lg font-bold text-foreground">
-                  {selectedPlan.formatted_price}
-                  <span className="text-xs font-normal text-muted-foreground">
-                    /mês
-                  </span>
-                </p>
-              </div>
-              <span className="inline-flex items-center rounded-full bg-(--color-data-green)/12 px-2.5 py-1 text-xs font-medium text-(--color-data-green)">
-                {selectedPlan.trial_days} dias grátis
-              </span>
-            </div>
-          )}
+        <div className="signup-form-shell">
+          {selectedPlan ? <MobilePlanSummary plan={selectedPlan} /> : null}
 
           <SignupProgress step={step} />
 
-          <div className="mb-7">
-            <h2 className="font-heading text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          <div className="signup-form-intro">
+            <span>Etapa {String(step).padStart(2, "0")} / 02</span>
+            <h1 id="signup-title">
               {step === 1
-                ? "Comece sua avaliação"
-                : "Configure seu espaço de trabalho"}
-            </h2>
-            <p className="mt-1.5 text-sm text-muted-foreground">
-              {step === 1 ? (
-                "Leva menos de dois minutos. Você escolhe o endereço da empresa no próximo passo."
-              ) : selectedPlan ? (
-                <>
-                  Revise o plano, defina o endereço da conta e continue para o
-                  pagamento seguro. A primeira cobrança será em{" "}
-                  {selectedPlan.trial_days} dias.
-                </>
-              ) : (
-                "Crie sua conta e calcule viabilidade hoje mesmo."
-              )}
+                ? "Crie seu acesso de decisão."
+                : "Defina o espaço da sua operação."}
+            </h1>
+            <p>
+              {step === 1
+                ? "Seus dados de acesso abrem a avaliação. A empresa e o endereço da equipe vêm no próximo passo."
+                : selectedPlan
+                  ? `Revise o plano, defina o endereço da conta e continue para o Stripe. A primeira cobrança será em ${selectedPlan.trial_days} dias.`
+                  : "Crie sua conta e comece a organizar a análise territorial."}
             </p>
           </div>
 
-          {cancelled && (
-            <div className="mb-6 rounded-lg border border-border bg-muted/50 px-4 py-3 text-sm text-muted-foreground">
-              Pagamento não concluído. Seus dados continuam aqui — é só revisar
-              e tentar novamente.
+          {cancelled ? (
+            <div className="signup-notice" role="status">
+              <CircleHelp aria-hidden="true" />
+              <p>
+                <strong>Pagamento não concluído.</strong>
+                Seus dados continuam aqui. Revise as informações e tente
+                novamente quando estiver pronto.
+              </p>
             </div>
-          )}
+          ) : null}
 
-          {formError && (
-            <div
-              role="alert"
-              className="mb-6 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
-            >
-              {formError}
+          {formError ? (
+            <div className="signup-error" role="alert">
+              <X aria-hidden="true" />
+              <p>{formError}</p>
             </div>
-          )}
+          ) : null}
 
           <form
-            onSubmit={(e) => {
-              e.preventDefault()
+            onSubmit={(event) => {
+              event.preventDefault()
               void handleSubmit()
             }}
             noValidate
-            className="flex flex-col gap-5"
+            className="signup-form"
           >
             {step === 1 ? (
               <>
@@ -331,108 +314,104 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                   <Input
                     id="admin_name"
                     value={adminName}
-                    onChange={(e) => setAdminName(e.target.value)}
+                    onChange={(event) => setAdminName(event.target.value)}
                     placeholder="Maria Silva"
                     autoComplete="name"
                     aria-invalid={!!fieldErrors.admin_name}
+                    aria-describedby="admin_name-feedback"
                   />
                 </Field>
 
                 <Field
                   id="admin_email"
-                  label="E-mail"
+                  label="E-mail profissional"
                   error={fieldErrors.admin_email?.[0]}
                 >
                   <Input
                     id="admin_email"
                     type="email"
                     value={adminEmail}
-                    onChange={(e) => setAdminEmail(e.target.value)}
+                    onChange={(event) => setAdminEmail(event.target.value)}
                     placeholder="voce@empresa.com.br"
                     autoComplete="email"
                     aria-invalid={!!fieldErrors.admin_email}
+                    aria-describedby="admin_email-feedback"
                   />
                 </Field>
 
                 <Field
                   id="admin_password"
-                  label="Senha"
+                  label="Crie uma senha"
                   error={fieldErrors.admin_password?.[0]}
-                  hint={
-                    <span className="text-xs text-muted-foreground">
-                      Mínimo 8 caracteres, com maiúscula, minúscula e número.
-                    </span>
-                  }
+                  hint="Mínimo 8 caracteres, com maiúscula, minúscula e número."
                 >
-                  <div className="relative">
+                  <div className="signup-password-field">
                     <Input
                       id="admin_password"
                       type={showPassword ? "text" : "password"}
                       value={adminPassword}
-                      onChange={(e) => setAdminPassword(e.target.value)}
+                      onChange={(event) => setAdminPassword(event.target.value)}
                       placeholder="••••••••"
                       autoComplete="new-password"
                       aria-invalid={!!fieldErrors.admin_password}
-                      className="pr-10"
+                      aria-describedby="admin_password-feedback"
                     />
                     <button
                       type="button"
-                      onClick={() => setShowPassword((v) => !v)}
-                      className="absolute inset-y-0 right-0 flex w-10 items-center justify-center text-muted-foreground hover:text-foreground"
+                      onClick={() => setShowPassword((current) => !current)}
                       aria-label={
                         showPassword ? "Ocultar senha" : "Mostrar senha"
                       }
                     >
                       {showPassword ? (
-                        <EyeOff className="size-4" />
+                        <EyeOff aria-hidden="true" />
                       ) : (
-                        <Eye className="size-4" />
+                        <Eye aria-hidden="true" />
                       )}
                     </button>
                   </div>
                 </Field>
 
-                <label className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                <label className="signup-contract">
                   <input
                     type="checkbox"
                     checked={acceptContract}
-                    onChange={(e) => setAcceptContract(e.target.checked)}
-                    className="mt-0.5 size-4 shrink-0 rounded border-input accent-primary"
+                    onChange={(event) =>
+                      setAcceptContract(event.target.checked)
+                    }
                     aria-invalid={!!fieldErrors.accept_usage_contract}
+                    aria-describedby={
+                      fieldErrors.accept_usage_contract
+                        ? "contract-error"
+                        : undefined
+                    }
                   />
-                  <span>
+                  <span aria-hidden="true">
+                    <Check />
+                  </span>
+                  <p>
                     Li e aceito o{" "}
-                    <a
-                      href="/legal/termos-de-uso"
-                      target="_blank"
-                      className="font-medium text-primary underline-offset-2 hover:underline"
-                    >
+                    <a href="/legal/termos-de-uso" target="_blank">
                       Contrato de Utilização
                     </a>{" "}
                     e a{" "}
-                    <a
-                      href="/legal/privacidade"
-                      target="_blank"
-                      className="font-medium text-primary underline-offset-2 hover:underline"
-                    >
+                    <a href="/legal/privacidade" target="_blank">
                       Política de Privacidade
                     </a>
                     .
-                  </span>
+                  </p>
                 </label>
-                {fieldErrors.accept_usage_contract && (
-                  <p className="-mt-3 text-xs text-destructive">
+                {fieldErrors.accept_usage_contract ? (
+                  <p id="contract-error" className="signup-field-error">
                     {fieldErrors.accept_usage_contract[0]}
                   </p>
-                )}
+                ) : null}
               </>
             ) : (
               <>
-                <fieldset className="rounded-xl border border-border bg-card p-4 shadow-raise">
-                  <legend className="px-1 text-sm font-semibold text-foreground">
-                    Escolha seu plano
-                  </legend>
-                  <div className="mt-3 flex flex-wrap gap-2">
+                <fieldset className="signup-plan-selector">
+                  <legend>Escolha o perímetro da operação</legend>
+                  <div>
                     {plans.map((plan) => {
                       const active = plan.slug === selectedSlug
                       return (
@@ -441,30 +420,20 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                           type="button"
                           onClick={() => setSelectedSlug(plan.slug)}
                           aria-pressed={active}
-                          className={`relative flex min-w-28 flex-1 flex-col items-start rounded-lg border px-3 py-2.5 text-left transition-colors ${
-                            active
-                              ? "border-primary bg-primary/5 ring-1 ring-primary/30"
-                              : "border-border hover:border-primary/40 hover:bg-muted/50"
-                          }`}
+                          className={cn(active && "is-active")}
                         >
-                          {plan.is_popular && (
-                            <span className="mb-1 text-[10px] font-bold tracking-[0.08em] text-primary uppercase">
-                              Mais escolhido
-                            </span>
-                          )}
-                          <span className="text-sm font-semibold text-foreground">
-                            {plan.name}
+                          <span>
+                            <strong>{plan.name}</strong>
+                            {plan.is_popular ? <em>Recomendado</em> : null}
                           </span>
-                          <span className="text-xs text-muted-foreground">
-                            {plan.formatted_price}/mês
-                          </span>
+                          <small>{plan.formatted_price}/mês</small>
                         </button>
                       )
                     })}
                   </div>
                 </fieldset>
 
-                {selectedPlan && <CheckoutSummary plan={selectedPlan} />}
+                {selectedPlan ? <CheckoutSummary plan={selectedPlan} /> : null}
 
                 <Field
                   id="organization_name"
@@ -474,44 +443,45 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                   <Input
                     id="organization_name"
                     value={organizationName}
-                    onChange={(e) => handleOrganizationName(e.target.value)}
+                    onChange={(event) =>
+                      handleOrganizationName(event.target.value)
+                    }
                     placeholder="Construtora Terraplan"
                     autoComplete="organization"
                     aria-invalid={!!fieldErrors.organization_name}
+                    aria-describedby="organization_name-feedback"
                   />
                 </Field>
 
                 <Field
                   id="slug"
-                  label="Endereço da sua conta"
+                  label="Endereço da equipe"
                   error={fieldErrors.slug?.[0]}
                   hint={<SlugHint status={slugStatus} />}
                 >
-                  <div className="flex items-stretch">
+                  <div className="signup-slug-field">
                     <Input
                       id="slug"
                       value={subdomain}
-                      onChange={(e) => {
+                      onChange={(event) => {
                         setSubdomainTouched(true)
-                        setSubdomain(slugify(e.target.value))
+                        setSubdomain(slugify(event.target.value))
                       }}
                       placeholder="sua-empresa"
                       autoComplete="off"
                       spellCheck={false}
                       aria-invalid={!!fieldErrors.slug}
-                      className="rounded-r-none"
+                      aria-describedby="slug-feedback"
                     />
-                    <span className="inline-flex items-center rounded-r-lg border border-l-0 border-input bg-muted px-3 text-sm text-muted-foreground">
-                      {TENANT_SUFFIX}
-                    </span>
+                    <span>{TENANT_SUFFIX}</span>
                   </div>
                 </Field>
 
-                <div className="flex gap-3 rounded-xl border border-border bg-muted/35 p-4 text-sm text-muted-foreground">
-                  <CircleHelp className="mt-0.5 size-4 shrink-0 text-primary" />
-                  <p className="leading-relaxed">
-                    Depois do pagamento, você conclui a configuração dentro do
-                    produto com mais contexto sobre equipe, carteira e operação.
+                <div className="signup-guidance">
+                  <Building2 aria-hidden="true" />
+                  <p>
+                    Depois do pagamento, sua equipe conclui a configuração da
+                    carteira dentro do produto, sem perder este contexto.
                   </p>
                 </div>
               </>
@@ -522,7 +492,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
               variant="brand"
               size="lg"
               disabled={submitting}
-              className="mt-1 h-12 w-full gap-2 text-base font-semibold"
+              className="signup-primary-action"
               data-analytics-event={
                 step === 2 ? "trial_signup_click" : undefined
               }
@@ -531,25 +501,25 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
             >
               {submitting ? (
                 <>
-                  <Loader2 className="size-4 animate-spin" />
+                  <Loader2 className="animate-spin" aria-hidden="true" />
                   Redirecionando para o pagamento…
                 </>
               ) : (
                 <>
                   {step === 1
-                    ? "Continuar"
+                    ? "Continuar para a empresa"
                     : "Ir para o pagamento seguro"}
-                  <ArrowRight className="size-4" />
+                  <ArrowRight aria-hidden="true" />
                 </>
               )}
             </Button>
 
-            {step === 2 && selectedPlan && (
-              <p className="-mt-2 text-center text-xs text-muted-foreground">
+            {step === 2 && selectedPlan ? (
+              <p className="signup-checkout-note">
                 Você será direcionado ao Stripe. Primeira cobrança em{" "}
                 {selectedPlan.trial_days} dias; cancele antes, sem custo.
               </p>
-            )}
+            ) : null}
 
             {step === 2 ? (
               <Button
@@ -557,35 +527,27 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                 variant="outline"
                 size="lg"
                 onClick={() => setStep(1)}
-                className="h-11 w-full"
+                className="signup-secondary-action"
               >
+                <ArrowLeft aria-hidden="true" />
                 Voltar e revisar acesso
               </Button>
             ) : null}
 
-            <div className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-              <ShieldCheck className="size-3.5 shrink-0 text-[oklch(0.55_0.22_272)]" />
+            <div className="signup-secure-payment">
+              <ShieldCheck aria-hidden="true" />
               <span>
-                Pagamento seguro via{" "}
-                <span className="font-semibold text-[oklch(0.55_0.22_272)]">
-                  Stripe
-                </span>
+                Checkout protegido por <strong>Stripe</strong>
               </span>
             </div>
 
-            <p className="text-center text-sm text-muted-foreground">
-              Já tem conta?{" "}
-              <a
-                href={LINKS.login}
-                className="font-medium text-primary hover:underline"
-              >
-                Entrar
-              </a>
+            <p className="signup-login-link">
+              Já tem uma conta? <a href={LINKS.login}>Entrar no SIGAPP</a>
             </p>
           </form>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }
 
@@ -593,31 +555,24 @@ function SignupProgress({ step }: { step: 1 | 2 }) {
   const steps = ["Seu acesso", "Sua empresa"]
 
   return (
-    <ol className="mb-7 grid grid-cols-2 gap-3" aria-label="Progresso do cadastro">
+    <ol className="signup-progress" aria-label="Progresso do cadastro">
       {steps.map((label, index) => {
         const number = index + 1
         const current = number === step
         const complete = number < step
 
         return (
-          <li key={label} className="flex items-center gap-2">
-            <span
-              className={`flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
-                current || complete
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-muted text-muted-foreground"
-              }`}
-              aria-current={current ? "step" : undefined}
-            >
-              {complete ? <Check className="size-3.5" /> : number}
+          <li
+            key={label}
+            className={cn(current && "is-current", complete && "is-complete")}
+          >
+            <span aria-current={current ? "step" : undefined}>
+              {complete ? <Check aria-hidden="true" /> : `0${number}`}
             </span>
-            <span
-              className={`text-xs font-semibold ${
-                current ? "text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              {label}
-            </span>
+            <div>
+              <small>{complete ? "Concluído" : `Etapa 0${number}`}</small>
+              <strong>{label}</strong>
+            </div>
           </li>
         )
       })}
@@ -625,93 +580,73 @@ function SignupProgress({ step }: { step: 1 | 2 }) {
   )
 }
 
-function CheckoutSummary({ plan }: { plan: ApiPlan }) {
+function MobilePlanSummary({ plan }: { plan: ApiPlan }) {
   return (
-    <section
-      className="rounded-xl border border-primary/15 bg-primary/[0.035] p-4"
-      aria-label="Resumo do seu pedido"
-    >
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs font-semibold tracking-[0.12em] text-primary uppercase">
-            Seu plano
-          </p>
-          <p className="mt-1 font-semibold text-foreground">SIGAPP {plan.name}</p>
-        </div>
-        <div className="text-right">
-          <p className="font-mono text-lg font-bold text-foreground">
-            {plan.formatted_price}
-          </p>
-          <p className="text-xs text-muted-foreground">por mês</p>
-        </div>
+    <section className="signup-mobile-plan" aria-label="Plano selecionado">
+      <div>
+        <span>Plano ativo</span>
+        <strong>{plan.name}</strong>
       </div>
-      <div className="mt-3 flex items-center gap-2 border-t border-primary/10 pt-3 text-xs text-muted-foreground">
-        <Check className="size-3.5 shrink-0 text-(--color-data-green)" />
-        {plan.trial_days} dias de avaliação antes da primeira cobrança
-      </div>
+      <p>
+        <strong>{plan.formatted_price}</strong>
+        <span>/mês</span>
+      </p>
+      <small>{plan.trial_days} dias grátis</small>
     </section>
   )
 }
 
-/** Card de resumo do plano em vidro (sobre o painel de marca escuro). */
-function PlanSummaryGlass({ plan }: { plan: ApiPlan }) {
+function CheckoutSummary({ plan }: { plan: ApiPlan }) {
   return (
-    <div className="rounded-2xl border border-white/15 bg-white/8 p-6 backdrop-blur-md">
-      <div className="flex items-start justify-between gap-3">
+    <section className="signup-checkout-summary" aria-label="Resumo do pedido">
+      <header>
         <div>
-          <p className="text-xs font-semibold tracking-widest text-white/50 uppercase">
-            Resumo
-          </p>
-          <h2 className="mt-1.5 font-heading text-xl font-semibold text-white">
-            {plan.name}
-          </h2>
+          <span>Perímetro selecionado</span>
+          <strong>SIGAPP {plan.name}</strong>
         </div>
-        <div className="text-right">
-          <p className="font-mono text-2xl font-bold tracking-tight text-white">
-            {plan.formatted_price}
-          </p>
-          <p className="text-xs text-white/55">/mês</p>
+        <p>
+          <strong>{plan.formatted_price}</strong>
+          <small>por mês</small>
+        </p>
+      </header>
+      <footer>
+        <Check aria-hidden="true" />
+        {plan.trial_days} dias de avaliação antes da primeira cobrança
+      </footer>
+    </section>
+  )
+}
+
+function PlanSummary({ plan }: { plan: ApiPlan }) {
+  return (
+    <section className="signup-plan-summary" aria-label="Resumo do plano">
+      <header>
+        <div>
+          <span>Perímetro selecionado</span>
+          <h2>{plan.name}</h2>
         </div>
-      </div>
+        <p>
+          <strong>{plan.formatted_price}</strong>
+          <small>/mês</small>
+        </p>
+      </header>
 
-      {plan.description && (
-        <p className="mt-2 text-sm text-white/65">{plan.description}</p>
-      )}
+      {plan.description ? <p>{plan.description}</p> : null}
 
-      <div className="my-5 h-px bg-white/15" />
-
-      <ul className="space-y-2.5 text-sm">
-        {planFeatureBullets(plan).map((f) => (
-          <li key={f} className="flex items-start gap-2">
-            <Check className="mt-0.5 size-4 shrink-0 text-(--color-data-green)" />
-            <span className="text-white/85">{f}</span>
+      <ul>
+        {planFeatureBullets(plan).map((feature) => (
+          <li key={feature}>
+            <Check aria-hidden="true" />
+            <span>{feature}</span>
           </li>
         ))}
       </ul>
 
-      <p className="mt-5 text-xs text-white/50">
-        Primeira cobrança em {plan.trial_days} dias. Cancele antes sem custo.
-      </p>
-    </div>
-  )
-}
-
-function BrandLogo({ variant }: { variant: "light" | "dark" }) {
-  // variant "light" = sobre painel escuro (campo branco) · "dark" = sobre painel claro
-  return (
-    <Link
-      href="/"
-      aria-label="SIGAPP"
-      className="inline-flex w-fit items-center focus:outline-none"
-    >
-      {variant === "light" ? (
-        <span className="inline-flex rounded-xl bg-white px-3.5 py-2.5">
-          <Image src="/logo-mark.svg" alt="SIGAPP" width={92} height={28} />
-        </span>
-      ) : (
-        <Image src="/logo-mark.svg" alt="SIGAPP" width={92} height={28} />
-      )}
-    </Link>
+      <footer>
+        <span>{plan.trial_days} dias para avaliar</span>
+        <strong>Sem fidelidade</strong>
+      </footer>
+    </section>
   )
 }
 
@@ -729,45 +664,54 @@ function Field({
   children: ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="signup-field">
       <Label htmlFor={id}>{label}</Label>
       {children}
-      {error ? (
-        <p className="text-xs text-destructive">{error}</p>
-      ) : hint ? (
-        <div>{hint}</div>
-      ) : null}
+      <div id={`${id}-feedback`} className="signup-field-feedback">
+        {error ? (
+          <p className="signup-field-error">{error}</p>
+        ) : hint ? (
+          hint
+        ) : null}
+      </div>
     </div>
   )
 }
 
 function SlugHint({ status }: { status: SlugStatus }) {
-  if (status === "checking")
+  if (status === "checking") {
     return (
-      <span className="flex items-center gap-1 text-xs text-muted-foreground">
-        <Loader2 className="size-3 animate-spin" /> Verificando disponibilidade…
+      <span className="signup-slug-hint">
+        <Loader2 className="animate-spin" aria-hidden="true" />
+        Verificando disponibilidade…
       </span>
     )
-  if (status === "available")
+  }
+  if (status === "available") {
     return (
-      <span className="flex items-center gap-1 text-xs text-(--color-data-green)">
-        <Check className="size-3" /> Endereço disponível
+      <span className="signup-slug-hint is-available">
+        <Check aria-hidden="true" />
+        Endereço disponível
       </span>
     )
-  if (status === "taken")
+  }
+  if (status === "taken") {
     return (
-      <span className="flex items-center gap-1 text-xs text-destructive">
-        <X className="size-3" /> Endereço já está em uso
+      <span className="signup-slug-hint is-taken">
+        <X aria-hidden="true" />
+        Endereço já está em uso
       </span>
     )
-  if (status === "invalid")
+  }
+  if (status === "invalid") {
     return (
-      <span className="text-xs text-muted-foreground">
+      <span className="signup-slug-hint">
         Use ao menos 3 caracteres: letras minúsculas, números e hífens.
       </span>
     )
+  }
   return (
-    <span className="text-xs text-muted-foreground">
+    <span className="signup-slug-hint">
       Será o endereço de acesso da sua equipe.
     </span>
   )

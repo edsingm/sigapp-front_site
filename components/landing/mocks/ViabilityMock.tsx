@@ -61,7 +61,7 @@ export function ViabilityMock() {
             Terreno Av. Paulista, 1840
           </p>
         </div>
-        <span className="badge-pop rounded-full bg-[color:rgba(30,138,91,0.12)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-data-green)]">
+        <span className="badge-pop rounded-full bg-[oklch(84%_0.18_145/14%)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-data-green)]">
           Aprovada
         </span>
       </div>
@@ -115,7 +115,7 @@ export function ViabilityMock() {
                   row.type === "profit"
                     ? "text-[var(--color-data-green)]"
                     : row.type === "deduction" || row.type === "cost"
-                      ? "text-[color:rgba(217,57,51,0.78)]"
+                      ? "text-[var(--color-data-red)]"
                       : ""
                 }`}
               >

@@ -1,14 +1,20 @@
 "use client"
 
 import { openCookiePrefs } from "@/lib/cookie-consent"
+import { FOOTER_COPY } from "@/lib/landing-data"
 
 export function CookiePreferencesButton() {
   return (
     <button
+      type="button"
       onClick={openCookiePrefs}
-      className="inline-flex min-h-11 items-center rounded-lg px-2 text-xs font-medium text-foreground/72 transition-colors hover:text-foreground"
+      className="footer-cookie-button"
+      aria-haspopup="dialog"
     >
-      Gerenciar cookies
+      <span aria-hidden="true">
+        <i />
+      </span>
+      {FOOTER_COPY.cookiePreferences}
     </button>
   )
 }

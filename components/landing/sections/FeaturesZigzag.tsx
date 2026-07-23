@@ -1,4 +1,4 @@
-import { Check } from "lucide-react"
+import { ArrowDownRight, Check, Layers3 } from "lucide-react"
 
 import { MockReveal } from "@/components/landing/client/MockReveal"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
@@ -6,9 +6,7 @@ import { ChatMock } from "@/components/landing/mocks/ChatMock"
 import { PermissionsMock } from "@/components/landing/mocks/PermissionsMock"
 import { ViabilityMock } from "@/components/landing/mocks/ViabilityMock"
 import { WorkflowMock } from "@/components/landing/mocks/WorkflowMock"
-import { EyebrowBadge } from "@/components/landing/ui/EyebrowBadge"
-import { SectionLabel } from "@/components/landing/ui/SectionLabel"
-import { FEATURES } from "@/lib/landing-data"
+import { FEATURES, FEATURES_COPY } from "@/lib/landing-data"
 import { cn } from "@/lib/utils"
 
 const MOCK_COMPONENTS = {
@@ -29,96 +27,117 @@ export function FeaturesZigzag() {
   return (
     <section
       id="funcionalidades"
-      className="relative overflow-hidden py-16 sm:py-20 md:py-28"
+      className="feature-stage"
+      aria-labelledby="features-title"
     >
-      <div className="container-landing relative">
+      <div className="feature-stage-grid" aria-hidden="true" />
+      <div className="container-landing feature-shell">
         <ScrollReveal
           stagger
-          className="mb-14 grid gap-5 md:mb-20 lg:grid-cols-12 lg:items-end"
+          className="feature-intro lg:grid-cols-12 lg:items-end"
         >
-          <div className="flex min-w-0 flex-col gap-4 lg:col-span-5">
-            <SectionLabel>Capacidades</SectionLabel>
-            <h2 className="section-display text-foreground">
-              O que o dossiê carrega do primeiro contato ao registro
+          <div className="feature-intro-copy lg:col-span-8">
+            <span className="feature-eyebrow">
+              <Layers3 aria-hidden="true" />
+              {FEATURES_COPY.eyebrow}
+            </span>
+            <h2 id="features-title" className="feature-heading">
+              <span>{FEATURES_COPY.titleLine1}</span>
+              <strong>{FEATURES_COPY.titleLine2}</strong>
             </h2>
           </div>
-          <p className="max-w-[48ch] text-muted-foreground md:text-lg lg:col-span-7 lg:justify-self-end">
-            Viabilidade, assistente de domínio, pipeline e permissões — o
-            necessário para a equipe decidir sem repassar contexto.
+          <p className="feature-description lg:col-span-4">
+            {FEATURES_COPY.description}
           </p>
         </ScrollReveal>
 
-        <div className="flex flex-col gap-8 md:gap-12">
-          {FEATURES.map((feature, index) => {
-            const MockComponent = MOCK_COMPONENTS[feature.mock]
-            const isRight = feature.side === "right"
-            const isAnchor = index === 0
+        <div className="feature-system lg:grid-cols-12">
+          <aside
+            className="feature-rail lg:sticky lg:top-24 lg:col-span-3 lg:self-start"
+            aria-label={FEATURES_COPY.railLabel}
+          >
+            <p className="feature-rail-label">{FEATURES_COPY.railLabel}</p>
+            <ol>
+              {FEATURES.map((feature, index) => (
+                <li key={feature.id}>
+                  <a href={`#feature-${feature.id}`}>
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    {feature.eyebrow}
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </aside>
 
-            return (
-              <ScrollReveal
-                key={feature.id}
-                className={cn(
-                  "grid items-center gap-8 border-t border-border pt-10 sm:gap-10 lg:grid-cols-2 lg:gap-14 lg:pt-14",
-                  index === 0 && "border-t-0 pt-0 lg:pt-0"
-                )}
-              >
-                <div
+          <div className="feature-layers lg:col-span-9">
+            {FEATURES.map((feature, index) => {
+              const MockComponent = MOCK_COMPONENTS[feature.mock]
+              const isReversed = feature.side === "left"
+
+              return (
+                <ScrollReveal
+                  key={feature.id}
                   className={cn(
-                    "flex min-w-0 flex-col gap-4",
-                    !isRight && "lg:order-last"
+                    "feature-layer",
+                    `feature-layer--${feature.id}`,
+                    isReversed && "feature-layer--reversed"
                   )}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="data-mono text-[11px] font-bold text-muted-foreground/50">
-                      0{index + 1}
-                    </span>
-                    <EyebrowBadge variant="brand">{feature.eyebrow}</EyebrowBadge>
-                  </div>
-                  <h3 className="font-heading text-2xl leading-[1.1] font-bold tracking-tight text-balance text-foreground md:text-3xl">
-                    {feature.title}
-                  </h3>
-                  <p className="max-w-[46ch] leading-relaxed text-muted-foreground md:text-lg">
-                    {feature.description}
-                  </p>
-                  <ul className="mt-1 flex flex-col gap-2.5">
-                    {feature.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-start gap-3">
-                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-                          <Check className="size-3" strokeWidth={2.5} />
-                        </span>
-                        <span className="text-sm leading-relaxed text-foreground/80">
-                          {bullet}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                  <article id={`feature-${feature.id}`}>
+                    <header className="feature-layer-head">
+                      <div className="feature-layer-index">
+                        <span>{FEATURES_COPY.layerLabel}</span>
+                        <strong>{String(index + 1).padStart(2, "0")}</strong>
+                      </div>
+                      <div className="feature-layer-title">
+                        <p>{feature.eyebrow}</p>
+                        <h3>{feature.title}</h3>
+                      </div>
+                      <ArrowDownRight aria-hidden="true" />
+                    </header>
 
-                <div
-                  className={cn(
-                    "relative min-w-0",
-                    isRight ? "lg:order-last" : ""
-                  )}
-                >
-                  {isAnchor ? (
-                    <div className="card-bezel relative shadow-float">
-                      <div className="card-bezel__core overflow-hidden p-2">
+                    <div className="feature-layer-body lg:grid-cols-12">
+                      <div
+                        className={cn(
+                          "feature-layer-copy lg:col-span-4",
+                          isReversed && "lg:order-2"
+                        )}
+                      >
+                        <p>{feature.description}</p>
+                        <div className="feature-evidence">
+                          <span>{FEATURES_COPY.evidenceLabel}</span>
+                          <ul>
+                            {feature.bullets.map((bullet) => (
+                              <li key={bullet}>
+                                <Check aria-hidden="true" />
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div
+                        className={cn(
+                          "feature-visual lg:col-span-8",
+                          isReversed && "lg:order-1"
+                        )}
+                      >
+                        <div className="feature-visual-chrome">
+                          <span />
+                          <span />
+                          <span />
+                        </div>
                         <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>
                           <MockComponent />
                         </MockReveal>
                       </div>
                     </div>
-                  ) : (
-                    <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-panel">
-                      <MockReveal mockClass={MOCK_CLASSES[feature.mock]}>
-                        <MockComponent />
-                      </MockReveal>
-                    </div>
-                  )}
-                </div>
-              </ScrollReveal>
-            )
-          })}
+                  </article>
+                </ScrollReveal>
+              )
+            })}
+          </div>
         </div>
       </div>
     </section>

@@ -22,18 +22,24 @@ modern-minimal (B2B SaaS) with cartographic editorial restraint.
 
 ## Theme
 
-Brand-locked OKLCH (do not rotate catalog themes across pages):
+Brand-locked OKLCH (do not rotate catalog themes across pages).
 
-- `--color-paper` · oklch(98.2% 0.006 264.5)
-- `--color-paper-2` · oklch(97.3% 0.007 268.5)
-- `--color-ink` · oklch(23.6% 0.058 257.5) — brand navy
-- `--color-ink-2` · oklch(49.4% 0.042 261.1)
-- `--color-rule` · oklch(93.6% 0.013 262.4)
-- `--color-accent` · oklch(52% 0.17 258) — action blue, ≤ ~5% per viewport
-- `--color-accent-sky` · oklch(71.2% 0.15 261.6) — routes / secondary map signal
-- `--color-focus` · oklch(58% 0.229 263.7)
+**Runtime (shadcn, in `app/globals.css`):**
 
-Maps to existing shadcn tokens: paper→background, ink→foreground / brand-navy, accent→primary.
+- `--background` · oklch(98.2% 0.006 264.5) — paper
+- `--foreground` · oklch(23.6% 0.058 257.5) — ink / navy
+- `--primary` · oklch(52% 0.17 258) — action blue, ≤ ~5% per viewport
+- `--ring` · oklch(58% 0.229 263.7) — focus
+- `--color-brand-navy` · same as foreground light — bezels / tinted shadows
+- `--color-data-green` / `--color-data-amber` / `--color-data-red` — status only
+- `--landing-*` — marketing semantic colors + type scale (heavy use in section CSS)
+
+**Portable names in `tokens.css`** (design export, not all wired as TW utilities):
+
+- `--color-paper` / `--color-paper-2` / `--color-ink` / `--color-ink-2` / `--color-rule`
+- `--color-accent` (= primary) / `--color-accent-sky` / `--color-focus`
+
+Do not reintroduce unused scaffold tokens (sidebar*, chart-*, popover*, brand-sky/subtle/line/muted, surface-*, nav-bg) without a real consumer.
 
 ## Typography
 
@@ -52,7 +58,8 @@ Maps to existing shadcn tokens: paper→background, ink→foreground / brand-nav
 
 ## Motion
 
-- Easings: `--motion-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1)`
+- `--motion-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1)`
+- `--motion-fast: 250ms` · `--motion-reveal: 620ms`
 - Reveal: opacity + slight translate via ScrollReveal; cut decorative ping where non-informational
 - Reduced-motion: opacity-only, ≤ 150 ms; pause marquees and route dash
 

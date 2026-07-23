@@ -5,6 +5,8 @@ export type BlogPost = {
   content: string
   author: BlogAuthor
   publishedAt: string
+  updatedAt?: string
+  seoTitle: string
   readTime: number
   category: BlogCategory
   coverColor: string
@@ -60,6 +62,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "como-calcular-tir-projetos-imobiliarios",
     title: "Como calcular TIR em projetos imobiliários sem planilha frágil",
+    seoTitle: "Como calcular TIR em projetos imobiliários",
     excerpt:
       "A TIR considera o tempo do fluxo — ROI não. O que entra no cálculo, onde a planilha falha e como manter o comitê no mesmo número.",
     content: `
@@ -111,6 +114,7 @@ Essa análise, que levaria um dia inteiro em Excel, o SIGAPP produz em minutos.
   {
     slug: "sig-ia-inteligencia-artificial-mercado-imobiliario",
     title: "SIG_IA: Por que IA Genérica Falha no Mercado Imobiliário",
+    seoTitle: "IA no mercado imobiliário: por que modelos genéricos falham",
     excerpt:
       "ChatGPT e ferramentas genéricas de IA não entendem permuta com pessoa física, CUB, ou como estruturar uma curva de venda. A SIG_IA foi construída para isso.",
     content: `
@@ -151,6 +155,7 @@ Nenhuma dessas consultas funciona bem em um assistente de IA genérico, porque e
     slug: "multi-tenancy-dados-incorporadoras",
     title:
       "Multi-tenancy: Por que Isolamento de Dados Importa para Incorporadoras",
+    seoTitle: "Isolamento de dados para incorporadoras: como funciona",
     excerpt:
       "Quando múltiplas empresas compartilham um banco de dados, o risco de vazamento de dados estratégicos é real. Entenda a arquitetura database-per-tenant do SIGAPP.",
     content: `
@@ -183,6 +188,7 @@ No SIGAPP, entendemos que para dados tão sensíveis quanto prospecções imobil
   {
     slug: "estruturar-comite-aprovacao-terrenos",
     title: "Como Estruturar um Comitê de Aprovação de Terrenos Eficiente",
+    seoTitle: "Como estruturar um comitê de aprovação de terrenos",
     excerpt:
       "Empresas que aprovam terrenos sem processo estruturado cometem erros caros. Veja como organizar um comitê com papéis claros, critérios objetivos e histórico auditável.",
     content: `
@@ -230,6 +236,7 @@ No SIGAPP, o módulo de Comitê faz exatamente isso, com rastreabilidade complet
     slug: "incc-cub-permuta-parametros-viabilidade",
     title:
       "INCC, CUB e Permuta: Os Parâmetros que Definem uma Viabilidade Precisa",
+    seoTitle: "INCC, CUB e permuta na viabilidade imobiliária",
     excerpt:
       "Uma análise de viabilidade imobiliária brasileira que ignora INCC, CUB ou a estrutura tributária da permuta estará sempre errada. Entenda cada um.",
     content: `
@@ -267,6 +274,7 @@ O SIGAPP calcula corretamente as duas modalidades, incluindo os impactos em IRPJ
   {
     slug: "digitalizacao-incorporadora-excel-saas",
     title: "Do Excel ao SaaS: A Jornada de Digitalização de uma Incorporadora",
+    seoTitle: "Como migrar a incorporadora do Excel para um SaaS",
     excerpt:
       "Como a Construtora Terraplan migrou 200 terrenos prospectados de planilhas para o SIGAPP em 8 semanas — e o que aprenderam no processo.",
     content: `
