@@ -35,7 +35,7 @@ export function LegalLayout({
   return (
     <>
       <LandingNav />
-      <main className="legal-page">
+      <main id="conteudo-principal" tabIndex={-1} className="legal-page">
         <SecondaryPageHero
           variant="editorial"
           eyebrow="Base legal"

@@ -18,7 +18,7 @@ export default function DemonstracaoPage() {
   return (
     <>
       <LandingNav />
-      <main className="demo-page">
+      <main id="conteudo-principal" tabIndex={-1} className="demo-page">
         <section className="demo-stage" aria-labelledby="demo-title">
           <div className="demo-stage-grid" aria-hidden="true" />
           <div className="container-landing demo-shell">

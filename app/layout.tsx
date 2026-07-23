@@ -32,6 +32,7 @@ const fontMono = Geist_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#f5f8f2",
 }
 
 export const metadata: Metadata = {
@@ -104,6 +105,9 @@ export default function RootLayout({
     >
       <body suppressHydrationWarning>
         <ThemeProvider>
+          <a href="#conteudo-principal" className="skip-link">
+            Pular para o conteúdo
+          </a>
           {children}
           <CookieBanner />
           <AnalyticsScripts />

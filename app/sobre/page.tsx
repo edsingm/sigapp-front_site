@@ -19,7 +19,7 @@ export default function SobrePage() {
   return (
     <>
       <LandingNav />
-      <main className="about-page">
+      <main id="conteudo-principal" tabIndex={-1} className="about-page">
         <SecondaryPageHero
           variant="editorial"
           eyebrow={ABOUT_PAGE.eyebrow}
@@ -110,6 +110,7 @@ export default function SobrePage() {
                   alt="Mesa de trabalho com plantas e documentos de análise imobiliária"
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="eager"
                   className="object-cover"
                 />
                 <span aria-hidden="true">SIG / 03</span>

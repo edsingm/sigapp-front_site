@@ -53,7 +53,7 @@ export function SecondaryPageHero({
           {breadcrumbs.length > 0 ? (
             <div
               className={cn(
-                "secondary-page-hero__breadcrumbs flex flex-wrap items-center gap-2 text-[11px] tracking-[0.14em] text-white/50 uppercase",
+                "secondary-page-hero__breadcrumbs flex flex-wrap items-center gap-2 text-xs tracking-[0.14em] text-[var(--landing-text-muted)] uppercase",
                 centered && "justify-center"
               )}
             >
@@ -65,15 +65,22 @@ export function SecondaryPageHero({
                   {item.href ? (
                     <Link
                       href={item.href}
-                      className="transition-colors hover:text-white/80"
+                      className="transition-colors hover:text-[var(--landing-text)]"
                     >
                       {item.label}
                     </Link>
                   ) : (
-                    <span className="text-white/78">{item.label}</span>
+                    <span className="text-[var(--landing-text-soft)]">
+                      {item.label}
+                    </span>
                   )}
                   {index < breadcrumbs.length - 1 ? (
-                    <span className="text-white/28">/</span>
+                    <span
+                      aria-hidden="true"
+                      className="text-[var(--landing-text-muted)]"
+                    >
+                      /
+                    </span>
                   ) : null}
                 </span>
               ))}

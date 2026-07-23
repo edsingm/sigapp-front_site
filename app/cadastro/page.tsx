@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowLeft, WifiOff } from "lucide-react"
 
 import { SignupBrand } from "@/components/landing/ui/SignupBrand"
+import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { fetchPlans, type ApiPlan } from "@/lib/api"
 import { SignupForm } from "@/components/landing/client/SignupForm"
 import { SignupStatus } from "@/components/landing/client/SignupStatus"
@@ -49,11 +50,18 @@ export default async function CadastroPage({
 
   if (plans.length === 0) {
     return (
-      <main className="signup-unavailable-stage">
+      <main
+        id="conteudo-principal"
+        tabIndex={-1}
+        className="signup-unavailable-stage"
+      >
         <div className="signup-status-grid" aria-hidden="true" />
         <header>
           <SignupBrand tone="on-dark" />
-          <span>Ativação indisponível</span>
+          <div className="signup-header-actions">
+            <span>Ativação indisponível</span>
+            <ThemeToggleButton className="signup-theme-toggle" />
+          </div>
         </header>
 
         <section aria-labelledby="signup-unavailable-title">

@@ -88,7 +88,7 @@ export default function BlogPage() {
   return (
     <>
       <LandingNav />
-      <main className="blog-page">
+      <main id="conteudo-principal" tabIndex={-1} className="blog-page">
         <SecondaryPageHero
           variant="editorial"
           eyebrow="Leituras de ofício"

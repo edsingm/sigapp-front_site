@@ -231,7 +231,7 @@ export default async function BlogPostPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
       <LandingNav />
-      <main className="article-page">
+      <main id="conteudo-principal" tabIndex={-1} className="article-page">
         <SecondaryPageHero
           variant="editorial"
           eyebrow="Caderno SIGAPP"

@@ -16,6 +16,7 @@ import {
 } from "lucide-react"
 
 import { SignupBrand } from "@/components/landing/ui/SignupBrand"
+import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -186,7 +187,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
   }
 
   return (
-    <main className="signup-stage">
+    <main id="conteudo-principal" tabIndex={-1} className="signup-stage">
       <aside className="signup-context" aria-label="Contexto da avaliação">
         <div className="signup-context-grid" aria-hidden="true" />
         <div className="signup-context-orbit" aria-hidden="true" />
@@ -255,6 +256,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
             <ArrowLeft aria-hidden="true" />
             Voltar ao site
           </Link>
+          <ThemeToggleButton className="signup-theme-toggle" />
         </header>
 
         <div className="signup-form-shell">

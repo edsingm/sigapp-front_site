@@ -119,7 +119,7 @@ export default function PrivacidadePage() {
             Cookies e tecnologias similares são usados conforme descrito na{" "}
             <a
               href="/legal/cookies"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
               Política de Cookies
             </a>
@@ -319,7 +319,7 @@ export default function PrivacidadePage() {
           podem ser exercidos gratuitamente por meio do canal{" "}
           <a
             href="mailto:privacidade@sigapp.com.br"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-[var(--landing-accent-strong)] hover:underline"
           >
             privacidade@sigapp.com.br
           </a>

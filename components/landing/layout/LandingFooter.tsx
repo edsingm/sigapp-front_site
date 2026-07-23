@@ -18,6 +18,7 @@ export function LandingFooter() {
           <div className="footer-brand lg:col-span-5">
             <Link
               href="/"
+              aria-label={`${SITE.name} — página inicial`}
               className="footer-logo"
             >
               <Image

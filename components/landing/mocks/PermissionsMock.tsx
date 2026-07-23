@@ -16,7 +16,7 @@ const ROLES = [
     role: "Diretor",
     user: "Carla Mendes",
     modules: ["prospection", "viabilities", "committee", "negotiation"],
-    color: "bg-[oklch(72%_0.16_75/16%)] text-[var(--color-data-amber)]",
+    color: "bg-[oklch(72%_0.16_75/16%)] text-foreground",
   },
   {
     role: "Gerente",

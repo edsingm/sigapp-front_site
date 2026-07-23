@@ -6,25 +6,30 @@
  * Runtime source of truth: app/globals.css (:root / .dark / @theme inline).
  * Import this file only when reusing the system elsewhere — do not dual-source UI.
  *
- * Naming here is design-facing (paper/ink/accent). Runtime maps to shadcn:
- *   paper → --background · ink → --foreground · accent → --primary · focus → --ring
+ * Naming here mirrors the semantic theme roles used at runtime.
  */
 
 :root {
-  /* Surfaces & text */
-  --color-paper: oklch(98.2% 0.006 264.5);
-  --color-paper-2: oklch(97.3% 0.007 268.5);
-  --color-ink: oklch(23.6% 0.058 257.5);
-  --color-ink-2: oklch(49.4% 0.042 261.1);
-  --color-rule: oklch(93.6% 0.013 262.4);
+  /* Theme surfaces & text */
+  --color-canvas: oklch(97% 0.012 145);
+  --color-surface: oklch(98.2% 0.007 165);
+  --color-surface-soft: oklch(94.5% 0.015 150);
+  --color-surface-raised: oklch(99% 0.004 190);
+  --color-surface-sunken: oklch(92.5% 0.018 150);
+  --color-text: oklch(15% 0.04 200);
+  --color-text-soft: oklch(37% 0.025 200);
+  --color-text-muted: oklch(43% 0.025 200);
+  --color-rule: oklch(15% 0.04 200 / 11%);
+  --color-rule-strong: oklch(15% 0.04 200 / 19%);
 
   /* Action */
-  --color-accent: oklch(52% 0.17 258);
-  --color-accent-sky: oklch(71.2% 0.15 261.6);
-  --color-accent-ink: oklch(100% 0 0);
-  --color-focus: oklch(58% 0.229 263.7);
+  --color-accent: oklch(84% 0.18 145);
+  --color-accent-strong: oklch(44% 0.17 145);
+  --color-accent-soft: oklch(91% 0.075 145);
+  --color-accent-ink: oklch(15% 0.04 200);
+  --color-focus: oklch(58% 0.17 145);
 
-  /* Data status (parity with --color-data-* in globals) */
+  /* Data status */
   --color-data-green: oklch(56.3% 0.119 159);
   --color-data-amber: oklch(63.5% 0.13 74.6);
   --color-data-red: oklch(54.3% 0.174 29.7);
@@ -64,4 +69,24 @@
   --radius-pill: 9999px;
   --radius-input: 0.625rem;
   --rule-hairline: 1px;
+}
+
+.dark {
+  --color-canvas: oklch(13% 0.035 200);
+  --color-surface: oklch(16% 0.035 200);
+  --color-surface-soft: oklch(18.5% 0.035 200);
+  --color-surface-raised: oklch(21% 0.035 200);
+  --color-surface-sunken: oklch(10.5% 0.03 200);
+  --color-text: oklch(96% 0.012 190);
+  --color-text-soft: oklch(82% 0.018 190);
+  --color-text-muted: oklch(72% 0.02 190);
+  --color-rule: oklch(100% 0 0 / 10%);
+  --color-rule-strong: oklch(100% 0 0 / 18%);
+  --color-accent: oklch(82% 0.17 145);
+  --color-accent-strong: oklch(72% 0.16 145);
+  --color-accent-soft: oklch(27% 0.055 145);
+  --color-focus: oklch(82% 0.17 145);
+  --color-data-green: oklch(68% 0.115 160.2);
+  --color-data-amber: oklch(75.7% 0.139 78.3);
+  --color-data-red: oklch(67.4% 0.15 27.6);
 }

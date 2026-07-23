@@ -180,7 +180,7 @@ export default function LgpdPage() {
             nossa{" "}
             <a
               href="/legal/privacidade#compartilhamento"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
               Política de Privacidade, seção 4
             </a>
@@ -347,7 +347,7 @@ export default function LgpdPage() {
           imediatamente com nosso DPO em{" "}
           <a
             href="mailto:privacidade@sigapp.com.br"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-[var(--landing-accent-strong)] hover:underline"
           >
             privacidade@sigapp.com.br
           </a>

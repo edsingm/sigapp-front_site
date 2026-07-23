@@ -53,7 +53,7 @@ export default async function Page() {
       <LandingNav overlay />
       <StickyMobileCTA />
       <BezelSpotlight />
-      <main>
+      <main id="conteudo-principal" tabIndex={-1}>
         {/* Map / Diagram landing sequence — spatial strata of the decision path */}
         <HeroSection />
         <SocialProofBar />

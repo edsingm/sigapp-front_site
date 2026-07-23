@@ -332,7 +332,7 @@ export default function TermosDeUsoPage() {
             Para dúvidas sobre estes Termos, entre em contato com{" "}
             <a
               href="mailto:juridico@sigapp.com.br"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
               juridico@sigapp.com.br
             </a>{" "}

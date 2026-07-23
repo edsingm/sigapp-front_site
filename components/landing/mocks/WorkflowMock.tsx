@@ -10,7 +10,7 @@ const COLUMNS = [
   },
   {
     label: "Viabilidade",
-    color: "bg-[oklch(72%_0.16_75/14%)] text-[var(--color-data-amber)]",
+    color: "bg-[oklch(72%_0.16_75/14%)] text-foreground",
     dot: "bg-[var(--color-data-amber)]",
     cards: [{ name: "Lote Setor Oeste", area: "2.100 m²", owner: "Marcos V." }],
   },
@@ -31,7 +31,7 @@ const COLUMNS = [
   },
   {
     label: "Legalização",
-    color: "bg-[oklch(84%_0.18_145/14%)] text-[var(--color-data-green)]",
+    color: "bg-[oklch(84%_0.18_145/14%)] text-foreground",
     dot: "bg-[var(--color-data-green)]",
     cards: [{ name: "Gleba Centro-Sul", area: "4.800 m²", owner: "Caio D." }],
   },

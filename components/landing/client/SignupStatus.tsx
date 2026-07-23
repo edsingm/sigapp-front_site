@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 
 import { SignupBrand } from "@/components/landing/ui/SignupBrand"
+import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { fetchSignupStatus } from "@/lib/api"
 import { LINKS } from "@/lib/landing-data"
 import { cn } from "@/lib/utils"
@@ -87,16 +88,24 @@ export function SignupStatus({ sessionId }: Props) {
   const StatusIcon = content.icon
 
   return (
-    <main className="signup-status-stage" data-phase={phase}>
+    <main
+      id="conteudo-principal"
+      tabIndex={-1}
+      className="signup-status-stage"
+      data-phase={phase}
+    >
       <div className="signup-status-grid" aria-hidden="true" />
       <div className="signup-status-orbit" aria-hidden="true" />
 
       <header className="signup-status-header">
         <SignupBrand tone="on-dark" />
-        <span>
-          <ShieldCheck aria-hidden="true" />
-          Retorno protegido
-        </span>
+        <div className="signup-header-actions">
+          <span>
+            <ShieldCheck aria-hidden="true" />
+            Retorno protegido
+          </span>
+          <ThemeToggleButton className="signup-theme-toggle" />
+        </div>
       </header>
 
       <section
