@@ -1,6 +1,7 @@
 import {
   ArrowUpRight,
   Check,
+  Layers3,
   MapPinned,
   Package,
   ShieldCheck,
@@ -23,11 +24,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
     0,
     plan.monthlyPrice * 12 - plan.annualPrice * 12
   )
-  const visibleFeatures = plan.features.slice(0, 4)
-  const hiddenFeatures = Math.max(
-    0,
-    plan.features.length - visibleFeatures.length
-  )
+  const isStacked = Boolean(plan.includesFrom)
 
   const mainLimits = [
     {
@@ -68,16 +65,24 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
           ) : null}
         </div>
         <h3 className="plan-card-name">{plan.name}</h3>
+        <p className="plan-card-highlight">{plan.highlight}</p>
         <p className="plan-card-tagline">{plan.tagline}</p>
       </header>
 
       <div className="plan-card-price">
-        <div className="plan-card-price-row" aria-label={`${PRICING_CARD_COPY.currency} ${price.toLocaleString("pt-BR")} ${PRICING_CARD_COPY.monthlySuffix}`}>
-          <span className="plan-card-currency">{PRICING_CARD_COPY.currency}</span>
+        <div
+          className="plan-card-price-row"
+          aria-label={`${PRICING_CARD_COPY.currency} ${price.toLocaleString("pt-BR")} ${PRICING_CARD_COPY.monthlySuffix}`}
+        >
+          <span className="plan-card-currency">
+            {PRICING_CARD_COPY.currency}
+          </span>
           <strong className="plan-card-amount">
             {price.toLocaleString("pt-BR")}
           </strong>
-          <span className="plan-card-period">{PRICING_CARD_COPY.monthlySuffix}</span>
+          <span className="plan-card-period">
+            {PRICING_CARD_COPY.monthlySuffix}
+          </span>
         </div>
         <p className="plan-card-price-note">
           {billingCycle === "annual" ? (
@@ -91,7 +96,10 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         </p>
       </div>
 
-      <dl className="plan-card-limits">
+      <dl
+        className="plan-card-limits"
+        aria-label={PRICING_CARD_COPY.capacityLabel}
+      >
         {mainLimits.map(({ id, label, icon: Icon, value }) => (
           <div key={id} className="plan-card-limit">
             <dt>
@@ -105,12 +113,28 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
         ))}
       </dl>
 
-      <div className="plan-card-features">
+      <div
+        className={cn(
+          "plan-card-features",
+          isStacked && "is-stacked"
+        )}
+      >
         <p className="plan-card-features-label">
-          {PRICING_CARD_COPY.featuresLabel}
+          {isStacked ? (
+            <>
+              <Layers3 aria-hidden="true" />
+              <span>
+                {PRICING_CARD_COPY.includesFromPrefix}{" "}
+                <strong>{plan.includesFrom}</strong>
+                {PRICING_CARD_COPY.includesFromSuffix}
+              </span>
+            </>
+          ) : (
+            <span>{PRICING_CARD_COPY.baseFeaturesLabel}</span>
+          )}
         </p>
         <ul>
-          {visibleFeatures.map((feature) => (
+          {plan.features.map((feature) => (
             <li key={feature}>
               <span className="plan-card-check" aria-hidden="true">
                 <Check />
@@ -119,11 +143,6 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
             </li>
           ))}
         </ul>
-        {hiddenFeatures > 0 ? (
-          <p className="plan-card-features-more">
-            +{hiddenFeatures} {PRICING_CARD_COPY.additionalFeatures}
-          </p>
-        ) : null}
       </div>
 
       <footer className="plan-card-footer">
