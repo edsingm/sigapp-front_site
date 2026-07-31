@@ -49,7 +49,16 @@ export const LINKS = {
 export type PlanConfig = {
   id: string
   name: string
+  /** Nome curto para o modelo cumulativo (ex.: "Broker") */
+  shortName: string
   tagline: string
+  /** Frase curta do diferencial comercial do plano */
+  highlight: string
+  /**
+   * Plano imediatamente inferior no funil comercial.
+   * Quando preenchido, o card usa o modelo "Tudo do X, mais:".
+   */
+  includesFrom: string | null
   monthlyPrice: number
   annualPrice: number
   users: string
@@ -57,10 +66,25 @@ export type PlanConfig = {
   storage: string
   products: string
   aiBudget: string
+  /** Nível de viabilidade (entitlements viabilities.*) */
+  viability: string
+  /** Nível de dashboard (entitlements dashboard.*) */
+  dashboard: string
+  /** Nível de SIG_IA: Não incluso | Conversacional | Contextual */
+  aiLevel: string
+  hasProspection: boolean
+  hasOpportunityCompare: boolean
   hasAI: boolean
   hasCommittee: boolean
   hasNegotiation: boolean
   hasLegal: boolean
+  hasProjects: boolean
+  hasExportPdf: boolean
+  hasExportExcel: boolean
+  /**
+   * No plano base: pacote completo.
+   * Nos demais: apenas o que este plano adiciona sobre o anterior.
+   */
   features: string[]
   highlighted?: boolean
   cta: string
@@ -73,10 +97,18 @@ export type PlanMatrixField =
   | "storage"
   | "products"
   | "aiBudget"
+  | "viability"
+  | "dashboard"
+  | "aiLevel"
+  | "hasProspection"
+  | "hasOpportunityCompare"
   | "hasAI"
   | "hasCommittee"
   | "hasNegotiation"
   | "hasLegal"
+  | "hasProjects"
+  | "hasExportPdf"
+  | "hasExportExcel"
 
 export type PlanMatrixRow = {
   id: string
@@ -84,6 +116,12 @@ export type PlanMatrixRow = {
   helper?: string
   kind: "text" | "boolean"
   field: PlanMatrixField
+}
+
+export type PlanMatrixGroup = {
+  id: string
+  label: string
+  rows: PlanMatrixRow[]
 }
 
 export type FeatureItem = {
@@ -383,17 +421,19 @@ export const STICKY_MOBILE_CTA = {
 
 export const PRICING_MATRIX_COPY = {
   eyebrow: "Comparativo completo",
-  title: "Veja exatamente o que muda em cada plano",
+  title: "O que muda — e o que você ganha — em cada plano",
   description:
-    "Limites, governança e capacidade operacional lado a lado para sua equipe decidir com critério.",
+    "Capacidade, módulos e profundidade operacional lado a lado. Valores alinhados aos entitlements reais do produto.",
   mobileSummary: "Comparar recursos dos planos",
-  resourceLabel: "Recurso",
-  tableDescription: "Comparação completa entre os quatro planos",
+  resourceLabel: "Critério",
+  tableDescription: "Matriz de planos e entitlements",
   recommended: "Recomendado",
-  mobileHint: "Abra para comparar item por item",
-  criteriaLabel: "critérios comparados",
+  mobileHint: "Abra para comparar item por item, por bloco",
+  criteriaLabel: "critérios",
   includedLabel: "Incluído",
   notIncludedLabel: "Não incluso",
+  scrollHint: "Deslize para ver todos os planos",
+  scrollRegionLabel: "Tabela comparativa de planos com rolagem horizontal",
 }
 
 export const PRICING_COPY = {
@@ -432,76 +472,170 @@ export const PRICING_CARD_COPY = {
   productsLabel: "Produtos",
   storageLabel: "Armazenamento",
   aiLabel: "Orçamento SIG_IA",
+  viabilityLabel: "Viabilidade",
+  dashboardLabel: "Dashboard",
+  depthLabel: "Profundidade operacional",
+  /** Plano base (Broker) */
+  baseFeaturesLabel: "Inclui",
+  /** Prefixos do modelo cumulativo: "Tudo do Broker, mais:" */
+  includesFromPrefix: "Tudo do",
+  includesFromSuffix: ", mais:",
   featuresLabel: "Inclui neste perímetro",
   additionalFeatures: "recursos adicionais no comparativo",
+  notIncluded: "Não incluso",
   trust: "Dados exportáveis · pagamento seguro",
 }
 
-export const PLAN_MATRIX_ROWS: PlanMatrixRow[] = [
+/**
+ * Comparativo completo alinhado à matriz de entitlements do backend
+ * (EntitlementSeeder / PlanMatrixService).
+ *
+ * Agrupado por bloco comercial para facilitar a leitura:
+ * Capacidade → Operação → Governança → Entrega.
+ */
+export const PLAN_MATRIX_GROUPS: PlanMatrixGroup[] = [
   {
-    id: "users",
-    label: "Usuários incluídos",
-    helper: "Quantidade de acessos simultâneos no plano",
-    kind: "text",
-    field: "users",
+    id: "capacity",
+    label: "Capacidade",
+    rows: [
+      {
+        id: "users",
+        label: "Usuários incluídos",
+        helper: "Limite de usuários ativos no tenant",
+        kind: "text",
+        field: "users",
+      },
+      {
+        id: "terrenos",
+        label: "Terrenos na carteira",
+        helper: "Capacidade de terrenos no plano",
+        kind: "text",
+        field: "terrenos",
+      },
+      {
+        id: "products",
+        label: "Produtos imobiliários",
+        helper: "Limite de produtos configuráveis",
+        kind: "text",
+        field: "products",
+      },
+      {
+        id: "storage",
+        label: "Armazenamento",
+        helper: "Documentos, anexos e históricos",
+        kind: "text",
+        field: "storage",
+      },
+      {
+        id: "ai-budget",
+        label: "Orçamento SIG_IA",
+        helper: "Budget mensal em USD, quando a IA está inclusa",
+        kind: "text",
+        field: "aiBudget",
+      },
+    ],
   },
   {
-    id: "terrenos",
-    label: "Capacidade de terrenos",
-    helper: "Carteira ativa suportada em cada plano",
-    kind: "text",
-    field: "terrenos",
+    id: "operation",
+    label: "Operação territorial e financeira",
+    rows: [
+      {
+        id: "prospection",
+        label: "Prospecção de terrenos",
+        helper: "Captação e gestão da carteira territorial",
+        kind: "boolean",
+        field: "hasProspection",
+      },
+      {
+        id: "opportunity-compare",
+        label: "Comparação de oportunidades",
+        helper: "Avaliação lado a lado de terrenos e cenários",
+        kind: "boolean",
+        field: "hasOpportunityCompare",
+      },
+      {
+        id: "viability",
+        label: "Motor de viabilidade",
+        helper: "Profundidade do DRE, comercial, fluxo e indicadores",
+        kind: "text",
+        field: "viability",
+      },
+      {
+        id: "dashboard",
+        label: "Dashboard operacional",
+        helper: "Visão geral, funil, unidades e VGV",
+        kind: "text",
+        field: "dashboard",
+      },
+      {
+        id: "negotiation",
+        label: "Gestão de negociações",
+        helper: "Pipeline comercial e histórico de propostas",
+        kind: "boolean",
+        field: "hasNegotiation",
+      },
+      {
+        id: "projects",
+        label: "Sala de projetos",
+        helper: "Projetos, planejamento e sala operacional",
+        kind: "boolean",
+        field: "hasProjects",
+      },
+    ],
   },
   {
-    id: "storage",
-    label: "Armazenamento",
-    helper: "Espaço para documentos, anexos e históricos",
-    kind: "text",
-    field: "storage",
+    id: "governance",
+    label: "Governança e inteligência",
+    rows: [
+      {
+        id: "ai",
+        label: "SIG_IA",
+        helper: "Assistente de domínio: conversacional ou contextual",
+        kind: "text",
+        field: "aiLevel",
+      },
+      {
+        id: "committee",
+        label: "Comitê de revisão",
+        helper: "Aprovação estruturada da viabilidade",
+        kind: "boolean",
+        field: "hasCommittee",
+      },
+      {
+        id: "legal",
+        label: "Legalização end-to-end",
+        helper: "Fluxo completo até documentação e registro",
+        kind: "boolean",
+        field: "hasLegal",
+      },
+    ],
   },
   {
-    id: "products",
-    label: "Produtos por viabilidade",
-    helper: "Quantidade de produtos imobiliários permitidos",
-    kind: "text",
-    field: "products",
-  },
-  {
-    id: "ai-budget",
-    label: "Orçamento mensal de IA",
-    helper: "Budget mensal configurado no plano",
-    kind: "text",
-    field: "aiBudget",
-  },
-  {
-    id: "ai",
-    label: "SIG_IA conversacional",
-    helper: "Assistente especializada em incorporação",
-    kind: "boolean",
-    field: "hasAI",
-  },
-  {
-    id: "committee",
-    label: "Comitê de revisão",
-    helper: "Aprovação estruturada da viabilidade",
-    kind: "boolean",
-    field: "hasCommittee",
-  },
-  {
-    id: "negotiation",
-    label: "Gestão de negociações",
-    helper: "Pipeline comercial e histórico de propostas",
-    kind: "boolean",
-    field: "hasNegotiation",
-  },
-  {
-    id: "legal",
-    label: "Legalização end-to-end",
-    helper: "Fluxo completo até documentação e registro",
-    kind: "boolean",
-    field: "hasLegal",
+    id: "delivery",
+    label: "Exportação e entrega",
+    rows: [
+      {
+        id: "export-excel",
+        label: "Exportação Excel",
+        helper: "Exportação tabular de dados e relatórios",
+        kind: "boolean",
+        field: "hasExportExcel",
+      },
+      {
+        id: "export-pdf",
+        label: "Exportação PDF",
+        helper: "Dossiês e relatórios em PDF",
+        kind: "boolean",
+        field: "hasExportPdf",
+      },
+    ],
   },
 ]
+
+/** Lista plana (compat e contagem de critérios). */
+export const PLAN_MATRIX_ROWS: PlanMatrixRow[] = PLAN_MATRIX_GROUPS.flatMap(
+  (group) => group.rows
+)
 
 export const FEATURES: FeatureItem[] = [
   {
@@ -618,7 +752,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     question: "Os 7 dias grátis têm todas as funcionalidades do plano?",
     answer:
-      "Sim. Os 7 dias grátis ativam o plano completo escolhido, incluindo SIG_IA (nos planos que oferecem), legalização, comitê e todas as funcionalidades. Sem restrições artificiais. Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
+      "Sim. Os 7 dias grátis ativam exatamente os módulos e limites do plano escolhido — sem restrições artificiais. SIG_IA, comitê e legalização entram nos planos em que estão inclusos (Master e Pro). Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
   },
   {
     question: "Posso migrar meus dados de planilhas Excel existentes?",
@@ -671,7 +805,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     question: "Posso exportar os dados se cancelar o plano?",
     answer:
-      "Sim. Oferecemos exportação completa em Excel e PDF: terrenos, viabilidades, histórico de negociações e documentos. Após o cancelamento, seus dados ficam disponíveis por 30 dias para exportação.",
+      "Sim. A exportação em Excel está disponível em todos os planos; o PDF entra a partir do Básico. Após o cancelamento, seus dados ficam disponíveis por 30 dias para exportação.",
   },
   {
     question: "O pagamento é seguro? Quais formas de pagamento são aceitas?",
