@@ -4,6 +4,14 @@ export const alt = "SIGAPP — viabilidade imobiliária para incorporadoras"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
+/** Brand hex mirrors app primary oklch(0.488 0.243 264.376) + derived surfaces. */
+const BRAND = {
+  canvas: "#F7FAFF",
+  ink: "#050F2C",
+  primary: "#1447E6",
+  onBrand: "#F2F5FC",
+} as const
+
 export default function OpengraphImage() {
   return new ImageResponse(
     <div
@@ -16,8 +24,8 @@ export default function OpengraphImage() {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "64px 72px",
-        background: "#f5fbf6",
-        color: "#102725",
+        background: BRAND.canvas,
+        color: BRAND.ink,
         fontFamily: "Arial, sans-serif",
       }}
     >
@@ -27,7 +35,7 @@ export default function OpengraphImage() {
           inset: 0,
           display: "flex",
           backgroundImage:
-            "linear-gradient(rgba(16,39,37,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(16,39,37,0.08) 1px, transparent 1px)",
+            "linear-gradient(rgba(5,15,44,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(5,15,44,0.08) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
       />
@@ -40,7 +48,7 @@ export default function OpengraphImage() {
           height: "540px",
           display: "flex",
           borderRadius: "50%",
-          background: "#76e87d",
+          background: BRAND.primary,
         }}
       />
       <div
@@ -52,7 +60,7 @@ export default function OpengraphImage() {
           height: 250,
           display: "flex",
           transform: "rotate(18deg)",
-          border: "3px solid #102725",
+          border: `3px solid ${BRAND.ink}`,
         }}
       />
       <div
@@ -64,8 +72,8 @@ export default function OpengraphImage() {
           height: 126,
           display: "flex",
           transform: "rotate(18deg)",
-          border: "3px solid #102725",
-          background: "rgba(245,251,246,0.35)",
+          border: `3px solid ${BRAND.ink}`,
+          background: "rgba(247,250,255,0.35)",
         }}
       />
       <div
@@ -77,8 +85,8 @@ export default function OpengraphImage() {
           height: 26,
           display: "flex",
           borderRadius: "50%",
-          background: "#102725",
-          boxShadow: "0 0 0 12px rgba(245,251,246,0.72)",
+          background: BRAND.ink,
+          boxShadow: "0 0 0 12px rgba(247,250,255,0.72)",
         }}
       />
 
@@ -99,7 +107,7 @@ export default function OpengraphImage() {
             width: 22,
             height: 22,
             borderRadius: "50%",
-            background: "#102725",
+            background: BRAND.primary,
           }}
         />
         SIGAPP
@@ -144,7 +152,7 @@ export default function OpengraphImage() {
             maxWidth: 780,
             fontSize: 27,
             lineHeight: 1.3,
-            color: "rgba(16,39,37,0.76)",
+            color: "rgba(5,15,44,0.76)",
           }}
         >
           Mapas, DRE, TIR, comitê e legalização no mesmo dossiê.
@@ -158,7 +166,7 @@ export default function OpengraphImage() {
           alignItems: "center",
           justifyContent: "space-between",
           fontSize: 20,
-          color: "rgba(16,39,37,0.66)",
+          color: "rgba(5,15,44,0.66)",
         }}
       >
         <span>Viabilidade · território · governança</span>
@@ -167,8 +175,8 @@ export default function OpengraphImage() {
             display: "flex",
             padding: "12px 18px",
             borderRadius: 999,
-            background: "#102725",
-            color: "#f5fbf6",
+            background: BRAND.ink,
+            color: BRAND.onBrand,
             fontWeight: 700,
           }}
         >

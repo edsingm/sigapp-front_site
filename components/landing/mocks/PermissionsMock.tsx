@@ -16,14 +16,14 @@ const ROLES = [
     role: "Diretor",
     user: "Carla Mendes",
     modules: ["prospection", "viabilities", "committee", "negotiation"],
-    color: "bg-[oklch(72%_0.16_75/16%)] text-foreground",
+    color:
+      "bg-[color-mix(in_oklch,var(--color-data-amber)_16%,transparent)] text-foreground",
   },
   {
     role: "Gerente",
     user: "Bruno Alves",
     modules: ["prospection", "viabilities", "legalization"],
-    color:
-      "bg-[oklch(15%_0.04_200/8%)] text-foreground dark:bg-white/10 dark:text-white",
+    color: "bg-foreground/8 text-foreground dark:bg-white/10 dark:text-white",
   },
   {
     role: "Supervisor",

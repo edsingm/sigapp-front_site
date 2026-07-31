@@ -61,7 +61,7 @@ export function ViabilityMock() {
             Terreno Av. Paulista, 1840
           </p>
         </div>
-        <span className="badge-pop rounded-full bg-[oklch(84%_0.18_145/14%)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-data-green)]">
+        <span className="badge-pop rounded-full bg-[color-mix(in_oklch,var(--color-data-green)_14%,transparent)] px-2 py-0.5 text-[10px] font-semibold text-[var(--color-data-green)]">
           Aprovada
         </span>
       </div>

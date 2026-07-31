@@ -23,7 +23,7 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
     0,
     plan.monthlyPrice * 12 - plan.annualPrice * 12
   )
-  const visibleFeatures = plan.features.slice(0, 2)
+  const visibleFeatures = plan.features.slice(0, 4)
   const hiddenFeatures = Math.max(
     0,
     plan.features.length - visibleFeatures.length
@@ -52,87 +52,98 @@ export function PlanCard({ plan, billingCycle }: PlanCardProps) {
 
   return (
     <article
-      className={cn("plan-card-compact", highlighted && "is-highlighted")}
+      className={cn("plan-card", highlighted && "is-highlighted")}
+      data-plan={plan.id}
     >
-      <header className="plan-card-compact-bar">
-        <span>
-          {PRICING_CARD_COPY.planLabel} / {plan.id}
-        </span>
-        {highlighted ? (
-          <strong>
-            <Sparkles aria-hidden="true" />
-            {PRICING_CARD_COPY.recommended}
-          </strong>
-        ) : null}
-      </header>
-
-      <div className="plan-card-compact-main">
-        <div className="plan-card-compact-title">
-          <h3>{plan.name}</h3>
-          <p>{plan.tagline}</p>
-        </div>
-
-        <div className="plan-card-compact-price">
-          <div>
-            <span>{PRICING_CARD_COPY.currency}</span>
-            <strong>{price.toLocaleString("pt-BR")}</strong>
-            <em>{PRICING_CARD_COPY.monthlySuffix}</em>
-          </div>
-          {billingCycle === "annual" ? (
-            <p>
-              {PRICING_CARD_COPY.annualSavingsPrefix} R${" "}
-              {annualSavings.toLocaleString("pt-BR")}
-            </p>
-          ) : (
-            <p>{PRICING_CARD_COPY.monthlyNote}</p>
-          )}
-        </div>
-
-        <dl className="plan-card-compact-limits">
-          {mainLimits.map(({ id, label, icon: Icon, value }) => (
-            <div key={id}>
-              <dt>
-                <Icon aria-hidden="true" />
-                {label}
-              </dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
-
-        <div className="plan-card-compact-features">
-          <p>{PRICING_CARD_COPY.featuresLabel}</p>
-          <ul>
-            {visibleFeatures.map((feature) => (
-              <li key={feature}>
-                <Check aria-hidden="true" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-          {hiddenFeatures > 0 ? (
-            <span>
-              +{hiddenFeatures} {PRICING_CARD_COPY.additionalFeatures}
+      <header className="plan-card-header">
+        <div className="plan-card-meta">
+          <span className="plan-card-code">
+            {PRICING_CARD_COPY.planLabel} · {plan.id}
+          </span>
+          {highlighted ? (
+            <span className="plan-card-badge">
+              <Sparkles aria-hidden="true" />
+              {PRICING_CARD_COPY.recommended}
             </span>
           ) : null}
         </div>
+        <h3 className="plan-card-name">{plan.name}</h3>
+        <p className="plan-card-tagline">{plan.tagline}</p>
+      </header>
+
+      <div className="plan-card-price">
+        <div className="plan-card-price-row" aria-label={`${PRICING_CARD_COPY.currency} ${price.toLocaleString("pt-BR")} ${PRICING_CARD_COPY.monthlySuffix}`}>
+          <span className="plan-card-currency">{PRICING_CARD_COPY.currency}</span>
+          <strong className="plan-card-amount">
+            {price.toLocaleString("pt-BR")}
+          </strong>
+          <span className="plan-card-period">{PRICING_CARD_COPY.monthlySuffix}</span>
+        </div>
+        <p className="plan-card-price-note">
+          {billingCycle === "annual" ? (
+            <>
+              {PRICING_CARD_COPY.annualSavingsPrefix} R${" "}
+              {annualSavings.toLocaleString("pt-BR")}
+            </>
+          ) : (
+            PRICING_CARD_COPY.monthlyNote
+          )}
+        </p>
       </div>
 
-      <footer className="plan-card-compact-footer">
+      <dl className="plan-card-limits">
+        {mainLimits.map(({ id, label, icon: Icon, value }) => (
+          <div key={id} className="plan-card-limit">
+            <dt>
+              <span className="plan-card-limit-icon" aria-hidden="true">
+                <Icon />
+              </span>
+              <span>{label}</span>
+            </dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="plan-card-features">
+        <p className="plan-card-features-label">
+          {PRICING_CARD_COPY.featuresLabel}
+        </p>
+        <ul>
+          {visibleFeatures.map((feature) => (
+            <li key={feature}>
+              <span className="plan-card-check" aria-hidden="true">
+                <Check />
+              </span>
+              <span>{feature}</span>
+            </li>
+          ))}
+        </ul>
+        {hiddenFeatures > 0 ? (
+          <p className="plan-card-features-more">
+            +{hiddenFeatures} {PRICING_CARD_COPY.additionalFeatures}
+          </p>
+        ) : null}
+      </div>
+
+      <footer className="plan-card-footer">
         <a
           href={plan.ctaHref}
+          className="plan-card-cta"
           data-analytics-event={
             plan.id === "pro" ? "sales_contact_click" : "trial_signup_click"
           }
           data-analytics-location="pricing"
           data-analytics-plan={plan.id}
         >
-          {plan.cta}
-          <ArrowUpRight aria-hidden="true" />
+          <span>{plan.cta}</span>
+          <span className="plan-card-cta-icon" aria-hidden="true">
+            <ArrowUpRight />
+          </span>
         </a>
-        <p>
+        <p className="plan-card-trust">
           <ShieldCheck aria-hidden="true" />
-          {PRICING_CARD_COPY.trust}
+          <span>{PRICING_CARD_COPY.trust}</span>
         </p>
       </footer>
     </article>

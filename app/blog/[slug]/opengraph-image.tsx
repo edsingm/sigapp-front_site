@@ -5,6 +5,13 @@ import { getPostBySlug } from "@/lib/blog-data"
 export const size = { width: 1200, height: 630 }
 export const contentType = "image/png"
 
+/** Brand hex mirrors app primary oklch(0.488 0.243 264.376) + derived surfaces. */
+const BRAND = {
+  ink: "#050F2C",
+  primary: "#1447E6",
+  onBrand: "#F2F5FC",
+} as const
+
 export default async function BlogPostOpenGraphImage({
   params,
 }: {
@@ -26,8 +33,8 @@ export default async function BlogPostOpenGraphImage({
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "64px 72px",
-        background: "#102725",
-        color: "#f5fbf6",
+        background: BRAND.ink,
+        color: BRAND.onBrand,
         fontFamily: "Arial, sans-serif",
       }}
     >
@@ -37,7 +44,7 @@ export default async function BlogPostOpenGraphImage({
           inset: 0,
           display: "flex",
           backgroundImage:
-            "linear-gradient(rgba(245,251,246,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(245,251,246,0.07) 1px, transparent 1px)",
+            "linear-gradient(rgba(242,245,252,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(242,245,252,0.07) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
       />
@@ -50,7 +57,7 @@ export default async function BlogPostOpenGraphImage({
           height: "520px",
           display: "flex",
           borderRadius: "50%",
-          background: "#76e87d",
+          background: BRAND.primary,
           opacity: 0.95,
         }}
       />
@@ -78,7 +85,7 @@ export default async function BlogPostOpenGraphImage({
               width: 22,
               height: 22,
               borderRadius: "50%",
-              background: "#76e87d",
+              background: BRAND.primary,
             }}
           />
           SIGAPP
@@ -88,8 +95,8 @@ export default async function BlogPostOpenGraphImage({
             display: "flex",
             padding: "10px 16px",
             borderRadius: 999,
-            background: "rgba(16,39,37,0.9)",
-            color: "#f5fbf6",
+            background: "rgba(5,15,44,0.9)",
+            color: BRAND.onBrand,
             fontSize: 18,
             fontWeight: 700,
           }}
@@ -110,7 +117,7 @@ export default async function BlogPostOpenGraphImage({
         <div
           style={{
             display: "flex",
-            color: "#76e87d",
+            color: BRAND.primary,
             fontSize: 18,
             fontWeight: 700,
             letterSpacing: "0.16em",
@@ -139,7 +146,7 @@ export default async function BlogPostOpenGraphImage({
           alignItems: "center",
           justifyContent: "space-between",
           fontSize: 20,
-          color: "rgba(245,251,246,0.72)",
+          color: "rgba(242,245,252,0.72)",
         }}
       >
         <span>Viabilidade · território · decisão</span>

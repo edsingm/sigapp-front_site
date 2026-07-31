@@ -1,38 +1,41 @@
 /* Hallmark · genre: modern-minimal · macrostructure: Map / Diagram
- * tone: technical + austere cartography · design-system: design.md · designed-as-app
+ * tone: technical + product-aligned · design-system: design.md · designed-as-app
  * nav: N10 · footer: Ft5 · enrichment: map/dossier
  *
  * Portable token export for non-Next consumers.
  * Runtime source of truth: app/globals.css (:root / .dark / @theme inline).
  * Import this file only when reusing the system elsewhere — do not dual-source UI.
  *
+ * Primary (app tenant): oklch(0.488 0.243 264.376)
  * Naming here mirrors the semantic theme roles used at runtime.
  */
 
 :root {
-  /* Theme surfaces & text */
-  --color-canvas: oklch(97% 0.012 145);
-  --color-surface: oklch(98.2% 0.007 165);
-  --color-surface-soft: oklch(94.5% 0.015 150);
-  --color-surface-raised: oklch(99% 0.004 190);
-  --color-surface-sunken: oklch(92.5% 0.018 150);
-  --color-text: oklch(15% 0.04 200);
-  --color-text-soft: oklch(37% 0.025 200);
-  --color-text-muted: oklch(43% 0.025 200);
-  --color-rule: oklch(15% 0.04 200 / 11%);
-  --color-rule-strong: oklch(15% 0.04 200 / 19%);
+  --color-brand-hue: 264.376;
 
-  /* Action */
-  --color-accent: oklch(84% 0.18 145);
-  --color-accent-strong: oklch(44% 0.17 145);
-  --color-accent-soft: oklch(91% 0.075 145);
-  --color-accent-ink: oklch(15% 0.04 200);
-  --color-focus: oklch(58% 0.17 145);
+  /* Theme surfaces & text */
+  --color-canvas: oklch(0.985 0.008 var(--color-brand-hue));
+  --color-surface: oklch(0.978 0.01 var(--color-brand-hue));
+  --color-surface-soft: oklch(0.95 0.02 var(--color-brand-hue));
+  --color-surface-raised: oklch(0.995 0.004 var(--color-brand-hue));
+  --color-surface-sunken: oklch(0.93 0.022 var(--color-brand-hue));
+  --color-text: oklch(0.22 0.05 var(--color-brand-hue));
+  --color-text-soft: oklch(0.42 0.035 var(--color-brand-hue));
+  --color-text-muted: oklch(0.48 0.03 var(--color-brand-hue));
+  --color-rule: oklch(0.22 0.05 var(--color-brand-hue) / 12%);
+  --color-rule-strong: oklch(0.22 0.05 var(--color-brand-hue) / 20%);
+
+  /* Action — primary matches app tenant */
+  --color-accent: oklch(0.488 0.243 264.376);
+  --color-accent-strong: oklch(0.4 0.21 var(--color-brand-hue));
+  --color-accent-soft: oklch(0.94 0.04 var(--color-brand-hue));
+  --color-accent-ink: oklch(0.99 0.005 var(--color-brand-hue));
+  --color-focus: oklch(0.55 0.22 var(--color-brand-hue));
 
   /* Data status */
-  --color-data-green: oklch(56.3% 0.119 159);
-  --color-data-amber: oklch(63.5% 0.13 74.6);
-  --color-data-red: oklch(54.3% 0.174 29.7);
+  --color-data-green: oklch(0.563 0.119 159);
+  --color-data-amber: oklch(0.635 0.13 74.6);
+  --color-data-red: oklch(0.543 0.174 29.7);
 
   /* Type roles */
   --font-display: var(--font-heading), ui-sans-serif, system-ui, sans-serif;
@@ -72,21 +75,22 @@
 }
 
 .dark {
-  --color-canvas: oklch(13% 0.035 200);
-  --color-surface: oklch(16% 0.035 200);
-  --color-surface-soft: oklch(18.5% 0.035 200);
-  --color-surface-raised: oklch(21% 0.035 200);
-  --color-surface-sunken: oklch(10.5% 0.03 200);
-  --color-text: oklch(96% 0.012 190);
-  --color-text-soft: oklch(82% 0.018 190);
-  --color-text-muted: oklch(72% 0.02 190);
-  --color-rule: oklch(100% 0 0 / 10%);
-  --color-rule-strong: oklch(100% 0 0 / 18%);
-  --color-accent: oklch(82% 0.17 145);
-  --color-accent-strong: oklch(72% 0.16 145);
-  --color-accent-soft: oklch(27% 0.055 145);
-  --color-focus: oklch(82% 0.17 145);
-  --color-data-green: oklch(68% 0.115 160.2);
-  --color-data-amber: oklch(75.7% 0.139 78.3);
-  --color-data-red: oklch(67.4% 0.15 27.6);
+  --color-canvas: oklch(0.145 0.035 var(--color-brand-hue));
+  --color-surface: oklch(0.175 0.038 var(--color-brand-hue));
+  --color-surface-soft: oklch(0.205 0.04 var(--color-brand-hue));
+  --color-surface-raised: oklch(0.23 0.042 var(--color-brand-hue));
+  --color-surface-sunken: oklch(0.12 0.03 var(--color-brand-hue));
+  --color-text: oklch(0.96 0.012 var(--color-brand-hue));
+  --color-text-soft: oklch(0.82 0.02 var(--color-brand-hue));
+  --color-text-muted: oklch(0.72 0.025 var(--color-brand-hue));
+  --color-rule: oklch(1 0 0 / 10%);
+  --color-rule-strong: oklch(1 0 0 / 18%);
+  --color-accent: oklch(0.488 0.243 264.376);
+  --color-accent-strong: oklch(0.75 0.14 var(--color-brand-hue));
+  --color-accent-soft: oklch(0.28 0.07 var(--color-brand-hue));
+  --color-accent-ink: oklch(0.99 0.005 var(--color-brand-hue));
+  --color-focus: oklch(0.72 0.16 var(--color-brand-hue));
+  --color-data-green: oklch(0.68 0.115 160.2);
+  --color-data-amber: oklch(0.757 0.139 78.3);
+  --color-data-red: oklch(0.674 0.15 27.6);
 }
