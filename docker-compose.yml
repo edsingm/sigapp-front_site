@@ -1,0 +1,37 @@
+services:
+  front:
+    container_name: sigapp-front-site
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+      target: development
+    develop:
+      watch:
+        # Apenas reconstrói se dependências mudarem (o código é servido via bind mount)
+        - action: rebuild
+          path: package.json
+        - action: rebuild
+          path: package-lock.json
+    ports:
+      - "0.0.0.0:8081:3000"
+    volumes:
+      - .:/app                                     # bind mount: VirtioFS propaga eventos ao Turbopack
+      - front_site_node_modules:/app/node_modules  # isola node_modules do container
+      - front_site_next:/app/.next                 # isola cache de build
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://sigapp-backend:8000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_APP_URL=http://localhost:8080
+      - NEXT_PUBLIC_SITE_URL=http://localhost:8081
+    command: npm run dev -- -H 0.0.0.0 -p 3000
+    networks:
+      - database_sigapp
+
+networks:
+  database_sigapp:
+    external: true
+
+volumes:
+  front_site_node_modules:
+  front_site_next:
