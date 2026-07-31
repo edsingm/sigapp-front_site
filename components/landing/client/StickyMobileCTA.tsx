@@ -15,7 +15,7 @@ export function StickyMobileCTA() {
     const hero = document.getElementById("hero")
     const pricing = document.getElementById("precos")
     const finalCta = document.getElementById("cta-final")
-    const footer = document.querySelector("footer")
+    const footer = document.querySelector(".footer-stage")
 
     if (!hero || !pricing || !finalCta || !footer) return
 
@@ -52,22 +52,16 @@ export function StickyMobileCTA() {
   if (!pastHero || nearConversion) return null
 
   return (
-    <div className="fixed inset-x-0 bottom-4 z-50 px-4 sm:hidden">
-      <div className="mx-auto flex max-w-md items-center gap-3 rounded-2xl border border-border/70 bg-background/95 p-2 pl-4 shadow-2xl shadow-black/10 backdrop-blur-xl">
-        <div className="min-w-0 flex-1">
-          <p className="coord text-muted-foreground">
-            {STICKY_MOBILE_CTA.badge}
-          </p>
-          <div>
-            <p className="mt-1 truncate text-sm font-semibold text-foreground">
-              {STICKY_MOBILE_CTA.title}
-            </p>
-          </div>
+    <div className="sticky-mobile-cta sm:hidden">
+      <div className="sticky-mobile-cta-shell">
+        <div className="sticky-mobile-cta-copy">
+          <p className="sticky-mobile-cta-badge">{STICKY_MOBILE_CTA.badge}</p>
+          <p className="sticky-mobile-cta-title">{STICKY_MOBILE_CTA.title}</p>
         </div>
 
         <Button
           size="lg"
-          className="h-11 shrink-0 gap-1.5 rounded-xl px-4 text-sm"
+          className="sticky-mobile-cta-action"
           nativeButton={false}
           render={
             <Link
@@ -77,8 +71,8 @@ export function StickyMobileCTA() {
             />
           }
         >
-          Demonstração
-          <ArrowRight className="size-3.5" />
+          {STICKY_MOBILE_CTA.shortCta}
+          <ArrowRight className="sticky-mobile-cta-icon" />
         </Button>
       </div>
     </div>

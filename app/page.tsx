@@ -18,11 +18,23 @@ import { SocialProofBar } from "@/components/landing/sections/SocialProofBar"
 import { TestimonialsSection } from "@/components/landing/sections/TestimonialsSection"
 import { fetchPlans } from "@/lib/api"
 import { mapApiPlansToLandingPlans } from "@/lib/plan-display"
+import {
+  createPageMetadata,
+  organizationJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "SIGAPP — Decisões que ganham território",
+export const metadata: Metadata = createPageMetadata({
+  title: "SIGAPP | Viabilidade imobiliária para incorporadoras",
   description:
-    "Plataforma de gestão territorial inteligente para conectar mapas, dados, viabilidade e processo em uma única fonte de decisão.",
+    "Centralize terrenos, mapas, DRE, TIR, comitê e legalização em um único dossiê. Software de gestão territorial para incorporadoras brasileiras.",
+  path: "/",
+  absoluteTitle: true,
+})
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [organizationJsonLd, websiteJsonLd],
 }
 
 export const revalidate = 300
@@ -34,10 +46,14 @@ export default async function Page() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       <LandingNav overlay />
       <StickyMobileCTA />
       <BezelSpotlight />
-      <main>
+      <main id="conteudo-principal" tabIndex={-1}>
         {/* Map / Diagram landing sequence — spatial strata of the decision path */}
         <HeroSection />
         <SocialProofBar />

@@ -16,10 +16,16 @@ export default function NotFound() {
   return (
     <>
       <LandingNav />
-      <main className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-background px-4 pt-28 pb-20 text-center">
+      <main
+        id="conteudo-principal"
+        tabIndex={-1}
+        className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-background px-4 pt-28 pb-20 text-center"
+      >
         <CadastralMapBackdrop className="opacity-35 dark:opacity-25" />
         <div className="relative flex flex-col items-center gap-6">
-          <span className="eyebrow eyebrow--center text-primary">Erro 404</span>
+          <span className="eyebrow eyebrow--center text-[var(--landing-accent-strong)]">
+            Erro 404
+          </span>
           <h1 className="font-heading text-4xl leading-[1.02] font-bold tracking-tight text-balance text-foreground sm:text-5xl">
             Coordenada não encontrada.
           </h1>

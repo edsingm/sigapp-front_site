@@ -9,12 +9,14 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Política de Privacidade — SIGAPP",
+export const metadata: Metadata = createPageMetadata({
+  title: "Política de Privacidade",
   description:
     "Como o SIGAPP coleta, utiliza e protege seus dados pessoais conforme a LGPD.",
-}
+  path: "/legal/privacidade",
+})
 
 const SECTIONS: LegalSection[] = [
   { id: "controlador", title: "1. Controlador e DPO" },
@@ -117,7 +119,7 @@ export default function PrivacidadePage() {
             Cookies e tecnologias similares são usados conforme descrito na{" "}
             <a
               href="/legal/cookies"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
               Política de Cookies
             </a>
@@ -317,7 +319,7 @@ export default function PrivacidadePage() {
           podem ser exercidos gratuitamente por meio do canal{" "}
           <a
             href="mailto:privacidade@sigapp.com.br"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-[var(--landing-accent-strong)] hover:underline"
           >
             privacidade@sigapp.com.br
           </a>

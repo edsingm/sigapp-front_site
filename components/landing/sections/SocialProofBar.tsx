@@ -1,47 +1,69 @@
-import { DOMAIN_STRIP, METRICS } from "@/lib/landing-data"
+import { Activity } from "lucide-react"
+
+import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
+import { DOMAIN_STRIP, METRICS, SOCIAL_PROOF_COPY } from "@/lib/landing-data"
 
 export function SocialProofBar() {
   return (
-    <section className="relative overflow-hidden border-b border-border bg-background">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
-      <div className="container-landing py-10 sm:py-12">
-        <div className="mb-6 flex items-center gap-4">
-          <span className="coord shrink-0 text-muted-foreground">
-            Legenda operacional
-          </span>
-          <div className="h-px flex-1 bg-border" />
-        </div>
-
-        <div className="legend-strip">
-          {METRICS.map((metric) => (
-            <div
-              key={metric.label}
-              className="flex flex-col gap-1.5 px-5 py-5 sm:px-6 sm:py-6"
-            >
-              <p className="data-mono font-heading text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                {metric.value}
+    <section
+      className="social-proof-section"
+      aria-labelledby="social-proof-title"
+    >
+      <div className="social-proof-surface">
+        <div className="container-landing py-14 sm:py-16 lg:py-20">
+          <ScrollReveal
+            stagger
+            className="grid items-end gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-16"
+          >
+            <div className="social-proof-copy">
+              <p className="social-proof-eyebrow">
+                <Activity aria-hidden="true" />
+                {SOCIAL_PROOF_COPY.eyebrow}
               </p>
-              <p className="coord text-muted-foreground">{metric.label}</p>
+              <h2 id="social-proof-title">{SOCIAL_PROOF_COPY.title}</h2>
+              <p>{SOCIAL_PROOF_COPY.description}</p>
             </div>
-          ))}
-        </div>
 
-        <div
-          className="marquee-mask mt-8 overflow-hidden border-t border-border pt-6"
-          aria-label="Capacidades do domínio de incorporação"
-        >
-          <div className="animate-marquee" aria-hidden="true">
-            {[...DOMAIN_STRIP, ...DOMAIN_STRIP].map((item, i) => (
-              <div
-                key={`${item}-${i}`}
-                className="mx-5 flex shrink-0 items-center gap-5 sm:mx-7"
-              >
-                <span className="font-heading text-sm font-semibold tracking-tight whitespace-nowrap text-foreground/45 sm:text-base">
-                  {item}
-                </span>
-                <span className="size-1 shrink-0 rounded-full bg-foreground/12" />
-              </div>
-            ))}
+            <dl
+              className="social-proof-metrics grid grid-cols-2 lg:grid-cols-4"
+              aria-label={SOCIAL_PROOF_COPY.metricsLabel}
+            >
+              {METRICS.map((metric, index) => (
+                <div key={metric.label}>
+                  <span aria-hidden="true">0{index + 1}</span>
+                  <dd>{metric.value}</dd>
+                  <dt>{metric.label}</dt>
+                </div>
+              ))}
+            </dl>
+          </ScrollReveal>
+        </div>
+      </div>
+
+      <div className="social-proof-domain">
+        <div className="container-landing flex flex-col items-start gap-4 py-5 sm:flex-row sm:items-center sm:gap-6">
+          <p className="social-proof-domain-label">
+            <span aria-hidden="true" />
+            {SOCIAL_PROOF_COPY.tickerLabel}
+          </p>
+
+          <div className="social-proof-domain-track">
+            <ul
+              className="sr-only"
+              aria-label={SOCIAL_PROOF_COPY.tickerAriaLabel}
+            >
+              {DOMAIN_STRIP.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <div className="animate-marquee" aria-hidden="true">
+              {[...DOMAIN_STRIP, ...DOMAIN_STRIP].map((item, index) => (
+                <div key={`${item}-${index}`}>
+                  <span>{item}</span>
+                  <i />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

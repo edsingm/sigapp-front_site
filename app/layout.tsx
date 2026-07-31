@@ -32,6 +32,7 @@ const fontMono = Geist_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#f5f8f2",
 }
 
 export const metadata: Metadata = {
@@ -42,8 +43,9 @@ export const metadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
-  alternates: {
-    canonical: "/",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.svg", type: "image/svg+xml" }],
   },
   keywords: [
     "viabilidade imobiliária",
@@ -84,38 +86,6 @@ export const metadata: Metadata = {
   },
 }
 
-// Dados estruturados (JSON-LD) — Organization + SoftwareApplication
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": `${SITE_URL}/#organization`,
-      name: SITE.name,
-      legalName: SITE.legalName,
-      url: SITE_URL,
-      logo: `${SITE_URL}/icon`,
-      contactPoint: {
-        "@type": "ContactPoint",
-        email: SITE.email,
-        contactType: "sales",
-        areaServed: "BR",
-        availableLanguage: "Portuguese",
-      },
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": `${SITE_URL}/#software`,
-      name: SITE.name,
-      applicationCategory: "BusinessApplication",
-      operatingSystem: "Web",
-      description: SITE.description,
-      url: SITE_URL,
-      publisher: { "@id": `${SITE_URL}/#organization` },
-    },
-  ],
-}
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -124,6 +94,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={cn(
         "antialiased",
@@ -133,11 +104,10 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
         <ThemeProvider>
+          <a href="#conteudo-principal" className="skip-link">
+            Pular para o conteúdo
+          </a>
           {children}
           <CookieBanner />
           <AnalyticsScripts />

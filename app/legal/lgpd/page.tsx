@@ -9,12 +9,14 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "LGPD — Seus Direitos como Titular de Dados — SIGAPP",
+export const metadata: Metadata = createPageMetadata({
+  title: "LGPD — Seus Direitos como Titular de Dados",
   description:
     "Conheça seus direitos garantidos pela Lei Geral de Proteção de Dados (Lei 13.709/2018) e saiba como exercê-los no SIGAPP.",
-}
+  path: "/legal/lgpd",
+})
 
 const SECTIONS: LegalSection[] = [
   { id: "o-que-e", title: "1. O que é a LGPD" },
@@ -178,7 +180,7 @@ export default function LgpdPage() {
             nossa{" "}
             <a
               href="/legal/privacidade#compartilhamento"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
               Política de Privacidade, seção 4
             </a>
@@ -345,7 +347,7 @@ export default function LgpdPage() {
           imediatamente com nosso DPO em{" "}
           <a
             href="mailto:privacidade@sigapp.com.br"
-            className="font-medium text-primary hover:underline"
+            className="font-medium text-[var(--landing-accent-strong)] hover:underline"
           >
             privacidade@sigapp.com.br
           </a>

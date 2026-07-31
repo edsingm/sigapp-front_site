@@ -8,11 +8,14 @@ import {
   LHighlight,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Termos de Uso — SIGAPP",
-  description: "Condições gerais de uso da plataforma SIGAPP.",
-}
+export const metadata: Metadata = createPageMetadata({
+  title: "Termos de Uso",
+  description:
+    "Consulte as condições de acesso, contratação, responsabilidades e uso da plataforma SIGAPP.",
+  path: "/legal/termos-de-uso",
+})
 
 const SECTIONS: LegalSection[] = [
   { id: "partes", title: "1. Partes e Definições" },
@@ -329,7 +332,7 @@ export default function TermosDeUsoPage() {
             Para dúvidas sobre estes Termos, entre em contato com{" "}
             <a
               href="mailto:juridico@sigapp.com.br"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
               juridico@sigapp.com.br
             </a>{" "}

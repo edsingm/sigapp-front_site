@@ -1,29 +1,22 @@
 import type { Metadata } from "next"
-import { notFound } from "next/navigation"
 import Link from "next/link"
-import { LandingNav } from "@/components/landing/layout/LandingNav"
-import { LandingFooter } from "@/components/landing/layout/LandingFooter"
-import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
-import { Button } from "@/components/ui/button"
-import { Clock, ArrowLeft, ArrowRight, Tag } from "lucide-react"
-import { LINKS } from "@/lib/landing-data"
-import {
-  BLOG_POSTS,
-  getPostBySlug,
-  formatDate,
-  type BlogCategory,
-} from "@/lib/blog-data"
+import { notFound } from "next/navigation"
+import { ArrowLeft, ArrowRight, Clock, Tag } from "lucide-react"
 
-const CATEGORY_COLORS: Record<BlogCategory, string> = {
-  "Mercado Imobiliário": "bg-primary/10 text-primary",
-  Tecnologia: "bg-muted text-foreground/70",
-  "Inteligência Artificial": "bg-secondary/20 text-primary",
-  Produto: "bg-accent text-primary",
-  Dicas: "bg-muted text-foreground/70",
-}
+import { LandingFooter } from "@/components/landing/layout/LandingFooter"
+import { LandingNav } from "@/components/landing/layout/LandingNav"
+import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
+import { BLOG_POSTS, formatDate, getPostBySlug } from "@/lib/blog-data"
+import { LINKS, SITE, SITE_URL } from "@/lib/landing-data"
+import { absoluteUrl, organizationJsonLd } from "@/lib/seo"
 
 type Props = {
   params: Promise<{ slug: string }>
+}
+
+type ArticleHeading = {
+  id: string
+  title: string
 }
 
 export async function generateStaticParams() {
@@ -33,52 +26,135 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = getPostBySlug(slug)
-  if (!post) return { title: "Post não encontrado — SIGAPP" }
+
+  if (!post) return { title: "Post não encontrado" }
+
+  const url = absoluteUrl(`/blog/${post.slug}`)
+  const image = {
+    url: absoluteUrl(`/blog/${post.slug}/opengraph-image`),
+    width: 1200,
+    height: 630,
+    alt: post.title,
+  }
+
   return {
-    title: `${post.title} — Blog SIGAPP`,
+    title: post.seoTitle,
     description: post.excerpt,
+    keywords: post.tags,
+    authors: [{ name: post.author.name, url: `${SITE_URL}/sobre` }],
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      locale: SITE.locale,
+      url,
+      siteName: SITE.name,
+      title: post.seoTitle,
+      description: post.excerpt,
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt ?? post.publishedAt,
+      authors: [post.author.name],
+      tags: post.tags,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.seoTitle,
+      description: post.excerpt,
+      images: [image],
+    },
   }
 }
 
+function slugifyHeading(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+}
+
+function getArticleHeadings(content: string): ArticleHeading[] {
+  return content
+    .split("\n")
+    .filter((line) => line.startsWith("## "))
+    .map((line) => {
+      const title = line.slice(3)
+      return { id: slugifyHeading(title), title }
+    })
+}
+
+function renderInlineText(text: string) {
+  return text
+    .split(/(\*\*.*?\*\*)/g)
+    .map((part, index) =>
+      part.startsWith("**") && part.endsWith("**") ? (
+        <strong key={`${part}-${index}`}>{part.slice(2, -2)}</strong>
+      ) : (
+        part
+      )
+    )
+}
+
 function renderContent(content: string) {
-  const lines = content.split("\n")
   const elements: React.ReactNode[] = []
+  let listItems: string[] = []
+  let listType: "ordered" | "unordered" | null = null
   let key = 0
 
-  for (const line of lines) {
-    if (line.startsWith("## ")) {
+  const flushList = () => {
+    if (!listType || listItems.length === 0) return
+
+    const items = listItems.map((item) => (
+      <li key={item}>{renderInlineText(item)}</li>
+    ))
+
+    elements.push(
+      listType === "ordered" ? (
+        <ol key={key++}>{items}</ol>
+      ) : (
+        <ul key={key++}>{items}</ul>
+      )
+    )
+    listItems = []
+    listType = null
+  }
+
+  for (const line of content.split("\n")) {
+    const unorderedItem = line.match(/^- (.+)$/)
+    const orderedItem = line.match(/^\d+\. (.+)$/)
+
+    if (unorderedItem || orderedItem) {
+      const nextType = orderedItem ? "ordered" : "unordered"
+
+      if (listType && listType !== nextType) flushList()
+      listType = nextType
+      listItems.push((unorderedItem ?? orderedItem)?.[1] ?? "")
+      continue
+    }
+
+    flushList()
+
+    if (line.startsWith("### ")) {
+      const title = line.slice(4)
       elements.push(
-        <h2
-          key={key++}
-          className="mt-10 mb-4 font-heading text-xl font-bold tracking-tight text-foreground md:text-2xl"
-        >
-          {line.replace("## ", "")}
+        <h3 key={key++} id={slugifyHeading(title)}>
+          {title}
+        </h3>
+      )
+    } else if (line.startsWith("## ")) {
+      const title = line.slice(3)
+      elements.push(
+        <h2 key={key++} id={slugifyHeading(title)}>
+          {title}
         </h2>
       )
-    } else if (line.startsWith("**") && line.endsWith("**")) {
-      elements.push(
-        <p key={key++} className="my-3 font-semibold text-foreground">
-          {line.replace(/\*\*/g, "")}
-        </p>
-      )
-    } else if (line.startsWith("- ")) {
-      elements.push(
-        <li
-          key={key++}
-          className="ml-4 list-disc text-muted-foreground marker:text-primary"
-        >
-          {line.replace("- ", "").replace(/\*\*(.*?)\*\*/g, "$1")}
-        </li>
-      )
-    } else if (line.trim() !== "") {
-      elements.push(
-        <p key={key++} className="my-3 leading-relaxed text-foreground/80">
-          {line.replace(/\*\*(.*?)\*\*/g, "$1")}
-        </p>
-      )
+    } else if (line.trim()) {
+      elements.push(<p key={key++}>{renderInlineText(line)}</p>)
     }
   }
 
+  flushList()
   return elements
 }
 
@@ -88,156 +164,197 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const currentIndex = BLOG_POSTS.findIndex((p) => p.slug === slug)
+  const headings = getArticleHeadings(post.content)
+  const currentIndex = BLOG_POSTS.findIndex((item) => item.slug === slug)
   const prevPost =
     currentIndex < BLOG_POSTS.length - 1 ? BLOG_POSTS[currentIndex + 1] : null
   const nextPost = currentIndex > 0 ? BLOG_POSTS[currentIndex - 1] : null
+  const articleUrl = absoluteUrl(`/blog/${post.slug}`)
+  const articleImage = absoluteUrl(
+    `/blog/${post.slug}/opengraph-image`
+  )
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${articleUrl}#article`,
+        headline: post.title,
+        description: post.excerpt,
+        image: articleImage,
+        datePublished: post.publishedAt,
+        dateModified: post.updatedAt ?? post.publishedAt,
+        inLanguage: "pt-BR",
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": articleUrl,
+        },
+        author: {
+          "@type": "Organization",
+          name: post.author.name,
+          url: `${SITE_URL}/sobre`,
+        },
+        publisher: organizationJsonLd,
+        keywords: post.tags.join(", "),
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${articleUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Início",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: absoluteUrl("/blog"),
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: post.title,
+            item: articleUrl,
+          },
+        ],
+      },
+    ],
+  }
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       <LandingNav />
-      <main>
-        {/* Hero */}
+      <main id="conteudo-principal" tabIndex={-1} className="article-page">
         <SecondaryPageHero
-          eyebrow="Artigo"
+          variant="editorial"
+          eyebrow="Caderno SIGAPP"
           title={post.title}
           description={post.excerpt}
-          align="left"
           breadcrumbs={[
             { label: "Início", href: "/" },
             { label: "Blog", href: "/blog" },
             { label: post.category },
           ]}
           afterDescription={
-            <div className="flex flex-wrap items-center gap-3">
-              <span
-                className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${CATEGORY_COLORS[post.category]}`}
-              >
-                {post.category}
+            <div className="article-hero-taxonomy">
+              <span>{post.category}</span>
+              <span>
+                <Clock aria-hidden="true" /> {post.readTime} min de leitura
               </span>
-              <div className="flex items-center gap-1 text-xs text-white/58">
-                <Clock className="size-3.5" />
-                <span>{post.readTime} min de leitura</span>
-              </div>
             </div>
           }
           meta={
-            <div className="flex items-center gap-3 border-t border-white/10 pt-6">
-              <div className="flex size-10 items-center justify-center rounded-full bg-white/8 text-sm font-semibold text-white">
-                {post.author.initials}
-              </div>
+            <div className="article-hero-author">
+              <span aria-hidden="true">{post.author.initials}</span>
               <div>
-                <p className="text-sm font-semibold text-white">
-                  {post.author.name}
-                </p>
-                <p className="text-xs text-white/58">
-                  {post.author.role} · {formatDate(post.publishedAt)}
+                <strong>{post.author.name}</strong>
+                <p>
+                  {post.author.role} ·{" "}
+                  <time dateTime={post.publishedAt}>
+                    {formatDate(post.publishedAt)}
+                  </time>
                 </p>
               </div>
             </div>
           }
         />
 
-        {/* Article content */}
-        <section className="py-16">
-          <div className="container-landing">
-            <div className="mx-auto max-w-3xl">
-              <article className="prose-landing">
+        <section className="article-stage">
+          <div className="container-landing article-layout">
+            <aside className="article-reading-rail">
+              <Link href="/blog">
+                <ArrowLeft aria-hidden="true" /> Voltar ao arquivo
+              </Link>
+              <div>
+                <span>Neste artigo</span>
+                <nav aria-label="Navegação deste artigo">
+                  {headings.map((heading, index) => (
+                    <a key={heading.id} href={`#${heading.id}`}>
+                      <span aria-hidden="true">0{index + 1}</span>
+                      {heading.title}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+
+            <div className="article-main">
+              <article className="article-prose">
                 {renderContent(post.content)}
               </article>
 
-              {/* Tags */}
-              <div className="mt-10 flex flex-wrap items-center gap-2 border-t border-border pt-8">
-                <Tag className="size-4 text-muted-foreground" />
+              <footer className="article-tags">
+                <Tag aria-hidden="true" />
+                <span className="sr-only">Temas:</span>
                 {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-border bg-muted px-3 py-1 text-xs text-muted-foreground"
-                  >
-                    {tag}
-                  </span>
+                  <span key={tag}>{tag}</span>
                 ))}
-              </div>
+              </footer>
             </div>
           </div>
         </section>
 
-        {/* Navigation between posts */}
-        {(prevPost || nextPost) && (
-          <section className="border-t border-border py-12">
-            <div className="container-landing">
-              <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
-                {prevPost ? (
-                  <Link
-                    href={`/blog/${prevPost.slug}`}
-                    className="group flex flex-col gap-1 rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
-                  >
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <ArrowLeft className="size-3.5" /> Anterior
-                    </span>
-                    <p className="line-clamp-2 font-heading text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
-                      {prevPost.title}
-                    </p>
-                  </Link>
-                ) : (
-                  <div />
-                )}
-                {nextPost && (
-                  <Link
-                    href={`/blog/${nextPost.slug}`}
-                    className="group flex flex-col items-end gap-1 rounded-xl border border-border bg-card p-5 text-right transition-all hover:-translate-y-0.5 hover:shadow-md"
-                  >
-                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                      Próximo <ArrowRight className="size-3.5" />
-                    </span>
-                    <p className="line-clamp-2 font-heading text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
-                      {nextPost.title}
-                    </p>
-                  </Link>
-                )}
-              </div>
+        {prevPost || nextPost ? (
+          <nav className="article-navigation-stage" aria-label="Outros artigos">
+            <div className="container-landing article-navigation-grid">
+              {prevPost ? (
+                <Link href={`/blog/${prevPost.slug}`}>
+                  <span>
+                    <ArrowLeft aria-hidden="true" /> Anterior
+                  </span>
+                  <strong>{prevPost.title}</strong>
+                </Link>
+              ) : (
+                <div />
+              )}
+              {nextPost ? (
+                <Link href={`/blog/${nextPost.slug}`} className="is-next">
+                  <span>
+                    Próximo <ArrowRight aria-hidden="true" />
+                  </span>
+                  <strong>{nextPost.title}</strong>
+                </Link>
+              ) : null}
             </div>
-          </section>
-        )}
+          </nav>
+        ) : null}
 
-        <section className="border-t border-border py-16">
-          <div className="container-landing">
-            <div className="mx-auto flex max-w-xl flex-col items-start gap-5 md:items-center md:text-center">
-              <h2 className="font-heading text-2xl font-bold text-foreground">
+        <section
+          className="editorial-cta-stage"
+          aria-labelledby="article-cta-title"
+        >
+          <div className="container-landing editorial-cta-panel">
+            <div>
+              <span className="editorial-index">Aplique ao seu caso</span>
+              <h2 id="article-cta-title">
                 Quer ver isso no dossiê do seu terreno?
               </h2>
-              <p className="text-muted-foreground">
+            </div>
+            <div className="editorial-cta-action">
+              <p>
                 Solicite uma demonstração guiada — com um caso real da carteira,
                 se tiver.
               </p>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <Button
-                  variant="brand"
-                  size="lg"
-                  className="group/cta h-12 gap-2 rounded-full pr-2 pl-6 font-semibold"
-                  nativeButton={false}
-                  render={
-                    <Link
-                      href={LINKS.demo}
-                      data-analytics-event="demo_request"
-                      data-analytics-location="blog-post-cta"
-                    />
-                  }
+              <div>
+                <Link
+                  href={LINKS.demo}
+                  className="editorial-primary-link"
+                  data-analytics-event="demo_request"
+                  data-analytics-location="blog-post-cta"
                 >
                   Solicitar demonstração
-                  <span className="flex size-8 items-center justify-center rounded-full bg-white/18 transition-transform group-hover/cta:translate-x-0.5">
-                    <ArrowRight className="size-3.5" />
-                  </span>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="h-12 rounded-full px-6"
-                  nativeButton={false}
-                  render={<Link href="/blog" />}
-                >
+                  <ArrowRight aria-hidden="true" />
+                </Link>
+                <Link href="/blog" className="editorial-secondary-link">
                   Mais artigos
-                </Button>
+                </Link>
               </div>
             </div>
           </div>

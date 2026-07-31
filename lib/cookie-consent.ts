@@ -16,7 +16,7 @@ export const CONSENT_KEY = "sigapp_cookie_consent"
 export const CONSENT_VERSION = "1.0"
 
 export const DEFAULT_CATEGORIES: CookieCategories = {
-  functional: true,
+  functional: false,
   analytics: false,
   marketing: false,
 }

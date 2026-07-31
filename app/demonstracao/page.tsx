@@ -1,78 +1,82 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { ArrowUpRight, Mail } from "lucide-react"
 
-import { LandingNav } from "@/components/landing/layout/LandingNav"
-import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { DemoRequestForm } from "@/components/landing/client/DemoRequestForm"
+import { LandingFooter } from "@/components/landing/layout/LandingFooter"
+import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { DEMO_PAGE, LINKS } from "@/lib/landing-data"
-import { SectionLabel } from "@/components/landing/ui/SectionLabel"
+import { createPageMetadata } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Solicitar demonstração",
+export const metadata: Metadata = createPageMetadata({
+  title: "Demonstração do software para incorporadoras",
   description: DEMO_PAGE.description,
-  alternates: { canonical: "/demonstracao" },
-}
+  path: "/demonstracao",
+})
 
 export default function DemonstracaoPage() {
   return (
     <>
       <LandingNav />
-      <main>
-        <section className="relative overflow-hidden border-b border-border bg-background pt-28 pb-20 md:pt-32 md:pb-28">
-          <div className="container-landing">
-            <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
-              <div className="flex flex-col gap-6 lg:col-span-5 lg:sticky lg:top-28">
-                <SectionLabel>{DEMO_PAGE.eyebrow}</SectionLabel>
-                <h1 className="font-heading text-3xl leading-[1.05] font-bold tracking-tight text-balance text-foreground md:text-4xl lg:text-5xl">
-                  {DEMO_PAGE.title}
-                </h1>
-                <p className="max-w-[42ch] text-base leading-relaxed text-muted-foreground md:text-lg">
-                  {DEMO_PAGE.description}
-                </p>
+      <main id="conteudo-principal" tabIndex={-1} className="demo-page">
+        <section className="demo-stage" aria-labelledby="demo-title">
+          <div className="demo-stage-grid" aria-hidden="true" />
+          <div className="container-landing demo-shell">
+            <header className="demo-intro">
+              <span className="demo-eyebrow">{DEMO_PAGE.eyebrow}</span>
+              <h1 id="demo-title">{DEMO_PAGE.title}</h1>
+              <p className="demo-description">{DEMO_PAGE.description}</p>
 
-                <ul className="mt-2 flex flex-col gap-5 border-t border-border pt-6">
-                  {DEMO_PAGE.sidePoints.map((point) => (
-                    <li key={point.title} className="grid gap-1">
-                      <p className="font-heading text-sm font-semibold text-foreground">
-                        {point.title}
-                      </p>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
-                        {point.text}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
+              <dl className="demo-session-specs">
+                <div>
+                  <dt>Duração</dt>
+                  <dd>≈ 40 min</dd>
+                </div>
+                <div>
+                  <dt>Fluxo</dt>
+                  <dd>03 etapas</dd>
+                </div>
+                <div>
+                  <dt>Formato</dt>
+                  <dd>01 caso real</dd>
+                </div>
+              </dl>
 
-                <p className="coord text-muted-foreground">
-                  Prefere e-mail?{" "}
-                  <a
-                    href={LINKS.demoEmail}
-                    className="text-foreground underline underline-offset-2"
-                  >
-                    contato@sigapp.com.br
-                  </a>
-                </p>
+              <ol className="demo-proof-list">
+                {DEMO_PAGE.sidePoints.map((point, index) => (
+                  <li key={point.title}>
+                    <span aria-hidden="true">0{index + 1}</span>
+                    <div>
+                      <h2>{point.title}</h2>
+                      <p>{point.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <a href={LINKS.demoEmail} className="demo-email-link">
+                <Mail aria-hidden="true" />
+                <span>
+                  <small>Prefere escrever?</small>
+                  contato@sigapp.com.br
+                </span>
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </header>
+
+            <div className="demo-form-region">
+              <div className="demo-form-status" aria-hidden="true">
+                <span>
+                  <i /> Agenda de decisão
+                </span>
+                <span>SIG / DEMO</span>
               </div>
-
-              <div className="lg:col-span-7">
-                <DemoRequestForm />
-                <p className="mt-5 text-center text-sm text-muted-foreground">
-                  Já tem conta?{" "}
-                  <Link
-                    href={LINKS.login}
-                    className="font-medium text-foreground underline underline-offset-2"
-                  >
-                    Entrar
-                  </Link>
-                  {" · "}
-                  <Link
-                    href={LINKS.signup}
-                    className="font-medium text-foreground underline underline-offset-2"
-                  >
-                    Criar conta
-                  </Link>
-                </p>
-              </div>
+              <DemoRequestForm />
+              <p className="demo-account-links">
+                Já tem conta? <Link href={LINKS.login}>Entrar</Link>
+                <span aria-hidden="true">/</span>
+                <Link href={LINKS.signup}>Criar conta</Link>
+              </p>
             </div>
           </div>
         </section>

@@ -1,8 +1,9 @@
 import Link from "next/link"
-import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
-import { LandingNav } from "@/components/landing/layout/LandingNav"
+import { ArrowUpRight, Mail, ShieldCheck } from "lucide-react"
+
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
-import { cn } from "@/lib/utils"
+import { LandingNav } from "@/components/landing/layout/LandingNav"
+import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
 
 export type LegalSection = {
   id: string
@@ -18,11 +19,10 @@ type LegalLayoutProps = {
 }
 
 const LEGAL_PAGES = [
-  { label: "Visão Geral", href: "/legal" },
-  { label: "Termos de Uso", href: "/legal/termos-de-uso" },
-  { label: "Privacidade", href: "/legal/privacidade" },
-  { label: "LGPD", href: "/legal/lgpd" },
-  { label: "Cookies", href: "/legal/cookies" },
+  { label: "Termos de Uso", href: "/legal/termos-de-uso", match: "Termos" },
+  { label: "Privacidade", href: "/legal/privacidade", match: "Privacidade" },
+  { label: "LGPD", href: "/legal/lgpd", match: "LGPD" },
+  { label: "Cookies", href: "/legal/cookies", match: "Cookies" },
 ]
 
 export function LegalLayout({
@@ -35,101 +35,108 @@ export function LegalLayout({
   return (
     <>
       <LandingNav />
-      <main>
-        {/* Header */}
+      <main id="conteudo-principal" tabIndex={-1} className="legal-page">
         <SecondaryPageHero
-          eyebrow="Documento legal"
+          variant="editorial"
+          eyebrow="Base legal"
           title={title}
           description={description}
-          align="left"
           breadcrumbs={[
             { label: "Início", href: "/" },
-            { label: "Legal", href: "/legal" },
+            { label: "Legal" },
             { label: title },
           ]}
-          meta={
-            <p className="text-xs text-white/56">
-              Última atualização:{" "}
-              <span className="font-medium text-white/80">{lastUpdated}</span>
-            </p>
+          afterDescription={
+            <dl className="legal-hero-meta">
+              <div>
+                <dt>Status</dt>
+                <dd>
+                  <i aria-hidden="true" /> Vigente
+                </dd>
+              </div>
+              <div>
+                <dt>Atualização</dt>
+                <dd>{lastUpdated}</dd>
+              </div>
+              <div>
+                <dt>Estrutura</dt>
+                <dd>{String(sections.length).padStart(2, "0")} seções</dd>
+              </div>
+            </dl>
           }
         />
 
-        <div className="container-landing py-12">
-          <div className="grid gap-10 lg:grid-cols-[240px_1fr]">
-            {/* Sidebar */}
-            <aside className="hidden lg:block">
-              <div className="sticky top-24 flex flex-col gap-6">
-                {/* Documents nav */}
-                <div className="rounded-2xl border border-border bg-card p-4">
-                  <p className="mb-2 text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
-                    Documentos legais
-                  </p>
-                  <nav className="flex flex-col gap-0.5">
-                    {LEGAL_PAGES.map((page) => (
-                      <Link
-                        key={page.href}
-                        href={page.href}
-                        className={cn(
-                          "rounded-md px-3 py-2 text-sm transition-colors hover:bg-muted hover:text-foreground",
-                          "text-muted-foreground"
-                        )}
-                      >
-                        {page.label}
-                      </Link>
+        <section className="legal-stage" aria-label={`Conteúdo: ${title}`}>
+          <div className="container-landing">
+            <nav
+              className="legal-document-switcher"
+              aria-label="Documentos legais"
+            >
+              {LEGAL_PAGES.map((page, index) => {
+                const isCurrent = title.includes(page.match)
+
+                return (
+                  <Link
+                    key={page.href}
+                    href={page.href}
+                    aria-current={isCurrent ? "page" : undefined}
+                  >
+                    <span aria-hidden="true">0{index + 1}</span>
+                    {page.label}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            <details className="legal-mobile-toc">
+              <summary>Nesta página · {sections.length} seções</summary>
+              <nav aria-label="Índice desta página">
+                {sections.map((section) => (
+                  <a key={section.id} href={`#${section.id}`}>
+                    {section.title}
+                  </a>
+                ))}
+              </nav>
+            </details>
+
+            <div className="legal-layout-grid">
+              <aside className="legal-sidebar">
+                <div className="legal-sidebar-index">
+                  <span>Índice do documento</span>
+                  <nav aria-label="Índice desta página">
+                    {sections.map((section, index) => (
+                      <a key={section.id} href={`#${section.id}`}>
+                        <span aria-hidden="true">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        {section.title.replace(/^\d+\.\s*/, "")}
+                      </a>
                     ))}
                   </nav>
                 </div>
 
-                {/* Table of contents */}
-                {sections.length > 0 && (
-                  <div className="rounded-2xl border border-border bg-card p-4">
-                    <p className="mb-2 text-[10px] font-semibold tracking-widest text-muted-foreground uppercase">
-                      Nesta página
-                    </p>
-                    <nav className="flex flex-col gap-0.5">
-                      {sections.map((section) => (
-                        <a
-                          key={section.id}
-                          href={`#${section.id}`}
-                          className="rounded-md px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                        >
-                          {section.title}
-                        </a>
-                      ))}
-                    </nav>
-                  </div>
-                )}
-
-                {/* DPO contact */}
-                <div className="rounded-2xl border border-primary/12 bg-accent/50 p-4">
-                  <p className="text-xs font-semibold text-foreground">
-                    Dúvidas sobre privacidade?
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    Entre em contato com nosso Encarregado (DPO).
-                  </p>
-                  <a
-                    href="mailto:privacidade@sigapp.com.br"
-                    className="mt-2 block text-xs font-medium text-primary hover:underline"
-                  >
+                <div className="legal-dpo-card">
+                  <ShieldCheck aria-hidden="true" />
+                  <span>Canal de privacidade</span>
+                  <strong>Dúvidas ou solicitações?</strong>
+                  <p>Fale diretamente com nosso Encarregado de Dados.</p>
+                  <a href="mailto:privacidade@sigapp.com.br">
+                    <Mail aria-hidden="true" />
                     privacidade@sigapp.com.br
+                    <ArrowUpRight aria-hidden="true" />
                   </a>
                 </div>
-              </div>
-            </aside>
+              </aside>
 
-            {/* Content */}
-            <article className="prose-legal min-w-0">{children}</article>
+              <article className="legal-document">{children}</article>
+            </div>
           </div>
-        </div>
+        </section>
       </main>
       <LandingFooter />
     </>
   )
 }
-
-/* ── Prose components ─────────────────────────────────────────── */
 
 export function LSection({
   id,
@@ -141,30 +148,23 @@ export function LSection({
   children: React.ReactNode
 }) {
   return (
-    <section id={id} className="mb-10 scroll-mt-24">
-      <h2 className="mb-4 border-b border-border pb-2 font-heading text-xl font-bold tracking-tight text-foreground">
-        {title}
-      </h2>
-      <div className="flex flex-col gap-3">{children}</div>
+    <section id={id} className="legal-content-section">
+      <h2>{title}</h2>
+      <div>{children}</div>
     </section>
   )
 }
 
 export function LP({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="text-sm leading-relaxed text-foreground/80">{children}</p>
-  )
+  return <p className="legal-paragraph">{children}</p>
 }
 
 export function LList({ items }: { items: (string | React.ReactNode)[] }) {
   return (
-    <ul className="flex flex-col gap-1.5 pl-1">
-      {items.map((item, i) => (
-        <li
-          key={i}
-          className="flex items-start gap-2 text-sm text-foreground/80"
-        >
-          <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
+    <ul className="legal-list">
+      {items.map((item, index) => (
+        <li key={index}>
+          <span aria-hidden="true" />
           <span>{item}</span>
         </li>
       ))}
@@ -180,20 +180,19 @@ export function LSubsection({
   children: React.ReactNode
 }) {
   return (
-    <div className="mt-4">
-      <h3 className="mb-2 font-heading text-base font-semibold text-foreground">
-        {title}
-      </h3>
-      <div className="flex flex-col gap-2">{children}</div>
-    </div>
+    <section className="legal-subsection">
+      <h3>{title}</h3>
+      <div>{children}</div>
+    </section>
   )
 }
 
 export function LHighlight({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-primary/20 bg-accent/40 p-4 text-sm text-foreground/80">
-      {children}
-    </div>
+    <aside className="legal-highlight">
+      <span aria-hidden="true">Leitura essencial</span>
+      <p>{children}</p>
+    </aside>
   )
 }
 
@@ -205,33 +204,22 @@ export function LTable({
   rows: string[][]
 }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-border">
-      <table className="w-full text-sm">
+    <div className="legal-table-wrap">
+      <table>
         <thead>
-          <tr className="border-b border-border bg-muted/40">
-            {headers.map((h) => (
-              <th
-                key={h}
-                className="px-4 py-2.5 text-left text-xs font-semibold tracking-wide text-muted-foreground uppercase"
-              >
-                {h}
+          <tr>
+            {headers.map((header) => (
+              <th key={header} scope="col">
+                {header}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, i) => (
-            <tr
-              key={i}
-              className={cn(
-                "border-b border-border/50 last:border-0",
-                i % 2 === 0 ? "" : "bg-muted/20"
-              )}
-            >
-              {row.map((cell, j) => (
-                <td key={j} className="px-4 py-3 align-top text-foreground/80">
-                  {cell}
-                </td>
+          {rows.map((row, index) => (
+            <tr key={index}>
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex}>{cell}</td>
               ))}
             </tr>
           ))}

@@ -1,13 +1,21 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { ArrowLeft, WifiOff } from "lucide-react"
+
+import { SignupBrand } from "@/components/landing/ui/SignupBrand"
+import { ThemeToggleButton } from "@/components/landing/client/ThemeToggleButton"
 import { fetchPlans, type ApiPlan } from "@/lib/api"
 import { SignupForm } from "@/components/landing/client/SignupForm"
 import { SignupStatus } from "@/components/landing/client/SignupStatus"
+import { createPageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = {
-  title: "Criar conta · SIGAPP",
-  description:
-    "Crie sua conta no SIGAPP e comece com 7 dias grátis. Calcule viabilidade de incorporação com precisão de engenharia.",
+  ...createPageMetadata({
+    title: "Criar conta",
+    description:
+      "Crie sua conta no SIGAPP e comece com 7 dias grátis. Calcule viabilidade de incorporação com precisão de engenharia.",
+    path: "/cadastro",
+  }),
   robots: { index: false, follow: false },
 }
 
@@ -42,20 +50,42 @@ export default async function CadastroPage({
 
   if (plans.length === 0) {
     return (
-      <main className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-5 text-center">
-        <h1 className="font-heading text-xl font-black text-foreground">
-          Cadastro temporariamente indisponível
-        </h1>
-        <p className="mt-2 max-w-md text-sm text-muted-foreground">
-          Não conseguimos carregar os planos no momento. Atualize a página em
-          instantes ou tente novamente mais tarde.
-        </p>
-        <Link
-          href="/"
-          className="mt-6 text-sm font-medium text-primary hover:underline"
-        >
-          Voltar ao site
-        </Link>
+      <main
+        id="conteudo-principal"
+        tabIndex={-1}
+        className="signup-unavailable-stage"
+      >
+        <div className="signup-status-grid" aria-hidden="true" />
+        <header>
+          <SignupBrand tone="on-dark" />
+          <div className="signup-header-actions">
+            <span>Ativação indisponível</span>
+            <ThemeToggleButton className="signup-theme-toggle" />
+          </div>
+        </header>
+
+        <section aria-labelledby="signup-unavailable-title">
+          <span>
+            <WifiOff aria-hidden="true" />
+          </span>
+          <p>Conexão com os planos</p>
+          <h1 id="signup-unavailable-title">
+            O cadastro está temporariamente pausado.
+          </h1>
+          <p>
+            Não conseguimos carregar os planos agora. Aguarde alguns instantes e
+            tente novamente; nenhum dado foi enviado.
+          </p>
+          <Link href="/" className="signup-status-action">
+            <ArrowLeft aria-hidden="true" />
+            Voltar ao site
+          </Link>
+        </section>
+
+        <footer>
+          <span>Serviço monitorado</span>
+          <strong>SIGAPP / Cadastro</strong>
+        </footer>
       </main>
     )
   }

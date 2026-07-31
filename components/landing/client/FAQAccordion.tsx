@@ -1,67 +1,66 @@
 "use client"
 
-import { useState } from "react"
+import { useId, useState } from "react"
 import { ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+
 import type { FAQItem } from "@/lib/landing-data"
+import { cn } from "@/lib/utils"
 
 type FAQAccordionProps = {
   items: FAQItem[]
   defaultOpenIndex?: number
+  startIndex?: number
 }
 
-export function FAQAccordion({ items, defaultOpenIndex }: FAQAccordionProps) {
+export function FAQAccordion({
+  items,
+  defaultOpenIndex,
+  startIndex = 0,
+}: FAQAccordionProps) {
+  const accordionId = useId()
   const [openIndex, setOpenIndex] = useState<number | null>(
     defaultOpenIndex ?? null
   )
 
   return (
-    <div className="divide-y divide-border">
-      {items.map((item, i) => {
-        const isOpen = openIndex === i
+    <div className="faq-accordion">
+      {items.map((item, index) => {
+        const isOpen = openIndex === index
+        const itemNumber = startIndex + index + 1
+        const panelId = `${accordionId}-panel-${index}`
+        const triggerId = `${accordionId}-trigger-${index}`
+
         return (
-          <div
-            key={i}
-            className={cn(
-              "px-1 transition-colors sm:px-0",
-              isOpen && "bg-accent/30"
-            )}
+          <article
+            key={item.question}
+            className={cn("faq-item", isOpen && "is-open")}
           >
             <button
-              onClick={() => setOpenIndex(isOpen ? null : i)}
-              className="flex w-full items-center justify-between gap-4 py-5 text-left sm:py-5"
+              id={triggerId}
+              type="button"
+              onClick={() => setOpenIndex(isOpen ? null : index)}
               aria-expanded={isOpen}
+              aria-controls={panelId}
             >
-              <span
-                className={cn(
-                  "pr-2 text-sm leading-relaxed font-medium text-foreground transition-colors sm:text-base",
-                  isOpen && "text-primary"
-                )}
-              >
-                {item.question}
+              <span className="faq-item-index">
+                {String(itemNumber).padStart(2, "0")}
               </span>
-              <ChevronDown
-                className={cn(
-                  "size-5 shrink-0 text-muted-foreground transition-transform duration-200",
-                  isOpen && "rotate-180 text-primary"
-                )}
-              />
+              <span className="faq-item-question">{item.question}</span>
+              <span className="faq-item-toggle">
+                <ChevronDown aria-hidden="true" />
+              </span>
             </button>
             <div
-              className={cn(
-                "grid transition-all duration-200",
-                isOpen
-                  ? "grid-rows-[1fr] opacity-100"
-                  : "grid-rows-[0fr] opacity-0"
-              )}
+              id={panelId}
+              role="region"
+              aria-labelledby={triggerId}
+              className="faq-item-panel"
             >
-              <div className="overflow-hidden">
-                <p className="pb-5 text-sm leading-relaxed text-muted-foreground">
-                  {item.answer}
-                </p>
+              <div>
+                <p>{item.answer}</p>
               </div>
             </div>
-          </div>
+          </article>
         )
       })}
     </div>

@@ -88,21 +88,21 @@ export function DemoRequestForm() {
 
   if (done) {
     return (
-      <div className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-7 shadow-raise sm:p-8">
-        <span className="flex size-11 items-center justify-center rounded-full bg-(--color-data-green)/12 text-(--color-data-green)">
+      <div
+        className="demo-request-card demo-request-success"
+        aria-live="polite"
+      >
+        <span className="demo-success-icon">
           <CheckCircle2 className="size-5" strokeWidth={1.75} />
         </span>
-        <div className="space-y-2">
-          <h2 className="font-heading text-xl font-bold text-foreground">
-            {DEMO_PAGE.successTitle}
-          </h2>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            {DEMO_PAGE.successBody}
-          </p>
+        <div className="demo-success-copy">
+          <span>Solicitação recebida</span>
+          <h2>{DEMO_PAGE.successTitle}</h2>
+          <p>{DEMO_PAGE.successBody}</p>
         </div>
         <Button
           variant="outline"
-          className="h-11 w-fit gap-2"
+          className="demo-success-action"
           nativeButton={false}
           render={<Link href="/#como-funciona" />}
         >
@@ -114,21 +114,14 @@ export function DemoRequestForm() {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="flex flex-col gap-5 rounded-2xl border border-border bg-card p-6 shadow-raise sm:p-8"
-      noValidate
-    >
-      <div>
-        <h2 className="font-heading text-xl font-bold text-foreground">
-          {DEMO_PAGE.formTitle}
-        </h2>
-        <p className="mt-1.5 text-sm text-muted-foreground">
-          {DEMO_PAGE.formHint}
-        </p>
+    <form onSubmit={onSubmit} className="demo-request-card" noValidate>
+      <div className="demo-form-heading">
+        <span>Conversa inicial</span>
+        <h2>{DEMO_PAGE.formTitle}</h2>
+        <p>{DEMO_PAGE.formHint}</p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="demo-form-grid">
         <Field
           id="demo-name"
           label={DEMO_PAGE.fields.name}
@@ -142,6 +135,8 @@ export function DemoRequestForm() {
             onChange={(e) => setName(e.target.value)}
             required
             aria-invalid={Boolean(fieldErrors.name)}
+            aria-describedby={fieldErrors.name ? "demo-name-error" : undefined}
+            className="demo-control"
           />
         </Field>
         <Field
@@ -158,6 +153,10 @@ export function DemoRequestForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             aria-invalid={Boolean(fieldErrors.email)}
+            aria-describedby={
+              fieldErrors.email ? "demo-email-error" : undefined
+            }
+            className="demo-control"
           />
         </Field>
       </div>
@@ -175,10 +174,14 @@ export function DemoRequestForm() {
           onChange={(e) => setCompany(e.target.value)}
           required
           aria-invalid={Boolean(fieldErrors.company)}
+          aria-describedby={
+            fieldErrors.company ? "demo-company-error" : undefined
+          }
+          className="demo-control"
         />
       </Field>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="demo-form-grid">
         <Field id="demo-city" label={DEMO_PAGE.fields.city}>
           <Input
             id="demo-city"
@@ -186,6 +189,7 @@ export function DemoRequestForm() {
             autoComplete="address-level2"
             value={city}
             onChange={(e) => setCity(e.target.value)}
+            className="demo-control"
           />
         </Field>
         <Field id="demo-role" label={DEMO_PAGE.fields.role}>
@@ -194,7 +198,7 @@ export function DemoRequestForm() {
             name="role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="flex h-11 w-full rounded-lg border border-input bg-background px-3 text-sm shadow-sm focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none"
+            className="demo-control"
           >
             {DEMO_PAGE.roles.map((r) => (
               <option key={r} value={r}>
@@ -213,7 +217,7 @@ export function DemoRequestForm() {
           value={land}
           onChange={(e) => setLand(e.target.value)}
           placeholder={DEMO_PAGE.fields.landPlaceholder}
-          className="w-full resize-y rounded-lg border border-input bg-background px-3 py-2.5 text-sm shadow-sm placeholder:text-muted-foreground/60 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 focus-visible:outline-none"
+          className="demo-control demo-textarea"
         />
       </Field>
 
@@ -229,7 +233,7 @@ export function DemoRequestForm() {
       <Button
         type="submit"
         size="lg"
-        className="group/cta h-12 gap-2 rounded-xl pr-2 pl-6 font-semibold shadow-cta"
+        className="demo-submit group/cta"
         disabled={submitting}
       >
         {submitting ? (
@@ -240,16 +244,19 @@ export function DemoRequestForm() {
         ) : (
           <>
             {DEMO_PAGE.fields.submit}
-            <span className="flex size-8 items-center justify-center rounded-lg bg-white/20 transition-transform duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] group-hover/cta:translate-x-0.5">
+            <span>
               <ArrowRight className="size-4" />
             </span>
           </>
         )}
       </Button>
 
-      <p className="text-xs leading-relaxed text-muted-foreground">
+      <p className="demo-form-consent">
         Ao enviar, você concorda em ser contatado sobre o SIGAPP.{" "}
-        <Link href="/legal/privacidade" className="underline underline-offset-2">
+        <Link
+          href="/legal/privacidade"
+          className="underline underline-offset-2"
+        >
           Privacidade
         </Link>
       </p>
@@ -269,11 +276,11 @@ function Field({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col gap-1.5">
+    <div className="demo-field">
       <Label htmlFor={id}>{label}</Label>
       {children}
       {error ? (
-        <p className="text-xs text-destructive" role="alert">
+        <p id={`${id}-error`} className="demo-field-error" role="alert">
           {error}
         </p>
       ) : null}
