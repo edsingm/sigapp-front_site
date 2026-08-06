@@ -8,6 +8,7 @@ import {
   LHighlight,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { SITE } from "@/lib/landing-data"
 import { createPageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
@@ -48,11 +49,9 @@ export default function TermosDeUsoPage() {
 
       <LSection id="partes" title="1. Partes e Definições">
         <LP>
-          <strong>Prestador:</strong> SIGAPP Tecnologia Ltda., pessoa jurídica
-          de direito privado, inscrita no CNPJ sob o nº 00.000.000/0001-00, com
-          sede na Av. Paulista, 1234, Conjunto 56, Bela Vista, São Paulo – SP,
-          CEP 01310-100 (&ldquo;SIGAPP&rdquo;, &ldquo;nós&rdquo; ou
-          &ldquo;nosso&rdquo;).
+          <strong>Prestador:</strong> {SITE.legalName}, pessoa jurídica de
+          direito privado, inscrita no CNPJ sob o nº {SITE.cnpj} (&ldquo;SIGAPP&rdquo;,
+          &ldquo;nós&rdquo; ou &ldquo;nosso&rdquo;).
         </LP>
         <LP>
           <strong>Usuário:</strong> Qualquer pessoa física ou jurídica que
@@ -331,13 +330,11 @@ export default function TermosDeUsoPage() {
           <LP>
             Para dúvidas sobre estes Termos, entre em contato com{" "}
             <a
-              href="mailto:juridico@sigapp.com.br"
+              href={`mailto:${SITE.email}`}
               className="font-medium text-[var(--landing-accent-strong)] hover:underline"
             >
-              juridico@sigapp.com.br
-            </a>{" "}
-            ou pelo endereço: Av. Paulista, 1234, Conjunto 56, Bela Vista, São
-            Paulo – SP, CEP 01310-100.
+              {SITE.email}
+            </a>.
           </LP>
         </LSubsection>
       </LSection>

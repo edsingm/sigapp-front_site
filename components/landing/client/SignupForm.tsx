@@ -448,7 +448,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                     onChange={(event) =>
                       handleOrganizationName(event.target.value)
                     }
-                    placeholder="Construtora Terraplan"
+                    placeholder="Nome da incorporadora"
                     autoComplete="organization"
                     aria-invalid={!!fieldErrors.organization_name}
                     aria-describedby="organization_name-feedback"

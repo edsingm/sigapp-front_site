@@ -92,6 +92,8 @@ export function LandingFooter() {
           <div>
             <p>{FOOTER_COPY.copyright}</p>
             <span />
+            <p>CNPJ: {SITE.cnpj}</p>
+            <span />
             <p>{FOOTER_COPY.signature}</p>
           </div>
           <CookiePreferencesButton />

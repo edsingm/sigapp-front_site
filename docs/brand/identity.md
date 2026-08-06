@@ -71,8 +71,10 @@ Fonte: página Sobre (`ABOUT_PAGE.principles`).
 | Campo | Valor |
 |---|---|
 | Nome de produto | SIGAPP (sempre em caixa alta no wordmark) |
-| Nome legal | SIGAPP Tecnologia Ltda. |
+| Nome legal | SIGAPP Tecnologia Imobiliária |
+| CNPJ | 68.410.328/0001-10 |
 | E-mail | contato@sigapp.com.br |
+| E-mail DPO | dpo@sigapp.com.br |
 | Product label (nav) | Inteligência imobiliária |
 | Assinatura footer | Do terreno ao registro · Brasil |
 

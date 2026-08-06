@@ -4,6 +4,7 @@ import { ArrowUpRight, Mail, ShieldCheck } from "lucide-react"
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
+import { SITE } from "@/lib/landing-data"
 
 export type LegalSection = {
   id: string
@@ -120,9 +121,9 @@ export function LegalLayout({
                   <span>Canal de privacidade</span>
                   <strong>Dúvidas ou solicitações?</strong>
                   <p>Fale diretamente com nosso Encarregado de Dados.</p>
-                  <a href="mailto:privacidade@sigapp.com.br">
+                  <a href={`mailto:${SITE.dpoEmail}`}>
                     <Mail aria-hidden="true" />
-                    privacidade@sigapp.com.br
+                    {SITE.dpoEmail}
                     <ArrowUpRight aria-hidden="true" />
                   </a>
                 </div>

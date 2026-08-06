@@ -9,6 +9,7 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { SITE } from "@/lib/landing-data"
 import { createPageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
@@ -233,7 +234,7 @@ export default function LgpdPage() {
         </LP>
         <LList
           items={[
-            "E-mail: privacidade@sigapp.com.br",
+            `E-mail: ${SITE.dpoEmail}`,
             'Assunto sugerido: "Exercício de Direito LGPD — [tipo de direito]"',
             "Idioma: português",
           ]}
@@ -346,10 +347,10 @@ export default function LgpdPage() {
           Se você suspeitar que seus dados foram comprometidos, entre em contato
           imediatamente com nosso DPO em{" "}
           <a
-            href="mailto:privacidade@sigapp.com.br"
+            href={`mailto:${SITE.dpoEmail}`}
             className="font-medium text-[var(--landing-accent-strong)] hover:underline"
           >
-            privacidade@sigapp.com.br
+            {SITE.dpoEmail}
           </a>
           .
         </LHighlight>
@@ -381,11 +382,10 @@ export default function LgpdPage() {
         </LP>
         <LList
           items={[
-            "E-mail: privacidade@sigapp.com.br",
+            `E-mail: ${SITE.dpoEmail}`,
             "Assunto: indique claramente o direito que deseja exercer.",
             "Idioma: português.",
             "Prazo de resposta: até 15 dias corridos.",
-            "Endereço: SIGAPP Tecnologia Ltda., Av. Paulista, 1234, Conjunto 56, Bela Vista, São Paulo – SP, CEP 01310-100 — A/C: Encarregado de Dados.",
           ]}
         />
       </LSection>

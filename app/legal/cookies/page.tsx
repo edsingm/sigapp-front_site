@@ -9,6 +9,7 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { SITE } from "@/lib/landing-data"
 import { createPageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
@@ -318,7 +319,7 @@ export default function CookiesPage() {
         </LP>
         <LList
           items={[
-            "E-mail: privacidade@sigapp.com.br",
+            `E-mail: ${SITE.dpoEmail}`,
             'Assunto sugerido: "Política de Cookies — [sua dúvida]"',
             "Prazo de resposta: até 15 dias corridos.",
           ]}

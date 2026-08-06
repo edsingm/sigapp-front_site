@@ -5,7 +5,7 @@ import { ArrowUpRight, Mail } from "lucide-react"
 import { DemoRequestForm } from "@/components/landing/client/DemoRequestForm"
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
-import { DEMO_PAGE, LINKS } from "@/lib/landing-data"
+import { DEMO_PAGE, LINKS, SITE } from "@/lib/landing-data"
 import { createPageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
@@ -58,7 +58,7 @@ export default function DemonstracaoPage() {
                 <Mail aria-hidden="true" />
                 <span>
                   <small>Prefere escrever?</small>
-                  contato@sigapp.com.br
+                  {SITE.email}
                 </span>
                 <ArrowUpRight aria-hidden="true" />
               </a>

@@ -276,15 +276,15 @@ O SIGAPP calcula corretamente as duas modalidades, incluindo os impactos em IRPJ
     title: "Do Excel ao SaaS: A Jornada de Digitalização de uma Incorporadora",
     seoTitle: "Como migrar a incorporadora do Excel para um SaaS",
     excerpt:
-      "Como a Construtora Terraplan migrou 200 terrenos prospectados de planilhas para o SIGAPP em 8 semanas — e o que aprenderam no processo.",
+      "Um cenário anonimizado de migração de 200 terrenos prospectados de planilhas para o SIGAPP em 8 semanas — e o que a equipe aprendeu no processo.",
     content: `
 "A gente sabia que tinha um problema. Não sabia como era grande até tentar consertar."
 
-Rodrigo Menezes, Diretor de Incorporação da Construtora Terraplan, descreve assim o início da transformação digital da empresa.
+Este cenário anonimizado, baseado na rotina de uma incorporadora brasileira, descreve assim o início da transformação digital da empresa.
 
 ## O estado inicial
 
-Quando a Terraplan começou a mapear seus processos em 2025, encontrou:
+Quando a empresa começou a mapear seus processos em 2025, encontrou:
 - 47 arquivos Excel para viabilidade, cada um com estrutura diferente
 - 3 planilhas de controle de terrenos que nunca estavam sincronizadas
 - Histórico de prospecções espalhado entre WhatsApp, e-mail e um drive compartilhado
@@ -300,7 +300,7 @@ O plano escolhido foi o **SIG Master**, pelos 10 usuários e a SIG_IA.
 
 Semanas 1-2: mapeamento de terrenos ativos (47 → 38 após depuração)
 
-Semanas 3-4: configuração de produtos (a Terraplan tem 4 tipologias padrão)
+Semanas 3-4: configuração de produtos (a empresa tem 4 tipologias padrão)
 
 Semanas 5-6: migração de viabilidades — as 12 mais recentes foram recriadas no motor do SIGAPP
 

@@ -59,6 +59,7 @@ export const organizationJsonLd = {
   "@id": `${SITE_URL}/#organization`,
   name: SITE.name,
   legalName: SITE.legalName,
+  taxID: SITE.cnpj,
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",

@@ -9,6 +9,7 @@ import {
   LTable,
   type LegalSection,
 } from "@/components/landing/layout/LegalLayout"
+import { SITE } from "@/lib/landing-data"
 import { createPageMetadata } from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
@@ -49,9 +50,7 @@ export default function PrivacidadePage() {
 
       <LSection id="controlador" title="1. Controlador e DPO">
         <LP>
-          <strong>Controlador:</strong> SIGAPP Tecnologia Ltda., CNPJ
-          00.000.000/0001-00, com sede na Av. Paulista, 1234, Conjunto 56, Bela
-          Vista, São Paulo – SP, CEP 01310-100.
+          <strong>Controlador:</strong> {SITE.legalName}, CNPJ {SITE.cnpj}.
         </LP>
         <LP>
           <strong>Encarregado de Dados (DPO):</strong> Responsável pelo canal
@@ -59,7 +58,7 @@ export default function PrivacidadePage() {
         </LP>
         <LList
           items={[
-            "E-mail: privacidade@sigapp.com.br",
+            `E-mail: ${SITE.dpoEmail}`,
             "Prazo de resposta: até 15 dias corridos, conforme o Art. 18, §3º da LGPD.",
             "Idioma: português.",
           ]}
@@ -318,10 +317,10 @@ export default function PrivacidadePage() {
           Como titular de dados pessoais, você tem os seguintes direitos, que
           podem ser exercidos gratuitamente por meio do canal{" "}
           <a
-            href="mailto:privacidade@sigapp.com.br"
+            href={`mailto:${SITE.dpoEmail}`}
             className="font-medium text-[var(--landing-accent-strong)] hover:underline"
           >
-            privacidade@sigapp.com.br
+            {SITE.dpoEmail}
           </a>
           :
         </LP>
@@ -410,9 +409,9 @@ export default function PrivacidadePage() {
         </LP>
         <LList
           items={[
-            "E-mail DPO: privacidade@sigapp.com.br",
+            `E-mail DPO: ${SITE.dpoEmail}`,
             "Prazo de resposta: até 15 dias corridos.",
-            "Endereço postal: SIGAPP Tecnologia Ltda. — Av. Paulista, 1234, Conjunto 56, Bela Vista, São Paulo – SP, CEP 01310-100 — A/C: Encarregado de Dados.",
+            `E-mail geral: ${SITE.email}`,
           ]}
         />
       </LSection>

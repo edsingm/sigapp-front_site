@@ -25,9 +25,11 @@ export const SITE_URL = resolvePublicSiteUrl(
 // Metadados de marca usados em SEO, OpenGraph e dados estruturados
 export const SITE = {
   name: "SIGAPP",
-  legalName: "SIGAPP Tecnologia Ltda.",
+  legalName: "SIGAPP Tecnologia Imobiliária",
+  cnpj: "68.410.328/0001-10",
   url: SITE_URL,
   email: "contato@sigapp.com.br",
+  dpoEmail: "dpo@sigapp.com.br",
   title: "SIGAPP — Decisões que ganham território",
   description:
     "Dossiê de terreno com viabilidade, DRE, TIR, comitê e legalização para incorporadoras brasileiras — sem planilha paralela.",
@@ -39,11 +41,9 @@ export const LINKS = {
   signup: "/cadastro",
   features: "/#funcionalidades",
   login: `${APP_URL}/login`,
-  sales:
-    "mailto:contato@sigapp.com.br?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP",
+  sales: `mailto:${SITE.email}?subject=Falar%20com%20vendas%20%E2%80%94%20SIGAPP`,
   demo: "/demonstracao",
-  demoEmail:
-    "mailto:contato@sigapp.com.br?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP",
+  demoEmail: `mailto:${SITE.email}?subject=Agendar%20demonstra%C3%A7%C3%A3o%20%E2%80%94%20SIGAPP`,
 }
 
 export type PlanConfig = {
@@ -213,7 +213,7 @@ export const NAV_LINKS: NavLink[] = [
 ]
 
 export const NAV_COPY = {
-  productLabel: "Inteligência imobiliária",
+  productLabel: "Tecnologia imobiliária",
   menuLabel: "Menu",
   openMenu: "Abrir menu",
   closeMenu: "Fechar menu",
@@ -263,14 +263,14 @@ export const FOOTER_GROUPS: FooterGroup[] = [
 
 export const FOOTER_COPY = {
   logoLabel: "SIGAPP — início",
-  eyebrow: "Inteligência imobiliária",
+  eyebrow: "Tecnologia imobiliária",
   titleLine1: "Decisões que ganham",
   titleLine2: "território.",
   description:
     "Gestão territorial inteligente para analisar, aprovar e conduzir cada oportunidade com critério.",
   contactLabel: "Canal direto",
   navigationLabel: "Navegação do rodapé",
-  copyright: "© 2026 SIGAPP Tecnologia Ltda.",
+  copyright: `© 2026 ${SITE.legalName}.`,
   signature: "Do terreno ao registro · Brasil",
   cookiePreferences: "Gerenciar cookies",
   wordmark: "SIGAPP",

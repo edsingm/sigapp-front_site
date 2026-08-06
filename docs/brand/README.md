@@ -40,14 +40,16 @@ Detalhe e o que foi removido: [color.md](./color.md).
 
 ## Snapshot rápido
 
-- **Nome:** SIGAPP  
-- **Razão social:** SIGAPP Tecnologia Ltda.  
-- **Tagline de produto:** Decisões que ganham território  
-- **Título SEO:** SIGAPP — Decisões que ganham território  
-- **Site:** https://sigapp.com.br  
-- **App:** https://app.sigapp.com.br  
-- **Contato:** contato@sigapp.com.br  
-- **Locale:** pt_BR  
+- **Nome:** SIGAPP
+- **Razão social:** SIGAPP Tecnologia Imobiliária
+- **CNPJ:** 68.410.328/0001-10
+- **Tagline de produto:** Decisões que ganham território
+- **Título SEO:** SIGAPP — Decisões que ganham território
+- **Site:** https://sigapp.com.br
+- **App:** https://app.sigapp.com.br
+- **Contato:** contato@sigapp.com.br
+- **DPO:** dpo@sigapp.com.br
+- **Locale:** pt_BR
 
 ## Como usar esta pasta
 
