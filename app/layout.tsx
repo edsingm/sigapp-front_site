@@ -5,6 +5,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CookieBanner } from "@/components/landing/client/CookieBanner"
 import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
+import { TestingNotice } from "@/components/landing/layout/TestingNotice"
 import { cn } from "@/lib/utils"
 import { SITE, SITE_URL } from "@/lib/landing-data"
 
@@ -104,6 +105,7 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning>
+        <TestingNotice />
         <ThemeProvider>
           <a href="#conteudo-principal" className="skip-link">
             Pular para o conteúdo
