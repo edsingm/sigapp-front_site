@@ -484,9 +484,34 @@
 
 .landing-nav-row {
   display: flex;
+  width: 100%;
   height: 4.5rem;
   align-items: center;
+  justify-content: space-between;
   gap: 1rem;
+}
+
+/* Desktop: brand | links (centered) | actions */
+@media (min-width: 1280px) {
+  .landing-nav-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    justify-content: initial;
+  }
+
+  .landing-nav-brand {
+    justify-self: start;
+  }
+
+  .landing-nav-links {
+    justify-self: center;
+    margin-inline: 0;
+  }
+
+  .landing-nav-actions {
+    justify-self: end;
+    margin-left: 0;
+  }
 }
 
 .landing-nav-brand {
@@ -516,48 +541,22 @@
   outline-offset: 4px;
 }
 
-.landing-nav-symbol {
-  display: grid;
-  width: 2.25rem;
-  height: 2.25rem;
-  flex-shrink: 0;
-  place-items: center;
-  border: 1px solid
-    color-mix(in oklch, var(--landing-accent) 72%, transparent);
-  border-radius: 0.625rem 0.2rem 0.625rem 0.2rem;
-  background: var(--landing-accent);
-  color: var(--landing-accent-foreground);
-  box-shadow: 0 0 32px
-    color-mix(in oklch, var(--landing-accent) 20%, transparent);
-}
-
-.landing-nav-symbol svg {
-  width: 1.35rem;
-  height: 1.35rem;
-}
-
-.landing-nav-symbol path {
-  stroke: currentColor;
-  stroke-width: 1.6;
-}
-
-.landing-nav-symbol circle {
-  fill: currentColor;
-}
-
 .landing-nav-wordmark {
   display: grid;
+  align-content: center;
   line-height: 1;
 }
 
-.landing-nav-wordmark strong {
-  font-family: var(--font-heading), sans-serif;
-  font-size: 1.05rem;
-  letter-spacing: -0.04em;
+.landing-nav-logo-img {
+  display: block;
+  width: 6.25rem;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
 }
 
 .landing-nav-wordmark small {
-  margin-top: 0.3rem;
+  margin-top: 0.28rem;
   font-family: var(--font-mono), monospace;
   font-size: var(--landing-text-micro);
   font-weight: 500;
@@ -567,13 +566,8 @@
 }
 
 @media (max-width: 479px) {
-  .landing-nav-wordmark {
-    max-width: 10rem;
-  }
-
-  .landing-nav-wordmark strong {
-    font-size: 0.9rem;
-    line-height: 1.1;
+  .landing-nav-logo-img {
+    width: 4.5rem;
   }
 }
 
@@ -614,7 +608,9 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.4rem;
+  margin-left: auto;
 }
 
 .landing-nav-login {
@@ -3216,7 +3212,8 @@
   --feature-ink: var(--landing-text);
   --feature-paper: var(--landing-canvas);
   position: relative;
-  overflow: hidden;
+  /* visible: sticky stack breaks inside overflow:hidden ancestors */
+  overflow: visible;
   padding-block: clamp(5.5rem, 10vw, 9rem);
   background: var(--feature-paper);
   color: var(--feature-ink);
@@ -3225,6 +3222,9 @@
 .feature-stage-grid {
   position: absolute;
   inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
   background-image:
     linear-gradient(var(--landing-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--landing-grid) 1px, transparent 1px);
@@ -3240,6 +3240,7 @@
 
 .feature-shell {
   position: relative;
+  z-index: 1;
 }
 
 .feature-intro {
@@ -3396,6 +3397,8 @@
 }
 
 .feature-layer {
+  --stack-index: 0;
+  --stack-progress: 0;
   min-width: 0;
   scroll-margin-top: 7rem;
 }
@@ -3407,6 +3410,43 @@
   border-radius: clamp(1.35rem, 2.5vw, 2.1rem);
   background: var(--landing-surface-raised);
   box-shadow: 0 2.5rem 7rem -5rem var(--landing-shadow);
+  transform-origin: center top;
+}
+
+/* Desktop sticky stack: cards pin and peel as the next layer arrives */
+@media (min-width: 1024px) {
+  .feature-layers {
+    gap: clamp(1.75rem, 3vw, 2.75rem);
+    /* room so the last card can fully clear the sticky stack */
+    padding-bottom: clamp(2rem, 4vw, 4rem);
+  }
+
+  .feature-layer {
+    position: sticky;
+    top: calc(5.75rem + (var(--stack-index) * 0.85rem));
+    z-index: calc(var(--stack-index) + 1);
+  }
+
+  .feature-layer article {
+    box-shadow:
+      0 1.25rem 2.5rem -1.75rem var(--landing-shadow),
+      0 2.75rem 5.5rem -3.25rem var(--landing-shadow);
+  }
+
+  .feature-layers.is-stack-ready .feature-layer.is-recessed article {
+    box-shadow:
+      0 0.5rem 1.25rem -1rem var(--landing-shadow),
+      0 1.25rem 2.5rem -2rem var(--landing-shadow);
+  }
+}
+
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .feature-layers.is-stack-ready .feature-layer article {
+    /* Scroll-driven via --stack-progress (no transition = no lag) */
+    transform: scale(calc(1 - (var(--stack-progress) * 0.045)));
+    opacity: calc(1 - (var(--stack-progress) * 0.3));
+    filter: saturate(calc(1 - (var(--stack-progress) * 0.18)));
+  }
 }
 
 .feature-layer article::before {
@@ -6413,7 +6453,8 @@
 .footer-cookie-button:focus-visible,
 .footer-logo:focus-visible {
   outline: 2px solid currentColor;
-  outline-offset: -3px;
+  outline-offset: 3px;
+  border-radius: 0.35rem;
 }
 
 .faq-item-index {
@@ -6949,17 +6990,15 @@
 .footer-logo {
   display: flex;
   width: fit-content;
-  min-height: 3.25rem;
   align-items: center;
-  padding-inline: 0.9rem;
-  border-radius: 0.75rem;
-  background: var(--landing-accent);
 }
 
-.footer-logo img {
+.footer-logo img,
+.footer-logo-img {
   display: block;
-  width: 6.5rem;
-  height: 2rem;
+  width: 11.75rem;
+  max-width: 100%;
+  height: auto;
   object-fit: contain;
 }
 

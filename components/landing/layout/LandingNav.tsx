@@ -6,6 +6,7 @@ import {
   useState,
   type KeyboardEvent as ReactKeyboardEvent,
 } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight, Menu, X } from "lucide-react"
 
@@ -22,15 +23,15 @@ function NavBrand({ onNavigate }: { onNavigate?: () => void }) {
       onClick={onNavigate}
       className="landing-nav-brand"
     >
-      <span className="landing-nav-symbol" aria-hidden="true">
-        <svg viewBox="0 0 32 32" fill="none">
-          <path d="M5 8.5 16 3l11 5.5v15L16 29 5 23.5Z" />
-          <path d="m5 8.5 11 6 11-6M16 14.5V29" />
-          <circle cx="16" cy="14.5" r="2.25" />
-        </svg>
-      </span>
       <span className="landing-nav-wordmark">
-        <strong>{SITE.name}</strong>
+        <Image
+          src="/landing-logo-mark.svg"
+          alt=""
+          width={188}
+          height={58}
+          className="landing-nav-logo-img"
+          priority
+        />
         <small className="hidden sm:block">{NAV_COPY.productLabel}</small>
       </span>
     </Link>

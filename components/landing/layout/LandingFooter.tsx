@@ -24,8 +24,10 @@ export function LandingFooter() {
               <Image
                 src="/landing-logo-mark.svg"
                 alt={`${SITE.name} — página inicial`}
-                width={104}
-                height={32}
+                width={188}
+                height={58}
+                className="footer-logo-img"
+                priority
               />
             </Link>
             <span className="footer-eyebrow">{FOOTER_COPY.eyebrow}</span>

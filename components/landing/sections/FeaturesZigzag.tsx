@@ -1,5 +1,7 @@
+import type { CSSProperties } from "react"
 import { ArrowDownRight, Check, Layers3 } from "lucide-react"
 
+import { FeatureStack } from "@/components/landing/client/FeatureStack"
 import { MockReveal } from "@/components/landing/client/MockReveal"
 import { ScrollReveal } from "@/components/landing/client/ScrollReveal"
 import { ChatMock } from "@/components/landing/mocks/ChatMock"
@@ -69,19 +71,25 @@ export function FeaturesZigzag() {
             </ol>
           </aside>
 
-          <div className="feature-layers lg:col-span-9">
+          <FeatureStack className="lg:col-span-9">
             {FEATURES.map((feature, index) => {
               const MockComponent = MOCK_COMPONENTS[feature.mock]
               const isReversed = feature.side === "left"
 
               return (
-                <ScrollReveal
+                <div
                   key={feature.id}
+                  data-feature-layer
                   className={cn(
                     "feature-layer",
                     `feature-layer--${feature.id}`,
                     isReversed && "feature-layer--reversed"
                   )}
+                  style={
+                    {
+                      "--stack-index": index,
+                    } as CSSProperties
+                  }
                 >
                   <article id={`feature-${feature.id}`}>
                     <header className="feature-layer-head">
@@ -134,10 +142,10 @@ export function FeaturesZigzag() {
                       </div>
                     </div>
                   </article>
-                </ScrollReveal>
+                </div>
               )
             })}
-          </div>
+          </FeatureStack>
         </div>
       </div>
     </section>
