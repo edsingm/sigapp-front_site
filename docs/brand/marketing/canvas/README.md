@@ -18,6 +18,7 @@ Movimento visual: **Survey Silence** — tinta · papel · sinal, geometria cada
 | `07-banner-linkedin.png` | 1584×396 | Banner LinkedIn empresa |
 | `08-open-graph.png` | 1200×630 | Open Graph / Twitter card |
 | `09-plate-museum.png` | 1080×1080 | Peça “museu” / poster quieto |
+| `10-brand-board-hd.png` | 3200×3200 | Brand board institucional em alta definição |
 | `sigapp-survey-silence-kit.pdf` | multi | Pacote único para envio |
 
 ## Uso
@@ -26,6 +27,7 @@ Movimento visual: **Survey Silence** — tinta · papel · sinal, geometria cada
 - **Site:** copiar para `public/images/` se for hero/OG estático; OG dinâmico continua em `app/opengraph-image.tsx`.  
 - **Tipografia nas peças:** Instrument Sans + IBM Plex Mono (+ Instrument Serif na plate 09).  
 - **Copy mínima** integrada ao desenho — não acrescentar parágrafos sobre a arte.
+- **Brand board HD:** `python3 render_brand_board_hd.py`; também gera preview JPEG 1600×1600.
 
 ## Relação com o resto da marca
 
