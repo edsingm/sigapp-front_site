@@ -1461,7 +1461,7 @@
   height: 0.75rem;
 }
 
-.hero-instrument-heading h2 {
+.hero-instrument-heading .hero-instrument-sector {
   margin-top: 0.55rem;
   font-family: var(--font-heading), sans-serif;
   font-size: clamp(0.92rem, 2vw, 1.12rem);
@@ -9418,9 +9418,41 @@
 
 .about-page,
 .blog-page,
-.article-page {
+.article-page,
+.solution-page {
   color: var(--landing-ink);
   background: var(--landing-paper);
+}
+
+.solution-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+  font-family: var(--font-mono), monospace;
+  font-size: var(--landing-text-micro);
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  color: var(--landing-accent-strong);
+  text-transform: uppercase;
+}
+
+.solution-card-link svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
+.solution-card-link:hover {
+  color: var(--landing-ink);
+}
+
+.about-principles-grid h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.about-principles-grid h3 a:hover {
+  color: var(--landing-accent-strong);
 }
 
 .editorial-index {

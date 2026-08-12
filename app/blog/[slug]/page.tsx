@@ -8,7 +8,12 @@ import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
 import { BLOG_POSTS, formatDate, getPostBySlug } from "@/lib/blog-data"
 import { LINKS, SITE, SITE_URL } from "@/lib/landing-data"
-import { absoluteUrl, organizationJsonLd } from "@/lib/seo"
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  jsonLdGraph,
+  organizationJsonLd,
+} from "@/lib/seo"
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -173,56 +178,38 @@ export default async function BlogPostPage({ params }: Props) {
   const articleImage = absoluteUrl(
     `/blog/${post.slug}/opengraph-image`
   )
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BlogPosting",
-        "@id": `${articleUrl}#article`,
-        headline: post.title,
-        description: post.excerpt,
-        image: articleImage,
-        datePublished: post.publishedAt,
-        dateModified: post.updatedAt ?? post.publishedAt,
-        inLanguage: "pt-BR",
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": articleUrl,
-        },
-        author: {
-          "@type": "Organization",
-          name: post.author.name,
-          url: `${SITE_URL}/sobre`,
-        },
-        publisher: organizationJsonLd,
-        keywords: post.tags.join(", "),
+  const articleJsonLd = jsonLdGraph([
+    {
+      "@type": "BlogPosting",
+      "@id": `${articleUrl}#article`,
+      headline: post.title,
+      description: post.excerpt,
+      image: articleImage,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt ?? post.publishedAt,
+      inLanguage: "pt-BR",
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": articleUrl,
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${articleUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Início",
-            item: SITE_URL,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Blog",
-            item: absoluteUrl("/blog"),
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: post.title,
-            item: articleUrl,
-          },
-        ],
+      author: {
+        "@type": "Organization",
+        name: post.author.name,
+        url: `${SITE_URL}/sobre`,
       },
-    ],
-  }
+      publisher: { "@id": `${SITE_URL}/#organization` },
+      keywords: post.tags.join(", "),
+    },
+    organizationJsonLd,
+    {
+      ...breadcrumbJsonLd([
+        { name: "Início", path: "/" },
+        { name: "Blog", path: "/blog" },
+        { name: post.title, path: `/blog/${post.slug}` },
+      ]),
+      "@id": `${articleUrl}#breadcrumb`,
+    },
+  ])
 
   return (
     <>

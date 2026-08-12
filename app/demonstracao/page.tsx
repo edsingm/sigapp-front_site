@@ -6,7 +6,15 @@ import { DemoRequestForm } from "@/components/landing/client/DemoRequestForm"
 import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { DEMO_PAGE, LINKS, SITE } from "@/lib/landing-data"
-import { createPageMetadata } from "@/lib/seo"
+import {
+  breadcrumbJsonLd,
+  createPageMetadata,
+  jsonLdGraph,
+  organizationJsonLd,
+  softwareApplicationJsonLd,
+  webPageJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
   title: "Demonstração do software para incorporadoras",
@@ -14,9 +22,29 @@ export const metadata: Metadata = createPageMetadata({
   path: "/demonstracao",
 })
 
+const demoJsonLd = jsonLdGraph([
+  organizationJsonLd,
+  websiteJsonLd,
+  softwareApplicationJsonLd,
+  webPageJsonLd({
+    path: "/demonstracao",
+    name: "Demonstração do software para incorporadoras",
+    description: DEMO_PAGE.description,
+    type: "ContactPage",
+  }),
+  breadcrumbJsonLd([
+    { name: "Início", path: "/" },
+    { name: "Demonstração", path: "/demonstracao" },
+  ]),
+])
+
 export default function DemonstracaoPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(demoJsonLd) }}
+      />
       <LandingNav />
       <main id="conteudo-principal" tabIndex={-1} className="demo-page">
         <section className="demo-stage" aria-labelledby="demo-title">

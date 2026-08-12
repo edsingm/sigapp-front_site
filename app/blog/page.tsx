@@ -13,14 +13,49 @@ import {
   type BlogPost,
 } from "@/lib/blog-data"
 import { LINKS } from "@/lib/landing-data"
-import { createPageMetadata } from "@/lib/seo"
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  createPageMetadata,
+  jsonLdGraph,
+  organizationJsonLd,
+  webPageJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
   title: "Blog de viabilidade imobiliária",
   description:
-    "Viabilidade, comitê e operação de incorporação — textos para quem decide terreno com critério.",
+    "Artigos sobre viabilidade imobiliária, TIR, DRE, comitê de terrenos e operação de incorporação — leituras para quem decide com critério.",
   path: "/blog",
 })
+
+const blogIndexJsonLd = jsonLdGraph([
+  organizationJsonLd,
+  websiteJsonLd,
+  webPageJsonLd({
+    path: "/blog",
+    name: "Blog de viabilidade imobiliária",
+    description:
+      "Artigos sobre viabilidade imobiliária, TIR, DRE, comitê de terrenos e operação de incorporação — leituras para quem decide com critério.",
+    type: "CollectionPage",
+  }),
+  breadcrumbJsonLd([
+    { name: "Início", path: "/" },
+    { name: "Blog", path: "/blog" },
+  ]),
+  {
+    "@type": "ItemList",
+    name: "Artigos do blog SIGAPP",
+    numberOfItems: BLOG_POSTS.length,
+    itemListElement: BLOG_POSTS.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: post.title,
+      url: absoluteUrl(`/blog/${post.slug}`),
+    })),
+  },
+])
 
 function FeaturedPostCard({ post, index }: { post: BlogPost; index: number }) {
   return (
@@ -87,6 +122,10 @@ export default function BlogPage() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogIndexJsonLd) }}
+      />
       <LandingNav />
       <main id="conteudo-principal" tabIndex={-1} className="blog-page">
         <SecondaryPageHero

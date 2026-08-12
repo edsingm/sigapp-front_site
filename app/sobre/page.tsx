@@ -7,7 +7,15 @@ import { LandingFooter } from "@/components/landing/layout/LandingFooter"
 import { LandingNav } from "@/components/landing/layout/LandingNav"
 import { SecondaryPageHero } from "@/components/landing/layout/SecondaryPageHero"
 import { ABOUT_PAGE, LINKS } from "@/lib/landing-data"
-import { createPageMetadata } from "@/lib/seo"
+import {
+  breadcrumbJsonLd,
+  createPageMetadata,
+  jsonLdGraph,
+  organizationJsonLd,
+  softwareApplicationJsonLd,
+  webPageJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo"
 
 export const metadata: Metadata = createPageMetadata({
   title: "Sobre a plataforma para incorporadoras",
@@ -15,9 +23,29 @@ export const metadata: Metadata = createPageMetadata({
   path: "/sobre",
 })
 
+const aboutJsonLd = jsonLdGraph([
+  organizationJsonLd,
+  websiteJsonLd,
+  softwareApplicationJsonLd,
+  webPageJsonLd({
+    path: "/sobre",
+    name: "Sobre a plataforma para incorporadoras",
+    description: ABOUT_PAGE.metaDescription,
+    type: "AboutPage",
+  }),
+  breadcrumbJsonLd([
+    { name: "Início", path: "/" },
+    { name: "Sobre", path: "/sobre" },
+  ]),
+])
+
 export default function SobrePage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutJsonLd) }}
+      />
       <LandingNav />
       <main id="conteudo-principal" tabIndex={-1} className="about-page">
         <SecondaryPageHero

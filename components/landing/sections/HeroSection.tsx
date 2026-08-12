@@ -43,7 +43,7 @@ function DecisionInstrument() {
             <Crosshair aria-hidden="true" />
             {panel.eyebrow}
           </p>
-          <h2>{panel.sectorName}</h2>
+          <p className="hero-instrument-sector">{panel.sectorName}</p>
         </div>
         <span className="hero-live-status">
           <span aria-hidden="true" />

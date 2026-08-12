@@ -165,8 +165,8 @@ export const HERO_PROOF_ITEMS = [
 // Hero — copy centralizado (nunca hardcode em seção)
 export const HERO_COPY = {
   eyebrow: "Sistema operacional da incorporação",
-  titleLine1: "Do terreno à decisão.",
-  titleLine2: "Sem pontos cegos.",
+  titleLine1: "Viabilidade do terreno à decisão —",
+  titleLine2: "sem pontos cegos.",
   description:
     "Captação, viabilidade, comitê, negociação e legalização conectados em uma inteligência operacional — para sua equipe decidir com contexto, velocidade e segurança.",
   primaryCta: "Ver o SIGAPP em ação",
@@ -231,6 +231,7 @@ export const FOOTER_GROUPS: FooterGroup[] = [
     group: "Produto",
     links: [
       { label: "Funcionalidades", href: "/#funcionalidades" },
+      { label: "Soluções", href: "/solucoes" },
       { label: "Planos", href: "/#precos" },
       { label: "Perguntas frequentes", href: "/#faq" },
       { label: "Entrar", href: LINKS.login },
@@ -1125,3 +1126,239 @@ export const ABOUT_PAGE = {
   ctaPrimary: "Solicitar demonstração",
   ctaSecondary: "Falar com a equipe",
 }
+
+// Páginas pillar de soluções — conteúdo SEO e conversão
+export type SolutionPage = {
+  slug: string
+  title: string
+  seoTitle: string
+  metaDescription: string
+  eyebrow: string
+  description: string
+  problemTitle: string
+  problemLead: string
+  problemBody: string[]
+  outcomesTitle: string
+  outcomes: Array<{ title: string; description: string }>
+  howTitle: string
+  howSteps: Array<{ title: string; description: string }>
+  relatedBlogSlugs: string[]
+  ctaTitle: string
+  ctaDescription: string
+}
+
+export const SOLUTION_PAGES: SolutionPage[] = [
+  {
+    slug: "viabilidade-imobiliaria",
+    title: "Software de viabilidade imobiliária para incorporadoras",
+    seoTitle: "Viabilidade imobiliária para incorporadoras",
+    metaDescription:
+      "Calcule DRE, TIR, VPL e cenários de terreno no mesmo dossiê. Software de viabilidade imobiliária para incorporadoras brasileiras — sem planilha paralela.",
+    eyebrow: "Solução · Viabilidade",
+    description:
+      "Do terreno ao número que o comitê discute: premissas, fluxo de caixa, indicadores e versões auditáveis em um único dossiê de viabilidade.",
+    problemTitle: "O problema",
+    problemLead: "A planilha decide o projeto — e quase ninguém confia nela.",
+    problemBody: [
+      "Estudos de viabilidade ainda vivem em arquivos soltos, com fórmulas copiadas, INCC no período errado e abas diferentes para cada área. No comitê, o debate vira “qual versão é a certa?” em vez de “este terreno vale a pena?”.",
+      "O SIGAPP centraliza o estudo: parâmetros do mercado brasileiro (CUB, permuta, impostos, curva de vendas), DRE legível e indicadores (TIR, VPL, ROI, payback) com histórico de cenário — para analista e diretoria lerem o mesmo número.",
+    ],
+    outcomesTitle: "O que muda na operação",
+    outcomes: [
+      {
+        title: "Um motor, vários cenários",
+        description:
+          "Compare premissas lado a lado sem clonar planilhas. Cada versão fica registrada no dossiê do terreno.",
+      },
+      {
+        title: "DRE que o comitê entende",
+        description:
+          "Receitas, custos e margens no formato da decisão — não só na lógica da célula.",
+      },
+      {
+        title: "Indicadores no contexto do terreno",
+        description:
+          "TIR, VPL e payback ligados ao mapa, à tipologia e à trilha de aprovação.",
+      },
+      {
+        title: "Menos retrabalho entre áreas",
+        description:
+          "Viabilidade, comercial e jurídico partem do mesmo caso — sem reexportar Excel a cada rodada.",
+      },
+    ],
+    howTitle: "Como a viabilidade entra no fluxo",
+    howSteps: [
+      {
+        title: "Abra o dossiê do terreno",
+        description:
+          "Cadastre a oportunidade com localização, área e premissas iniciais de produto.",
+      },
+      {
+        title: "Modele o cenário",
+        description:
+          "Ajuste VGV, curva de vendas, obra, permuta e tributos com parâmetros do mercado BR.",
+      },
+      {
+        title: "Leve o parecer ao comitê",
+        description:
+          "Exporte ou compartilhe o mesmo DRE e a trilha de versão usada na análise.",
+      },
+    ],
+    relatedBlogSlugs: [
+      "como-calcular-tir-projetos-imobiliarios",
+      "incc-cub-permuta-parametros-viabilidade",
+      "digitalizacao-incorporadora-excel-saas",
+    ],
+    ctaTitle: "Quer ver a viabilidade com o seu terreno?",
+    ctaDescription:
+      "Agende uma demonstração com um caso da carteira — ou um cenário próximo da sua operação.",
+  },
+  {
+    slug: "comite-de-terrenos",
+    title: "Comitê de aprovação de terrenos com trilha auditável",
+    seoTitle: "Comitê de aprovação de terrenos",
+    metaDescription:
+      "Organize o comitê de terrenos com parecer, versões de viabilidade e histórico de decisão. Governança de aprovação para incorporadoras — no mesmo dossiê.",
+    eyebrow: "Solução · Comitê",
+    description:
+      "Parecer, número e decisão no mesmo lugar: o comitê deixa de ser reunião de planilhas e vira trilha de aprovação do terreno.",
+    problemTitle: "O problema",
+    problemLead: "O comitê discute slides. A decisão some no e-mail.",
+    problemBody: [
+      "Quando cada área chega com seu Excel, o comitê gasta tempo reconciliando premissas em vez de decidir risco e retorno. Depois da reunião, o “aprovado com ressalvas” vira mensagem solta — sem vínculo claro com a versão do estudo.",
+      "No SIGAPP, o dossiê carrega o cenário de viabilidade, o parecer e o registro da deliberação. Quem aprova, quem pede ajuste e o que mudou entre versões fica legível para a próxima rodada e para a auditoria interna.",
+    ],
+    outcomesTitle: "O que o comitê ganha",
+    outcomes: [
+      {
+        title: "Mesma base para todos",
+        description:
+          "Analista, diretoria e jurídico abrem o mesmo dossiê — com o cenário que será votado.",
+      },
+      {
+        title: "Parecer no contexto do número",
+        description:
+          "Comentários e ressalvas ficam ligados ao terreno e à versão do estudo, não a um PDF órfão.",
+      },
+      {
+        title: "Histórico de deliberação",
+        description:
+          "Aprovação, rejeição ou pedido de revisão com rastro — útil para governança e compliance.",
+      },
+      {
+        title: "Handoff limpo para negociação",
+        description:
+          "O que foi aprovado segue para a etapa seguinte sem reabrir o caso do zero.",
+      },
+    ],
+    howTitle: "Do estudo à deliberação",
+    howSteps: [
+      {
+        title: "Feche o cenário de viabilidade",
+        description:
+          "Valide premissas e indicadores antes de convocar o comitê.",
+      },
+      {
+        title: "Monte o parecer",
+        description:
+          "Registre riscos, condições e o que precisa de atenção da diretoria.",
+      },
+      {
+        title: "Delibere e registre",
+        description:
+          "A decisão fica no dossiê — pronta para negociação ou nova versão do estudo.",
+      },
+    ],
+    relatedBlogSlugs: [
+      "estruturar-comite-aprovacao-terrenos",
+      "como-calcular-tir-projetos-imobiliarios",
+      "digitalizacao-incorporadora-excel-saas",
+    ],
+    ctaTitle: "Quer ver o fluxo de comitê no dossiê?",
+    ctaDescription:
+      "Mostre um terreno real ou um caso anônimo. Abrimos o caminho da análise à deliberação.",
+  },
+  {
+    slug: "gestao-territorial",
+    title: "Gestão territorial e carteira de terrenos",
+    seoTitle: "Gestão territorial para incorporadoras",
+    metaDescription:
+      "Visualize a carteira de terrenos, oportunidades e status por região. Gestão territorial para incorporadoras — mapa, dossiê e próximos passos no mesmo sistema.",
+    eyebrow: "Solução · Território",
+    description:
+      "A carteira deixa de ser planilha de status: mapa, oportunidade e próximo risco no mesmo dossiê territorial.",
+    problemTitle: "O problema",
+    problemLead: "O bom terreno some no dia a dia. O mapa vive em outra aba.",
+    problemBody: [
+      "Prospecção em planilha, mapa no Google, contatos no WhatsApp e viabilidade em arquivo local: a carteira fragmentada esconde prioridade. Quem capta não vê o que o comitê travou; quem decide não vê o que está parado na legalização.",
+      "O SIGAPP une leitura territorial e operação: oportunidades por região, status do pipeline e dossiê com o que importa para a próxima decisão — da captação ao registro.",
+    ],
+    outcomesTitle: "Leitura de carteira com critério",
+    outcomes: [
+      {
+        title: "Carteira visível por região",
+        description:
+          "Enxergue concentração, gaps e oportunidades no território em que você opera.",
+      },
+      {
+        title: "Status que acompanha o ofício",
+        description:
+          "Captação, viabilidade, comitê, negociação e legalização no mesmo fluxo — não em colunas genéricas de CRM.",
+      },
+      {
+        title: "Contexto no pin",
+        description:
+          "Do mapa ao dossiê: área, cenário e pendências sem caçar arquivo.",
+      },
+      {
+        title: "Risco antes do atraso",
+        description:
+          "Prazos, pendências e próximos passos entram na mesma leitura da carteira.",
+      },
+    ],
+    howTitle: "Território no fluxo da decisão",
+    howSteps: [
+      {
+        title: "Mapeie a oportunidade",
+        description:
+          "Registre o terreno com localização e dados cadastrais essenciais.",
+      },
+      {
+        title: "Conecte ao dossiê",
+        description:
+          "Vincule viabilidade, contatos e documentos ao mesmo caso territorial.",
+      },
+      {
+        title: "Priorize o pipeline",
+        description:
+          "Use status e região para decidir o que avança, o que espera e o que sai da carteira.",
+      },
+    ],
+    relatedBlogSlugs: [
+      "digitalizacao-incorporadora-excel-saas",
+      "estruturar-comite-aprovacao-terrenos",
+      "multi-tenancy-dados-incorporadoras",
+    ],
+    ctaTitle: "Quer ver a carteira no mapa do dossiê?",
+    ctaDescription:
+      "Em demonstração, abrimos a leitura territorial com um cenário próximo da sua operação.",
+  },
+]
+
+export const SOLUTIONS_HUB = {
+  seoTitle: "Soluções para incorporadoras",
+  metaDescription:
+    "Viabilidade imobiliária, comitê de terrenos e gestão territorial no mesmo dossiê. Conheça as soluções do SIGAPP para incorporadoras brasileiras.",
+  eyebrow: "Soluções",
+  title: "Três frentes. Um dossiê de decisão.",
+  description:
+    "Viabilidade, comitê e território não são módulos isolados — são etapas do mesmo ofício. Escolha a frente que mais dói hoje; o restante do fluxo já está no caminho.",
+  ctaTitle: "Prefere ver o fluxo completo?",
+  ctaDescription:
+    "Solicite uma demonstração guiada com um terreno da carteira — ou um caso anônimo.",
+}
+
+export function getSolutionBySlug(slug: string): SolutionPage | undefined {
+  return SOLUTION_PAGES.find((page) => page.slug === slug)
+}
+

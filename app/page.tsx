@@ -20,7 +20,10 @@ import { fetchPlans } from "@/lib/api"
 import { mapApiPlansToLandingPlans } from "@/lib/plan-display"
 import {
   createPageMetadata,
+  jsonLdGraph,
   organizationJsonLd,
+  softwareApplicationJsonLd,
+  webPageJsonLd,
   websiteJsonLd,
 } from "@/lib/seo"
 
@@ -32,10 +35,17 @@ export const metadata: Metadata = createPageMetadata({
   absoluteTitle: true,
 })
 
-const homeJsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [organizationJsonLd, websiteJsonLd],
-}
+const homeJsonLd = jsonLdGraph([
+  organizationJsonLd,
+  websiteJsonLd,
+  softwareApplicationJsonLd,
+  webPageJsonLd({
+    path: "/",
+    name: "SIGAPP | Viabilidade imobiliária para incorporadoras",
+    description:
+      "Centralize terrenos, mapas, DRE, TIR, comitê e legalização em um único dossiê. Software de gestão territorial para incorporadoras brasileiras.",
+  }),
+])
 
 export const revalidate = 300
 
