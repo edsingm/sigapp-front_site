@@ -53,27 +53,21 @@ function shortPlanName(name: string): string {
   return name.replace(/^SIG\s*[-–—]\s*/i, "").trim() || name
 }
 
-/** Nível de viabilidade alinhado aos entitlements `viabilities.*` (texto curto para a matriz). */
+/** Nível de viabilidade alinhado ao recorte A (`viabilities.*`). */
 function formatViabilityLevel(features: Record<string, unknown>): string {
-  if (
-    nestedBoolean(features, "viabilities.kpis") ||
-    nestedBoolean(features, "viabilities.charts") ||
-    nestedBoolean(features, "viabilities.premises")
-  ) {
-    return "Completa · KPIs e gráficos"
+  if (hasCompleteViability(features)) {
+    return "Completa · fluxo, gráficos e cenários"
   }
 
-  if (
-    nestedBoolean(features, "viabilities.cash_flow") ||
-    nestedBoolean(features, "viabilities.comercial")
-  ) {
+  if (hasKpiViability(features)) {
+    return "DRE, KPIs e premissas"
+  }
+
+  if (hasCashFlowViability(features)) {
     return "DRE + fluxo de caixa"
   }
 
-  if (
-    nestedBoolean(features, "viabilities.dre") ||
-    nestedBoolean(features, "viabilities.summary")
-  ) {
+  if (hasDreViability(features)) {
     return "Resumo e DRE"
   }
 
@@ -104,22 +98,34 @@ function formatDashboardLevel(features: Record<string, unknown>): string {
   return "Não incluso"
 }
 
-/** Progressão de SIG_IA: ausente → conversacional → contextual. */
+/** Progressão de SIG_IA: ausente → conversacional → avançada e contextual. */
 function formatAiLevel(features: Record<string, unknown>): string {
-  if (nestedBoolean(features, "ai.contextual")) {
-    return "Contextual"
-  }
+  const advanced = nestedBoolean(features, "ai.advanced")
+  const contextual = nestedBoolean(features, "ai.contextual")
 
-  if (nestedBoolean(features, "ai")) {
-    return "Conversacional"
-  }
+  if (advanced && contextual) return "Avançada e contextual"
+  if (contextual) return "Contextual"
+  if (advanced) return "Avançada"
+  if (nestedBoolean(features, "ai")) return "Conversacional"
 
   return "Não incluso"
 }
 
+function formatAiLabel(features: Record<string, unknown>): string | null {
+  if (!nestedBoolean(features, "ai")) return null
+
+  const advanced = nestedBoolean(features, "ai.advanced")
+  const contextual = nestedBoolean(features, "ai.contextual")
+
+  if (advanced && contextual) return "SIG_IA avançada e contextual"
+  if (contextual) return "SIG_IA contextual"
+  if (advanced) return "SIG_IA avançada"
+  return "SIG_IA conversacional"
+}
+
 /**
  * Posicionamento comercial do plano a partir dos entitlements.
- * Mantém a progressão Broker → Básico → Master → Pro legível no card.
+ * Recorte A: Broker (captação) → Básico (análise) → Master (decisão) → Pro (ciclo).
  */
 function formatPlanHighlight(features: Record<string, unknown>): string {
   const hasFullOps =
@@ -133,17 +139,18 @@ function formatPlanHighlight(features: Record<string, unknown>): string {
 
   if (
     nestedBoolean(features, "committee") &&
-    nestedBoolean(features, "legalizations") &&
+    nestedBoolean(features, "negotiation") &&
     nestedBoolean(features, "ai")
   ) {
-    return "Comitê, legalização e SIG_IA"
+    return "Comitê, negociação e SIG_IA"
   }
 
   if (
-    nestedBoolean(features, "viabilities.dre") &&
+    (nestedBoolean(features, "viabilities.dre") ||
+      nestedBoolean(features, "viabilities.kpis")) &&
     !nestedBoolean(features, "viabilities.cash_flow")
   ) {
-    return "Viabilidade com DRE para times enxutos"
+    return "Viabilidade com DRE e KPIs para times enxutos"
   }
 
   if (
@@ -156,10 +163,17 @@ function formatPlanHighlight(features: Record<string, unknown>): string {
   return "Plano SIGAPP"
 }
 
-function hasFullViability(features: Record<string, unknown>): boolean {
+/** Master/Pro: fluxo + gráficos. Básico tem KPIs/premissas sem esse salto. */
+function hasCompleteViability(features: Record<string, unknown>): boolean {
+  return (
+    nestedBoolean(features, "viabilities.charts") &&
+    nestedBoolean(features, "viabilities.cash_flow")
+  )
+}
+
+function hasKpiViability(features: Record<string, unknown>): boolean {
   return (
     nestedBoolean(features, "viabilities.kpis") ||
-    nestedBoolean(features, "viabilities.charts") ||
     nestedBoolean(features, "viabilities.premises")
   )
 }
@@ -239,15 +253,22 @@ function addedTierFeatures(
   }
 
   // Progressão de viabilidade (só o salto deste tier)
-  if (hasFullViability(current) && !hasFullViability(previous)) {
-    items.push("Viabilidade completa com KPIs e gráficos")
-  } else if (
-    hasCashFlowViability(current) &&
-    !hasCashFlowViability(previous)
-  ) {
+  if (hasCompleteViability(current) && !hasCompleteViability(previous)) {
+    items.push("Viabilidade completa com fluxo, gráficos e cenários")
+  } else if (hasKpiViability(current) && !hasKpiViability(previous)) {
+    items.push("Viabilidade com DRE, KPIs e premissas")
+  } else if (hasCashFlowViability(current) && !hasCashFlowViability(previous)) {
     items.push("DRE, comercial e fluxo de caixa")
   } else if (hasDreViability(current) && !hasDreViability(previous)) {
     items.push("Viabilidade com DRE")
+  }
+
+  if (
+    nestedBoolean(current, "viabilities.scenarios") &&
+    !nestedBoolean(previous, "viabilities.scenarios") &&
+    !hasCompleteViability(current)
+  ) {
+    items.push("Cenários de viabilidade")
   }
 
   // Progressão de dashboard
@@ -260,15 +281,17 @@ function addedTierFeatures(
     items.push("Dashboard com visão geral")
   }
 
-  // IA: primeira liberação vs upgrade contextual
+  // IA: chat no Master; avançada/contextual no Pro
   if (nestedBoolean(current, "ai") && !nestedBoolean(previous, "ai")) {
     items.push("SIG_IA conversacional")
   }
   if (
-    nestedBoolean(current, "ai.contextual") &&
-    !nestedBoolean(previous, "ai.contextual")
+    (nestedBoolean(current, "ai.advanced") &&
+      !nestedBoolean(previous, "ai.advanced")) ||
+    (nestedBoolean(current, "ai.contextual") &&
+      !nestedBoolean(previous, "ai.contextual"))
   ) {
-    items.push("SIG_IA contextual")
+    items.push("SIG_IA avançada e contextual")
   }
 
   if (
@@ -292,8 +315,22 @@ function addedTierFeatures(
     items.push("Gestão de negociações")
   }
 
+  if (
+    nestedBoolean(current, "negotiation.deal_room") &&
+    !nestedBoolean(previous, "negotiation.deal_room")
+  ) {
+    items.push("Deal room de negociação")
+  }
+
   if (hasProjects(current) && !hasProjects(previous)) {
     items.push("Sala de projetos e planejamento")
+  }
+
+  if (
+    nestedBoolean(current, "documents.intelligence") &&
+    !nestedBoolean(previous, "documents.intelligence")
+  ) {
+    items.push("Documentos inteligentes")
   }
 
   if (
@@ -324,8 +361,10 @@ export function planFeatureBullets(
     )
   }
 
-  if (hasFullViability(features)) {
-    bullets.push("Viabilidade completa com KPIs e gráficos")
+  if (hasCompleteViability(features)) {
+    bullets.push("Viabilidade completa com fluxo, gráficos e cenários")
+  } else if (hasKpiViability(features)) {
+    bullets.push("Viabilidade com DRE, KPIs e premissas")
   } else if (hasCashFlowViability(features)) {
     bullets.push("DRE, comercial e fluxo de caixa")
   } else if (hasDreViability(features)) {
@@ -340,28 +379,31 @@ export function planFeatureBullets(
     bullets.push("Dashboard operacional")
   }
 
-  if (nestedBoolean(features, "ai")) {
-    bullets.push(
-      nestedBoolean(features, "ai.contextual")
-        ? "SIG_IA contextual"
-        : "SIG_IA conversacional"
-    )
+  const aiLabel = formatAiLabel(features)
+  if (aiLabel) {
+    bullets.push(aiLabel)
   }
 
   if (nestedBoolean(features, "committee")) {
     bullets.push("Comitê de revisão")
   }
 
+  if (nestedBoolean(features, "negotiation.deal_room")) {
+    bullets.push("Deal room de negociação")
+  } else if (nestedBoolean(features, "negotiation")) {
+    bullets.push("Gestão de negociações")
+  }
+
   if (nestedBoolean(features, "legalizations")) {
     bullets.push("Legalização end-to-end")
   }
 
-  if (nestedBoolean(features, "negotiation")) {
-    bullets.push("Gestão de negociações")
-  }
-
   if (hasProjects(features)) {
     bullets.push("Sala de projetos e planejamento")
+  }
+
+  if (nestedBoolean(features, "documents.intelligence")) {
+    bullets.push("Documentos inteligentes")
   }
 
   if (nestedBoolean(features, "exports.pdf")) {
@@ -378,7 +420,7 @@ export function planFeatureBullets(
     bullets.push("Tarefas e inbox operacional")
   }
 
-  return bullets.slice(0, 6)
+  return bullets.slice(0, 8)
 }
 
 function mapApiPlanToLandingPlan(
@@ -412,11 +454,17 @@ function mapApiPlanToLandingPlan(
       plan.features,
       "prospection.comparison"
     ),
+    hasScenarios: nestedBoolean(plan.features, "viabilities.scenarios"),
     hasAI,
     hasCommittee: nestedBoolean(plan.features, "committee"),
     hasNegotiation: nestedBoolean(plan.features, "negotiation"),
+    hasDealRoom: nestedBoolean(plan.features, "negotiation.deal_room"),
     hasLegal: nestedBoolean(plan.features, "legalizations"),
     hasProjects: hasProjects(plan.features),
+    hasDocumentIntelligence: nestedBoolean(
+      plan.features,
+      "documents.intelligence"
+    ),
     hasExportPdf: nestedBoolean(plan.features, "exports.pdf"),
     hasExportExcel: nestedBoolean(plan.features, "exports.excel"),
     features: options.features,
@@ -427,8 +475,8 @@ function mapApiPlanToLandingPlan(
 }
 
 /**
- * Monta os planos no modelo cumulativo comercial:
- * Broker (base) → Básico = tudo do Broker + … → Master = tudo do Básico + …
+ * Monta os planos no modelo cumulativo comercial (recorte A):
+ * Broker (captação) → Básico (análise) → Master (decisão) → Pro (ciclo)
  */
 export function mapApiPlansToLandingPlans(plans: ApiPlan[]): PlanConfig[] {
   const ordered = [...plans].sort((a, b) => a.sort_order - b.sort_order)

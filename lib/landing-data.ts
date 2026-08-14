@@ -18,9 +18,7 @@ function resolvePublicSiteUrl(value?: string) {
 }
 
 // Canonicals nunca devem apontar para localhost, mesmo em builds locais.
-export const SITE_URL = resolvePublicSiteUrl(
-  process.env.NEXT_PUBLIC_SITE_URL
-)
+export const SITE_URL = resolvePublicSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
 
 // Metadados de marca usados em SEO, OpenGraph e dados estruturados
 export const SITE = {
@@ -70,15 +68,18 @@ export type PlanConfig = {
   viability: string
   /** Nível de dashboard (entitlements dashboard.*) */
   dashboard: string
-  /** Nível de SIG_IA: Não incluso | Conversacional | Contextual */
+  /** Nível de SIG_IA: Não incluso | Conversacional | Avançada e contextual */
   aiLevel: string
   hasProspection: boolean
   hasOpportunityCompare: boolean
+  hasScenarios: boolean
   hasAI: boolean
   hasCommittee: boolean
   hasNegotiation: boolean
+  hasDealRoom: boolean
   hasLegal: boolean
   hasProjects: boolean
+  hasDocumentIntelligence: boolean
   hasExportPdf: boolean
   hasExportExcel: boolean
   /**
@@ -102,11 +103,14 @@ export type PlanMatrixField =
   | "aiLevel"
   | "hasProspection"
   | "hasOpportunityCompare"
+  | "hasScenarios"
   | "hasAI"
   | "hasCommittee"
   | "hasNegotiation"
+  | "hasDealRoom"
   | "hasLegal"
   | "hasProjects"
+  | "hasDocumentIntelligence"
   | "hasExportPdf"
   | "hasExportExcel"
 
@@ -488,10 +492,13 @@ export const PRICING_CARD_COPY = {
 }
 
 /**
- * Comparativo completo alinhado à matriz de entitlements do backend
+ * Comparativo alinhado ao recorte A do backend
  * (EntitlementSeeder / PlanMatrixService).
  *
- * Agrupado por bloco comercial para facilitar a leitura:
+ * Broker: captação. Básico: análise usável. Master: decisão e fechamento.
+ * Pro: operação completa (deal room, legalização, projetos, IA avançada).
+ *
+ * Agrupado por bloco comercial:
  * Capacidade → Operação → Governança → Entrega.
  */
 export const PLAN_MATRIX_GROUPS: PlanMatrixGroup[] = [
@@ -557,9 +564,16 @@ export const PLAN_MATRIX_GROUPS: PlanMatrixGroup[] = [
       {
         id: "viability",
         label: "Motor de viabilidade",
-        helper: "Profundidade do DRE, comercial, fluxo e indicadores",
+        helper: "Profundidade do DRE, KPIs, fluxo, gráficos e cenários",
         kind: "text",
         field: "viability",
+      },
+      {
+        id: "scenarios",
+        label: "Cenários de viabilidade",
+        helper: "Comparação de cenários no mesmo terreno",
+        kind: "boolean",
+        field: "hasScenarios",
       },
       {
         id: "dashboard",
@@ -574,6 +588,13 @@ export const PLAN_MATRIX_GROUPS: PlanMatrixGroup[] = [
         helper: "Pipeline comercial e histórico de propostas",
         kind: "boolean",
         field: "hasNegotiation",
+      },
+      {
+        id: "deal-room",
+        label: "Deal room",
+        helper: "Sala de fechamento da negociação",
+        kind: "boolean",
+        field: "hasDealRoom",
       },
       {
         id: "projects",
@@ -591,7 +612,7 @@ export const PLAN_MATRIX_GROUPS: PlanMatrixGroup[] = [
       {
         id: "ai",
         label: "SIG_IA",
-        helper: "Assistente de domínio: conversacional ou contextual",
+        helper: "Chat no Master; avançada e contextual no Pro",
         kind: "text",
         field: "aiLevel",
       },
@@ -608,6 +629,13 @@ export const PLAN_MATRIX_GROUPS: PlanMatrixGroup[] = [
         helper: "Fluxo completo até documentação e registro",
         kind: "boolean",
         field: "hasLegal",
+      },
+      {
+        id: "documents",
+        label: "Documentos inteligentes",
+        helper: "Leitura e inteligência sobre documentos do dossiê",
+        kind: "boolean",
+        field: "hasDocumentIntelligence",
       },
     ],
   },
@@ -753,7 +781,7 @@ export const FAQ_ITEMS: FAQItem[] = [
   {
     question: "Os 7 dias grátis têm todas as funcionalidades do plano?",
     answer:
-      "Sim. Os 7 dias grátis ativam exatamente os módulos e limites do plano escolhido — sem restrições artificiais. SIG_IA, comitê e legalização entram nos planos em que estão inclusos (Master e Pro). Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
+      "Sim. Os 7 dias grátis ativam exatamente os módulos e limites do plano escolhido — sem restrições artificiais. SIG_IA (chat) e comitê entram no Master e no Pro; legalização, deal room e IA avançada ficam no Pro. Você precisa escolher um plano e informar dados de pagamento no cadastro — a cobrança só ocorre após o 7º dia, e você pode cancelar antes sem custo algum.",
   },
   {
     question: "Posso migrar meus dados de planilhas Excel existentes?",
@@ -1361,4 +1389,3 @@ export const SOLUTIONS_HUB = {
 export function getSolutionBySlug(slug: string): SolutionPage | undefined {
   return SOLUTION_PAGES.find((page) => page.slug === slug)
 }
-
