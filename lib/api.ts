@@ -154,6 +154,7 @@ export type DemoRequestPayload = {
   role: string
   land_context: string
   source: string
+  accepted_privacy: boolean
 }
 
 export type DemoRequestResult =

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Loader2 } from "lucide-react"
+import { ArrowRight, Check, CheckCircle2, Loader2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,10 +15,12 @@ function validateRequiredFields({
   name,
   email,
   company,
+  acceptedPrivacy,
 }: {
   name: string
   email: string
   company: string
+  acceptedPrivacy: boolean
 }) {
   const errors: Record<string, string[]> = {}
 
@@ -26,8 +28,32 @@ function validateRequiredFields({
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
     errors.email = ["E-mail inválido"]
   if (company.trim().length < 2) errors.company = ["Informe a empresa"]
+  if (!acceptedPrivacy) errors.accepted_privacy = [DEMO_PAGE.privacyError]
 
   return errors
+}
+
+function PrivacyLabel() {
+  const label = DEMO_PAGE.privacyLabel
+  const linkText = "Política de Privacidade"
+  const index = label.indexOf(linkText)
+
+  if (index === -1) {
+    return (
+      <p>
+        {label}{" "}
+        <Link href="/legal/privacidade">{linkText}</Link>
+      </p>
+    )
+  }
+
+  return (
+    <p>
+      {label.slice(0, index)}
+      <Link href="/legal/privacidade">{linkText}</Link>
+      {label.slice(index + linkText.length)}
+    </p>
+  )
 }
 
 export function DemoRequestForm() {
@@ -38,6 +64,7 @@ export function DemoRequestForm() {
   const [role, setRole] = useState(DEMO_PAGE.roles[0] ?? "")
   const [land, setLand] = useState("")
   const [fieldErrors, setFieldErrors] = useState<Record<string, string[]>>({})
+  const [acceptedPrivacy, setAcceptedPrivacy] = useState(false)
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [done, setDone] = useState(false)
@@ -47,7 +74,12 @@ export function DemoRequestForm() {
     setFormError(null)
     setFieldErrors({})
 
-    const validationErrors = validateRequiredFields({ name, email, company })
+    const validationErrors = validateRequiredFields({
+      name,
+      email,
+      company,
+      acceptedPrivacy,
+    })
     if (Object.keys(validationErrors).length > 0) {
       setFieldErrors(validationErrors)
       setFormError("Revise os campos destacados")
@@ -68,6 +100,7 @@ export function DemoRequestForm() {
       role,
       land_context: land,
       source: "demonstracao",
+      accepted_privacy: true,
     })
 
     setSubmitting(false)
@@ -230,6 +263,29 @@ export function DemoRequestForm() {
         </p>
       ) : null}
 
+      <label className="signup-contract demo-privacy">
+        <input
+          type="checkbox"
+          name="accepted_privacy"
+          checked={acceptedPrivacy}
+          onChange={(event) => setAcceptedPrivacy(event.target.checked)}
+          required
+          aria-invalid={Boolean(fieldErrors.accepted_privacy)}
+          aria-describedby={
+            fieldErrors.accepted_privacy ? "demo-privacy-error" : undefined
+          }
+        />
+        <span aria-hidden="true">
+          <Check />
+        </span>
+        <PrivacyLabel />
+      </label>
+      {fieldErrors.accepted_privacy ? (
+        <p id="demo-privacy-error" className="demo-field-error" role="alert">
+          {fieldErrors.accepted_privacy[0]}
+        </p>
+      ) : null}
+
       <Button
         type="submit"
         size="lg"
@@ -250,16 +306,6 @@ export function DemoRequestForm() {
           </>
         )}
       </Button>
-
-      <p className="demo-form-consent">
-        Ao enviar, você concorda em ser contatado sobre o SIGAPP.{" "}
-        <Link
-          href="/legal/privacidade"
-          className="underline underline-offset-2"
-        >
-          Privacidade
-        </Link>
-      </p>
     </form>
   )
 }

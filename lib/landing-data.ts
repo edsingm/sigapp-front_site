@@ -1073,6 +1073,10 @@ export const DEMO_PAGE = {
     submit: "Enviar solicitação",
     submitting: "Enviando…",
   },
+  privacyLabel:
+    "Li e aceito a Política de Privacidade para o tratamento dos dados desta solicitação.",
+  privacyError:
+    "Aceite a Política de Privacidade para enviar a solicitação.",
   roles: [
     "Direção / sócio",
     "Incorporação",

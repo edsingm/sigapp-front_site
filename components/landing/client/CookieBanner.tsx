@@ -21,6 +21,11 @@ import {
   sendConsentToBackend,
   type CookieCategories,
 } from "@/lib/cookie-consent"
+import {
+  applyGtagConsentUpdate,
+  clearVendorCookies,
+  hasRevokedOptionalConsent,
+} from "@/lib/consent-mode"
 import { cn } from "@/lib/utils"
 
 type View = "hidden" | "banner" | "modal"
@@ -37,7 +42,7 @@ const CATEGORIES: CategoryDef[] = [
     key: "functional",
     label: "Funcionais",
     description:
-      "Lembram preferências de interface, último ambiente acessado e escolhas de navegação.",
+      "Lembram a preferência de tema (claro/escuro) no navegador.",
     icon: ShieldCheck,
   },
   {
@@ -177,10 +182,17 @@ export function CookieBanner() {
   }, [closePreferences, view])
 
   const persistConsent = useCallback((next: CookieCategories) => {
+    const previous = getConsent()?.categories ?? null
+    const revoked = hasRevokedOptionalConsent(previous, next)
     const consent = saveConsent(next)
     void sendConsentToBackend(consent)
+    applyGtagConsentUpdate(next)
     setCategories(next)
     setView("hidden")
+    if (revoked) {
+      clearVendorCookies()
+      window.location.reload()
+    }
   }, [])
 
   const acceptAll = useCallback(() => {
@@ -328,8 +340,8 @@ export function CookieBanner() {
                       <span>Obrigatório</span>
                     </div>
                     <p>
-                      Protegem sessão, autenticação, segurança e registro desta
-                      escolha. Não podem ser desativados.
+                      Registram esta escolha de cookies e o funcionamento
+                      básico do site institucional. Não podem ser desativados.
                     </p>
                   </div>
                   <Toggle

@@ -38,7 +38,7 @@ export default function PrivacidadePage() {
     <LegalLayout
       title="Política de Privacidade"
       description="Como coletamos, usamos e protegemos seus dados pessoais em conformidade com a LGPD (Lei 13.709/2018)."
-      lastUpdated="07 de junho de 2026"
+      lastUpdated="14 de agosto de 2026"
       sections={SECTIONS}
     >
       <LHighlight>
@@ -202,11 +202,11 @@ export default function PrivacidadePage() {
         <LSubsection title="4.1 Prestadores de serviço (suboperadores)">
           <LList
             items={[
-              "Stripe: processamento de pagamentos. Política: stripe.com/br/privacy",
-              "OpenRouter: processamento de requisições de IA (SIG_IA). Os dados são enviados apenas durante a consulta, sem armazenamento pelo provedor.",
+              "Stripe: processamento de pagamentos no fluxo de cadastro (/cadastro). Política: stripe.com/br/privacy",
+              "OpenRouter: processamento de requisições de IA (SIG_IA) na plataforma SaaS e no backend — não neste site institucional e não como cookie de marketing.",
               "Resend: envio de e-mails transacionais.",
-              "Amazon Web Services (AWS) ou equivalente: hospedagem e infraestrutura.",
-              "Sentry: monitoramento de erros (dados anonimizados).",
+              "Amazon Web Services (AWS) ou equivalente: hospedagem e infraestrutura da plataforma e do backend. Não define cookies de rastreamento neste site institucional.",
+              "Sentry: monitoramento de erros da plataforma/backend (dados anonimizados). Não é um cookie deste site institucional.",
             ]}
           />
           <LP>
@@ -274,10 +274,11 @@ export default function PrivacidadePage() {
         title="6. Transferência Internacional de Dados"
       >
         <LP>
-          Alguns de nossos suboperadores (Stripe, AWS, OpenRouter) podem
-          processar dados fora do Brasil. Nesses casos, garantimos que a
-          transferência ocorre em conformidade com o Art. 33 da LGPD, com base
-          em:
+          Alguns suboperadores da plataforma e do backend (Stripe, AWS,
+          OpenRouter) podem processar dados fora do Brasil. Esses serviços não
+          instalam cookies de rastreamento neste site institucional. Nesses
+          casos, garantimos que a transferência ocorre em conformidade com o
+          Art. 33 da LGPD, com base em:
         </LP>
         <LList
           items={[

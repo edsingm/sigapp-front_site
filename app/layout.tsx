@@ -1,5 +1,6 @@
 import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google"
 import type { Metadata, Viewport } from "next"
+import Script from "next/script"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -105,6 +106,11 @@ export default function RootLayout({
       )}
     >
       <body suppressHydrationWarning>
+        <Script id="gtag-consent-default" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', { ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', analytics_storage:'denied', functionality_storage:'denied', personalization_storage:'denied', security_storage:'granted', wait_for_update:500 });`}
+        </Script>
         <TestingNotice />
         <ThemeProvider>
           <a href="#conteudo-principal" className="skip-link">

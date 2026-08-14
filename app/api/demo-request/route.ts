@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server"
 
+import { DEMO_PAGE } from "@/lib/landing-data"
+
 type DemoBody = {
   name?: string
   email?: string
@@ -8,6 +10,7 @@ type DemoBody = {
   role?: string
   land_context?: string
   source?: string
+  accepted_privacy?: boolean
 }
 
 function apiBaseUrl(): string | null {
@@ -26,6 +29,9 @@ function validate(body: DemoBody): Record<string, string[]> {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     errors.email = ["E-mail inválido"]
   if (company.length < 2) errors.company = ["Informe a empresa"]
+  if (body.accepted_privacy !== true) {
+    errors.accepted_privacy = [DEMO_PAGE.privacyError]
+  }
 
   return errors
 }
@@ -62,6 +68,7 @@ export async function POST(request: Request) {
     land_context: (body.land_context ?? "").trim(),
     source: (body.source ?? "site").trim(),
     page: "demonstracao",
+    accepted_privacy: true,
   }
 
   const base = apiBaseUrl()

@@ -1,7 +1,7 @@
 type GtagFn = (
   command: string,
   action: string,
-  params?: Record<string, unknown>
+  params?: object
 ) => void
 type FbqFn = (
   command: string,
