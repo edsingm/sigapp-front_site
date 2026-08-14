@@ -8313,7 +8313,8 @@
   color: var(--landing-danger);
 }
 
-.signup-contract {
+.signup-contract,
+.demo-privacy {
   position: relative;
   display: flex;
   align-items: flex-start;
@@ -8322,14 +8323,16 @@
   cursor: pointer;
 }
 
-.signup-contract input {
+.signup-contract input,
+.demo-privacy input {
   position: absolute;
   width: 1px;
   height: 1px;
   opacity: 0;
 }
 
-.signup-contract > span {
+.signup-contract > span,
+.demo-privacy > span {
   display: grid;
   width: 1.25rem;
   height: 1.25rem;
@@ -8342,33 +8345,39 @@
   color: var(--landing-ink);
 }
 
-.signup-contract > span svg {
+.signup-contract > span svg,
+.demo-privacy > span svg {
   width: 0.8rem;
   height: 0.8rem;
   opacity: 0;
 }
 
-.signup-contract input:checked + span {
+.signup-contract input:checked + span,
+.demo-privacy input:checked + span {
   border-color: var(--landing-accent);
   background: var(--landing-accent);
   color: var(--landing-accent-foreground);
 }
 
-.signup-contract input:checked + span svg {
+.signup-contract input:checked + span svg,
+.demo-privacy input:checked + span svg {
   opacity: 1;
 }
 
-.signup-contract input:focus-visible + span {
+.signup-contract input:focus-visible + span,
+.demo-privacy input:focus-visible + span {
   outline: 2px solid var(--landing-signal-ink);
   outline-offset: 3px;
 }
 
-.signup-contract p {
+.signup-contract p,
+.demo-privacy p {
   font-size: var(--landing-text-ui);
   line-height: 1.55;
 }
 
 .signup-contract a,
+.demo-privacy a,
 .signup-login-link a {
   font-weight: 650;
   color: var(--landing-signal-ink);
@@ -8382,6 +8391,7 @@
 }
 
 .signup-contract a:focus-visible,
+.demo-privacy a:focus-visible,
 .signup-login-link a:focus-visible {
   border-radius: 0.2rem;
   outline: 2px solid var(--landing-signal-ink);

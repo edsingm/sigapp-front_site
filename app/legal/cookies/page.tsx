@@ -19,6 +19,9 @@ export const metadata: Metadata = createPageMetadata({
   path: "/legal/cookies",
 })
 
+const GA4_ENABLED = Boolean(process.env.NEXT_PUBLIC_GA4_ID)
+const PIXEL_ENABLED = Boolean(process.env.NEXT_PUBLIC_META_PIXEL_ID)
+
 const SECTIONS: LegalSection[] = [
   { id: "o-que-sao", title: "1. O que são Cookies" },
   { id: "tipos", title: "2. Tipos de Cookies" },
@@ -35,7 +38,7 @@ export default function CookiesPage() {
     <LegalLayout
       title="Política de Cookies"
       description="Como utilizamos cookies e tecnologias similares, quais dados coletam e como você pode gerenciar suas preferências."
-      lastUpdated="07 de junho de 2026"
+      lastUpdated="14 de agosto de 2026"
       sections={SECTIONS}
     >
       <LHighlight>
@@ -99,8 +102,9 @@ export default function CookiesPage() {
       <LSection id="cookies-usados" title="3. Cookies que o SIGAPP Utiliza">
         <LSubsection title="3.1 Cookies estritamente necessários">
           <LP>
-            Estes cookies são essenciais para o funcionamento da Plataforma. Não
-            podem ser desativados sem impactar funcionalidades críticas.{" "}
+            Estes cookies são essenciais para registrar sua escolha de
+            cookies e o funcionamento básico deste site institucional. Não
+            podem ser desativados sem impactar essa função.{" "}
             <strong>Não requerem consentimento</strong> com base no legítimo
             interesse (Art. 7º, inciso IX da LGPD).
           </LP>
@@ -108,19 +112,9 @@ export default function CookiesPage() {
             headers={["Nome", "Duração", "Finalidade"]}
             rows={[
               [
-                "sigapp_session",
-                "Sessão (até 8 horas)",
-                "Token de autenticação da sessão na Plataforma.",
-              ],
-              [
-                "sigapp_csrf",
-                "Sessão",
-                "Proteção contra ataques CSRF (Cross-Site Request Forgery).",
-              ],
-              [
-                "cookie_consent",
+                "sigapp_cookie_consent",
                 "1 ano",
-                "Armazena suas preferências de consentimento de cookies.",
+                "Armazena suas preferências de consentimento (localStorage e cookie HTTP).",
               ],
             ]}
           />
@@ -135,76 +129,92 @@ export default function CookiesPage() {
             headers={["Nome", "Duração", "Finalidade"]}
             rows={[
               [
-                "sigapp_locale",
-                "6 meses",
-                "Lembra idioma/localidade selecionados.",
-              ],
-              [
-                "sigapp_sidebar",
-                "6 meses",
-                "Estado aberto/fechado do menu lateral na Plataforma.",
-              ],
-              [
-                "sigapp_last_tenant",
-                "30 dias",
-                "Último tenant acessado (multi-conta).",
+                "sigapp-theme",
+                "Persistente (localStorage)",
+                "Lembra o tema claro/escuro escolhido neste site institucional.",
               ],
             ]}
           />
         </LSubsection>
 
         <LSubsection title="3.3 Cookies analíticos (com consentimento)">
+          {GA4_ENABLED ? (
+            <>
+              <LP>
+                Com o seu consentimento, o Google Analytics 4 (GA4) pode
+                definir os cookies abaixo neste site institucional. Sem
+                consentimento, o Consent Mode v2 permanece em modo denied e
+                esses cookies não são gravados.
+              </LP>
+              <LTable
+                headers={["Provedor", "Nome", "Duração", "Finalidade"]}
+                rows={[
+                  [
+                    "Google Analytics 4",
+                    "_ga",
+                    "2 anos",
+                    "Distingue visitantes de forma agregada.",
+                  ],
+                  [
+                    "Google Analytics 4",
+                    "_ga_*",
+                    "2 anos",
+                    "Mantém o estado da sessão de medição.",
+                  ],
+                  [
+                    "Google Analytics 4",
+                    "_gid",
+                    "24 horas",
+                    "Distingue visitantes no período de um dia.",
+                  ],
+                ]}
+              />
+            </>
+          ) : (
+            <LP>
+              Cookies analíticos só são instalados se o Google Analytics 4
+              estiver configurado neste site e após o seu consentimento. Neste
+              momento não há cookies de GA4 ativos.
+            </LP>
+          )}
           <LP>
-            Coletamos dados de uso de forma agregada para entender como o site e
-            a Plataforma são usados. Esses dados ajudam a identificar problemas
-            e melhorar funcionalidades. Requerem seu consentimento.
-          </LP>
-          <LTable
-            headers={["Provedor", "Nome", "Duração", "Finalidade"]}
-            rows={[
-              [
-                "SIGAPP (interno)",
-                "sig_analytics_id",
-                "2 anos",
-                "Identificador anônimo de sessão para análise de funil e uso.",
-              ],
-              [
-                "PostHog (se habilitado)",
-                "_ph_*",
-                "1 ano",
-                "Análise de comportamento de produto, heatmaps e sessões gravadas (apenas com consentimento explícito).",
-              ],
-            ]}
-          />
-          <LP>
-            Os dados analíticos são tratados de forma agregada e anonimizada —
-            não identificamos Usuários individualmente por meio deles. Você pode
-            optar por não participar sem perda de funcionalidade.
+            Os dados analíticos são tratados de forma agregada. Você pode
+            recusar ou revogar sem perda das funções essenciais do site.
           </LP>
         </LSubsection>
 
         <LSubsection title="3.4 Cookies de marketing (com consentimento)">
           <LP>
-            No <strong>site institucional</strong> (sigapp.com.br), podemos usar
-            cookies de marketing para medir a efetividade de campanhas.{" "}
+            No <strong>site institucional</strong> (sigapp.com.br), cookies de
+            marketing medem campanhas apenas com o seu consentimento.{" "}
             <strong>Dentro da Plataforma</strong> (app.sigapp.com.br), não
             utilizamos cookies de marketing.
           </LP>
-          <LTable
-            headers={["Provedor", "Finalidade", "Duração"]}
-            rows={[
-              [
-                "Google Ads (se habilitado)",
-                "Rastreamento de conversão de anúncios pagos.",
-                "90 dias",
-              ],
-              [
-                "Meta Pixel (se habilitado)",
-                "Rastreamento de conversão em campanhas Meta.",
-                "90 dias",
-              ],
-            ]}
-          />
+          {PIXEL_ENABLED ? (
+            <LTable
+              headers={["Provedor", "Nome", "Duração", "Finalidade"]}
+              rows={[
+                [
+                  "Meta Pixel",
+                  "_fbp",
+                  "90 dias",
+                  "Identifica o navegador para medição de campanhas Meta.",
+                ],
+                [
+                  "Meta Pixel",
+                  "_fbc",
+                  "90 dias",
+                  "Registra o clique em anúncio quando a visita vem de uma campanha Meta.",
+                ],
+              ]}
+            />
+          ) : (
+            <LP>
+              Cookies de marketing só são instalados se o Meta Pixel estiver
+              configurado neste site e após o seu consentimento. Neste momento
+              não há cookies de marketing ativos.
+            </LP>
+          )}
           <LP>
             Estes cookies só são ativados após consentimento explícito no banner
             de cookies. Você pode revogar a qualquer momento.
@@ -219,9 +229,7 @@ export default function CookiesPage() {
         </LP>
         <LList
           items={[
-            "Stripe: ao exibir formulários de pagamento, a Stripe pode definir cookies para prevenção de fraude. Consulte stripe.com/br/privacy.",
-            "YouTube/Vimeo: se incorporarmos vídeos demonstrativos, esses serviços podem definir cookies ao reproduzir o vídeo. Usamos embed com privacidade aprimorada quando disponível.",
-            "Intercom / Crisp (suporte ao cliente): se utilizarmos um chat de suporte, o provedor poderá definir cookies para identificar conversas.",
+            "Stripe: apenas em /cadastro, ao iniciar o checkout. A Stripe pode definir cookies para prevenção de fraude. Consulte stripe.com/br/privacy.",
           ]}
         />
         <LP>
@@ -260,8 +268,8 @@ export default function CookiesPage() {
             ]}
           />
           <LHighlight>
-            Bloquear cookies estritamente necessários pode impedir o login e o
-            uso da Plataforma. Recomendamos gerenciar apenas os cookies
+            Bloquear cookies estritamente necessários pode impedir o registro
+            da sua escolha neste site. Recomendamos gerenciar apenas os cookies
             analíticos e de marketing, mantendo os necessários e funcionais
             ativos.
           </LHighlight>
@@ -269,9 +277,10 @@ export default function CookiesPage() {
 
         <LSubsection title="5.3 Opt-out de analytics">
           <LP>
-            Para desativar rastreamento analítico sem alterar preferências de
-            outros cookies, acesse as configurações de conta em
-            &ldquo;Privacidade&rdquo; dentro da Plataforma.
+            Para desativar cookies analíticos ou de marketing neste site,
+            use &ldquo;Gerenciar cookies&rdquo; no rodapé ou o banner de
+            preferências. A revogação limpa os cookies de fornecedor
+            correspondentes.
           </LP>
         </LSubsection>
       </LSection>

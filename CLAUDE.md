@@ -135,11 +135,11 @@ Implementado em `lib/analytics.ts` + `components/landing/client/AnalyticsScripts
 - `sales_contact_click` — "Falar com vendas" e plano Pro
 - `login_click` — link "Entrar" no nav
 
-**Consentimento**: os scripts GA4 e Meta Pixel só são injetados após o usuário aceitar as categorias correspondentes (`analytics` / `marketing`) no cookie consent. `AnalyticsScripts` escuta `sigapp:consent-changed` (disparado por `saveConsent()`) para reatividade em tempo real.
+**Consentimento (Consent Mode v2)**: o `app/layout.tsx` injeta um script `beforeInteractive` com `gtag('consent', 'default', …)` em denied (exceto `security_storage`). `lib/consent-mode.ts` aplica o `consent update` a partir das categorias. O `gtag/js` carrega quando `NEXT_PUBLIC_GA4_ID` está definido, mesmo com analytics negado (Consent Mode avançado). O Meta Pixel só é injetado com marketing concedido. Se analytics/marketing passam de true→false, o banner limpa cookies de fornecedor e recarrega; a primeira escolha “somente necessários” não é revogação.
 
 ### Cookie consent
 
-`lib/cookie-consent.ts` gerencia consentimento via `localStorage` + cookie HTTP. Ao salvar, dispara `sigapp:consent-changed` (CustomEvent) e fire-and-forget para `NEXT_PUBLIC_API_URL/api/v1/consent-log` (backend Laravel). O banner é montado em `app/layout.tsx` via `<CookieBanner />`.
+`lib/cookie-consent.ts` gerencia consentimento via `localStorage` + cookie HTTP (`CONSENT_VERSION` atual: `1.1`). Ao salvar, dispara `sigapp:consent-changed` (CustomEvent) e fire-and-forget para `NEXT_PUBLIC_API_URL/api/v1/consent-log` (backend Laravel). O banner é montado em `app/layout.tsx` via `<CookieBanner />`. URLs antigas `/juridico/*` redirecionam em 308 para `/legal/*`.
 
 ### Variáveis de ambiente
 
