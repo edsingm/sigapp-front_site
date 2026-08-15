@@ -44,6 +44,7 @@ export type SignupPayload = {
   admin_email: string
   admin_password: string
   accept_usage_contract: boolean
+  accept_privacy_policy: boolean
 }
 
 export type SignupSuccess = {

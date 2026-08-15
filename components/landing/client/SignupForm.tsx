@@ -45,6 +45,17 @@ function slugify(value: string): string {
 
 const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/
+const LEGAL_ACCEPTANCE_ERROR =
+  "Você precisa aceitar o Contrato de Utilização e a Política de Privacidade"
+
+function legalAcceptanceError(
+  fieldErrors: Record<string, string[]>
+): string | undefined {
+  return (
+    fieldErrors.accept_usage_contract?.[0] ??
+    fieldErrors.accept_privacy_policy?.[0]
+  )
+}
 
 type SlugStatus = "idle" | "checking" | "available" | "taken" | "invalid"
 
@@ -75,6 +86,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
 
   const selectedPlan = plans.find((plan) => plan.slug === selectedSlug)
   const slugValid = subdomain.length >= 3 && SLUG_REGEX.test(subdomain)
+  const contractError = legalAcceptanceError(fieldErrors)
 
   const slugStatus: SlugStatus =
     subdomain.length === 0
@@ -117,9 +129,8 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
       ]
     }
     if (!acceptContract) {
-      errs.accept_usage_contract = [
-        "Você precisa aceitar o Contrato de Utilização",
-      ]
+      errs.accept_usage_contract = [LEGAL_ACCEPTANCE_ERROR]
+      errs.accept_privacy_policy = [LEGAL_ACCEPTANCE_ERROR]
     }
     return errs
   }
@@ -174,6 +185,7 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
       admin_email: adminEmail.trim(),
       admin_password: adminPassword,
       accept_usage_contract: acceptContract,
+      accept_privacy_policy: acceptContract,
     })
 
     if (result.ok) {
@@ -183,6 +195,14 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
 
     setSubmitting(false)
     setFieldErrors(result.fieldErrors)
+
+    const legalError = legalAcceptanceError(result.fieldErrors)
+    if (legalError) {
+      setStep(1)
+      setFormError(legalError)
+      return
+    }
+
     setFormError(result.message)
   }
 
@@ -377,15 +397,16 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                 <label className="signup-contract">
                   <input
                     type="checkbox"
+                    name="accept_legal_documents"
                     checked={acceptContract}
+                    required
+                    aria-required="true"
                     onChange={(event) =>
                       setAcceptContract(event.target.checked)
                     }
-                    aria-invalid={!!fieldErrors.accept_usage_contract}
+                    aria-invalid={Boolean(contractError)}
                     aria-describedby={
-                      fieldErrors.accept_usage_contract
-                        ? "contract-error"
-                        : undefined
+                      contractError ? "contract-error" : undefined
                     }
                   />
                   <span aria-hidden="true">
@@ -393,19 +414,29 @@ export function SignupForm({ plans, initialPlanSlug, cancelled }: Props) {
                   </span>
                   <p>
                     Li e aceito o{" "}
-                    <a href="/legal/termos-de-uso" target="_blank">
+                    <a
+                      href="/legal/termos-de-uso"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                    >
                       Contrato de Utilização
                     </a>{" "}
                     e a{" "}
-                    <a href="/legal/privacidade" target="_blank">
+                    <a
+                      href="/legal/privacidade"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(event) => event.stopPropagation()}
+                    >
                       Política de Privacidade
                     </a>
                     .
                   </p>
                 </label>
-                {fieldErrors.accept_usage_contract ? (
+                {contractError ? (
                   <p id="contract-error" className="signup-field-error">
-                    {fieldErrors.accept_usage_contract[0]}
+                    {contractError}
                   </p>
                 ) : null}
               </>
