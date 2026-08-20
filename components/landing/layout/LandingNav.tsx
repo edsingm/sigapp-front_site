@@ -29,7 +29,15 @@ function NavBrand({ onNavigate }: { onNavigate?: () => void }) {
           alt=""
           width={188}
           height={58}
-          className="landing-nav-logo-img"
+          className="landing-nav-logo-img landing-nav-logo-img--default"
+          priority
+        />
+        <Image
+          src="/logo-mark-on-dark.svg"
+          alt=""
+          width={188}
+          height={58}
+          className="landing-nav-logo-img landing-nav-logo-img--overlay"
           priority
         />
         <small className="hidden sm:block">{NAV_COPY.productLabel}</small>

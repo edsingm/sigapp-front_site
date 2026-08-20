@@ -1,14 +1,16 @@
 import { Geist_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google"
 import type { Metadata, Viewport } from "next"
 import Script from "next/script"
-
+import { TestingNotice } from "@/components/landing/layout/TestingNotice"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { CookieBanner } from "@/components/landing/client/CookieBanner"
 import { AnalyticsScripts } from "@/components/landing/client/AnalyticsScripts"
-import { TestingNotice } from "@/components/landing/layout/TestingNotice"
 import { cn } from "@/lib/utils"
 import { SITE, SITE_URL } from "@/lib/landing-data"
+
+
+// Colocar <TestingNotice /> antes de <ThemeProvider> para ligar o banner de aviso
 
 // Space Grotesk (títulos) · IBM Plex Sans (corpo técnico) · Geist Mono (dados)
 const spaceGrotesk = Space_Grotesk({
@@ -111,7 +113,7 @@ export default function RootLayout({
 function gtag(){dataLayer.push(arguments);}
 gtag('consent', 'default', { ad_storage:'denied', ad_user_data:'denied', ad_personalization:'denied', analytics_storage:'denied', functionality_storage:'denied', personalization_storage:'denied', security_storage:'granted', wait_for_update:500 });`}
         </Script>
-        <TestingNotice />
+        
         <ThemeProvider>
           <a href="#conteudo-principal" className="skip-link">
             Pular para o conteúdo
