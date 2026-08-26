@@ -47,7 +47,15 @@ Sem suite de testes. Validação: `typecheck` + `lint` + verificação visual no
 - **shadcn/ui** — estilo `base-nova`, cor base `mist`, ícones `lucide-react`
 - Fontes: Inter (`--font-sans`), Roboto (`--font-heading`), Geist Mono (`--font-mono`)
 - Cores em **oklch**; dark mode via `next-themes`
-- Output `standalone` — projetado para deploy Docker
+- Output `standalone` — imagem Docker no **Dokploy** (única plataforma de deploy)
+
+## Deploy
+
+Runbook: [`docs/deploy-dokploy.md`](docs/deploy-dokploy.md).
+
+Cenário B: auto-deploy de `main` só em staging (`docker-compose.staging.yml`);
+produção (`docker-compose.prod.yml`) é deploy **manual** da mesma revisão.
+Coolify, AWS ECS/EKS e equivalentes não são usados.
 
 > **Atenção**: o Next.js 16 tem breaking changes em relação às versões anteriores. Consulte `node_modules/next/dist/docs/` antes de usar APIs de roteamento/metadados.
 
