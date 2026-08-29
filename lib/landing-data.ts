@@ -169,8 +169,14 @@ export const HERO_PROOF_ITEMS = [
 // Hero — copy centralizado (nunca hardcode em seção)
 export const HERO_COPY = {
   eyebrow: "Sistema operacional da incorporação",
-  titleLine1: "Viabilidade do terreno à decisão —",
-  titleLine2: "sem pontos cegos.",
+  titleLine1: "Viabilidade do terreno à decisão",
+  titleRotations: [
+    "sem pontos cegos.",
+    "sem planilhas complexas.",
+    "com previsibilidade.",
+    "com dados conectados.",
+    "com decisões mais seguras.",
+  ],
   description:
     "Captação, viabilidade, comitê, negociação e legalização conectados em uma inteligência operacional — para sua equipe decidir com contexto, velocidade e segurança.",
   primaryCta: "Ver o SIGAPP em ação",

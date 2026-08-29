@@ -1,22 +1,12 @@
 import Link from "next/link"
-import Image from "next/image"
 import { ArrowDown, ArrowRight } from "lucide-react"
 
+import { RotatingHeroText } from "@/components/landing/client/RotatingHeroText"
 import { HERO_COPY, HERO_PROOF_ITEMS, LINKS } from "@/lib/landing-data"
 
 export function HeroSection() {
   return (
     <section id="hero" className="hero-stage">
-      <div className="hero-background-image" aria-hidden="true">
-        <Image
-          src="/images/fundo.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="hero-background-image__media"
-        />
-      </div>
       <div className="hero-ambient hero-ambient--lime" aria-hidden="true" />
       <div className="hero-ambient hero-ambient--cyan" aria-hidden="true" />
       <div className="hero-background-grid" aria-hidden="true" />
@@ -34,8 +24,8 @@ export function HeroSection() {
       </svg>
 
       <div className="container-landing relative z-10 flex min-h-[100svh] flex-col pt-24 pb-6 sm:pt-28 sm:pb-8 lg:pt-18">
-        <div className="grid flex-1 items-center gap-12 py-8 lg:grid-cols-[minmax(0,0.94fr)_minmax(27rem,0.86fr)] lg:gap-12 lg:py-10 xl:gap-20">
-          <div className="hero-copy max-w-[44rem]">
+        <div className="flex flex-1 items-center justify-center py-10 lg:py-14">
+          <div className="hero-copy w-full max-w-[58rem] text-center">
             <p className="hero-eyebrow hero-enter">
               <span aria-hidden="true" />
               {HERO_COPY.eyebrow}
@@ -43,7 +33,7 @@ export function HeroSection() {
 
             <h1 className="hero-title hero-enter hero-enter--delay-1">
               <span>{HERO_COPY.titleLine1}</span>
-              <strong>{HERO_COPY.titleLine2}</strong>
+              <RotatingHeroText items={HERO_COPY.titleRotations} />
             </h1>
 
             <p className="hero-description hero-enter hero-enter--delay-2">
